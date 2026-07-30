@@ -33,12 +33,13 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ISMPTransportProfile;
-import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
+import com.helger.peppolid.factory.BDXR2IdentifierFactory;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.simple.doctype.SimpleDocumentTypeIdentifier;
+import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 import com.helger.security.certificate.CertificateDecodeHelper;
 import com.helger.smpclient.bdxr2.marshal.BDXR2MarshallerServiceGroup;
@@ -139,6 +140,8 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
   public BDXR2ClientReadOnly (@NonNull final URI aSMPHost)
   {
     super (aSMPHost, false);
+    // OASIS BDXR SMP v2 identifier rules
+    setIdentifierFactory (BDXR2IdentifierFactory.INSTANCE);
   }
 
   /**
@@ -329,15 +332,12 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
         LOGGER.debug ("Received response: " + aMetadata);
     }
 
-    if (!SimpleDocumentTypeIdentifier.wrap (aMetadata.getID ()).hasSameContent (aDocumentTypeID))
-    {
-      // Inconsistency between request and response
-      throw new SMPClientException ("Requested document type '" +
-                                    aDocumentTypeID.getURIEncoded () +
-                                    "' and received '" +
-                                    CIdentifier.getURIEncoded (aMetadata.getID ()) +
-                                    "' - mismatch. Ignoring request.");
-    }
+    // Check that the SMP returned the requested identifiers (issue #73)
+    checkServiceMetadataIdentifiers (aServiceGroupID,
+                                     aMetadata.getParticipantID () == null ? null
+                                                                           : SimpleParticipantIdentifier.wrap (aMetadata.getParticipantID ()),
+                                     aDocumentTypeID,
+                                     aMetadata.getID () == null ? null : SimpleDocumentTypeIdentifier.wrap (aMetadata.getID ()));
 
     // If a Redirect element is present, then follow 1 redirect.
     for (final ProcessMetadataType aPM : aMetadata.getProcessMetadata ())

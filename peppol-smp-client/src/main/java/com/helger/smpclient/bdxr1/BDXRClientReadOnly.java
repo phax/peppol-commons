@@ -40,7 +40,10 @@ import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
+import com.helger.peppolid.factory.BDXR1IdentifierFactory;
 import com.helger.peppolid.factory.IIdentifierFactory;
+import com.helger.peppolid.simple.doctype.SimpleDocumentTypeIdentifier;
+import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 import com.helger.security.certificate.CertificateDecodeHelper;
 import com.helger.smpclient.bdxr1.marshal.BDXR1MarshallerServiceGroupType;
@@ -138,6 +141,8 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   public BDXRClientReadOnly (@NonNull final URI aSMPHost)
   {
     super (aSMPHost, false);
+    // OASIS BDXR SMP v1 identifier rules
+    setIdentifierFactory (BDXR1IdentifierFactory.INSTANCE);
   }
 
   /**
@@ -413,6 +418,21 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
       }
     }
 
+    if (aMetadata.getServiceMetadata () != null)
+    {
+      // Check that the SMP returned the requested identifiers (issue #73)
+      final ServiceInformationType aSI = aMetadata.getServiceMetadata ().getServiceInformation ();
+      if (aSI != null)
+      {
+        checkServiceMetadataIdentifiers (aServiceGroupID,
+                                         aSI.getParticipantIdentifier () == null ? null
+                                                                                 : SimpleParticipantIdentifier.wrap (aSI.getParticipantIdentifier ()),
+                                         aDocumentTypeID,
+                                         aSI.getDocumentIdentifier () == null ? null
+                                                                              : SimpleDocumentTypeIdentifier.wrap (aSI.getDocumentIdentifier ()));
+      }
+    }
+
     return aMetadata;
   }
 
@@ -528,9 +548,10 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
                        aProcessID +
                        " and transport profile " +
                        aTransportProfile.getID () +
-                       (aRelevantEndpoints.isEmpty () ? "" : ": " +
-                                                             aRelevantEndpoints.toString () +
-                                                             " - using the first one"));
+                       (aRelevantEndpoints.isEmpty () ? ""
+                                                      : ": " +
+                                                        aRelevantEndpoints.toString () +
+                                                        " - using the first one"));
         }
 
         // Use the first endpoint or null

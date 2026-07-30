@@ -46,6 +46,7 @@ import com.helger.annotation.style.ReturnsImmutableObject;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.debug.GlobalDebug;
 import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.trait.IGenericImplTrait;
@@ -55,6 +56,10 @@ import com.helger.httpclient.HttpClientManager;
 import com.helger.httpclient.IHttpClientSettings;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.mime.CMimeType;
+import com.helger.peppolid.IDocumentTypeIdentifier;
+import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.peppolid.factory.IIdentifierFactory;
+import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.security.certificate.CertificateDecodeHelper;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.revocation.CertificateRevocationCheckerDefaults;
@@ -86,6 +91,13 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
 {
   public static final boolean DEFAULT_FOLLOW_REDIRECTS = true;
   public static final boolean DEFAULT_XML_SCHEMA_VALIDATION = true;
+  /**
+   * Default value, whether the identifiers contained in a retrieved Service Metadata response are
+   * checked against the requested identifiers.
+   *
+   * @since 12.6.1
+   */
+  public static final boolean DEFAULT_CHECK_SERVICE_METADATA_IDENTIFIERS = true;
 
   // The default text/xml content type uses iso-8859-1!
   public static final ContentType CONTENT_TYPE_TEXT_XML = ContentType.create (CMimeType.TEXT_XML.getAsString (),
@@ -93,6 +105,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
 
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractGenericSMPClient.class);
   private static final KeyStore DEFAULT_TRUST_STORE;
+
   static
   {
     final EKeyStoreType eType = SMPClientConfiguration.getTrustStoreType ();
@@ -128,6 +141,10 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   private boolean m_bXMLSchemaValidation = DEFAULT_XML_SCHEMA_VALIDATION;
   private final SMPHttpClientSettings m_aHttpClientSettings = SMPHttpClientSettings.fromConfiguration ();
   private Consumer <? super GenericJAXBMarshaller <?>> m_aMarshallerConsumer;
+  // A neutral default that never folds case; concrete clients set a more specific default (Peppol,
+  // BDXR1, BDXR2) in their constructor
+  private IIdentifierFactory m_aIdentifierFactory = SimpleIdentifierFactory.INSTANCE;
+  private boolean m_bCheckServiceMetadataIDs = DEFAULT_CHECK_SERVICE_METADATA_IDENTIFIERS;
 
   /**
    * Constructor with a direct SMP URL.<br>
@@ -433,6 +450,185 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     return thisAsT ();
   }
 
+  /**
+   * @return The identifier factory used to compare the identifiers returned by the SMP against the
+   *         requested identifiers. Never <code>null</code>. Each concrete SMP client uses a dialect
+   *         specific default (e.g. <code>PeppolIdentifierFactory</code> for the Peppol SMP client).
+   * @see #setIdentifierFactory(IIdentifierFactory)
+   * @since 12.6.1
+   */
+  @NonNull
+  public final IIdentifierFactory getIdentifierFactory ()
+  {
+    return m_aIdentifierFactory;
+  }
+
+  /**
+   * Set the identifier factory to be used to compare the identifiers returned by the SMP against
+   * the requested identifiers. The identifier factory defines whether identifiers are handled case
+   * sensitive or not (e.g. Peppol document type identifiers are case sensitive, whereas Peppol
+   * participant identifiers are case insensitive).
+   *
+   * @param aIdentifierFactory
+   *        The identifier factory to be used. May not be <code>null</code>.
+   * @return this for chaining
+   * @see #isCheckServiceMetadataIdentifiers()
+   * @since 12.6.1
+   */
+  @NonNull
+  public final IMPLTYPE setIdentifierFactory (@NonNull final IIdentifierFactory aIdentifierFactory)
+  {
+    ValueEnforcer.notNull (aIdentifierFactory, "IdentifierFactory");
+    m_aIdentifierFactory = aIdentifierFactory;
+    return thisAsT ();
+  }
+
+  /**
+   * @return <code>true</code> if the participant and document type identifiers contained in a
+   *         retrieved Service Metadata response are checked against the requested identifiers,
+   *         <code>false</code> if not. By default this check is enabled (see
+   *         {@link #DEFAULT_CHECK_SERVICE_METADATA_IDENTIFIERS}).
+   * @see #setCheckServiceMetadataIdentifiers(boolean)
+   * @since 12.6.1
+   */
+  public final boolean isCheckServiceMetadataIdentifiers ()
+  {
+    return m_bCheckServiceMetadataIDs;
+  }
+
+  /**
+   * Enable or disable the check, whether the participant and document type identifiers contained in
+   * a retrieved Service Metadata response match the requested identifiers. This check honours the
+   * case sensitivity rules of the configured {@link IIdentifierFactory} (see
+   * {@link #setIdentifierFactory(IIdentifierFactory)}). Because e.g. Peppol document type
+   * identifiers are case sensitive, an SMP that resolves them case insensitively may return a
+   * response for a different document type than the one requested. See issue #73.
+   *
+   * @param bCheckServiceMetadataIDs
+   *        <code>true</code> to enable the check, <code>false</code> to disable it.
+   * @return this for chaining
+   * @since 12.6.1
+   */
+  @NonNull
+  public final IMPLTYPE setCheckServiceMetadataIdentifiers (final boolean bCheckServiceMetadataIDs)
+  {
+    m_bCheckServiceMetadataIDs = bCheckServiceMetadataIDs;
+    return thisAsT ();
+  }
+
+  private static boolean _hasSameValue (@NonNull final IIdentifierFactory aIdentifierFactory,
+                                        @Nullable final String sRequestedValue,
+                                        @Nullable final String sReturnedValue,
+                                        final boolean bCaseInsensitive)
+  {
+    if (bCaseInsensitive)
+      return EqualsHelper.equals (aIdentifierFactory.getUnifiedValue (sRequestedValue),
+                                  aIdentifierFactory.getUnifiedValue (sReturnedValue));
+    return EqualsHelper.equals (sRequestedValue, sReturnedValue);
+  }
+
+  /**
+   * Check if the requested and the returned participant identifier are the same, honouring the case
+   * sensitivity rules of the provided identifier factory.
+   *
+   * @param aIdentifierFactory
+   *        The identifier factory defining the case sensitivity rules. May not be
+   *        <code>null</code>.
+   * @param aRequested
+   *        The requested participant identifier. May not be <code>null</code>.
+   * @param aReturned
+   *        The participant identifier returned by the SMP. May not be <code>null</code>.
+   * @return <code>true</code> if both identifiers are considered the same, <code>false</code>
+   *         otherwise.
+   * @since 12.6.1
+   */
+  public static boolean isSameParticipantIdentifier (@NonNull final IIdentifierFactory aIdentifierFactory,
+                                                     @NonNull final IParticipantIdentifier aRequested,
+                                                     @NonNull final IParticipantIdentifier aReturned)
+  {
+    // Scheme is always case sensitive; value depends on the scheme
+    final boolean bCaseInsensitive = aIdentifierFactory.isParticipantIdentifierCaseInsensitive (aRequested.getScheme ());
+    return EqualsHelper.equals (aRequested.getScheme (), aReturned.getScheme ()) &&
+      _hasSameValue (aIdentifierFactory, aRequested.getValue (), aReturned.getValue (), bCaseInsensitive);
+  }
+
+  /**
+   * Check if the requested and the returned document type identifier are the same, honouring the
+   * case sensitivity rules of the provided identifier factory.
+   *
+   * @param aIdentifierFactory
+   *        The identifier factory defining the case sensitivity rules. May not be
+   *        <code>null</code>.
+   * @param aRequested
+   *        The requested document type identifier. May not be <code>null</code>.
+   * @param aReturned
+   *        The document type identifier returned by the SMP. May not be <code>null</code>.
+   * @return <code>true</code> if both identifiers are considered the same, <code>false</code>
+   *         otherwise.
+   * @since 12.6.1
+   */
+  public static boolean isSameDocumentTypeIdentifier (@NonNull final IIdentifierFactory aIdentifierFactory,
+                                                      @NonNull final IDocumentTypeIdentifier aRequested,
+                                                      @NonNull final IDocumentTypeIdentifier aReturned)
+  {
+    // Scheme is always case sensitive; value depends on the scheme
+    final boolean bCaseInsensitive = aIdentifierFactory.isDocumentTypeIdentifierCaseInsensitive (aRequested.getScheme ());
+    return EqualsHelper.equals (aRequested.getScheme (), aReturned.getScheme ()) &&
+      _hasSameValue (aIdentifierFactory, aRequested.getValue (), aReturned.getValue (), bCaseInsensitive);
+  }
+
+  /**
+   * Verify that the participant and document type identifiers contained in a retrieved Service
+   * Metadata response match the requested identifiers. This check honours the case sensitivity
+   * rules of the configured {@link IIdentifierFactory} and is only performed if
+   * {@link #isCheckServiceMetadataIdentifiers()} is <code>true</code>. It is a safety check against
+   * SMPs that resolve identifiers case insensitively even though the identifier scheme requires
+   * case sensitive handling (e.g. Peppol document type identifiers). See issue #73.<br>
+   * Returned identifiers that are <code>null</code> (because a specific SMP response type does not
+   * contain them) are silently skipped.
+   *
+   * @param aRequestedServiceGroupID
+   *        The requested participant identifier. May not be <code>null</code>.
+   * @param aReturnedServiceGroupID
+   *        The participant identifier contained in the response. May be <code>null</code>.
+   * @param aRequestedDocumentTypeID
+   *        The requested document type identifier. May not be <code>null</code>.
+   * @param aReturnedDocumentTypeID
+   *        The document type identifier contained in the response. May be <code>null</code>.
+   * @throws SMPClientException
+   *         If checking is enabled and one of the returned identifiers does not match the requested
+   *         one.
+   * @since 12.6.1
+   */
+  protected final void checkServiceMetadataIdentifiers (@NonNull final IParticipantIdentifier aRequestedServiceGroupID,
+                                                        @Nullable final IParticipantIdentifier aReturnedServiceGroupID,
+                                                        @NonNull final IDocumentTypeIdentifier aRequestedDocumentTypeID,
+                                                        @Nullable final IDocumentTypeIdentifier aReturnedDocumentTypeID) throws SMPClientException
+  {
+    if (!m_bCheckServiceMetadataIDs)
+      return;
+
+    if (aReturnedServiceGroupID != null &&
+      !isSameParticipantIdentifier (m_aIdentifierFactory, aRequestedServiceGroupID, aReturnedServiceGroupID))
+    {
+      throw new SMPClientException ("The SMP response contained the participant identifier '" +
+                                    aReturnedServiceGroupID.getURIEncoded () +
+                                    "' instead of the requested '" +
+                                    aRequestedServiceGroupID.getURIEncoded () +
+                                    "'. This may indicate a case sensitivity issue on the SMP side.");
+    }
+
+    if (aReturnedDocumentTypeID != null &&
+      !isSameDocumentTypeIdentifier (m_aIdentifierFactory, aRequestedDocumentTypeID, aReturnedDocumentTypeID))
+    {
+      throw new SMPClientException ("The SMP response contained the document type identifier '" +
+                                    aReturnedDocumentTypeID.getURIEncoded () +
+                                    "' instead of the requested '" +
+                                    aRequestedDocumentTypeID.getURIEncoded () +
+                                    "'. This may indicate a case sensitivity issue on the SMP side.");
+    }
+  }
+
   @NonNull
   @OverrideOnDemand
   protected HttpClientContext createHttpContext ()
@@ -444,8 +640,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * Configure the provided {@link SMPHttpResponseHandlerSigned} with all the signature-related
    * settings of this SMP client (verify signature, secure validation, revocation check mode, allow
    * revocation soft fail, synchronized revocation check). Subclasses may override to add additional
-   * configuration but should call
-   * <code>super.configureResponseHandler(aHandler)</code> to keep the defaults applied.
+   * configuration but should call <code>super.configureResponseHandler(aHandler)</code> to keep the
+   * defaults applied.
    *
    * @param aHandler
    *        The response handler to be configured. May not be <code>null</code>.
@@ -634,6 +830,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
                                        .append ("XMLSchemaValidation", m_bXMLSchemaValidation)
                                        .append ("HttpClientSettings", m_aHttpClientSettings)
                                        .appendIfNotNull ("MarshallerConsumer", m_aMarshallerConsumer)
+                                       .append ("IdentifierFactory", m_aIdentifierFactory)
+                                       .append ("CheckServiceMetadataIDs", m_bCheckServiceMetadataIDs)
                                        .getToString ();
   }
 

@@ -355,6 +355,11 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 v12.6.1 - work in progress
 * Added SPID parsing helpers to `SPIDHelper`: `getMainID`, `getUseCaseID` and `getServiceProviderSuffix` to extract the respective parts from a valid SPID, plus `getMainIDFromSeatID` to extract the SPID Main ID from a Peppol Seat ID. All return `null` for invalid input.
+* All SMP clients (`SMPClientReadOnly`, `BDXRClientReadOnly`, `BDXR2ClientReadOnly`) now check that the participant and document type identifiers contained in the SMP response match the requested identifiers, honouring the case sensitivity rules of the configured `IIdentifierFactory`.
+  This detects SMPs that resolve identifiers case insensitively even though e.g. Peppol document type identifiers are case sensitive.
+  The comparison logic lives in `AbstractGenericSMPClient`; each client uses a dialect specific default factory (`PeppolIdentifierFactory`, `BDXR1IdentifierFactory` respectively `BDXR2IdentifierFactory`) that can be overridden via `setIdentifierFactory`.
+  The whole check can be toggled via `setCheckServiceMetadataIdentifiers`.
+  See [issue #73](https://github.com/phax/peppol-commons/issues/73)
 * Removed the EC SML fallback in EPeppolNetwork
 
 v12.6.0 - 2026-07-17

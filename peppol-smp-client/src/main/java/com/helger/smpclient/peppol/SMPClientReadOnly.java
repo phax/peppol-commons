@@ -51,6 +51,8 @@ import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
+import com.helger.peppolid.simple.doctype.SimpleDocumentTypeIdentifier;
+import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 import com.helger.security.certificate.CertificateDecodeHelper;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
@@ -151,6 +153,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   {
     // Peppol limitations are only before 1.11.2025
     super (aSMPHost, PDTFactory.getCurrentLocalDate ().isBefore (HTTPS_ALLOWED_DATE));
+    // Peppol identifier rules (e.g. case sensitive document type identifiers)
+    setIdentifierFactory (PeppolIdentifierFactory.INSTANCE);
   }
 
   @NonNull
@@ -415,6 +419,27 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
       }
     }
 
+    if (aMetadata.getServiceMetadata () != null)
+    {
+      // Check that the SMP returned the requested identifiers (issue #73). This is important
+      // because some SMPs resolve identifiers case insensitively, even though e.g. Peppol document
+      // type identifiers are case sensitive.
+      final ServiceInformationType aSI = aMetadata.getServiceMetadata ().getServiceInformation ();
+      if (aSI != null)
+      {
+        checkServiceMetadataIdentifiers (aServiceGroupID,
+                                         aSI.getParticipantIdentifier () == null ? null
+                                                                                 : SimpleParticipantIdentifier.wrap (aSI.getParticipantIdentifier ()),
+                                         aDocumentTypeID,
+                                         aSI.getDocumentIdentifier () == null ? null
+                                                                              : SimpleDocumentTypeIdentifier.wrap (aSI.getDocumentIdentifier ()));
+      }
+      else
+      {
+        // Redirects have nothing to check
+      }
+    }
+
     return aMetadata;
   }
 
@@ -461,7 +486,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
                                           @NonNull final IProcessIdentifier aPI2)
   {
     return EqualsHelper.equals (aPI1.getScheme (), aPI2.getScheme ()) &&
-           EqualsHelper.equals (aPI1.getValue (), aPI2.getValue ());
+      EqualsHelper.equals (aPI1.getValue (), aPI2.getValue ());
   }
 
   /**
@@ -659,9 +684,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
                        aTransportProfile.getID () +
                        "' valid at " +
                        aCheckDT +
-                       (aRelevantEndpoints.isEmpty () ? "" : ": " +
-                                                             aRelevantEndpoints.toString () +
-                                                             " - using the first one"));
+                       (aRelevantEndpoints.isEmpty () ? ""
+                                                      : ": " +
+                                                        aRelevantEndpoints.toString () +
+                                                        " - using the first one"));
         }
 
         // Use the first endpoint
@@ -689,8 +715,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   @Nullable
   public static String getEndpointAddress (@Nullable final EndpointType aEndpoint)
   {
-    return aEndpoint == null || aEndpoint.getEndpointReference () == null ? null : W3CEndpointReferenceHelper
-                                                                                                             .getAddress (aEndpoint.getEndpointReference ());
+    return aEndpoint == null || aEndpoint.getEndpointReference () == null ? null
+                                                                          : W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ());
   }
 
   /**
@@ -752,7 +778,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
           return null;
 
         // 2. Extract all document types from SMP result
-        final ICommonsList <IDocumentTypeIdentifier> aSupportedDocTypes = getAllDocumentTypes (aSMPServiceGroup);
+        final ICommonsList <IDocumentTypeIdentifier> aSupportedDocTypes = getAllDocumentTypes (aSMPServiceGroup,
+                                                                                               getIdentifierFactory (),
+                                                                                               null);
 
         LOGGER.info ("Found " +
                      aSupportedDocTypes.size () +
@@ -816,7 +844,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
           return null;
 
         // 2. Extract all document types from SMP result
-        final ICommonsList <IDocumentTypeIdentifier> aSupportedDocTypes = getAllDocumentTypes (aSMPServiceGroup);
+        final ICommonsList <IDocumentTypeIdentifier> aSupportedDocTypes = getAllDocumentTypes (aSMPServiceGroup,
+                                                                                               getIdentifierFactory (),
+                                                                                               null);
 
         LOGGER.info ("Found " +
                      aSupportedDocTypes.size () +

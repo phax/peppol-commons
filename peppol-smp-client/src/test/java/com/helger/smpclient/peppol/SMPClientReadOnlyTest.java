@@ -39,6 +39,7 @@ import java.util.function.BiFunction;
 import javax.net.ssl.SSLException;
 import javax.xml.crypto.dsig.XMLSignatureException;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -59,15 +60,20 @@ import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier;
+import com.helger.peppolid.simple.doctype.SimpleDocumentTypeIdentifier;
+import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 import com.helger.security.certificate.ECertificateCheckResult;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
 import com.helger.security.revocation.ERevocationCheckMode;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.exception.SMPClientException;
+import com.helger.smpclient.httpclient.AbstractGenericSMPClient;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceMetadataType;
 import com.helger.smpclient.url.PeppolNaptrURLProvider;
 import com.helger.smpclient.url.SMPDNSResolutionException;
+import com.helger.xsds.peppol.id1.DocumentIdentifierType;
+import com.helger.xsds.peppol.id1.ParticipantIdentifierType;
 import com.helger.xsds.peppol.smp1.EndpointType;
 import com.helger.xsds.peppol.smp1.ServiceGroupType;
 import com.helger.xsds.peppol.smp1.ServiceMetadataType;
@@ -151,8 +157,7 @@ public final class SMPClientReadOnlyTest
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.PEPPOL_TEST)
-                                                                                                                       .setSecureValidation (false);
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.PEPPOL_TEST);
     // Set old trust store
     {
       final KeyStore aTS = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
@@ -290,7 +295,7 @@ public final class SMPClientReadOnlyTest
 
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                 aReceiverID,
-                                                                ESML.PEPPOL_TEST).setSecureValidation (false);
+                                                                ESML.PEPPOL_TEST);
 
     SignedServiceMetadataType aSSM;
 
@@ -440,7 +445,7 @@ public final class SMPClientReadOnlyTest
     // Peppol URL provider
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                 aPI,
-                                                                ESML.PEPPOL_PRODUCTION).setSecureValidation (false);
+                                                                ESML.PEPPOL_PRODUCTION);
     // Explicitly needs the production truststore
     aSMPClient.setTrustStore (Config2025.TRUSTSTORE_SMP_PRODUCTION);
 
@@ -460,7 +465,6 @@ public final class SMPClientReadOnlyTest
 
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.PEPPOL_TEST);
     aSMPClient.setTrustStore (PeppolTrustStores.Config2025.TRUSTSTORE_SMP_TEST);
-    aSMPClient.setSecureValidation (false);
 
     final SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aPI,
                                                                                EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30);
@@ -667,6 +671,103 @@ public final class SMPClientReadOnlyTest
         t = t.getCause ();
       }
       assertTrue ("Expected a TLS-related cause but got: " + ex, bIsTLSFailure);
+    }
+  }
+
+  @NonNull
+  private static ParticipantIdentifierType _pid (final String sScheme, final String sValue)
+  {
+    final ParticipantIdentifierType ret = new ParticipantIdentifierType ();
+    ret.setScheme (sScheme);
+    ret.setValue (sValue);
+    return ret;
+  }
+
+  @NonNull
+  private static DocumentIdentifierType _dtid (final String sScheme, final String sValue)
+  {
+    final DocumentIdentifierType ret = new DocumentIdentifierType ();
+    ret.setScheme (sScheme);
+    ret.setValue (sValue);
+    return ret;
+  }
+
+  @Test
+  public void testIssue73_IdentifierComparison ()
+  {
+    final PeppolIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
+    final String sPScheme = PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS;
+    final String sDScheme = PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS;
+    final String sDValue = "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1";
+
+    final IParticipantIdentifier aReqPID = aIF.createParticipantIdentifierWithDefaultScheme ("0106:case-example");
+    final IDocumentTypeIdentifier aReqDTID = aIF.createDocumentTypeIdentifier (sDScheme, sDValue);
+    assertNotNull (aReqPID);
+    assertNotNull (aReqDTID);
+
+    // Participant: exact match
+    assertTrue (AbstractGenericSMPClient.isSameParticipantIdentifier (aIF,
+                                                                      aReqPID,
+                                                                      SimpleParticipantIdentifier.wrap (_pid (sPScheme,
+                                                                                                              "0106:case-example"))));
+    // Participant: case insensitive for the iso6523 scheme -> still a match
+    assertTrue (AbstractGenericSMPClient.isSameParticipantIdentifier (aIF,
+                                                                      aReqPID,
+                                                                      SimpleParticipantIdentifier.wrap (_pid (sPScheme,
+                                                                                                              "0106:CASE-EXAMPLE"))));
+    // Participant: different value -> mismatch
+    assertFalse (AbstractGenericSMPClient.isSameParticipantIdentifier (aIF,
+                                                                       aReqPID,
+                                                                       SimpleParticipantIdentifier.wrap (_pid (sPScheme,
+                                                                                                               "0106:other-example"))));
+
+    // Document type: exact match
+    assertTrue (AbstractGenericSMPClient.isSameDocumentTypeIdentifier (aIF,
+                                                                       aReqDTID,
+                                                                       SimpleDocumentTypeIdentifier.wrap (_dtid (sDScheme,
+                                                                                                                 sDValue))));
+    // Document type: case sensitive -> a case difference in the value is a mismatch (issue #73)
+    assertFalse (AbstractGenericSMPClient.isSameDocumentTypeIdentifier (aIF,
+                                                                        aReqDTID,
+                                                                        SimpleDocumentTypeIdentifier.wrap (_dtid (sDScheme,
+                                                                                                                  sDValue.replace ("::Invoice##",
+                                                                                                                                   "::invoice##")))));
+    // Document type: different scheme -> mismatch
+    assertFalse (AbstractGenericSMPClient.isSameDocumentTypeIdentifier (aIF,
+                                                                        aReqDTID,
+                                                                        SimpleDocumentTypeIdentifier.wrap (_dtid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
+                                                                                                                  sDValue))));
+  }
+
+  @Test
+  public void testIssue73CaseExample () throws Exception
+  {
+    // The exact scenario from issue #73: participant 0106:case-example on the Peppol test network.
+    // Some SMPs resolve the (case sensitive) document type identifier case insensitively and return
+    // a response for a differently-cased document type. The client must not accept such a mismatch.
+    final PeppolIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
+    final IParticipantIdentifier aPI = aIF.createParticipantIdentifierWithDefaultScheme ("0106:case-example");
+    final IDocumentTypeIdentifier aDTID = aIF.createDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
+                                                                            "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1");
+
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.PEPPOL_TEST);
+
+    // The identifier check is enabled by default and uses the Peppol identifier factory
+    assertTrue (aSMPClient.isCheckServiceMetadataIdentifiers ());
+    assertSame (PeppolIdentifierFactory.INSTANCE, aSMPClient.getIdentifierFactory ());
+
+    try
+    {
+      aSMPClient.getServiceMetadataOrNull (aPI, aDTID);
+      // Should fail because of inconsistency
+      fail ();
+    }
+    catch (final SMPClientException ex)
+    {
+      System.out.println (ex.getMessage ());
+      // A case mismatch on the SMP side is correctly detected and reported (issue #73)
+      assertTrue (ex.getMessage (),
+                  ex.getMessage ().contains ("This may indicate a case sensitivity issue on the SMP side"));
     }
   }
 
