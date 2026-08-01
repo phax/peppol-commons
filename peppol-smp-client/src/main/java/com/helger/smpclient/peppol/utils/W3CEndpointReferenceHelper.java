@@ -17,6 +17,7 @@
 package com.helger.smpclient.peppol.utils;
 
 import javax.xml.transform.dom.DOMResult;
+import javax.xml.transform.dom.DOMSource;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -34,17 +35,15 @@ import com.helger.xml.XMLFactory;
 import com.helger.xml.XMLHelper;
 
 import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
-import jakarta.xml.ws.wsaddressing.W3CEndpointReferenceBuilder;
 
 /**
  * As the default WS-Addressing binding since JAXB 2.1 uses the {@link W3CEndpointReference} class,
  * we must also use this class, otherwise JAXB would complain, that there are 2 contexts for the
  * same namespace+element combination.<br>
- * The issue with {@link W3CEndpointReference} is that it can easily be created using the
- * {@link W3CEndpointReferenceBuilder} class, but it's not possible to extract information from it
- * (get....). This class offers a workaround by using DOM serialization to access the content of a
- * {@link W3CEndpointReference}. In case the serialization tag names of {@link W3CEndpointReference}
- * change, this implementation has to be adopted! <br>
+ * The issue with {@link W3CEndpointReference} is that it's not possible to extract information from
+ * it (get....). This class offers a workaround by using DOM serialization to access the content of
+ * a {@link W3CEndpointReference}. In case the serialization tag names of
+ * {@link W3CEndpointReference} change, this implementation has to be adopted! <br>
  * The JIRA issue JAX_WS-1132 was filed to help dealing with this issue.
  *
  * @author Philip Helger
@@ -52,6 +51,8 @@ import jakarta.xml.ws.wsaddressing.W3CEndpointReferenceBuilder;
 @Immutable
 public final class W3CEndpointReferenceHelper
 {
+  private static final String WSA_NAMESPACE_URI = "http://www.w3.org/2005/08/addressing";
+
   @PresentForCodeCoverage
   private static final W3CEndpointReferenceHelper INSTANCE = new W3CEndpointReferenceHelper ();
 
@@ -70,7 +71,7 @@ public final class W3CEndpointReferenceHelper
   {
     ValueEnforcer.notNull (sAddress, "Address");
 
-    return new W3CEndpointReferenceBuilder ().address (sAddress).build ();
+    return _createEndpointReference (sAddress, null);
   }
 
   /**
@@ -88,11 +89,38 @@ public final class W3CEndpointReferenceHelper
                                                               @NonNull final Iterable <Element> aReferenceParameters)
   {
     ValueEnforcer.notNull (sAddress, "Address");
+    ValueEnforcer.notNull (aReferenceParameters, "ReferenceParameters");
 
-    W3CEndpointReferenceBuilder aBuilder = new W3CEndpointReferenceBuilder ().address (sAddress);
-    for (final Element aReferenceParameter : aReferenceParameters)
-      aBuilder = aBuilder.referenceParameter (aReferenceParameter);
-    return aBuilder.build ();
+    return _createEndpointReference (sAddress, aReferenceParameters);
+  }
+
+  @NonNull
+  private static W3CEndpointReference _createEndpointReference (@NonNull final String sAddress,
+                                                                @Nullable final Iterable <Element> aReferenceParameters)
+  {
+    final Document aDoc = XMLFactory.newDocument ();
+    final Element eEndpointReference = aDoc.createElementNS (WSA_NAMESPACE_URI, "EndpointReference");
+    aDoc.appendChild (eEndpointReference);
+
+    final Element eAddress = aDoc.createElementNS (WSA_NAMESPACE_URI, "Address");
+    eAddress.setTextContent (sAddress);
+    eEndpointReference.appendChild (eAddress);
+
+    if (aReferenceParameters != null)
+    {
+      Element eReferenceParameters = null;
+      for (final Element aReferenceParameter : aReferenceParameters)
+      {
+        if (eReferenceParameters == null)
+        {
+          eReferenceParameters = aDoc.createElementNS (WSA_NAMESPACE_URI, "ReferenceParameters");
+          eEndpointReference.appendChild (eReferenceParameters);
+        }
+        eReferenceParameters.appendChild (aDoc.importNode (aReferenceParameter, true));
+      }
+    }
+
+    return new W3CEndpointReference (new DOMSource (aDoc));
   }
 
   /**
