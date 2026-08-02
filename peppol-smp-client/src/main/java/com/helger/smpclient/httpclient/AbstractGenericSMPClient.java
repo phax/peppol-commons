@@ -41,6 +41,7 @@ import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.WillNotClose;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsImmutableObject;
 import com.helger.annotation.style.ReturnsMutableObject;
@@ -140,6 +141,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   private boolean m_bFollowSMPRedirects = DEFAULT_FOLLOW_REDIRECTS;
   private boolean m_bXMLSchemaValidation = DEFAULT_XML_SCHEMA_VALIDATION;
   private final SMPHttpClientSettings m_aHttpClientSettings = SMPHttpClientSettings.fromConfiguration ();
+  private HttpClientManager m_aSharedHttpClientManager;
   private Consumer <? super GenericJAXBMarshaller <?>> m_aMarshallerConsumer;
   // A neutral default that never folds case; concrete clients set a more specific default (Peppol,
   // BDXR1, BDXR2) in their constructor
@@ -223,6 +225,38 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
     aConsumer.accept (m_aHttpClientSettings);
+    return thisAsT ();
+  }
+
+  /**
+   * Get the optional shared HTTP client manager.
+   *
+   * @return The shared HTTP client manager used for all requests, or <code>null</code> if every
+   *         request should use a new manager. The returned manager is never closed by this class.
+   * @since 12.6.1
+   */
+  @Nullable
+  public final HttpClientManager getSharedHttpClientManager ()
+  {
+    return m_aSharedHttpClientManager;
+  }
+
+  /**
+   * Set a shared HTTP client manager to reuse connections across requests. The caller owns the
+   * manager and must close it after this client is no longer used. A shared manager must not be
+   * closed while requests are running. Pass <code>null</code> to restore the default behavior of
+   * creating and closing a manager per request. The shared manager's settings take precedence over
+   * {@link #httpClientSettings()}.
+   *
+   * @param aSharedHttpClientManager
+   *        The shared HTTP client manager to use. May be <code>null</code>.
+   * @return this for chaining
+   * @since 12.6.1
+   */
+  @NonNull
+  public final IMPLTYPE setSharedHttpClientManager (@Nullable @WillNotClose final HttpClientManager aSharedHttpClientManager)
+  {
+    m_aSharedHttpClientManager = aSharedHttpClientManager;
     return thisAsT ();
   }
 
@@ -687,11 +721,16 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
                                @NonNull final HttpClientResponseHandler <T> aResponseHandler) throws IOException
   {
     final HttpClientContext aHttpContext = createHttpContext ();
-    try (final HttpClientManager aHttpClientMgr = HttpClientManager.create (m_aHttpClientSettings))
+    try
     {
-      aRequest.setAbsoluteRequestUri (true);
-      LOGGER.info ("Performing SMP query at '" + aRequest.toString () + "'");
-      return aHttpClientMgr.execute (aRequest, aHttpContext, aResponseHandler);
+      final HttpClientManager aSharedHttpClientManager = m_aSharedHttpClientManager;
+      if (aSharedHttpClientManager != null)
+        return _executeRequest (aRequest, aHttpContext, aResponseHandler, aSharedHttpClientManager);
+
+      try (final HttpClientManager aHttpClientMgr = HttpClientManager.create (m_aHttpClientSettings))
+      {
+        return _executeRequest (aRequest, aHttpContext, aResponseHandler, aHttpClientMgr);
+      }
     }
     catch (final RuntimeException | IOException ex)
     {
@@ -701,6 +740,17 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
         LOGGER.error ("Error performing SMP query: " + ex.getClass ().getName () + " - " + ex.getMessage ());
       throw ex;
     }
+  }
+
+  @NonNull
+  private <T> T _executeRequest (@NonNull final HttpUriRequestBase aRequest,
+                                 @NonNull final HttpClientContext aHttpContext,
+                                 @NonNull final HttpClientResponseHandler <T> aResponseHandler,
+                                 @NonNull final HttpClientManager aHttpClientMgr) throws IOException
+  {
+    aRequest.setAbsoluteRequestUri (true);
+    LOGGER.info ("Performing SMP query at '" + aRequest.toString () + "'");
+    return aHttpClientMgr.execute (aRequest, aHttpContext, aResponseHandler);
   }
 
   /**
