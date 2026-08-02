@@ -362,6 +362,10 @@ v12.6.1 - work in progress
   See [issue #73](https://github.com/phax/peppol-commons/issues/73)
 * Removed the EC SML fallback in EPeppolNetwork
 * `W3CEndpointReferenceHelper` now creates `W3CEndpointReference` instances via the standard `DOMSource` constructor instead of `W3CEndpointReferenceBuilder`, so `peppol-smp-client` no longer requires a JAX-WS (Metro) runtime at runtime or test time. See [PR #74](https://github.com/phax/peppol-commons/pull/74)
+* All SMP clients (`SMPClientReadOnly`, `BDXRClientReadOnly`, `BDXR2ClientReadOnly`) can now reuse a caller-owned `HttpClientManager` across queries via `setSharedHttpClientManager` on `AbstractGenericSMPClient`, instead of creating and closing a new manager per request.
+  The caller owns the shared manager and must close it once the client is no longer used; its settings take precedence over `httpClientSettings`.
+  Passing `null` (the default) restores the previous per-request lifecycle.
+  See [PR #75](https://github.com/phax/peppol-commons/pull/75)
 
 v12.6.0 - 2026-07-17
 * Updated to ph-schematron v10.x
