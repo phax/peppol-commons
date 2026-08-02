@@ -44,6 +44,7 @@ import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.exception.SMPClientNotFoundException;
 import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.smpclient.peppol.utils.SMPExtensionConverter;
+import com.helger.smpclient.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.xsds.peppol.id1.ParticipantIdentifierType;
 import com.helger.xsds.peppol.smp1.EndpointType;
 import com.helger.xsds.peppol.smp1.ProcessListType;
@@ -54,7 +55,6 @@ import com.helger.xsds.peppol.smp1.ServiceInformationType;
 import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 
 import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
-import jakarta.xml.ws.wsaddressing.W3CEndpointReferenceBuilder;
 
 /**
  * Expects an running SMP, depending on the configuration file. DNS is not
@@ -180,8 +180,7 @@ public final class SMPClientTest
           final ServiceEndpointList aServiceEndpointList = new ServiceEndpointList ();
           {
             final EndpointType aEndpoint = new EndpointType ();
-            final W3CEndpointReference aEndpointReferenceType = new W3CEndpointReferenceBuilder ().address ("http://peppol.eu/sampleService/")
-                                                                                                  .build ();
+            final W3CEndpointReference aEndpointReferenceType = W3CEndpointReferenceHelper.createEndpointReference ("http://peppol.eu/sampleService/");
             aEndpoint.setEndpointReference (aEndpointReferenceType);
             aEndpoint.setTransportProfile (ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2.getID ());
             // Certificate: Base64.encodeBytes (certificate.getEncoded ());
