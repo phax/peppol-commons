@@ -51,13 +51,42 @@ import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 @Immutable
 public final class W3CEndpointReferenceHelper
 {
-  private static final String WSA_NAMESPACE_URI = "http://www.w3.org/2005/08/addressing";
+  public static final String WSA_NAMESPACE_URI = "http://www.w3.org/2005/08/addressing";
 
   @PresentForCodeCoverage
   private static final W3CEndpointReferenceHelper INSTANCE = new W3CEndpointReferenceHelper ();
 
   private W3CEndpointReferenceHelper ()
   {}
+
+  @NonNull
+  private static W3CEndpointReference _createEndpointReference (@NonNull final String sAddress,
+                                                                @Nullable final Iterable <Element> aReferenceParameters)
+  {
+    final Document aDoc = XMLFactory.newDocument ();
+    final Element eEndpointReference = aDoc.createElementNS (WSA_NAMESPACE_URI, "EndpointReference");
+    aDoc.appendChild (eEndpointReference);
+
+    final Element eAddress = aDoc.createElementNS (WSA_NAMESPACE_URI, "Address");
+    eAddress.setTextContent (sAddress);
+    eEndpointReference.appendChild (eAddress);
+
+    if (aReferenceParameters != null)
+    {
+      Element eReferenceParameters = null;
+      for (final Element aReferenceParameter : aReferenceParameters)
+      {
+        if (eReferenceParameters == null)
+        {
+          eReferenceParameters = aDoc.createElementNS (WSA_NAMESPACE_URI, "ReferenceParameters");
+          eEndpointReference.appendChild (eReferenceParameters);
+        }
+        eReferenceParameters.appendChild (aDoc.importNode (aReferenceParameter, true));
+      }
+    }
+
+    return new W3CEndpointReference (new DOMSource (aDoc));
+  }
 
   /**
    * Create a new endpoint reference for the given address without reference parameters.
@@ -92,35 +121,6 @@ public final class W3CEndpointReferenceHelper
     ValueEnforcer.notNull (aReferenceParameters, "ReferenceParameters");
 
     return _createEndpointReference (sAddress, aReferenceParameters);
-  }
-
-  @NonNull
-  private static W3CEndpointReference _createEndpointReference (@NonNull final String sAddress,
-                                                                @Nullable final Iterable <Element> aReferenceParameters)
-  {
-    final Document aDoc = XMLFactory.newDocument ();
-    final Element eEndpointReference = aDoc.createElementNS (WSA_NAMESPACE_URI, "EndpointReference");
-    aDoc.appendChild (eEndpointReference);
-
-    final Element eAddress = aDoc.createElementNS (WSA_NAMESPACE_URI, "Address");
-    eAddress.setTextContent (sAddress);
-    eEndpointReference.appendChild (eAddress);
-
-    if (aReferenceParameters != null)
-    {
-      Element eReferenceParameters = null;
-      for (final Element aReferenceParameter : aReferenceParameters)
-      {
-        if (eReferenceParameters == null)
-        {
-          eReferenceParameters = aDoc.createElementNS (WSA_NAMESPACE_URI, "ReferenceParameters");
-          eEndpointReference.appendChild (eReferenceParameters);
-        }
-        eReferenceParameters.appendChild (aDoc.importNode (aReferenceParameter, true));
-      }
-    }
-
-    return new W3CEndpointReference (new DOMSource (aDoc));
   }
 
   /**

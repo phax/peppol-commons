@@ -361,6 +361,7 @@ v12.6.1 - work in progress
   The whole check can be toggled via `setCheckServiceMetadataIdentifiers`.
   See [issue #73](https://github.com/phax/peppol-commons/issues/73)
 * Removed the EC SML fallback in EPeppolNetwork
+* `W3CEndpointReferenceHelper` now creates `W3CEndpointReference` instances via the standard `DOMSource` constructor instead of `W3CEndpointReferenceBuilder`, so `peppol-smp-client` no longer requires a JAX-WS (Metro) runtime at runtime or test time. See [PR #74](https://github.com/phax/peppol-commons/pull/74)
 
 v12.6.0 - 2026-07-17
 * Updated to ph-schematron v10.x
