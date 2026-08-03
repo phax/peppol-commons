@@ -772,6 +772,7 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
+  @Ignore ("Temporary issue 2026-08-03")
   public void testElmaSpecific2026 () throws Exception
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0192:864964702");

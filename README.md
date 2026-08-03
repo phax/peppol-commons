@@ -353,15 +353,17 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.6.1 - work in progress
-* Added SPID parsing helpers to `SPIDHelper`: `getMainID`, `getUseCaseID` and `getServiceProviderSuffix` to extract the respective parts from a valid SPID, plus `getMainIDFromSeatID` to extract the SPID Main ID from a Peppol Seat ID. All return `null` for invalid input.
+v12.6.1 - 2026-08-03
+* Added SPID parsing helpers to `SPIDHelper`: `getMainID`, `getUseCaseID` and `getServiceProviderSuffix` to extract the respective parts from a valid SPID, plus `getMainIDFromSeatID` to extract the SPID Main ID from a Peppol Seat ID.
+  All return `null` for invalid input.
 * All SMP clients (`SMPClientReadOnly`, `BDXRClientReadOnly`, `BDXR2ClientReadOnly`) now check that the participant and document type identifiers contained in the SMP response match the requested identifiers, honouring the case sensitivity rules of the configured `IIdentifierFactory`.
   This detects SMPs that resolve identifiers case insensitively even though e.g. Peppol document type identifiers are case sensitive.
   The comparison logic lives in `AbstractGenericSMPClient`; each client uses a dialect specific default factory (`PeppolIdentifierFactory`, `BDXR1IdentifierFactory` respectively `BDXR2IdentifierFactory`) that can be overridden via `setIdentifierFactory`.
   The whole check can be toggled via `setCheckServiceMetadataIdentifiers`.
   See [issue #73](https://github.com/phax/peppol-commons/issues/73)
 * Removed the EC SML fallback in EPeppolNetwork
-* `W3CEndpointReferenceHelper` now creates `W3CEndpointReference` instances via the standard `DOMSource` constructor instead of `W3CEndpointReferenceBuilder`, so `peppol-smp-client` no longer requires a JAX-WS (Metro) runtime at runtime or test time. See [PR #74](https://github.com/phax/peppol-commons/pull/74)
+* `W3CEndpointReferenceHelper` now creates `W3CEndpointReference` instances via the standard `DOMSource` constructor instead of `W3CEndpointReferenceBuilder`, so `peppol-smp-client` no longer requires a JAX-WS (Metro) runtime at runtime or test time.
+  See [PR #74](https://github.com/phax/peppol-commons/pull/74)
 * All SMP clients (`SMPClientReadOnly`, `BDXRClientReadOnly`, `BDXR2ClientReadOnly`) can now reuse a caller-owned `HttpClientManager` across queries via `setSharedHttpClientManager` on `AbstractGenericSMPClient`, instead of creating and closing a new manager per request.
   The caller owns the shared manager and must close it once the client is no longer used; its settings take precedence over `httpClientSettings`.
   Passing `null` (the default) restores the previous per-request lifecycle.
@@ -388,10 +390,16 @@ v12.5.2 - 2026-06-12
 * Moved `DBNAllianceIdentifierFactory` to `peppol-id` submodule
 
 v12.5.1 - 2026-06-12
-* `DBNAlliancePayload` now supports textual (`String`) and binary (`byte[]`, Base64 encoded) payload content in addition to the existing XML `Element` payload content, as per XHE Envelope Profile v1.0 section 6. See [issue #71](https://github.com/phax/peppol-commons/issues/71) - thx @jmailaender
-* `DBNAllianceXHEDataReader` no longer throws `ClassCastException` when an XHE payload's mixed content list contains leading/trailing whitespace text nodes around the apex XML element. The reader now scans the content list for the first `Element`. See [issue #71](https://github.com/phax/peppol-commons/issues/71) - thx @jmailaender
-* `DBNAllianceXHEDataReader.isValidContentTypeCodeValue` was relaxed: per the XHE Envelope Profile v1.0, `application/xml` is required only for XML payloads; for other payload kinds any IANA registered MIME type is allowed. The default check now requires a non-empty value only.
-* Added new class `DBNAllianceIdentifierFactory` in `dbnalliance-commons`, extending `BDXR2IdentifierFactory` and treating document type and process identifiers as case insensitive regardless of the scheme. This matches the DBNAlliance interpretation of the OASIS BDXR SMP v2.0 specification, which states that all identifier schemes are case insensitive unless explicitly stated otherwise. `dbnalliance-commons` now depends on `peppol-id`. See [issue #71](https://github.com/phax/peppol-commons/issues/71) - thx @jmailaender
+* `DBNAlliancePayload` now supports textual (`String`) and binary (`byte[]`, Base64 encoded) payload content in addition to the existing XML `Element` payload content, as per XHE Envelope Profile v1.0 section 6.
+  See [issue #71](https://github.com/phax/peppol-commons/issues/71) - thx @jmailaender
+* `DBNAllianceXHEDataReader` no longer throws `ClassCastException` when an XHE payload's mixed content list contains leading/trailing whitespace text nodes around the apex XML element.
+  The reader now scans the content list for the first `Element`. See [issue #71](https://github.com/phax/peppol-commons/issues/71) - thx @jmailaender
+* `DBNAllianceXHEDataReader.isValidContentTypeCodeValue` was relaxed: per the XHE Envelope Profile v1.0, `application/xml` is required only for XML payloads; for other payload kinds any IANA registered MIME type is allowed.
+  The default check now requires a non-empty value only.
+* Added new class `DBNAllianceIdentifierFactory` in `dbnalliance-commons`, extending `BDXR2IdentifierFactory` and treating document type and process identifiers as case insensitive regardless of the scheme.
+  This matches the DBNAlliance interpretation of the OASIS BDXR SMP v2.0 specification, which states that all identifier schemes are case insensitive unless explicitly stated otherwise.
+  `dbnalliance-commons` now depends on `peppol-id`.
+  See [issue #71](https://github.com/phax/peppol-commons/issues/71) - thx @jmailaender
 * Changed `EPeppolMLSType.DEFAULT` to `FAILURE_ONLY` as shown in the final PNP version.
 
 v12.5.0 - 2026-05-01
@@ -407,7 +415,8 @@ v12.5.0 - 2026-05-01
   * Added new factory method `SMPHttpClientSettings.fromConfiguration ()`. `AbstractGenericSMPClient` uses this factory now.
   * The previous behaviour is still available via `SMPHttpClientSettings.fromLegacyConfiguration ()`, but is deprecated for removal.
   * The instance method `resetToConfiguration ()` was deprecated for removal accordingly.
-  * SMP-specific HTTP settings are now read from configuration keys with the prefix `smpclient.` (e.g. `smpclient.http.timeout.connect`, `smpclient.http.proxy.host`, `smpclient.http.tls.revocation.mode`). See the ph-web `HttpClientSettingsConfig` javadoc for the full list of supported local keys.
+  * SMP-specific HTTP settings are now read from configuration keys with the prefix `smpclient.` (e.g. `smpclient.http.timeout.connect`, `smpclient.http.proxy.host`, `smpclient.http.tls.revocation.mode`).
+    See the ph-web `HttpClientSettingsConfig` javadoc for the full list of supported local keys.
   * The previously hardcoded "trust all" `TrustManager` was removed. Trust validation now uses the regular configured trust store.
   * TLS 1.3 is now supported in addition to TLS 1.2 (TLS 1.2 remains the minimum required version).
   * TLS certificate revocation checking is now enabled by default (using `CertificateRevocationCheckerDefaults.DEFAULT_REVOCATION_CHECK_MODE`).
