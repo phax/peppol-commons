@@ -353,6 +353,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.6.2 - work in progress
+* Updated the Mozilla NSS trust store to the current version
+
 v12.6.1 - 2026-08-03
 * Added SPID parsing helpers to `SPIDHelper`: `getMainID`, `getUseCaseID` and `getServiceProviderSuffix` to extract the respective parts from a valid SPID, plus `getMainIDFromSeatID` to extract the SPID Main ID from a Peppol Seat ID.
   All return `null` for invalid input.
