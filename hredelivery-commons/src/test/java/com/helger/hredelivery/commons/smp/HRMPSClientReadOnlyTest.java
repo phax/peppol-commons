@@ -139,4 +139,14 @@ public final class HRMPSClientReadOnlyTest
     assertEquals (false ? "https://cis.porezna-uprava.hr:8411/EracunMPSCT/"
                         : "https://pwcsavjetovanje.einvoicingsmpstage.hr.pwc.com/", sSMPHost);
   }
+
+  @Test
+  public void testResolveUtf16 () throws SMPDNSResolutionException
+  {
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:71286486334");
+
+    final HRMPSClientReadOnly aMPSClient = new HRMPSClientReadOnly (aPI, EHREDeliverySML.PRODUCTION);
+    final String sSMPHost = aMPSClient.getSMPHostURI ();
+    assertEquals ("https://parra-pristupna-tocka-smp.aestus.hr/AestusMps/Smp/", sSMPHost);
+  }
 }
