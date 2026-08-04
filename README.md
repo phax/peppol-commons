@@ -353,7 +353,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.6.2 - 2026-08-04
+v12.7.0 - 2026-08-04
 * Requires at least ph-commons 12.3.4
 * Updated the Mozilla NSS trust store to the current version
 * Fixed `CachingSMPClientReadOnly` to actually cache in the typical usage scenario.

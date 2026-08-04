@@ -45,13 +45,13 @@ import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
  * document type would otherwise result in unnecessary HTTP requests to the SMP server.
  * </p>
  * <p>
- * The cache content is not held by this class but by an {@link SMPClientCache} instance, so that the
- * cache content can be shared between arbitrary many client instances. If no specific cache is
+ * The cache content is not held by this class but by an {@link SMPClientCache} instance, so that
+ * the cache content can be shared between arbitrary many client instances. If no specific cache is
  * assigned via {@link #setCache(SMPClientCache)}, the shared default cache
- * {@link SMPClientCache#getDefaultInstance()} is used. That is important, because an SMP client that
- * uses SML/NAPTR resolution is bound to a single participant identifier, so that callers usually
- * create one client instance per message - with an instance-local cache, such a client would never
- * see a cache hit.
+ * {@link SMPClientCache#getDefaultInstance()} is used. That is important, because an SMP client
+ * that uses SML/NAPTR resolution is bound to a single participant identifier, so that callers
+ * usually create one client instance per message - with an instance-local cache, such a client
+ * would never see a cache hit.
  * </p>
  * <p>
  * Important notes:
@@ -126,7 +126,7 @@ public class CachingSMPClientReadOnly extends SMPClientReadOnly
    * @return The cache used by this client. If no specific cache was set via
    *         {@link #setCache(SMPClientCache)}, the current
    *         {@link SMPClientCache#getDefaultInstance()} is returned. Never <code>null</code>.
-   * @since 12.6.2
+   * @since 12.7.0
    */
   @NonNull
   public final SMPClientCache getCache ()
@@ -143,7 +143,7 @@ public class CachingSMPClientReadOnly extends SMPClientReadOnly
    *        The cache to be used. May be <code>null</code> to use the shared default cache
    *        {@link SMPClientCache#getDefaultInstance()}.
    * @return this for chaining
-   * @since 12.6.2
+   * @since 12.7.0
    */
   @NonNull
   public final CachingSMPClientReadOnly setCache (@Nullable final SMPClientCache aCache)
@@ -199,9 +199,7 @@ public class CachingSMPClientReadOnly extends SMPClientReadOnly
     final String sSMPHostURI = getSMPHostURI ();
 
     // Check cache
-    final SignedServiceMetadataType aCached = aCache.getServiceMetadata (sSMPHostURI,
-                                                                        aServiceGroupID,
-                                                                        aDocumentTypeID);
+    final SignedServiceMetadataType aCached = aCache.getServiceMetadata (sSMPHostURI, aServiceGroupID, aDocumentTypeID);
     if (aCached != null)
     {
       if (LOGGER.isDebugEnabled ())

@@ -62,7 +62,7 @@ import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
  * </ul>
  *
  * @author Philip Helger
- * @since 12.6.2
+ * @since 12.7.0
  */
 @ThreadSafe
 public class SMPClientCache
