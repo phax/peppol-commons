@@ -17,9 +17,6 @@
 package com.helger.smpclient.peppol;
 
 import java.net.URI;
-import java.time.Duration;
-import java.util.Locale;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -28,7 +25,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.enforce.ValueEnforcer;
-import com.helger.datetime.expiration.ExpiringObject;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
@@ -36,9 +32,6 @@ import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.redirect.ISMPFollowRedirectCallback;
 import com.helger.smpclient.url.ISMPURLProvider;
 import com.helger.smpclient.url.SMPDNSResolutionException;
-import com.helger.statistics.api.IMutableStatisticsHandlerCache;
-import com.helger.statistics.api.IMutableStatisticsHandlerCounter;
-import com.helger.statistics.impl.StatisticsManager;
 import com.helger.xsds.peppol.smp1.ServiceGroupType;
 import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 
@@ -50,6 +43,15 @@ import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
  * <p>
  * This is useful in high-throughput scenarios where repeated lookups for the same participant or
  * document type would otherwise result in unnecessary HTTP requests to the SMP server.
+ * </p>
+ * <p>
+ * The cache content is not held by this class but by an {@link SMPClientCache} instance, so that the
+ * cache content can be shared between arbitrary many client instances. If no specific cache is
+ * assigned via {@link #setCache(SMPClientCache)}, the shared default cache
+ * {@link SMPClientCache#getDefaultInstance()} is used. That is important, because an SMP client that
+ * uses SML/NAPTR resolution is bound to a single participant identifier, so that callers usually
+ * create one client instance per message - with an instance-local cache, such a client would never
+ * see a cache hit.
  * </p>
  * <p>
  * Important notes:
@@ -67,22 +69,9 @@ import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
  */
 public class CachingSMPClientReadOnly extends SMPClientReadOnly
 {
-  /** Default cache TTL: 15 minutes */
-  public static final Duration DEFAULT_CACHE_TTL = Duration.ofMinutes (15);
-
   private static final Logger LOGGER = LoggerFactory.getLogger (CachingSMPClientReadOnly.class);
 
-  private static final String STATISTICS_PREFIX = "CachingSMPClientReadOnly$";
-  private static final IMutableStatisticsHandlerCache STATS_CACHE_SG = StatisticsManager.getCacheHandler (STATISTICS_PREFIX +
-                                                                                                          "ServiceGroup$access");
-  private static final IMutableStatisticsHandlerCache STATS_CACHE_SM = StatisticsManager.getCacheHandler (STATISTICS_PREFIX +
-                                                                                                          "ServiceMetadata$access");
-  private static final IMutableStatisticsHandlerCounter STATS_COUNT_CLEAR = StatisticsManager.getCounterHandler (STATISTICS_PREFIX +
-                                                                                                                 "clear");
-
-  private final ConcurrentHashMap <String, ExpiringObject <ServiceGroupType>> m_aServiceGroupCache = new ConcurrentHashMap <> ();
-  private final ConcurrentHashMap <String, ExpiringObject <SignedServiceMetadataType>> m_aServiceMetadataCache = new ConcurrentHashMap <> ();
-  private Duration m_aCacheTTL = DEFAULT_CACHE_TTL;
+  private SMPClientCache m_aCache;
 
   /**
    * Constructor with SML lookup
@@ -134,41 +123,33 @@ public class CachingSMPClientReadOnly extends SMPClientReadOnly
   }
 
   /**
-   * Set the cache TTL (time-to-live) in milliseconds. Cached entries older than this value will be
-   * considered expired and re-fetched from the SMP server.
-   *
-   * @param aCacheTTL
-   *        The TTL to use. Must not be <code>null</code>.
-   * @return this for chaining
+   * @return The cache used by this client. If no specific cache was set via
+   *         {@link #setCache(SMPClientCache)}, the current
+   *         {@link SMPClientCache#getDefaultInstance()} is returned. Never <code>null</code>.
+   * @since 12.6.2
    */
   @NonNull
-  public CachingSMPClientReadOnly setCacheTTL (@NonNull final Duration aCacheTTL)
+  public final SMPClientCache getCache ()
   {
-    ValueEnforcer.notNull (aCacheTTL, "CacheTTL");
-    m_aCacheTTL = aCacheTTL;
-    return this;
+    final SMPClientCache ret = m_aCache;
+    return ret != null ? ret : SMPClientCache.getDefaultInstance ();
   }
 
   /**
-   * @return The current cache TTL. Never <code>null</code>. Defaults to {@link #DEFAULT_CACHE_TTL}.
+   * Set the cache to be used by this client. Note that the cache may be shared with other clients,
+   * as all cache keys contain the SMP host URI.
+   *
+   * @param aCache
+   *        The cache to be used. May be <code>null</code> to use the shared default cache
+   *        {@link SMPClientCache#getDefaultInstance()}.
+   * @return this for chaining
+   * @since 12.6.2
    */
-  public Duration getCacheTTL ()
-  {
-    return m_aCacheTTL;
-  }
-
   @NonNull
-  private static String _createServiceGroupCacheKey (@NonNull final IParticipantIdentifier aServiceGroupID)
+  public final CachingSMPClientReadOnly setCache (@Nullable final SMPClientCache aCache)
   {
-    return aServiceGroupID.getURIEncoded ().toLowerCase (Locale.ROOT);
-  }
-
-  @NonNull
-  private static String _createServiceMetadataCacheKey (@NonNull final IParticipantIdentifier aServiceGroupID,
-                                                        @NonNull final IDocumentTypeIdentifier aDocumentTypeID)
-  {
-    // Document type IDs are case sensitive
-    return _createServiceGroupCacheKey (aServiceGroupID) + "$$" + aDocumentTypeID.getURIEncoded ();
+    m_aCache = aCache;
+    return this;
   }
 
   @Override
@@ -177,27 +158,30 @@ public class CachingSMPClientReadOnly extends SMPClientReadOnly
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
 
-    final String sCacheKey = _createServiceGroupCacheKey (aServiceGroupID);
+    final SMPClientCache aCache = getCache ();
+    final String sSMPHostURI = getSMPHostURI ();
 
     // Check cache
-    final ExpiringObject <ServiceGroupType> aEntry = m_aServiceGroupCache.get (sCacheKey);
-    if (aEntry != null && !aEntry.isExpiredNow ())
+    final ServiceGroupType aCached = aCache.getServiceGroup (sSMPHostURI, aServiceGroupID);
+    if (aCached != null)
     {
-      STATS_CACHE_SG.cacheHit ();
       if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Cache hit for ServiceGroup '" + sCacheKey + "'");
-      return aEntry.getObject ();
+        LOGGER.debug ("Cache hit for ServiceGroup '" + aServiceGroupID.getURIEncoded () + "' of '" + sSMPHostURI + "'");
+      return aCached;
     }
 
     // Cache miss or expired — fetch from SMP
-    STATS_CACHE_SG.cacheMiss ();
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Cache miss for ServiceGroup '" + sCacheKey + "' - fetching from SMP");
+      LOGGER.debug ("Cache miss for ServiceGroup '" +
+                    aServiceGroupID.getURIEncoded () +
+                    "' of '" +
+                    sSMPHostURI +
+                    "' - fetching from SMP");
 
     final ServiceGroupType ret = super.getServiceGroup (aServiceGroupID);
 
     // Store in cache (only on success)
-    m_aServiceGroupCache.put (sCacheKey, ExpiringObject.ofDuration (ret, m_aCacheTTL));
+    aCache.putServiceGroup (sSMPHostURI, aServiceGroupID, ret);
 
     return ret;
   }
@@ -211,44 +195,55 @@ public class CachingSMPClientReadOnly extends SMPClientReadOnly
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
 
-    final String sCacheKey = _createServiceMetadataCacheKey (aServiceGroupID, aDocumentTypeID);
+    final SMPClientCache aCache = getCache ();
+    final String sSMPHostURI = getSMPHostURI ();
 
     // Check cache
-    final ExpiringObject <SignedServiceMetadataType> aEntry = m_aServiceMetadataCache.get (sCacheKey);
-    if (aEntry != null && !aEntry.isExpiredNow ())
+    final SignedServiceMetadataType aCached = aCache.getServiceMetadata (sSMPHostURI,
+                                                                        aServiceGroupID,
+                                                                        aDocumentTypeID);
+    if (aCached != null)
     {
-      STATS_CACHE_SM.cacheHit ();
       if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Cache hit for ServiceMetadata '" + sCacheKey + "'");
+        LOGGER.debug ("Cache hit for ServiceMetadata '" +
+                      aServiceGroupID.getURIEncoded () +
+                      "' / '" +
+                      aDocumentTypeID.getURIEncoded () +
+                      "' of '" +
+                      sSMPHostURI +
+                      "'");
       // Note: ISMPFollowRedirectCallback is NOT invoked on cache hits
-      return aEntry.getObject ();
+      return aCached;
     }
 
     // Cache miss or expired — fetch from SMP
-    STATS_CACHE_SM.cacheMiss ();
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Cache miss for ServiceMetadata '" + sCacheKey + "' - fetching from SMP");
+      LOGGER.debug ("Cache miss for ServiceMetadata '" +
+                    aServiceGroupID.getURIEncoded () +
+                    "' / '" +
+                    aDocumentTypeID.getURIEncoded () +
+                    "' of '" +
+                    sSMPHostURI +
+                    "' - fetching from SMP");
 
     final SignedServiceMetadataType ret = super.getServiceMetadata (aServiceGroupID,
                                                                     aDocumentTypeID,
                                                                     aFollowRedirectCallback);
 
     // Store in cache (only on success)
-    m_aServiceMetadataCache.put (sCacheKey, ExpiringObject.ofDuration (ret, m_aCacheTTL));
+    aCache.putServiceMetadata (sSMPHostURI, aServiceGroupID, aDocumentTypeID, ret);
 
     return ret;
   }
 
   /**
-   * Clear all cached entries (both service groups and service metadata).
+   * Clear all cached entries of the SMP host of this client (both service groups and service
+   * metadata). Entries of other SMP hosts in the same cache are not touched. Use
+   * {@link SMPClientCache#clearCache()} to clear the entries of all SMP hosts.
    */
   public void clearCache ()
   {
-    m_aServiceGroupCache.clear ();
-    m_aServiceMetadataCache.clear ();
-    STATS_COUNT_CLEAR.increment ();
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Cleared all SMP client caches");
+    getCache ().removeAllOfSMPHost (getSMPHostURI ());
   }
 
   /**
@@ -261,7 +256,7 @@ public class CachingSMPClientReadOnly extends SMPClientReadOnly
   {
     ValueEnforcer.notNull (aParticipantID, "ParticipantID");
 
-    m_aServiceGroupCache.remove (_createServiceGroupCacheKey (aParticipantID));
+    getCache ().removeServiceGroup (getSMPHostURI (), aParticipantID);
   }
 
   /**
@@ -278,7 +273,7 @@ public class CachingSMPClientReadOnly extends SMPClientReadOnly
     ValueEnforcer.notNull (aParticipantID, "ParticipantID");
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
 
-    m_aServiceMetadataCache.remove (_createServiceMetadataCacheKey (aParticipantID, aDocumentTypeID));
+    getCache ().removeServiceMetadata (getSMPHostURI (), aParticipantID, aDocumentTypeID);
   }
 
   /**
@@ -292,12 +287,6 @@ public class CachingSMPClientReadOnly extends SMPClientReadOnly
   {
     ValueEnforcer.notNull (aParticipantID, "ParticipantID");
 
-    final String sPrefix = _createServiceGroupCacheKey (aParticipantID) + "$$";
-    final var it = m_aServiceMetadataCache.entrySet ().iterator ();
-    while (it.hasNext ())
-    {
-      if (it.next ().getKey ().startsWith (sPrefix))
-        it.remove ();
-    }
+    getCache ().removeAllServiceMetadataOfParticipant (getSMPHostURI (), aParticipantID);
   }
 }

@@ -353,8 +353,18 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.6.2 - work in progress
+v12.6.2 - 2026-08-04
+* Requires at least ph-commons 12.3.4
 * Updated the Mozilla NSS trust store to the current version
+* Fixed `CachingSMPClientReadOnly` to actually cache in the typical usage scenario.
+  The cached objects are no longer stored per client instance but in the new shareable class `SMPClientCache`, that is based on `ManualCache` of ph-commons.
+  All cache keys contain the SMP host URI, so a single cache instance can be shared between arbitrary many clients, participants and SMP hosts.
+  If no specific cache is assigned via the new method `setCache`, the shared default cache `SMPClientCache.getDefaultInstance ()` is used.
+  It can be replaced globally via `SMPClientCache.setDefaultInstance` e.g. to change the cache TTL or the maximum cache size.
+  Contrary to the previous implementation, the cache now has a maximum size (see `SMPClientCache.DEFAULT_MAX_SIZE`) and expired entries are effectively removed, so the cache can no longer grow unlimited.
+  Backwards incompatible changes in `CachingSMPClientReadOnly`: the methods `setCacheTTL` and `getCacheTTL` as well as the constant `DEFAULT_CACHE_TTL` were removed - the TTL is now a property of `SMPClientCache`.
+  The method `clearCache ()` now only removes the entries of the SMP host of the respective client - use `SMPClientCache.clearCache ()` to clear the entries of all SMP hosts.
+  See [phoss-ap issue #68](https://github.com/phax/phoss-ap/issues/68)
 
 v12.6.1 - 2026-08-03
 * Added SPID parsing helpers to `SPIDHelper`: `getMainID`, `getUseCaseID` and `getServiceProviderSuffix` to extract the respective parts from a valid SPID, plus `getMainIDFromSeatID` to extract the SPID Main ID from a Peppol Seat ID.

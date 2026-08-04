@@ -18,6 +18,7 @@ package com.helger.smpclient.peppol;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 
 import java.net.URI;
 import java.time.Duration;
@@ -43,31 +44,46 @@ public final class CachingSMPClientReadOnlyTest
   }
 
   @Test
-  public void testDefaultTTL ()
+  public void testDefaultCache ()
   {
     final CachingSMPClientReadOnly aClient = new CachingSMPClientReadOnly (URI.create ("http://localhost:8080"));
-    assertEquals (CachingSMPClientReadOnly.DEFAULT_CACHE_TTL, aClient.getCacheTTL ());
+    // By default the shared default cache is used
+    assertSame (SMPClientCache.getDefaultInstance (), aClient.getCache ());
   }
 
   @Test
-  public void testSetGetTTL ()
+  public void testSetGetCache ()
   {
     final CachingSMPClientReadOnly aClient = new CachingSMPClientReadOnly (URI.create ("http://localhost:8080"));
-    aClient.setCacheTTL (Duration.ofSeconds (10));
-    assertEquals (Duration.ofSeconds (10), aClient.getCacheTTL ());
-    aClient.setCacheTTL (Duration.ofMillis (1));
-    assertEquals (Duration.ofMillis (1), aClient.getCacheTTL ());
+    final SMPClientCache aCache = new SMPClientCache (Duration.ofSeconds (10), 5);
+    assertSame (aClient, aClient.setCache (aCache));
+    assertSame (aCache, aClient.getCache ());
+
+    // null resets to the default cache
+    aClient.setCache (null);
+    assertSame (SMPClientCache.getDefaultInstance (), aClient.getCache ());
   }
 
   @Test
   public void testClearCacheOnEmpty ()
   {
     final CachingSMPClientReadOnly aClient = new CachingSMPClientReadOnly (URI.create ("http://localhost:8080"));
+    aClient.setCache (new SMPClientCache ());
     // Should not throw on empty caches
     aClient.clearCache ();
     aClient.clearServiceGroupCache (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test"));
     aClient.clearServiceMetadataCache (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test"),
                                        EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30);
     aClient.clearServiceMetadataCacheOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test"));
+  }
+
+  @Test
+  public void testTwoClientsShareTheDefaultCache ()
+  {
+    final SMPClientCache aCache = new SMPClientCache ();
+    final CachingSMPClientReadOnly aClient1 = new CachingSMPClientReadOnly (URI.create ("http://localhost:8080")).setCache (aCache);
+    final CachingSMPClientReadOnly aClient2 = new CachingSMPClientReadOnly (URI.create ("http://localhost:8080")).setCache (aCache);
+    assertSame (aClient1.getCache (), aClient2.getCache ());
+    assertEquals (aClient1.getSMPHostURI (), aClient2.getSMPHostURI ());
   }
 }

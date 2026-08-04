@@ -60,6 +60,10 @@
     </dependency>
     <dependency>
       <groupId>com.helger.commons</groupId>
+      <artifactId>ph-cache</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger.commons</groupId>
       <artifactId>ph-config</artifactId>
     </dependency>
     <dependency>
