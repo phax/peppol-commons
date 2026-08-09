@@ -38,7 +38,7 @@ import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.exception.SMPClientNotFoundException;
-import com.helger.smpclient.exception.SMPClientParticipantNotFoundException;
+import com.helger.smpclient.exception.SMPClientSMPUnavailableException;
 import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.smpclient.httpclient.SMPHttpResponseHandlerWriteOperations;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceGroupType;
@@ -208,8 +208,8 @@ public class SMPClient extends SMPClientReadOnly
    *        <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
-   * @throws SMPClientParticipantNotFoundException
-   *         The service group id does not exist in the network.
+   * @throws SMPClientSMPUnavailableException
+   *         The SMP server of the participant could not be contacted.
    * @throws SMPClientNotFoundException
    *         The service group id or document types did not exist.
    * @throws SMPClientUnauthorizedException
@@ -269,8 +269,8 @@ public class SMPClient extends SMPClientReadOnly
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
    *         The user name or password was not correct.
-   * @throws SMPClientParticipantNotFoundException
-   *         The service group id does not exist in the network.
+   * @throws SMPClientSMPUnavailableException
+   *         The SMP server of the participant could not be contacted.
    * @throws SMPClientNotFoundException
    *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
@@ -312,8 +312,8 @@ public class SMPClient extends SMPClientReadOnly
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
    *         The user name or password was not correct.
-   * @throws SMPClientParticipantNotFoundException
-   *         The service group id does not exist in the network.
+   * @throws SMPClientSMPUnavailableException
+   *         The SMP server of the participant could not be contacted.
    * @throws SMPClientNotFoundException
    *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
@@ -353,8 +353,8 @@ public class SMPClient extends SMPClientReadOnly
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
    *         The user name or password was not correct.
-   * @throws SMPClientParticipantNotFoundException
-   *         The service group id does not exist in the network.
+   * @throws SMPClientSMPUnavailableException
+   *         The SMP server of the participant could not be contacted.
    * @throws SMPClientNotFoundException
    *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException

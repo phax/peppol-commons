@@ -18,6 +18,7 @@ package com.helger.smpclient.httpclient;
 
 import java.io.IOException;
 import java.net.ConnectException;
+import java.net.SocketTimeoutException;
 import java.net.URI;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
@@ -70,7 +71,7 @@ import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.exception.SMPClientHttpException;
 import com.helger.smpclient.exception.SMPClientNotFoundException;
-import com.helger.smpclient.exception.SMPClientParticipantNotFoundException;
+import com.helger.smpclient.exception.SMPClientSMPUnavailableException;
 import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.xsds.xmldsig.X509DataType;
 
@@ -816,11 +817,17 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
       };
     }
 
-    // Special case: participant does not exist
+    // Special case: the SMP server could not be contacted at all. This says nothing about the
+    // existence of a participant - that is decided during DNS resolution (see
+    // SMPDNSResolutionException) before this class is used at all.
+    // Note: org.apache.hc.client5.http.HttpHostConnectException extends ConnectException and
+    // org.apache.hc.client5.http.ConnectTimeoutException extends SocketTimeoutException
     if (ex instanceof final UnknownHostException uhex)
-      return new SMPClientParticipantNotFoundException (uhex);
+      return new SMPClientSMPUnavailableException (uhex);
     if (ex instanceof final ConnectException cex)
-      return new SMPClientParticipantNotFoundException (cex);
+      return new SMPClientSMPUnavailableException (cex);
+    if (ex instanceof final SocketTimeoutException stex)
+      return new SMPClientSMPUnavailableException (stex);
 
     // For new SMPClientBadResponseException
     if (ex instanceof ClientProtocolException && ex.getCause () instanceof SMPClientException)

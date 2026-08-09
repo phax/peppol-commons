@@ -16,17 +16,26 @@
  */
 package com.helger.smpclient.exception;
 
+import java.io.IOException;
 import java.net.ConnectException;
 import java.net.UnknownHostException;
 
 import org.jspecify.annotations.NonNull;
 
 /**
- * This exception is thrown if a participant was not found on the network
+ * This exception is thrown if the SMP server could not be contacted at all.
+ * <p>
+ * Note: despite its name, this exception never indicated that a Peppol participant does not exist.
+ * It was only ever thrown if the SMP host name could not be resolved or if the socket connection to
+ * the SMP failed. The class name was therefore misleading.
+ * </p>
  *
  * @author Philip Helger
  * @since 9.5.0
+ * @deprecated Since 12.7.1 - use {@link SMPClientSMPUnavailableException} instead, which describes
+ *             the situation correctly.
  */
+@Deprecated (forRemoval = true, since = "12.7.1")
 public class SMPClientParticipantNotFoundException extends SMPClientException
 {
   public SMPClientParticipantNotFoundException (@NonNull final UnknownHostException ex)
@@ -37,5 +46,19 @@ public class SMPClientParticipantNotFoundException extends SMPClientException
   public SMPClientParticipantNotFoundException (@NonNull final ConnectException ex)
   {
     super (ex);
+  }
+
+  /**
+   * Constructor for derived classes only.
+   *
+   * @param sMsg
+   *        The error message. May not be <code>null</code>.
+   * @param ex
+   *        The causing exception. May not be <code>null</code>.
+   * @since 12.7.1
+   */
+  protected SMPClientParticipantNotFoundException (@NonNull final String sMsg, @NonNull final IOException ex)
+  {
+    super (sMsg, ex);
   }
 }

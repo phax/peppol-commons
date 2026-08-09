@@ -47,7 +47,7 @@ import com.helger.smpclient.bdxr2.marshal.BDXR2MarshallerServiceMetadata;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.exception.SMPClientNotFoundException;
-import com.helger.smpclient.exception.SMPClientParticipantNotFoundException;
+import com.helger.smpclient.exception.SMPClientSMPUnavailableException;
 import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.smpclient.httpclient.AbstractGenericSMPClient;
 import com.helger.smpclient.httpclient.SMPHttpResponseHandlerSigned;
@@ -155,8 +155,8 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
    *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientParticipantNotFoundException
-   *         The service group id does not exist in the network.
+   * @throws SMPClientSMPUnavailableException
+   *         The SMP server of the participant could not be contacted.
    * @throws SMPClientNotFoundException
    *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
@@ -191,7 +191,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
     {
       return getServiceGroup (aServiceGroupID);
     }
-    catch (final SMPClientNotFoundException | SMPClientParticipantNotFoundException ex)
+    catch (final SMPClientNotFoundException ex)
     {
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Found no ServiceGroup");
@@ -249,8 +249,8 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
    *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientParticipantNotFoundException
-   *         The service group id does not exist in the network.
+   * @throws SMPClientSMPUnavailableException
+   *         The SMP server of the participant could not be contacted.
    * @throws SMPClientNotFoundException
    *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
@@ -280,8 +280,8 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
    *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientParticipantNotFoundException
-   *         The service group id does not exist in the network.
+   * @throws SMPClientSMPUnavailableException
+   *         The SMP server of the participant could not be contacted.
    * @throws SMPClientNotFoundException
    *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
@@ -452,7 +452,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
     {
       return getServiceMetadata (aServiceGroupID, aDocumentTypeID, aFollowRedirectCallback);
     }
-    catch (final SMPClientNotFoundException | SMPClientParticipantNotFoundException ex)
+    catch (final SMPClientNotFoundException ex)
     {
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Found no ServiceMetadata");
@@ -592,8 +592,8 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
    *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientParticipantNotFoundException
-   *         The service group id does not exist in the network.
+   * @throws SMPClientSMPUnavailableException
+   *         The SMP server of the participant could not be contacted.
    * @throws SMPClientNotFoundException
    *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
@@ -626,8 +626,8 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
    *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientParticipantNotFoundException
-   *         The service group id does not exist in the network.
+   * @throws SMPClientSMPUnavailableException
+   *         The SMP server of the participant could not be contacted.
    * @throws SMPClientNotFoundException
    *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException

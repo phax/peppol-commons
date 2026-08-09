@@ -57,7 +57,7 @@ import com.helger.security.certificate.CertificateDecodeHelper;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.exception.SMPClientNotFoundException;
-import com.helger.smpclient.exception.SMPClientParticipantNotFoundException;
+import com.helger.smpclient.exception.SMPClientSMPUnavailableException;
 import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.smpclient.httpclient.AbstractGenericSMPClient;
 import com.helger.smpclient.httpclient.SMPHttpResponseHandlerSigned;
@@ -188,7 +188,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     {
       return getServiceGroup (aServiceGroupID);
     }
-    catch (final SMPClientNotFoundException | SMPClientParticipantNotFoundException ex)
+    catch (final SMPClientNotFoundException ex)
     {
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Found no ServiceGroup");
@@ -309,8 +309,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
    *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientParticipantNotFoundException
-   *         The service group id does not exist in the network.
+   * @throws SMPClientSMPUnavailableException
+   *         The SMP server of the participant could not be contacted.
    * @throws SMPClientNotFoundException
    *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
@@ -455,11 +455,14 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *        The optional callback to be invoked in case of an SMP redirect. May be
    *        <code>null</code>.
    * @return A signed service metadata object or <code>null</code> if no such registration is
-   *         present.
+   *         present. <code>null</code> is only returned if the SMP explicitly answered with HTTP
+   *         404. If the SMP could not be contacted at all, an exception is thrown instead.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
    *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientSMPUnavailableException
+   *         The SMP server could not be contacted. This is not the same as "not registered".
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    * @see #getServiceMetadata(IParticipantIdentifier, IDocumentTypeIdentifier)
@@ -474,7 +477,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     {
       return getServiceMetadata (aServiceGroupID, aDocumentTypeID, aFollowRedirectCallback);
     }
-    catch (final SMPClientNotFoundException | SMPClientParticipantNotFoundException ex)
+    catch (final SMPClientNotFoundException ex)
     {
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Found no ServiceMetadata");
@@ -897,8 +900,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         If DNS resolution fails
    * @throws SMPClientUnauthorizedException
    *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientParticipantNotFoundException
-   *         The service group id does not exist in the network.
+   * @throws SMPClientSMPUnavailableException
+   *         The SMP server of the participant could not be contacted.
    * @throws SMPClientNotFoundException
    *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
@@ -931,8 +934,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         if DNS resolution fails
    * @throws SMPClientUnauthorizedException
    *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientParticipantNotFoundException
-   *         The service group id does not exist in the network.
+   * @throws SMPClientSMPUnavailableException
+   *         The SMP server of the participant could not be contacted.
    * @throws SMPClientNotFoundException
    *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException

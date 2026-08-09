@@ -21,6 +21,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.smpclient.exception.SMPClientException;
+import com.helger.smpclient.exception.SMPClientSMPUnavailableException;
 import com.helger.xsds.peppol.smp1.ServiceGroupType;
 
 /**
@@ -52,9 +53,13 @@ public interface ISMPServiceGroupProvider
    *
    * @param aServiceGroupID
    *        The ID of the service group to retrieve. May not be <code>null</code>.
-   * @return The service group. Maybe <code>null</code>.
+   * @return The service group. Maybe <code>null</code>. <code>null</code> is only returned if the
+   *         SMP explicitly answered with HTTP 404, meaning the service group is not registered on
+   *         that SMP. If the SMP could not be contacted at all, an exception is thrown instead.
    * @throws SMPClientException
    *         in case something goes wrong
+   * @throws SMPClientSMPUnavailableException
+   *         The SMP server could not be contacted. This is not the same as "not registered".
    * @see #getServiceGroup(IParticipantIdentifier)
    */
   @Nullable

@@ -22,6 +22,7 @@ import org.jspecify.annotations.Nullable;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.smpclient.exception.SMPClientException;
+import com.helger.smpclient.exception.SMPClientSMPUnavailableException;
 import com.helger.smpclient.redirect.ISMPFollowRedirectCallback;
 import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 
@@ -86,8 +87,12 @@ public interface ISMPServiceMetadataProvider
    * @param aDocumentTypeID
    *        The document type of the service metadata to retrieve. May not be <code>null</code>.
    * @return A service metadata object or <code>null</code> if no such registration is present.
+   *         <code>null</code> is only returned if the SMP explicitly answered with HTTP 404. If the
+   *         SMP could not be contacted at all, an exception is thrown instead.
    * @throws SMPClientException
    *         in case something goes wrong
+   * @throws SMPClientSMPUnavailableException
+   *         The SMP server could not be contacted. This is not the same as "not registered".
    * @see #getServiceMetadata(IParticipantIdentifier, IDocumentTypeIdentifier)
    */
   @Nullable
@@ -109,8 +114,12 @@ public interface ISMPServiceMetadataProvider
    *        The optional callback to be invoked in case of an SMP redirect. May be
    *        <code>null</code>.
    * @return A service metadata object or <code>null</code> if no such registration is present.
+   *         <code>null</code> is only returned if the SMP explicitly answered with HTTP 404. If the
+   *         SMP could not be contacted at all, an exception is thrown instead.
    * @throws SMPClientException
    *         in case something goes wrong
+   * @throws SMPClientSMPUnavailableException
+   *         The SMP server could not be contacted. This is not the same as "not registered".
    * @see #getServiceMetadata(IParticipantIdentifier, IDocumentTypeIdentifier,
    *      ISMPFollowRedirectCallback)
    * @since 10.4.3

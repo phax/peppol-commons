@@ -353,6 +353,16 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.7.1 - work in progress
+* Added the new SMP client exception `SMPClientSMPUnavailableException` that replaces the misleadingly named `SMPClientParticipantNotFoundException`.
+  The latter was never thrown because a Peppol participant does not exist - a participant is registered as soon as the SML created its DNS NAPTR record, and errors of that phase are reported via `SMPDNSResolutionException` (see error code `PARTICIPANT_NOT_REGISTERED`).
+  It was only thrown if the SMP host name could not be resolved or if the socket connection to the SMP failed, so it always meant "the SMP of a registered participant is currently unavailable".
+  `SMPClientParticipantNotFoundException` is deprecated and `SMPClientSMPUnavailableException` derives from it, so existing `catch` blocks keep working.
+* An SMP connection that runs into a timeout (`SocketTimeoutException` and therefore also `ConnectTimeoutException`) is now converted to `SMPClientSMPUnavailableException` as well. Previously it ended up in the generic `SMPClientException`, even though a refused connection to the same SMP was treated as a specific error.
+* Backwards incompatible change: `getServiceGroupOrNull` and `getServiceMetadataOrNull` of `SMPClientReadOnly` and `BDXR2ClientReadOnly` no longer return `null` if the SMP could not be contacted - they now throw `SMPClientSMPUnavailableException`.
+  Previously an SMP outage was indistinguishable from an HTTP 404 answer, so a temporary infrastructure problem looked like "the receiver does not support this document type".
+  Only a real HTTP 404 leads to `null` now. This makes both clients behave like `BDXRClientReadOnly`, which never swallowed this error.
+
 v12.7.0 - 2026-08-04
 * Requires at least ph-commons 12.3.4
 * Updated the Mozilla NSS trust store to the current version

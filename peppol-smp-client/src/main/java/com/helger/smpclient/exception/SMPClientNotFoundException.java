@@ -23,7 +23,8 @@ import com.helger.http.CHttp;
 
 /**
  * This exception is thrown, if the HTTP response was 404. See also
- * {@link SMPClientParticipantNotFoundException}.
+ * {@link SMPClientSMPUnavailableException}, which is used if the SMP server could not be contacted
+ * at all.
  *
  * @author Philip Helger
  */
