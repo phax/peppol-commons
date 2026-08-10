@@ -32,10 +32,10 @@ import org.jspecify.annotations.NonNull;
  *
  * @author Philip Helger
  * @since 9.5.0
- * @deprecated Since 12.7.1 - use {@link SMPClientSMPUnavailableException} instead, which describes
+ * @deprecated Since 12.8.0 - use {@link SMPClientSMPUnavailableException} instead, which describes
  *             the situation correctly.
  */
-@Deprecated (forRemoval = true, since = "12.7.1")
+@Deprecated (forRemoval = true, since = "12.8.0")
 public class SMPClientParticipantNotFoundException extends SMPClientException
 {
   public SMPClientParticipantNotFoundException (@NonNull final UnknownHostException ex)
@@ -55,7 +55,7 @@ public class SMPClientParticipantNotFoundException extends SMPClientException
    *        The error message. May not be <code>null</code>.
    * @param ex
    *        The causing exception. May not be <code>null</code>.
-   * @since 12.7.1
+   * @since 12.8.0
    */
   protected SMPClientParticipantNotFoundException (@NonNull final String sMsg, @NonNull final IOException ex)
   {

@@ -37,7 +37,7 @@ import org.jspecify.annotations.NonNull;
  * </p>
  *
  * @author Philip Helger
- * @since 12.7.1
+ * @since 12.8.0
  */
 @SuppressWarnings ("removal")
 public class SMPClientSMPUnavailableException extends SMPClientParticipantNotFoundException
