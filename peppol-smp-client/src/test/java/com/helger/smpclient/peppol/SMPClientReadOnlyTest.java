@@ -47,6 +47,8 @@ import com.helger.base.state.ETriState;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.datetime.helper.PDTFactory;
 import com.helger.datetime.web.PDTWebDateHelper;
+import com.helger.datetime.xml.XMLOffsetDateTime;
+import com.helger.datetime.zone.PDTConfig;
 import com.helger.peppol.security.PeppolTrustStores;
 import com.helger.peppol.security.PeppolTrustStores.Config2018;
 import com.helger.peppol.security.PeppolTrustStores.Config2025;
@@ -285,6 +287,26 @@ public final class SMPClientReadOnlyTest
     assertNull (findEndpoint.apply (aCheckDT.plusSeconds (1), null));
     assertNull (findEndpoint.apply (null, aCheckDT.minusSeconds (1)));
     assertNull (findEndpoint.apply (aCheckDT.plusSeconds (1), aCheckDT.minusSeconds (1)));
+  }
+
+  @Test
+  public void testActivationDateWithOffset ()
+  {
+    final String sOldZoneID = PDTConfig.getDefaultZoneId ().getId ();
+    try
+    {
+      PDTConfig.setDefaultDateTimeZoneID ("UTC");
+
+      final EndpointType aEndpoint = new EndpointType ();
+      aEndpoint.setServiceActivationDate (XMLOffsetDateTime.parse ("2026-08-03T12:59:36.913+02:00"));
+
+      assertTrue (SMPClientReadOnly.isEndpointValidAt (aEndpoint, LocalDateTime.parse ("2026-08-03T12:03:57")));
+      assertFalse (SMPClientReadOnly.isEndpointValidAt (aEndpoint, LocalDateTime.parse ("2026-08-03T10:03:57")));
+    }
+    finally
+    {
+      PDTConfig.setDefaultDateTimeZoneID (sOldZoneID);
+    }
   }
 
   @Test
