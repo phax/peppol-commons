@@ -353,7 +353,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.8.0 - work in progress
+v12.8.0 - 2026-08-12
 * Added the new SMP client exception `SMPClientSMPUnavailableException` that replaces the misleadingly named `SMPClientParticipantNotFoundException`.
   The latter was never thrown because a Peppol participant does not exist - a participant is registered as soon as the SML created its DNS NAPTR record, and errors of that phase are reported via `SMPDNSResolutionException` (see error code `PARTICIPANT_NOT_REGISTERED`).
   It was only thrown if the SMP host name could not be resolved or if the socket connection to the SMP failed, so it always meant "the SMP of a registered participant is currently unavailable".
