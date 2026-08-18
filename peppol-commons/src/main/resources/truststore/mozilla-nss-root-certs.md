@@ -1,4 +1,4 @@
-Content of the Mozilla NSS Root Certificate Truststore (last update: 2026-08-03)
+Content of the Mozilla NSS Root Certificate Truststore v2.90 (last update: 2026-08-13)
 Password: **changeit**
 
 * Alias `ac_raiz_fnmt_rcm` refering to OU=AC RAIZ FNMT-RCM,O=FNMT-RCM,C=ES (valid from 2008-10-29T16:59:56+01:00 to 2030-01-01T01:00:00+01:00)

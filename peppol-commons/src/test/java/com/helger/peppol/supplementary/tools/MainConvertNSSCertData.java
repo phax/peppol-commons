@@ -37,6 +37,8 @@ import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.Enumeration;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -71,6 +73,11 @@ import com.helger.security.keystore.EKeyStoreType;
  * <code>https://hg-edge.mozilla.org/projects/nss/raw-file/tip/lib/ckfw/builtins/certdata.txt</code>
  * </p>
  * <p>
+ * The certdata.txt file itself contains neither a version nor a publication date. The version of
+ * the trust list is therefore taken from the <code>NSS_BUILTINS_LIBRARY_VERSION</code> macro of the
+ * <code>nssckbi.h</code> file that resides in the same directory.
+ * </p>
+ * <p>
  * See <a href="https://github.com/phax/peppol-commons/issues/68">Issue #68</a>
  * </p>
  *
@@ -81,14 +88,24 @@ public final class MainConvertNSSCertData
   /** The URL to download the latest NSS certdata.txt */
   public static final String CERTDATA_URL = "https://hg-edge.mozilla.org/projects/nss/raw-file/tip/lib/ckfw/builtins/certdata.txt";
 
+  /** The URL to download the latest NSS nssckbi.h that contains the trust list version */
+  public static final String NSSCKBI_URL = "https://hg-edge.mozilla.org/projects/nss/raw-file/tip/lib/ckfw/builtins/nssckbi.h";
+
   /** Trust value indicating a trusted delegator (CA) */
   public static final String TRUST_TRUSTED_DELEGATOR = "CKT_NSS_TRUSTED_DELEGATOR";
 
-  /** Maximum age of the cached certdata.txt before re-downloading */
+  /** Maximum age of a cached file before re-downloading */
   private static final Duration CACHE_MAX_AGE = Duration.ofHours (24);
 
   /** Local cache file for the downloaded certdata.txt */
-  private static final Path CACHE_FILE = Path.of (System.getProperty ("java.io.tmpdir"), "nss-certdata-cache.txt");
+  private static final Path CACHE_FILE_CERTDATA = Path.of (System.getProperty ("java.io.tmpdir"),
+                                                           "nss-certdata-cache.txt");
+
+  /** Local cache file for the downloaded nssckbi.h */
+  private static final Path CACHE_FILE_NSSCKBI = Path.of (System.getProperty ("java.io.tmpdir"), "nss-nssckbi-cache.h");
+
+  /** The regular expression to extract the trust list version from nssckbi.h */
+  private static final Pattern PATTERN_BUILTINS_VERSION = Pattern.compile ("#define\\s+NSS_BUILTINS_LIBRARY_VERSION\\s+\"([^\"]+)\"");
 
   private static final Logger LOGGER = LoggerFactory.getLogger (MainConvertNSSCertData.class);
 
@@ -396,6 +413,46 @@ public final class MainConvertNSSCertData
   }
 
   /**
+   * Make sure a locally cached copy of the provided URL exists, downloading it from Mozilla if the
+   * cache is missing or older than {@link #CACHE_MAX_AGE}.
+   *
+   * @param sURL
+   *        the URL to download. Not <code>null</code>.
+   * @param aCacheFile
+   *        the local cache file to use. Not <code>null</code>.
+   * @throws IOException
+   *         on download or I/O error
+   */
+  private static void _ensureCached (@NonNull final String sURL, @NonNull final Path aCacheFile) throws IOException
+  {
+    boolean bNeedDownload = true;
+    if (Files.exists (aCacheFile))
+    {
+      final Instant aLastModified = Files.getLastModifiedTime (aCacheFile).toInstant ();
+      final Duration aAge = Duration.between (aLastModified, Instant.now ());
+      if (aAge.compareTo (CACHE_MAX_AGE) < 0)
+      {
+        LOGGER.info ("Using cached file " + aCacheFile + " (age: " + aAge.toHours () + "h)");
+        bNeedDownload = false;
+      }
+      else
+      {
+        LOGGER.info ("Cached file " + aCacheFile + " is " + aAge.toHours () + "h old - re-downloading");
+      }
+    }
+
+    if (bNeedDownload)
+    {
+      LOGGER.info ("Downloading " + sURL);
+      try (final InputStream aIS = URI.create (sURL).toURL ().openStream ())
+      {
+        Files.copy (aIS, aCacheFile, StandardCopyOption.REPLACE_EXISTING);
+      }
+      LOGGER.info ("Cached content to " + aCacheFile);
+    }
+  }
+
+  /**
    * Get a locally cached copy of certdata.txt, downloading it from Mozilla if the cache is missing
    * or older than {@link #CACHE_MAX_AGE}.
    *
@@ -406,33 +463,40 @@ public final class MainConvertNSSCertData
   @NonNull
   private static InputStream _getCachedCertData () throws IOException
   {
-    boolean bNeedDownload = true;
-    if (Files.exists (CACHE_FILE))
-    {
-      final Instant aLastModified = Files.getLastModifiedTime (CACHE_FILE).toInstant ();
-      final Duration aAge = Duration.between (aLastModified, Instant.now ());
-      if (aAge.compareTo (CACHE_MAX_AGE) < 0)
-      {
-        LOGGER.info ("Using cached certdata.txt from " + CACHE_FILE + " (age: " + aAge.toHours () + "h)");
-        bNeedDownload = false;
-      }
-      else
-      {
-        LOGGER.info ("Cached certdata.txt is " + aAge.toHours () + "h old - re-downloading");
-      }
-    }
+    _ensureCached (CERTDATA_URL, CACHE_FILE_CERTDATA);
+    return new FileInputStream (CACHE_FILE_CERTDATA.toFile ());
+  }
 
-    if (bNeedDownload)
+  /**
+   * Get the version of the NSS trust list from the <code>nssckbi.h</code> file that belongs to the
+   * downloaded certdata.txt. The <code>NSS_BUILTINS_LIBRARY_VERSION</code> macro contained therein
+   * is increased by Mozilla each time the list of trusted certificates is changed. The
+   * certdata.txt file itself contains no version and no publication date.
+   *
+   * @return the version String (like <code>2.90</code>) or <code>null</code> if it could not be
+   *         determined.
+   */
+  @Nullable
+  private static String _getBuiltinsLibraryVersion ()
+  {
+    try
     {
-      LOGGER.info ("Downloading NSS certdata.txt from " + CERTDATA_URL);
-      try (final InputStream aIS = URI.create (CERTDATA_URL).toURL ().openStream ())
-      {
-        Files.copy (aIS, CACHE_FILE, StandardCopyOption.REPLACE_EXISTING);
-      }
-      LOGGER.info ("Cached certdata.txt to " + CACHE_FILE);
-    }
+      _ensureCached (NSSCKBI_URL, CACHE_FILE_NSSCKBI);
 
-    return new FileInputStream (CACHE_FILE.toFile ());
+      final String sContent = SimpleFileIO.getFileAsString (CACHE_FILE_NSSCKBI.toFile (), StandardCharsets.UTF_8);
+      if (sContent != null)
+      {
+        final Matcher aMatcher = PATTERN_BUILTINS_VERSION.matcher (sContent);
+        if (aMatcher.find ())
+          return aMatcher.group (1);
+      }
+      LOGGER.warn ("Failed to find NSS_BUILTINS_LIBRARY_VERSION in " + CACHE_FILE_NSSCKBI);
+    }
+    catch (final IOException ex)
+    {
+      LOGGER.warn ("Failed to read NSS trust list version from " + NSSCKBI_URL, ex);
+    }
+    return null;
   }
 
   /**
@@ -484,8 +548,16 @@ public final class MainConvertNSSCertData
     }
 
     LOGGER.info ("Trust store contains " + aKS.size () + " certificates");
+
+    final String sBuiltinsVersion = _getBuiltinsLibraryVersion ();
+    if (sBuiltinsVersion != null)
+      LOGGER.info ("Using NSS trust list version " + sBuiltinsVersion);
+
     final StringBuilder aSB = new StringBuilder ();
-    aSB.append ("Content of the Mozilla NSS Root Certificate Truststore (last update: ")
+    aSB.append ("Content of the Mozilla NSS Root Certificate Truststore");
+    if (sBuiltinsVersion != null)
+      aSB.append (" v").append (sBuiltinsVersion);
+    aSB.append (" (last update: ")
        .append (DateTimeFormatter.ISO_LOCAL_DATE.format (PDTFactory.getCurrentLocalDate ()))
        .append (")\n")
        .append ("Password: **")
