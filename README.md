@@ -353,6 +353,15 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.8.1 - work in progress
+* Added the new class `PeppolEndUserHelper` in module `peppol-id`, to determine a unique End User ID from a participant identifier, as it is needed for the Peppol End User Statistics Report (EUSR).
+  Using the participant identifier as the End User ID is only a mediocre simplification, because several countries have multiple identifier schemes running in parallel that all identify the same End User.
+  Therefore a list of extensible mapping rules (see the new interface `IPeppolEndUserIDMapping` and the new class `PeppolEndUserIDMapping`) is applied, before the identifier is converted to the End User ID String.
+  By default the Belgian VAT numbers (`9925`) are mapped onto the Belgian enterprise numbers (`0208`) by removing the leading country code `BE`, and the German VAT numbers (`9930`) are mapped onto the German Electronic Business Address numbers (`0246`).
+  Additional mappings can be registered via `PeppolEndUserHelper.registerMapping` and the default mappings can be removed.
+  Independent of the mappings, all identifiers are unified via the identifier factory in use, so that a different casing of an identifier value no longer leads to different End User IDs.
+  See [issue #80](https://github.com/phax/peppol-commons/issues/80)
+
 v12.8.0 - 2026-08-12
 * Added the new SMP client exception `SMPClientSMPUnavailableException` that replaces the misleadingly named `SMPClientParticipantNotFoundException`.
   The latter was never thrown because a Peppol participant does not exist - a participant is registered as soon as the SML created its DNS NAPTR record, and errors of that phase are reported via `SMPDNSResolutionException` (see error code `PARTICIPANT_NOT_REGISTERED`).
