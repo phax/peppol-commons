@@ -353,7 +353,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.8.1 - work in progress
+v12.8.1 - 2026-08-19
 * Added the new class `PeppolEndUserHelper` in module `peppol-id`, to determine a unique End User ID from a participant identifier, as it is needed for the Peppol End User Statistics Report (EUSR).
   Using the participant identifier as the End User ID is only a mediocre simplification, because several countries have multiple identifier schemes running in parallel that all identify the same End User.
   Therefore a list of extensible mapping rules (see the new interface `IPeppolEndUserIDMapping` and the new class `PeppolEndUserIDMapping`) is applied, before the identifier is converted to the End User ID String.
@@ -367,7 +367,8 @@ v12.8.0 - 2026-08-12
   The latter was never thrown because a Peppol participant does not exist - a participant is registered as soon as the SML created its DNS NAPTR record, and errors of that phase are reported via `SMPDNSResolutionException` (see error code `PARTICIPANT_NOT_REGISTERED`).
   It was only thrown if the SMP host name could not be resolved or if the socket connection to the SMP failed, so it always meant "the SMP of a registered participant is currently unavailable".
   `SMPClientParticipantNotFoundException` is deprecated and `SMPClientSMPUnavailableException` derives from it, so existing `catch` blocks keep working.
-* An SMP connection that runs into a timeout (`SocketTimeoutException` and therefore also `ConnectTimeoutException`) is now converted to `SMPClientSMPUnavailableException` as well. Previously it ended up in the generic `SMPClientException`, even though a refused connection to the same SMP was treated as a specific error.
+* An SMP connection that runs into a timeout (`SocketTimeoutException` and therefore also `ConnectTimeoutException`) is now converted to `SMPClientSMPUnavailableException` as well.
+  Previously it ended up in the generic `SMPClientException`, even though a refused connection to the same SMP was treated as a specific error.
 * Backwards incompatible change: `getServiceGroupOrNull` and `getServiceMetadataOrNull` of `SMPClientReadOnly` and `BDXR2ClientReadOnly` no longer return `null` if the SMP could not be contacted - they now throw `SMPClientSMPUnavailableException`.
   Previously an SMP outage was indistinguishable from an HTTP 404 answer, so a temporary infrastructure problem looked like "the receiver does not support this document type".
   Only a real HTTP 404 leads to `null` now. This makes both clients behave like `BDXRClientReadOnly`, which never swallowed this error.
