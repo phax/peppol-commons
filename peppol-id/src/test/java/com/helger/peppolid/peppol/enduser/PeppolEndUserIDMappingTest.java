@@ -36,8 +36,7 @@ public final class PeppolEndUserIDMappingTest
   {
     final PeppolEndUserIDMapping aMapping = PeppolEndUserIDMapping.createValueUnchanged ("9930", "0246");
     assertEquals ("9930", aMapping.getSourceISO6523Code ());
-    assertEquals ("0246", aMapping.getTargetISO6523Code ());
-    assertEquals ("de123456789", aMapping.getMappedValue ("de123456789"));
+    assertEquals ("0246:de123456789", aMapping.getMappedValue ("de123456789"));
   }
 
   @Test
@@ -45,13 +44,12 @@ public final class PeppolEndUserIDMappingTest
   {
     final PeppolEndUserIDMapping aMapping = PeppolEndUserIDMapping.createValueWithoutPrefix ("9925", "0208", "BE");
     assertEquals ("9925", aMapping.getSourceISO6523Code ());
-    assertEquals ("0208", aMapping.getTargetISO6523Code ());
     // Prefix is case insensitive
-    assertEquals ("0123456789", aMapping.getMappedValue ("BE0123456789"));
-    assertEquals ("0123456789", aMapping.getMappedValue ("be0123456789"));
-    assertEquals ("0123456789", aMapping.getMappedValue ("Be0123456789"));
+    assertEquals ("0208:0123456789", aMapping.getMappedValue ("BE0123456789"));
+    assertEquals ("0208:0123456789", aMapping.getMappedValue ("be0123456789"));
+    assertEquals ("0208:0123456789", aMapping.getMappedValue ("Be0123456789"));
     // No prefix present
-    assertEquals ("0123456789", aMapping.getMappedValue ("0123456789"));
+    assertEquals ("0208:0123456789", aMapping.getMappedValue ("0123456789"));
     // Nothing left after removing the prefix
     assertNull (aMapping.getMappedValue ("BE"));
   }

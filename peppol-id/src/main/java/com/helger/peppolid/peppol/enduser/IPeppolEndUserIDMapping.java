@@ -24,8 +24,8 @@ import com.helger.annotation.Nonempty;
 /**
  * Base interface for a single End User ID mapping rule, as used by {@link PeppolEndUserHelper}.
  * <p>
- * A mapping rule translates the participant identifiers of one Peppol issuing agency (identified
- * by its ISO6523 code) to the participant identifiers of another issuing agency. That is needed,
+ * A mapping rule translates the participant identifiers of one Peppol issuing agency (identified by
+ * its ISO6523 code) to the participant identifiers of another issuing agency. That is needed,
  * because several countries have multiple identifier schemes running in parallel that all identify
  * the same End User - e.g. in Belgium the schemes <code>0208</code> and <code>9925</code>. Without
  * such a mapping, a single End User would be counted multiple times.
@@ -49,14 +49,6 @@ public interface IPeppolEndUserIDMapping
   String getSourceISO6523Code ();
 
   /**
-   * @return The ISO6523 code of the issuing agency, the identifiers are mapped to. E.g.
-   *         <code>0208</code> for Belgian enterprise numbers. Neither <code>null</code> nor empty.
-   */
-  @NonNull
-  @Nonempty
-  String getTargetISO6523Code ();
-
-  /**
    * Get the identifier value to be used with the target issuing agency.
    *
    * @param sSourceValue
@@ -64,9 +56,9 @@ public interface IPeppolEndUserIDMapping
    *        the ISO6523 code and the colon. Neither <code>null</code> nor empty. For case
    *        insensitive identifier schemes, the value is already unified (lower cased).
    * @return <code>null</code> or an empty String, if this mapping rule is not applicable for the
-   *         provided value. In that case the source identifier is left unchanged. The local
-   *         participant identifier value to be used with {@link #getTargetISO6523Code()}
-   *         otherwise.
+   *         provided value. In that case the source identifier is left unchanged. The ISO6523 code
+   *         of the issuing agency, the identifiers are mapped to and the local participant
+   *         identifier value otherwise.
    */
   @Nullable
   String getMappedValue (@NonNull @Nonempty String sSourceValue);

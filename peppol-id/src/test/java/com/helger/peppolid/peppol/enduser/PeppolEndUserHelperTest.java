@@ -73,6 +73,35 @@ public final class PeppolEndUserHelperTest
   }
 
   @Test
+  public void testDefaultMappingFinland ()
+  {
+    // 0037 with the OVT prefix
+    assertEquals ("iso6523-actorid-upis::0216:00371234567800001",
+                  PeppolEndUserHelper.getEffectiveEndUserID (IF.createParticipantIdentifierWithDefaultScheme ("0037:00371234567800001")));
+    // 0037 without the OVT prefix - the same End User
+    assertEquals ("iso6523-actorid-upis::0216:00371234567800001",
+                  PeppolEndUserHelper.getEffectiveEndUserID (IF.createParticipantIdentifierWithDefaultScheme ("0037:1234567800001")));
+    // 0037 with a hyphen in the Business ID and without a suffix
+    assertEquals ("iso6523-actorid-upis::0216:003712345678",
+                  PeppolEndUserHelper.getEffectiveEndUserID (IF.createParticipantIdentifierWithDefaultScheme ("0037:1234567-8")));
+    // A Business ID starting with "0037" but without the OVT prefix
+    assertEquals ("iso6523-actorid-upis::0216:003700371234",
+                  PeppolEndUserHelper.getEffectiveEndUserID (IF.createParticipantIdentifierWithDefaultScheme ("0037:00371234")));
+    // The 0216 example value of the code list
+    assertEquals ("iso6523-actorid-upis::0216:003704944842tst01",
+                  PeppolEndUserHelper.getEffectiveEndUserID (IF.createParticipantIdentifierWithDefaultScheme ("0037:04944842TST01")));
+    // 0216 stays as it is
+    assertEquals ("iso6523-actorid-upis::0216:003704944842tst01",
+                  PeppolEndUserHelper.getEffectiveEndUserID (IF.createParticipantIdentifierWithDefaultScheme ("0216:003704944842TST01")));
+
+    // Values that are no valid OVT codes are not mapped
+    assertEquals ("iso6523-actorid-upis::0037:12345",
+                  PeppolEndUserHelper.getEffectiveEndUserID (IF.createParticipantIdentifierWithDefaultScheme ("0037:12345")));
+    assertEquals ("iso6523-actorid-upis::0037:12345678901234567890",
+                  PeppolEndUserHelper.getEffectiveEndUserID (IF.createParticipantIdentifierWithDefaultScheme ("0037:12345678901234567890")));
+  }
+
+  @Test
   public void testNoMapping ()
   {
     // No mapping for 0088 - but the value is unified
@@ -99,11 +128,11 @@ public final class PeppolEndUserHelperTest
   @Test
   public void testRegisterMapping ()
   {
-    assertEquals (2, PeppolEndUserHelper.getAllMappings ().size ());
+    assertEquals (3, PeppolEndUserHelper.getAllMappings ().size ());
 
     // A custom mapping - for testing purposes only
     PeppolEndUserHelper.registerMapping (PeppolEndUserIDMapping.createValueWithoutPrefix ("0088", "0060", "X"));
-    assertEquals (3, PeppolEndUserHelper.getAllMappings ().size ());
+    assertEquals (4, PeppolEndUserHelper.getAllMappings ().size ());
     assertEquals ("iso6523-actorid-upis::0060:1234567",
                   PeppolEndUserHelper.getEffectiveEndUserID (IF.createParticipantIdentifierWithDefaultScheme ("0088:X1234567")));
     // The mapped value would be empty, so the mapping is not applicable
@@ -111,7 +140,7 @@ public final class PeppolEndUserHelperTest
                   PeppolEndUserHelper.getEffectiveEndUserID (IF.createParticipantIdentifierWithDefaultScheme ("0088:X")));
 
     PeppolEndUserHelper.setToDefaultMappings ();
-    assertEquals (2, PeppolEndUserHelper.getAllMappings ().size ());
+    assertEquals (3, PeppolEndUserHelper.getAllMappings ().size ());
     assertEquals ("iso6523-actorid-upis::0088:x1234567",
                   PeppolEndUserHelper.getEffectiveEndUserID (IF.createParticipantIdentifierWithDefaultScheme ("0088:X1234567")));
   }

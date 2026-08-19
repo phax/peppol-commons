@@ -87,17 +87,13 @@ public class PeppolEndUserIDMapping implements IPeppolEndUserIDMapping
     return m_sSourceISO6523Code;
   }
 
-  @NonNull
-  @Nonempty
-  public String getTargetISO6523Code ()
-  {
-    return m_sTargetISO6523Code;
-  }
-
   @Nullable
   public String getMappedValue (@NonNull @Nonempty final String sSourceValue)
   {
-    return m_aValueMapper.apply (sSourceValue);
+    final String ret = m_aValueMapper.apply (sSourceValue);
+    if (ret == null)
+      return null;
+    return m_sTargetISO6523Code + ":" + ret;
   }
 
   @Override

@@ -31,6 +31,7 @@ import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.EChange;
 import com.helger.base.string.StringHelper;
+import com.helger.base.string.StringRemove;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.peppolid.CIdentifier;
@@ -53,9 +54,10 @@ import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierSche
  * <p>
  * Therefore this class applies a list of {@link IPeppolEndUserIDMapping} rules onto the provided
  * participant identifier, before it is converted to the End User ID String. The default mappings
- * are {@link #MAPPING_BE_VAT_TO_BE_EN} and {@link #MAPPING_DE_VAT_TO_DE_GEBA}. Additional mappings
- * can be added via {@link #registerMapping(IPeppolEndUserIDMapping)} and the default mappings can
- * be removed via {@link #unregisterMapping(IPeppolEndUserIDMapping)},
+ * are {@link #MAPPING_BE_VAT_TO_BE_EN}, {@link #MAPPING_DE_VAT_TO_DE_GEBA} and
+ * {@link #MAPPING_FI_OVT_TO_FI_OVT2}. Additional mappings can be added via
+ * {@link #registerMapping(IPeppolEndUserIDMapping)} and the default mappings can be removed via
+ * {@link #unregisterMapping(IPeppolEndUserIDMapping)},
  * {@link #unregisterAllMappingsOfSourceISO6523Code(String)} or {@link #removeAllMappings()}. The
  * mappings are evaluated in the order of their registration and the first applicable mapping wins.
  * </p>
@@ -76,6 +78,33 @@ import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierSche
 @ThreadSafe
 public final class PeppolEndUserHelper
 {
+  private static final class FI
+  {
+    /** The fixed prefix of a Finnish OVT code */
+    private static final String FI_OVT_PREFIX = "0037";
+    /** The minimum length of a Finnish OVT code: 4 chars prefix plus 8 chars Business ID */
+    private static final int FI_OVT_MIN_LENGTH = 12;
+    /** The maximum length of a Finnish OVT code: minimum length plus 5 chars suffix */
+    private static final int FI_OVT_MAX_LENGTH = 17;
+
+    @Nullable
+    static String getFinnishOVTCode (@NonNull final String sValue)
+    {
+      // The Business ID may contain a hyphen in scheme 0037, whereas scheme 0216 allows digits and
+      // letters only
+      final String sPlainValue = StringRemove.removeAll (sValue, '-');
+
+      // The prefix is optional in scheme 0037 but mandatory in scheme 0216. As the Business ID
+      // consists of 8 digits, a value that already contains the prefix has at least the minimum
+      // length
+      final boolean bHasPrefix = sPlainValue.startsWith (FI_OVT_PREFIX) && sPlainValue.length () >= FI_OVT_MIN_LENGTH;
+      final String ret = bHasPrefix ? sPlainValue : FI_OVT_PREFIX + sPlainValue;
+
+      // Don't map values that are no valid OVT codes
+      return ret.length () >= FI_OVT_MIN_LENGTH && ret.length () <= FI_OVT_MAX_LENGTH ? ret : null;
+    }
+  }
+
   /**
    * Belgium: map the Belgian VAT numbers (<code>9925</code>) onto the Belgian enterprise numbers
    * (<code>0208</code>) by removing the leading country code <code>BE</code> (case insensitive) if
@@ -90,6 +119,19 @@ public final class PeppolEndUserHelper
    */
   public static final IPeppolEndUserIDMapping MAPPING_DE_VAT_TO_DE_GEBA = PeppolEndUserIDMapping.createValueUnchanged (EPredefinedParticipantIdentifierScheme.DE_VAT.getISO6523Code (),
                                                                                                                        EPredefinedParticipantIdentifierScheme.DE_GEBA.getISO6523Code ());
+  /**
+   * Finland: map the removed OVT identifiers (<code>0037</code>) onto the OVT codes
+   * (<code>0216</code>). Both schemes contain the same OVT code, but in scheme <code>0037</code>
+   * the fixed prefix <code>0037</code> as well as a hyphen inside the Business ID are optional (see
+   * the code list validation rule <code>(0037)?[0-9]{7}-?[0-9][0-9A-Z]{0,5}</code> and the example
+   * values <code>0037:00371234567800001</code> and <code>0037:1234567800001</code>), whereas an
+   * identifier of scheme <code>0216</code> always starts with <code>0037</code> and contains digits
+   * and letters only. Therefore the hyphen is removed and a missing prefix is added. Values that do
+   * not result in an OVT code of 12 to 17 characters are not mapped.
+   */
+  public static final IPeppolEndUserIDMapping MAPPING_FI_OVT_TO_FI_OVT2 = new PeppolEndUserIDMapping ("0037",
+                                                                                                      EPredefinedParticipantIdentifierScheme.FI_OVT2.getISO6523Code (),
+                                                                                                      FI::getFinnishOVTCode);
 
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolEndUserHelper.class);
 
@@ -118,7 +160,7 @@ public final class PeppolEndUserHelper
   @ReturnsMutableCopy
   public static ICommonsList <IPeppolEndUserIDMapping> getAllDefaultMappings ()
   {
-    return new CommonsArrayList <> (MAPPING_BE_VAT_TO_BE_EN, MAPPING_DE_VAT_TO_DE_GEBA);
+    return new CommonsArrayList <> (MAPPING_BE_VAT_TO_BE_EN, MAPPING_DE_VAT_TO_DE_GEBA, MAPPING_FI_OVT_TO_FI_OVT2);
   }
 
   /**
@@ -277,8 +319,8 @@ public final class PeppolEndUserHelper
             final String sMappedValue = aMapping.getMappedValue (sLocalValue);
             if (StringHelper.isNotEmpty (sMappedValue))
             {
-              final String sNewValue = aMapping.getTargetISO6523Code () + ':' + sMappedValue;
-              final IParticipantIdentifier aMappedPID = aIF.createParticipantIdentifier (aPID.getScheme (), sNewValue);
+              final IParticipantIdentifier aMappedPID = aIF.createParticipantIdentifier (aPID.getScheme (),
+                                                                                         sMappedValue);
               if (aMappedPID != null)
               {
                 if (LOGGER.isDebugEnabled ())
@@ -293,7 +335,7 @@ public final class PeppolEndUserHelper
               LOGGER.warn ("The End User ID mapping of the participant identifier '" +
                            aPID.getURIEncoded () +
                            "' resulted in the invalid identifier value '" +
-                           sNewValue +
+                           sMappedValue +
                            "' - ignoring that mapping");
             }
             // else: this mapping is not applicable for that value - try the next one
