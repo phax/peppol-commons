@@ -18,6 +18,7 @@ package com.helger.peppolid.peppol.spis;
 
 import org.jspecify.annotations.Nullable;
 
+import com.helger.annotation.RegEx;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.cache.regex.RegExHelper;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
@@ -36,15 +37,30 @@ public final class SPIDHelper
   public static final String SPIS_PARTICIPANT_ID_SCHEME = EPredefinedParticipantIdentifierScheme.SPIS.getISO6523Code ();
 
   public static final int LEN_MAIN_ID = 6;
+  @RegEx
   private static final String _MAIN_ID = "[0-9]{" + LEN_MAIN_ID + "}";
+  @RegEx
   public static final String REGEX_MAIN_ID = "^" + _MAIN_ID + "$";
 
-  private static final String _USE_CASE_ID = "[0-9A-Z_]{3,12}";
+  public static final int MIN_LEN_USE_CASE_ID = 3;
+  public static final int MAX_LEN_USE_CASE_ID = 12;
+  @RegEx
+  private static final String _USE_CASE_ID = "[0-9A-Z_]{" + MIN_LEN_USE_CASE_ID + "," + MAX_LEN_USE_CASE_ID + "}";
+  @RegEx
   public static final String REGEX_USE_CASE_ID = "^(?i)" + _USE_CASE_ID + "$";
 
-  private static final String _SERVICE_PROVIDER_SUFFIX = "[0-9A-Z\\-\\._~]{3,24}";
+  public static final int MIN_LEN_SERVICE_PROVIDER_SUFFIX = 3;
+  public static final int MAX_LEN_SERVICE_PROVIDER_SUFFIX = 24;
+  @RegEx
+  private static final String _SERVICE_PROVIDER_SUFFIX = "[0-9A-Z\\-\\._~]{" +
+                                                         MIN_LEN_SERVICE_PROVIDER_SUFFIX +
+                                                         "," +
+                                                         MAX_LEN_SERVICE_PROVIDER_SUFFIX +
+                                                         "}";
+  @RegEx
   public static final String REGEX_SERVICE_PROVIDER_SUFFIX = "^(?i)" + _SERVICE_PROVIDER_SUFFIX + "$";
 
+  @RegEx
   public static final String REGEX_COMPLETE = "^(?i)" +
                                               _MAIN_ID +
                                               "(-" +
@@ -52,6 +68,9 @@ public final class SPIDHelper
                                               "(\\." +
                                               _SERVICE_PROVIDER_SUFFIX +
                                               ")?)?$";
+
+  public static final int MIN_LEN_SPID = LEN_MAIN_ID;
+  public static final int MAX_LEN_SPID = LEN_MAIN_ID + 1 + MAX_LEN_USE_CASE_ID + 1 + MAX_LEN_SERVICE_PROVIDER_SUFFIX;
 
   private SPIDHelper ()
   {}
@@ -64,24 +83,24 @@ public final class SPIDHelper
   public static boolean isValidUseCaseID (@Nullable final String s)
   {
     return s != null &&
-      s.length () >= 3 &&
-      s.length () <= 12 &&
+      s.length () >= MIN_LEN_USE_CASE_ID &&
+      s.length () <= MAX_LEN_USE_CASE_ID &&
       RegExHelper.stringMatchesPattern (REGEX_USE_CASE_ID, s);
   }
 
   public static boolean isValidServiceProviderSuffix (@Nullable final String s)
   {
     return s != null &&
-      s.length () >= 3 &&
-      s.length () <= 24 &&
+      s.length () >= MIN_LEN_SERVICE_PROVIDER_SUFFIX &&
+      s.length () <= MAX_LEN_SERVICE_PROVIDER_SUFFIX &&
       RegExHelper.stringMatchesPattern (REGEX_SERVICE_PROVIDER_SUFFIX, s);
   }
 
   public static boolean isValidSPID (@Nullable final String s)
   {
     return s != null &&
-      s.length () >= LEN_MAIN_ID &&
-      s.length () <= 44 &&
+      s.length () >= MIN_LEN_SPID &&
+      s.length () <= MAX_LEN_SPID &&
       RegExHelper.stringMatchesPattern (REGEX_COMPLETE, s);
   }
 
