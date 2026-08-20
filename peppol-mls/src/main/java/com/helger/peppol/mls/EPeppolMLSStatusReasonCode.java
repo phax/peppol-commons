@@ -39,7 +39,8 @@ public enum EPeppolMLSStatusReasonCode implements IHasID <String>
    */
   BUSINESS_RULE_VIOLATION_WARNING ("BW"),
   /**
-   * Failure of delivery
+   * Failure of delivery. C3 is permanently unable to pass on the message towards C4 (for whatever
+   * reason).
    */
   FAILURE_OF_DELIVERY ("FD"),
   /**
