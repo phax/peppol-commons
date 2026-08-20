@@ -35,7 +35,8 @@ public final class SPIDHelper
   /** The official Participant Identifier Scheme for SPIS (0242) */
   public static final String SPIS_PARTICIPANT_ID_SCHEME = EPredefinedParticipantIdentifierScheme.SPIS.getISO6523Code ();
 
-  private static final String _MAIN_ID = "[0-9]{6}";
+  public static final int LEN_MAIN_ID = 6;
+  private static final String _MAIN_ID = "[0-9]{" + LEN_MAIN_ID + "}";
   public static final String REGEX_MAIN_ID = "^" + _MAIN_ID + "$";
 
   private static final String _USE_CASE_ID = "[0-9A-Z_]{3,12}";
@@ -57,28 +58,31 @@ public final class SPIDHelper
 
   public static boolean isValidMainID (@Nullable final String s)
   {
-    return s != null && s.length () == 6 && RegExHelper.stringMatchesPattern (REGEX_MAIN_ID, s);
+    return s != null && s.length () == LEN_MAIN_ID && RegExHelper.stringMatchesPattern (REGEX_MAIN_ID, s);
   }
 
   public static boolean isValidUseCaseID (@Nullable final String s)
   {
     return s != null &&
-           s.length () >= 3 &&
-           s.length () <= 12 &&
-           RegExHelper.stringMatchesPattern (REGEX_USE_CASE_ID, s);
+      s.length () >= 3 &&
+      s.length () <= 12 &&
+      RegExHelper.stringMatchesPattern (REGEX_USE_CASE_ID, s);
   }
 
   public static boolean isValidServiceProviderSuffix (@Nullable final String s)
   {
     return s != null &&
-           s.length () >= 3 &&
-           s.length () <= 24 &&
-           RegExHelper.stringMatchesPattern (REGEX_SERVICE_PROVIDER_SUFFIX, s);
+      s.length () >= 3 &&
+      s.length () <= 24 &&
+      RegExHelper.stringMatchesPattern (REGEX_SERVICE_PROVIDER_SUFFIX, s);
   }
 
   public static boolean isValidSPID (@Nullable final String s)
   {
-    return s != null && s.length () >= 6 && s.length () <= 44 && RegExHelper.stringMatchesPattern (REGEX_COMPLETE, s);
+    return s != null &&
+      s.length () >= LEN_MAIN_ID &&
+      s.length () <= 44 &&
+      RegExHelper.stringMatchesPattern (REGEX_COMPLETE, s);
   }
 
   /**
@@ -96,7 +100,7 @@ public final class SPIDHelper
   {
     if (!isValidSPID (sSPID))
       return null;
-    return sSPID.substring (0, 6);
+    return sSPID.substring (0, LEN_MAIN_ID);
   }
 
   /**
@@ -128,7 +132,8 @@ public final class SPIDHelper
   /**
    * Extract the Service Provider suffix from an SPID. An SPID has the format
    * <code>MainID[-UseCaseID[.ServiceProviderSuffix]]</code>, so the suffix is everything after the
-   * first <code>.</code>. Note that the suffix itself may contain further <code>.</code> characters.
+   * first <code>.</code>. Note that the suffix itself may contain further <code>.</code>
+   * characters.
    *
    * @param sSPID
    *        The SPID to extract the Service Provider suffix from. May be <code>null</code>.
