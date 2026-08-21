@@ -23,6 +23,7 @@ import java.security.cert.X509Certificate;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.OffsetDateTime;
 import java.util.Locale;
 import java.util.function.Consumer;
 
@@ -42,6 +43,7 @@ import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.datetime.helper.PDTFactory;
+import com.helger.datetime.xml.XMLOffsetDateTime;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.peppolid.CIdentifier;
@@ -587,12 +589,13 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   {
     ValueEnforcer.notNull (aEndpoint, "Endpoint");
     ValueEnforcer.notNull (aCheckDT, "CheckDT");
+    final OffsetDateTime aCheckODT = PDTFactory.createOffsetDateTime (aCheckDT);
 
     // Check not before time
-    final LocalDateTime aNotBefore = aEndpoint.getServiceActivationDateLocal ();
+    final XMLOffsetDateTime aNotBefore = aEndpoint.getServiceActivationDate ();
     if (aNotBefore != null)
     {
-      if (aCheckDT.isBefore (aNotBefore))
+      if (aCheckODT.isBefore (aNotBefore.toOffsetDateTime ()))
       {
         if (LOGGER.isDebugEnabled ())
           LOGGER.debug ("SMP endpoint activation date " + aNotBefore + " is after the check DT " + aCheckDT);
@@ -601,10 +604,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     }
 
     // Check not after time
-    final LocalDateTime aNotAfter = aEndpoint.getServiceExpirationDateLocal ();
+    final XMLOffsetDateTime aNotAfter = aEndpoint.getServiceExpirationDate ();
     if (aNotAfter != null)
     {
-      if (aCheckDT.isAfter (aNotAfter))
+      if (aCheckODT.isAfter (aNotAfter.toOffsetDateTime ()))
       {
         if (LOGGER.isDebugEnabled ())
           LOGGER.debug ("SMP endpoint expiration date " + aNotAfter + " is before the check DT " + aCheckDT);
