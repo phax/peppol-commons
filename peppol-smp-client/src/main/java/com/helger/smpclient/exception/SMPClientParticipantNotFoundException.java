@@ -38,11 +38,13 @@ import org.jspecify.annotations.NonNull;
 @Deprecated (forRemoval = true, since = "12.8.0")
 public class SMPClientParticipantNotFoundException extends SMPClientException
 {
+  @Deprecated (forRemoval = true, since = "12.8.0")
   public SMPClientParticipantNotFoundException (@NonNull final UnknownHostException ex)
   {
     super (ex);
   }
 
+  @Deprecated (forRemoval = true, since = "12.8.0")
   public SMPClientParticipantNotFoundException (@NonNull final ConnectException ex)
   {
     super (ex);
@@ -57,6 +59,7 @@ public class SMPClientParticipantNotFoundException extends SMPClientException
    *        The causing exception. May not be <code>null</code>.
    * @since 12.8.0
    */
+  @Deprecated (forRemoval = true, since = "12.8.0")
   protected SMPClientParticipantNotFoundException (@NonNull final String sMsg, @NonNull final IOException ex)
   {
     super (sMsg, ex);
