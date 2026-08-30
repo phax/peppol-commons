@@ -59,6 +59,8 @@ public final class PeppolParticipantCountryHelper
   public static final String DE = "DE";
   public static final String DK = "DK";
   public static final String FR = "FR";
+  public static final String GB = "GB";
+  public static final String GR = "GR";
   public static final String JP = "JP";
   public static final String NZ = "NZ";
   public static final String SK = "SK";
@@ -71,6 +73,17 @@ public final class PeppolParticipantCountryHelper
   public static final String ICD_EU_VAT = "9912";
   /** IBAN - the identifier value starts with the country code */
   public static final String ICD_IBAN = "9918";
+
+  /**
+   * The EU VAT prefix of Greece. This is the only EU VAT prefix that differs from the ISO 3166-1
+   * alpha-2 country code {@link #GR}.
+   */
+  public static final String EU_VAT_PREFIX_GREECE = "EL";
+  /**
+   * The EU VAT prefix of Northern Ireland. Northern Ireland has no ISO 3166-1 alpha-2 country code
+   * of its own, so it is mapped onto {@link #GB}.
+   */
+  public static final String EU_VAT_PREFIX_NORTHERN_IRELAND = "XI";
 
   private static boolean _isCountryCode (@Nullable final String sValue)
   {
@@ -127,7 +140,8 @@ public final class PeppolParticipantCountryHelper
 
   /**
    * Get the country code of an EU VAT number. Two EU VAT prefixes differ from the ISO 3166-1
-   * alpha-2 country code: "EL" is used for Greece and "XI" is used for Northern Ireland.
+   * alpha-2 country code: {@link #EU_VAT_PREFIX_GREECE} is used for Greece and
+   * {@link #EU_VAT_PREFIX_NORTHERN_IRELAND} is used for Northern Ireland.
    *
    * @param sIdentifier
    *        The identifier value, without the ISO 6523 scheme. May not be <code>null</code>.
@@ -137,10 +151,10 @@ public final class PeppolParticipantCountryHelper
   private static String _getVATCountryCode (@NonNull final String sIdentifier)
   {
     final String sCountryCode = _getLeadingCountryCode (sIdentifier);
-    if ("EL".equals (sCountryCode))
-      return "GR";
-    if ("XI".equals (sCountryCode))
-      return "GB";
+    if (EU_VAT_PREFIX_GREECE.equals (sCountryCode))
+      return GR;
+    if (EU_VAT_PREFIX_NORTHERN_IRELAND.equals (sCountryCode))
+      return GB;
     return sCountryCode;
   }
 
