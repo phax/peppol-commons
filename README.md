@@ -371,7 +371,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.9.0 - work in progress
+v12.9.0 - 2026-08-30
 * Added the new submodule `peppol-id-checks`. It contains checks and derivations on top of the `peppol-id` data structures that require dependencies `peppol-id` itself deliberately does not have.
 * Added the new class `PeppolParticipantCountryHelper` in the new module `peppol-id-checks`, to determine the country of a Peppol participant identifier that uses the default scheme `iso6523-actorid-upis`.
   The mapping is derived from `EPredefinedParticipantIdentifierScheme` - every scheme that is bound to a single country maps all its participants onto that country.
