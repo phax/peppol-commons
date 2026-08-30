@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**peppol-commons** is a Java library collection implementing Peppol (Pan-European Public Procurement Online) e-invoicing and eDelivery standards. It provides ID handling, SMP/SML clients, SBDH processing, and related infrastructure. Dual-licensed under MPL 2.0 and Apache 2.0. Author: Philip Helger.
+**peppol-commons** is a Java library collection implementing Peppol (Pan-European Public Procurement Online) e-invoicing and eDelivery standards. It provides ID handling, SMP/SML clients, SBDH processing, and related infrastructure. Licensed under Apache 2.0. Author: Philip Helger.
 
 ## Build Commands
 
@@ -68,7 +68,7 @@ Several modules use code generation — do not edit generated files directly:
 - **Test framework**: JUnit 4 (`@Test`, static assertions)
 - **Test naming**: `{ClassName}Test`
 - **Package root**: `com.helger.peppol*`, `com.helger.peppolid*`, `com.helger.smpclient*`, `com.helger.dbnalliance*`
-- **License header**: Apache 2.0 / MPL 2.0 dual license, years 2015-2026
+- **License header**: Apache 2.0, years 2015-2026
 - **OSGi**: All modules are OSGi bundles with explicit export packages and automatic module names
 
 ## Key Configuration

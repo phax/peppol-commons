@@ -353,6 +353,12 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.8.2 - work in progress
+* Unified the license declaration of all submodules to Apache 2.0.
+  The Maven POMs of `peppol-commons`, `peppol-id`, `peppol-id-datatypes`, `peppol-sml-client` and `peppol-smp-client` as well as the parent POM still declared MPL 2.0, contradicting the source file headers and the repository `LICENSE` file.
+  The `LICENSE` files contained in the JARs of `peppol-id`, `peppol-smp-datatypes`, `peppol-sml-client` and `peppol-smp-client` were updated accordingly.
+  See [issue #82](https://github.com/phax/peppol-commons/issues/82)
+
 v12.8.1 - 2026-08-19
 * Added the new class `PeppolEndUserHelper` in module `peppol-id`, to determine a unique End User ID from a participant identifier, as it is needed for the Peppol End User Statistics Report (EUSR).
   Using the participant identifier as the End User ID is only a mediocre simplification, because several countries have multiple identifier schemes running in parallel that all identify the same End User.
