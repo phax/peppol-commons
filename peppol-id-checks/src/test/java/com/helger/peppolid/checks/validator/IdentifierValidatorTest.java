@@ -65,6 +65,33 @@ public final class IdentifierValidatorTest
   }
 
   @Test
+  public void testBelgium ()
+  {
+    // Belgian enterprise number - scheme 0208
+    assertFalse (IdentifierValidator.isValidParticipantIdentifier (F.apply (EPredefinedParticipantIdentifierScheme.BE_EN,
+                                                                            "0417497107")));
+    assertTrue (IdentifierValidator.isValidParticipantIdentifier (F.apply (EPredefinedParticipantIdentifierScheme.BE_EN,
+                                                                           "0417497106")));
+    assertTrue (IdentifierValidator.isValidParticipantIdentifier (F.apply (EPredefinedParticipantIdentifierScheme.BE_EN,
+                                                                           "1000000021")));
+    // The VAT prefix does not belong into scheme 0208
+    assertFalse (IdentifierValidator.isValidParticipantIdentifier (F.apply (EPredefinedParticipantIdentifierScheme.BE_EN,
+                                                                            "BE0417497106")));
+
+    // Belgian VAT number - scheme 9925
+    assertFalse (IdentifierValidator.isValidParticipantIdentifier (F.apply (EPredefinedParticipantIdentifierScheme.BE_VAT,
+                                                                            "BE0417497107")));
+    assertTrue (IdentifierValidator.isValidParticipantIdentifier (F.apply (EPredefinedParticipantIdentifierScheme.BE_VAT,
+                                                                           "BE0417497106")));
+    // The identifier factory lower cases the value, so the prefix must be handled case insensitively
+    assertTrue (IdentifierValidator.isValidParticipantIdentifier (F.apply (EPredefinedParticipantIdentifierScheme.BE_VAT,
+                                                                           "be0417497106")));
+    // The prefix is mandatory in scheme 9925
+    assertFalse (IdentifierValidator.isValidParticipantIdentifier (F.apply (EPredefinedParticipantIdentifierScheme.BE_VAT,
+                                                                            "0417497106")));
+  }
+
+  @Test
   public void testWithoutRules ()
   {
     // No special rules available -> all valid!
