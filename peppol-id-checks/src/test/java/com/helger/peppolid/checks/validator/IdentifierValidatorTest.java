@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015-2026 Philip Helger
+ * Copyright (C) 2026 Philip Helger
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppolid.peppol.validator;
+package com.helger.peppolid.checks.validator;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

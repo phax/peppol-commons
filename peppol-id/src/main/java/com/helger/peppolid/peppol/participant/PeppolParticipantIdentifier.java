@@ -33,7 +33,6 @@ import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.peppol.IPeppolIdentifier;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
-import com.helger.peppolid.peppol.validator.IdentifierValidator;
 import com.helger.xsds.peppol.id1.ParticipantIdentifierType;
 
 /**
@@ -120,17 +119,6 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
   public boolean hasDefaultScheme ()
   {
     return hasScheme (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME);
-  }
-
-  /**
-   * @return <code>true</code> if the identifier is valid according to the internal and external
-   *         validation rules as defined by
-   *         {@link com.helger.peppolid.peppol.validator.IParticipantIdentifierValidatorSPI}
-   *         implementations.
-   */
-  public boolean isSemanticallyValid ()
-  {
-    return IdentifierValidator.isValidParticipantIdentifier (this);
   }
 
   /**

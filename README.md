@@ -10,6 +10,7 @@
 This project contains different libraries that are commonly used in the Peppol/eDelivery area:
 * [`peppol-id-datatypes`](#peppol-id-datatypes) - the generated JAXB classes for ID handling (since v8.4.0)
 * [`peppol-id`](#peppol-id) - the ID data structures (since v7.0.0)
+* [`peppol-id-checks`](#peppol-id-checks) - checks and derivations on top of the ID data structures (since v12.9.0)
 * [`peppol-commons`](#peppol-commons) - the most basic data structures for use with Peppol and BDXR
 * [`peppol-testfiles`](#peppol-testfiles) - a set of UBL and SBDH test files
 * [`peppol-sbdh`](#peppol-sbdh) - Peppol specific SBDH handling
@@ -44,6 +45,17 @@ The additional code is created in `target/generated-sources/xjc`.
 
 Java library with shared IDs and predefined IDs.
 First created in v7.0.0.
+
+## peppol-id-checks
+
+Java library with checks and derivations on top of the `peppol-id` data structures.
+First created in v12.9.0.
+
+It is a separate submodule, because the contained code requires dependencies that `peppol-id` itself deliberately does not have - currently `ph-masterdata` for the GS1 prefix to country mapping.
+
+It contains:
+* `PeppolParticipantCountryHelper` - determines the country of a Peppol participant identifier
+* `IdentifierValidator` and `IParticipantIdentifierValidatorSPI` - the SPI based semantic validation of participant identifier values (moved from `peppol-id` in v12.9.0)
 
 ## peppol-commons
 
@@ -264,6 +276,12 @@ Add the following to your pom.xml to use this artifact, replacing `x.y.z` with t
 
 <dependency>
   <groupId>com.helger.peppol</groupId>
+  <artifactId>peppol-id-checks</artifactId>
+  <version>x.y.z</version>
+</dependency>
+
+<dependency>
+  <groupId>com.helger.peppol</groupId>
   <artifactId>peppol-commons</artifactId>
   <version>x.y.z</version>
 </dependency>
@@ -353,7 +371,18 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.8.2 - work in progress
+v12.9.0 - work in progress
+* Added the new submodule `peppol-id-checks`. It contains checks and derivations on top of the `peppol-id` data structures that require dependencies `peppol-id` itself deliberately does not have.
+* Added the new class `PeppolParticipantCountryHelper` in the new module `peppol-id-checks`, to determine the country of a Peppol participant identifier that uses the default scheme `iso6523-actorid-upis`.
+  The mapping is derived from `EPredefinedParticipantIdentifierScheme` - every scheme that is bound to a single country maps all its participants onto that country.
+  For the four schemes that carry the country inside the identifier value the value is evaluated instead: GLN (`0088`) and GS1 (`0209`) via the GS1 prefix (using `EGS1Prefix` from `ph-masterdata`), IBAN (`9918`) via the leading country code and EU VAT (`9912`) via the VAT prefix, where `EL` is mapped onto `GR` and `XI` onto `GB`.
+* **Breaking API change** Moved `IdentifierValidator`, `IParticipantIdentifierValidatorSPI` and `ParticipantIdentifierValidatorNorwayOrgNumber` from module `peppol-id` (package `com.helger.peppolid.peppol.validator`) to the new module `peppol-id-checks` (package `com.helger.peppolid.checks.validator`).
+  The name of the SPI descriptor file in `META-INF/services` changed accordingly, so custom implementations need to rename their descriptor file as well.
+* **Breaking API change** The method `IParticipantIdentifierValidatorSPI.isValueValid` takes the issuing agency ID as the new first parameter, so that a single implementation can apply different rules per supported issuing agency.
+  Previously only the identifier value was passed in, and an implementation supporting more than one issuing agency could not tell them apart.
+* **Breaking API change** Removed the method `PeppolParticipantIdentifier.isSemanticallyValid ()`, because it referenced `IdentifierValidator` which now resides in the module `peppol-id-checks` that depends on `peppol-id`.
+  Use `IdentifierValidator.isValidParticipantIdentifier (aParticipantID)` from the module `peppol-id-checks` instead.
+* The module `peppol-commons` now requires `ph-masterdata` 8.2.1 for the new submodule `peppol-id-checks`.
 * Unified the license declaration of all submodules to Apache 2.0.
   The Maven POMs of `peppol-commons`, `peppol-id`, `peppol-id-datatypes`, `peppol-sml-client` and `peppol-smp-client` as well as the parent POM still declared MPL 2.0, contradicting the source file headers and the repository `LICENSE` file.
   The `LICENSE` files contained in the JARs of `peppol-id`, `peppol-smp-datatypes`, `peppol-sml-client` and `peppol-smp-client` were updated accordingly.

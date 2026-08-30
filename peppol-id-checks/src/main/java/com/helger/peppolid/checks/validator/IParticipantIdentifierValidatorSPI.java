@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015-2026 Philip Helger
+ * Copyright (C) 2026 Philip Helger
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppolid.peppol.validator;
+package com.helger.peppolid.checks.validator;
 
 import org.jspecify.annotations.NonNull;
 
@@ -48,10 +48,17 @@ public interface IParticipantIdentifierValidatorSPI
    * check for the scheme ({@link #isSupportedIssuingAgency(String)} returned
    * <code>true</code>.
    *
+   * @param sIssuingAgencyID
+   *        The issuing agency ID (like "9908") the value belongs to. Is neither
+   *        null nor empty. This is the same value for which
+   *        {@link #isSupportedIssuingAgency(String)} returned <code>true</code>
+   *        and it allows a single implementation to apply different rules per
+   *        supported issuing agency.
    * @param sValue
    *        The identifier value to be checked. Is neither null nor empty.
    * @return <code>true</code> if the identifier value is valid,
    *         <code>false</code> if not.
+   * @since 12.9.0 the issuing agency ID is passed in as well
    */
-  boolean isValueValid (@NonNull @Nonempty String sValue);
+  boolean isValueValid (@NonNull @Nonempty String sIssuingAgencyID, @NonNull @Nonempty String sValue);
 }

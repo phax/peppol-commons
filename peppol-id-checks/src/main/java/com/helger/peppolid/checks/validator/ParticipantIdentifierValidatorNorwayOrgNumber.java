@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015-2026 Philip Helger
+ * Copyright (C) 2026 Philip Helger
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppolid.peppol.validator;
+package com.helger.peppolid.checks.validator;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -25,36 +25,22 @@ import com.helger.base.string.StringHelper;
 import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
 
 /**
- * Implementation of {@link IParticipantIdentifierValidatorSPI} for the
- * Norwegian Organisation Number.
+ * Implementation of {@link IParticipantIdentifierValidatorSPI} for the Norwegian Organisation
+ * Number.
  *
  * @author Philip Helger
  */
 @IsSPIImplementation
 public final class ParticipantIdentifierValidatorNorwayOrgNumber implements IParticipantIdentifierValidatorSPI
 {
-  private static final int [] WEIGHTS = new int [] { 3, 2, 7, 6, 5, 4, 3, 2 };
-
-  @SuppressWarnings ("deprecation")
-  public boolean isSupportedIssuingAgency (@NonNull @Nonempty final String sIssuingAgencyID)
-  {
-    return EPredefinedParticipantIdentifierScheme.NO_ORGNR.getISO6523Code ().equals (sIssuingAgencyID) ||
-           EPredefinedParticipantIdentifierScheme.NO_ORG.getISO6523Code ().equals (sIssuingAgencyID) ||
-           EPredefinedParticipantIdentifierScheme.NO_VAT.getISO6523Code ().equals (sIssuingAgencyID);
-  }
-
-  public boolean isValueValid (@NonNull @Nonempty final String sValue)
-  {
-    return isValidOrganisationNumber (sValue);
-  }
+  private static final int [] WEIGHTS = { 3, 2, 7, 6, 5, 4, 3, 2 };
 
   /**
    * Static check method.
    *
    * @param sValue
    *        The value to be checked.
-   * @return <code>true</code> if the passed value is a valid NO organisation
-   *         number.
+   * @return <code>true</code> if the passed value is a valid NO organisation number.
    */
   public static boolean isValidOrganisationNumber (@Nullable final String sValue)
   {
@@ -86,5 +72,20 @@ public final class ParticipantIdentifierValidatorNorwayOrgNumber implements IPar
 
     final int nCalculatedCheckDigit = 11 - nModulus;
     return nActualCheckDigit == nCalculatedCheckDigit;
+  }
+
+  @SuppressWarnings ("deprecation")
+  public boolean isSupportedIssuingAgency (@NonNull @Nonempty final String sIssuingAgencyID)
+  {
+    return EPredefinedParticipantIdentifierScheme.NO_ORGNR.getISO6523Code ().equals (sIssuingAgencyID) ||
+           EPredefinedParticipantIdentifierScheme.NO_ORG.getISO6523Code ().equals (sIssuingAgencyID) ||
+           EPredefinedParticipantIdentifierScheme.NO_VAT.getISO6523Code ().equals (sIssuingAgencyID);
+  }
+
+  public boolean isValueValid (@NonNull @Nonempty final String sIssuingAgencyID,
+                               @NonNull @Nonempty final String sValue)
+  {
+    // The same organisation number syntax applies to all supported issuing agencies
+    return isValidOrganisationNumber (sValue);
   }
 }
