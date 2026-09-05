@@ -16,6 +16,7 @@
  */
 package com.helger.peppol.mls;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -35,6 +36,8 @@ import com.helger.io.file.FileSystemRecursiveIterator;
 import com.helger.io.file.IFileFilter;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.io.resource.FileSystemResource;
+import com.helger.schematron.ISchematronResource;
+import com.helger.schematron.sch.SchematronResourceSCH;
 import com.helger.schematron.svrl.AbstractSVRLMessage;
 import com.helger.schematron.svrl.SVRLHelper;
 import com.helger.schematron.svrl.SVRLMarshaller;
@@ -56,6 +59,30 @@ import com.helger.xml.serialize.write.XMLWriterSettings;
 public final class PeppolMLSValidatorTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolMLSValidatorTest.class);
+
+  @SuppressWarnings ("removal")
+  @Test
+  public void testPrecompiledSchematron () throws Exception
+  {
+    final ISchematronResource [] aCompiled = { PeppolMLSValidator.getSchematronMLS_100 (),
+                                             PeppolMLSValidator.getSchematronMLS_101 () };
+    final String [] aPaths = { PeppolMLSValidator.SCH_MLS_100_PATH, PeppolMLSValidator.SCH_MLS_101_PATH };
+    for (int i = 0; i < aCompiled.length; ++i)
+    {
+      final ISchematronResource aOriginal = SchematronResourceSCH.builderFromClassPath (aPaths[i]).build ();
+      assertTrue (aCompiled[i].isValidSchematron ());
+      assertTrue (aOriginal.isValidSchematron ());
+      for (final File f : new FileSystemRecursiveIterator (new File ("src/test/resources/external/test-files")).withFilter (IFileFilter.filenameEndsWith (".xml")))
+      {
+        final FileSystemResource aXML = new FileSystemResource (f);
+        final SchematronOutputType aExpected = aOriginal.applySchematronValidationToSVRL (aXML);
+        assertNotNull (aExpected);
+        assertEquals (aPaths[i] + " / " + f.getName (),
+                      aExpected,
+                      aCompiled[i].applySchematronValidationToSVRL (aXML));
+      }
+    }
+  }
 
   @Test
   public void testReadGood () throws Exception
