@@ -371,6 +371,12 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.9.1 - work in progress
+* Removed the dependency of the module `peppol-commons` onto `ph-bc` and therefore onto Bouncy Castle.
+  The main source code of `peppol-commons` does not reference Bouncy Castle at all - the provider neutral `ph-security` of `ph-commons` 12.4.0 is sufficient to load the Peppol trust stores.
+  If you need to read the `BCFKS` trust stores, you need to add `ph-bc` (or Bouncy Castle) to your project explicitly. The modules `dbnalliance-commons` and `hredelivery-commons` still depend on `ph-bc`.
+  See [PR #81](https://github.com/phax/peppol-commons/pull/81) - thx @gregjotau
+
 v12.9.0 - 2026-08-30
 * Added the new submodule `peppol-id-checks`. It contains checks and derivations on top of the `peppol-id` data structures that require dependencies `peppol-id` itself deliberately does not have.
 * Added the new class `PeppolParticipantCountryHelper` in the new module `peppol-id-checks`, to determine the country of a Peppol participant identifier that uses the default scheme `iso6523-actorid-upis`.
