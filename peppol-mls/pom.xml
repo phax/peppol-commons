@@ -102,6 +102,11 @@
         <artifactId>ph-schematron-maven-plugin</artifactId>
         <version>${ph-schematron.version}</version>
         <executions>
+          <!--
+            Remove the comment and recompile XSLT only if SCH changed
+            This saves CPU cycles on compilation.
+          -->
+          <!--
           <execution>
             <id>compile-mls-schematron</id>
             <goals>
@@ -109,9 +114,11 @@
             </goals>
             <configuration>
               <schematronDirectory>src/main/resources/external/schematron</schematronDirectory>
-              <xsltDirectory>${project.build.outputDirectory}/external/schematron</xsltDirectory>
+              <xsltDirectory>src/main/resources/external/schematron</xsltDirectory>
+              <schematronPattern>*.sch</schematronPattern>
             </configuration>
           </execution>
+          -->
         </executions>
       </plugin>
     </plugins>

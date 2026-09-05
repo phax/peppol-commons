@@ -31,13 +31,11 @@ import com.helger.schematron.xslt.SchematronResourceXSLT;
 @NotThreadSafe
 public final class PeppolMLSValidator
 {
-  public static final String SCH_MLS_100_PATH = "external/schematron/old/peppol-mls-1.0.0.sch";
   public static final String SCH_MLS_101_PATH = "external/schematron/peppol-mls-1.0.1.sch";
 
-  private static final ISchematronResource SCH_MLS_100 = SchematronResourceXSLT.builderFromClassPath (SCH_MLS_100_PATH.replace (".sch", ".xslt"))
-                                                                              .build ();
-  private static final ISchematronResource SCH_MLS_101 = SchematronResourceXSLT.builderFromClassPath (SCH_MLS_101_PATH.replace (".sch", ".xslt"))
-                                                                              .build ();
+  private static final ISchematronResource SCH_MLS_101 = SchematronResourceXSLT.builderFromClassPath (SCH_MLS_101_PATH.replace (".sch",
+                                                                                                                                ".xslt"))
+                                                                               .build ();
 
   static
   {
@@ -48,16 +46,6 @@ public final class PeppolMLSValidator
 
   private PeppolMLSValidator ()
   {}
-
-  /**
-   * @return Schematron MLS v1.0.0
-   */
-  @NonNull
-  @Deprecated (forRemoval = true, since = "12.1.1")
-  public static ISchematronResource getSchematronMLS_100 ()
-  {
-    return SCH_MLS_100;
-  }
 
   /**
    * @return Schematron MLS v1.0.1

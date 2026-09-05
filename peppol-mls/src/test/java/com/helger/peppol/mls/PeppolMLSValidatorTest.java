@@ -60,13 +60,12 @@ public final class PeppolMLSValidatorTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolMLSValidatorTest.class);
 
-  @SuppressWarnings ("removal")
   @Test
   public void testPrecompiledSchematron () throws Exception
   {
-    final ISchematronResource [] aCompiled = { PeppolMLSValidator.getSchematronMLS_100 (),
-                                             PeppolMLSValidator.getSchematronMLS_101 () };
-    final String [] aPaths = { PeppolMLSValidator.SCH_MLS_100_PATH, PeppolMLSValidator.SCH_MLS_101_PATH };
+    final ISchematronResource [] aCompiled = { PeppolMLSValidator.getSchematronMLS_101 () };
+    final String [] aPaths = { PeppolMLSValidator.SCH_MLS_101_PATH };
+
     for (int i = 0; i < aCompiled.length; ++i)
     {
       final ISchematronResource aOriginal = SchematronResourceSCH.builderFromClassPath (aPaths[i]).build ();
@@ -77,9 +76,7 @@ public final class PeppolMLSValidatorTest
         final FileSystemResource aXML = new FileSystemResource (f);
         final SchematronOutputType aExpected = aOriginal.applySchematronValidationToSVRL (aXML);
         assertNotNull (aExpected);
-        assertEquals (aPaths[i] + " / " + f.getName (),
-                      aExpected,
-                      aCompiled[i].applySchematronValidationToSVRL (aXML));
+        assertEquals (aPaths[i] + " / " + f.getName (), aExpected, aCompiled[i].applySchematronValidationToSVRL (aXML));
       }
     }
   }
