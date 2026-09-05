@@ -376,6 +376,13 @@ v12.9.1 - work in progress
   The main source code of `peppol-commons` does not reference Bouncy Castle at all - the provider neutral `ph-security` of `ph-commons` 12.4.0 is sufficient to load the Peppol trust stores.
   If you need to read the `BCFKS` trust stores, you need to add `ph-bc` (or Bouncy Castle) to your project explicitly. The modules `dbnalliance-commons` and `hredelivery-commons` still depend on `ph-bc`.
   See [PR #81](https://github.com/phax/peppol-commons/pull/81) - thx @gregjotau
+* The Peppol MLS 1.0.1 Schematron is now shipped as a precompiled XSLT (`external/schematron/peppol-mls-1.0.1.xslt`), so `PeppolMLSValidator` no longer needs to convert the Schematron to XSLT at runtime, which speeds up the first validation significantly.
+  Therefore the module `peppol-mls` now requires `ph-schematron-xslt` instead of `ph-schematron-isosch` at runtime - the latter is only used as a test dependency, where the new test `testPrecompiledSchematron` asserts that the precompiled XSLT creates exactly the same SVRL output as the original `.sch` file.
+  The `ph-schematron-maven-plugin` execution that creates the XSLT is contained in `peppol-mls/pom.xml` but is commented out - it only needs to be enabled if the `.sch` file changes.
+  See [PR #83](https://github.com/phax/peppol-commons/pull/83) - thx @gregjotau
+* **Breaking API change** Removed the Peppol MLS 1.0.0 Schematron - the method `PeppolMLSValidator.getSchematronMLS_100 ()`, the constant `PeppolMLSValidator.SCH_MLS_100_PATH` and the resource `external/schematron/old/peppol-mls-1.0.0.sch` were removed.
+  The method was deprecated since v12.1.1 - use `PeppolMLSValidator.getSchematronMLS_101 ()` instead.
+* Updated to ph-web 11.4.5
 
 v12.9.0 - 2026-08-30
 * Added the new submodule `peppol-id-checks`. It contains checks and derivations on top of the `peppol-id` data structures that require dependencies `peppol-id` itself deliberately does not have.

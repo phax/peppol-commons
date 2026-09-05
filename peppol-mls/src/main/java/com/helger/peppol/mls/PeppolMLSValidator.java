@@ -48,6 +48,26 @@ public final class PeppolMLSValidator
   {}
 
   /**
+   * @return Schematron MLS v1.x
+   * @since 12.9.1
+   */
+  @NonNull
+  public static ISchematronResource getSchematronMLS_1 ()
+  {
+    return SCH_MLS_101;
+  }
+
+  /**
+   * @return Schematron MLS v1.0.x
+   * @since 12.9.1
+   */
+  @NonNull
+  public static ISchematronResource getSchematronMLS_10 ()
+  {
+    return SCH_MLS_101;
+  }
+
+  /**
    * @return Schematron MLS v1.0.1
    */
   @NonNull
