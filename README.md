@@ -374,7 +374,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 v12.9.1 - work in progress
 * Removed the dependency of the module `peppol-commons` onto `ph-bc` and therefore onto Bouncy Castle.
   The main source code of `peppol-commons` does not reference Bouncy Castle at all - the provider neutral `ph-security` of `ph-commons` 12.4.0 is sufficient to load the Peppol trust stores.
-  If you need to read the `BCFKS` trust stores, you need to add `ph-bc` (or Bouncy Castle) to your project explicitly. The modules `dbnalliance-commons` and `hredelivery-commons` still depend on `ph-bc`.
+  If you need to read the `BCFKS` trust stores, you need to add `ph-bc` (or Bouncy Castle) to your project explicitly.
+  The modules `dbnalliance-commons` and `hredelivery-commons` still depend on `ph-bc`.
   See [PR #81](https://github.com/phax/peppol-commons/pull/81) - thx @gregjotau
 * The Peppol MLS 1.0.1 Schematron is now shipped as a precompiled XSLT (`external/schematron/peppol-mls-1.0.1.xslt`), so `PeppolMLSValidator` no longer needs to convert the Schematron to XSLT at runtime, which speeds up the first validation significantly.
   Therefore the module `peppol-mls` now requires `ph-schematron-xslt` instead of `ph-schematron-isosch` at runtime - the latter is only used as a test dependency, where the new test `testPrecompiledSchematron` asserts that the precompiled XSLT creates exactly the same SVRL output as the original `.sch` file.
