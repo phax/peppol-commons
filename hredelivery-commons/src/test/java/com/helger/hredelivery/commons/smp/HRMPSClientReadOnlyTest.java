@@ -19,12 +19,16 @@ package com.helger.hredelivery.commons.smp;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.hredelivery.commons.CHREDeliveryID;
 import com.helger.hredelivery.commons.EHREDeliverySML;
 import com.helger.hredelivery.commons.security.HREDeliveryTrustStores;
+import com.helger.hredelivery.commons.url.HREDeliveryNaptrURLProvider;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
@@ -38,6 +42,19 @@ import com.helger.xsds.bdxr.smp1.EndpointType;
  */
 public final class HRMPSClientReadOnlyTest
 {
+  static
+  {
+    // For reliable testing only
+    try
+    {
+      HREDeliveryNaptrURLProvider.MUTABLE_INSTANCE.customDNSServers ().set (InetAddress.getByName ("1.1.1.1"));
+    }
+    catch (final UnknownHostException e)
+    {
+      // ignore
+    }
+  }
+
   @Test
   @Ignore ("The participant was removed from DNS; 2026-04-29")
   public void testResolveDemoParticipant () throws Exception
