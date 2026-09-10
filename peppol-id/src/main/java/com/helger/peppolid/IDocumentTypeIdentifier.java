@@ -24,23 +24,21 @@ import com.helger.base.compare.IComparator;
 
 /**
  * Marker-interface that is specific for document type identifiers.<br>
- * This can be used as the read-only/immutable counterpart of the implementation
- * class.
+ * This can be used as the read-only/immutable counterpart of the implementation class.
  *
  * @author Philip Helger
  */
 public interface IDocumentTypeIdentifier extends IIdentifier
 {
   /**
-   * Check if the passed document type identifier has the same scheme and value
-   * as this identifier. <code>equals</code> cannot be used in many cases,
-   * because equals also checks if the implementation class is identical which
-   * is not always the case.
+   * Check if the passed document type identifier has the same scheme and value as this identifier.
+   * <code>equals</code> cannot be used in many cases, because equals also checks if the
+   * implementation class is identical which is not always the case.
    *
    * @param aOther
    *        The identifier to compare to. May be <code>null</code>.
-   * @return <code>true</code> if the parameter is not <code>null</code> and has
-   *         the same scheme and value as this
+   * @return <code>true</code> if the parameter is not <code>null</code> and has the same scheme and
+   *         value as this
    */
   default boolean hasSameContent (@Nullable final IDocumentTypeIdentifier aOther)
   {

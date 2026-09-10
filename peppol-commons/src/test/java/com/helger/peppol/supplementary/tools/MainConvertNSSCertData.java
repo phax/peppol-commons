@@ -470,8 +470,8 @@ public final class MainConvertNSSCertData
   /**
    * Get the version of the NSS trust list from the <code>nssckbi.h</code> file that belongs to the
    * downloaded certdata.txt. The <code>NSS_BUILTINS_LIBRARY_VERSION</code> macro contained therein
-   * is increased by Mozilla each time the list of trusted certificates is changed. The
-   * certdata.txt file itself contains no version and no publication date.
+   * is increased by Mozilla each time the list of trusted certificates is changed. The certdata.txt
+   * file itself contains no version and no publication date.
    *
    * @return the version String (like <code>2.90</code>) or <code>null</code> if it could not be
    *         determined.

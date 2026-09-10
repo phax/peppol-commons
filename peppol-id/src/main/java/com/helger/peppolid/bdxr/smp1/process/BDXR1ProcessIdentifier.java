@@ -30,9 +30,9 @@ import com.helger.peppolid.IProcessIdentifier;
 import com.helger.xsds.bdxr.smp1.ProcessIdentifierType;
 
 /**
- * This is a sanity class around the {@link ProcessIdentifierType} class with
- * easier construction and some sanity access methods. It may be used in all
- * places where {@link ProcessIdentifierType} objects are required.<br>
+ * This is a sanity class around the {@link ProcessIdentifierType} class with easier construction
+ * and some sanity access methods. It may be used in all places where {@link ProcessIdentifierType}
+ * objects are required.<br>
  *
  * @author Philip Helger
  */

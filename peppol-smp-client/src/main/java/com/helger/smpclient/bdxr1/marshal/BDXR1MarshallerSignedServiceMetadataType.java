@@ -27,8 +27,8 @@ import com.helger.xsds.bdxr.smp1.SignedServiceMetadataType;
 public class BDXR1MarshallerSignedServiceMetadataType extends AbstractBDXR1Marshaller <SignedServiceMetadataType>
 {
   /**
-   * Constructor with validation enabled by default. Use
-   * {@link #setUseSchema(boolean)} to change this.
+   * Constructor with validation enabled by default. Use {@link #setUseSchema(boolean)} to change
+   * this.
    *
    * @since 9.0.5
    */

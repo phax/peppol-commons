@@ -26,9 +26,9 @@ import com.helger.base.name.IHasName;
 import com.helger.base.type.ITypedObject;
 
 /**
- * Base interface for SMP transport profiles. Two transport profiles are
- * considered equal if the IDs are equal. The name of a transport profile has no
- * semantic meaning and is only present for interpretation by humans.
+ * Base interface for SMP transport profiles. Two transport profiles are considered equal if the IDs
+ * are equal. The name of a transport profile has no semantic meaning and is only present for
+ * interpretation by humans.
  *
  * @author Philip Helger
  * @see ESMPTransportProfile for a set of predefined transport profiles
@@ -44,8 +44,8 @@ public interface ISMPTransportProfile extends ITypedObject <String>, IHasName, S
   String getID ();
 
   /**
-   * The display name of this transport profile has no semantics and is just for
-   * informational purposes. May neither be <code>null</code> nor empty.
+   * The display name of this transport profile has no semantics and is just for informational
+   * purposes. May neither be <code>null</code> nor empty.
    */
   @NonNull
   @Nonempty
@@ -62,8 +62,7 @@ public interface ISMPTransportProfile extends ITypedObject <String>, IHasName, S
   }
 
   /**
-   * @return The state ID of the transport profile. May neither be
-   *         <code>null</code> nor empty.
+   * @return The state ID of the transport profile. May neither be <code>null</code> nor empty.
    * @since 9.0.1
    */
   @NonNull

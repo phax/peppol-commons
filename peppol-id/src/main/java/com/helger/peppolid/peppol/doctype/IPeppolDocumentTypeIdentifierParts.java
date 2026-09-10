@@ -21,8 +21,7 @@ import org.jspecify.annotations.NonNull;
 import com.helger.annotation.Nonempty;
 
 /**
- * Contains the Peppol document type identifier parts for XML based document
- * types.
+ * Contains the Peppol document type identifier parts for XML based document types.
  *
  * @author Philip Helger
  */
@@ -34,16 +33,14 @@ public interface IPeppolDocumentTypeIdentifierParts extends IPeppolGenericDocume
   String NAMESPACE_SEPARATOR = "::";
 
   /**
-   * @return The XML namespace URI of the root element. Never <code>null</code>
-   *         nor empty.
+   * @return The XML namespace URI of the root element. Never <code>null</code> nor empty.
    */
   @NonNull
   @Nonempty
   String getRootNS ();
 
   /**
-   * @return The XML element local name of the root element. Never
-   *         <code>null</code> nor empty.
+   * @return The XML element local name of the root element. Never <code>null</code> nor empty.
    */
   @NonNull
   @Nonempty

@@ -42,8 +42,7 @@ public class PeppolSMPClientNamespaceContext extends MapBasedNamespaceContext
   /**
    * Deprecated constructor.
    *
-   * @deprecated Use {@link PeppolSMPClientNamespaceContext#getInstance()}
-   *             instead.
+   * @deprecated Use {@link PeppolSMPClientNamespaceContext#getInstance()} instead.
    */
   @Deprecated (forRemoval = false)
   public PeppolSMPClientNamespaceContext ()

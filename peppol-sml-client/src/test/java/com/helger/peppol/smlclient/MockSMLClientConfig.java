@@ -26,8 +26,6 @@ import com.helger.config.source.MultiConfigurationValueProvider;
 import com.helger.config.source.resource.properties.ConfigurationSourceProperties;
 import com.helger.io.resource.ClassPathResource;
 
-
-
 /**
  * This class manages the special test configuration file for this project. The configuration file
  * is located in <code>src/test/resources/sml-client-test.properties</code>

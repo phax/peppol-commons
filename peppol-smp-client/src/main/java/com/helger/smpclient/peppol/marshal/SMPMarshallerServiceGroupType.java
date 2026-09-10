@@ -27,8 +27,8 @@ import com.helger.xsds.peppol.smp1.ServiceGroupType;
 public class SMPMarshallerServiceGroupType extends AbstractSMPMarshaller <ServiceGroupType>
 {
   /**
-   * Constructor with validation enabled by default. Use
-   * {@link #setUseSchema(boolean)} to change this.
+   * Constructor with validation enabled by default. Use {@link #setUseSchema(boolean)} to change
+   * this.
    *
    * @since 9.0.5
    */

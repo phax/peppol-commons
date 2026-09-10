@@ -489,7 +489,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
                                           @NonNull final IProcessIdentifier aPI2)
   {
     return EqualsHelper.equals (aPI1.getScheme (), aPI2.getScheme ()) &&
-      EqualsHelper.equals (aPI1.getValue (), aPI2.getValue ());
+           EqualsHelper.equals (aPI1.getValue (), aPI2.getValue ());
   }
 
   /**
@@ -910,8 +910,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   @NonNull
   public static ServiceGroupType getServiceGroupByDNS (@NonNull final ISMPURLProvider aURLProvider,
                                                        @NonNull final ISMLInfo aSMLInfo,
-                                                       @NonNull final IParticipantIdentifier aServiceGroupID) throws SMPClientException,
-                                                                                                              SMPDNSResolutionException
+                                                       @NonNull final IParticipantIdentifier aServiceGroupID) throws SMPClientException, SMPDNSResolutionException
   {
     return new SMPClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceGroup (aServiceGroupID);
   }
@@ -945,8 +944,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   public static SignedServiceMetadataType getServiceRegistrationByDNS (@NonNull final ISMPURLProvider aURLProvider,
                                                                        @NonNull final ISMLInfo aSMLInfo,
                                                                        @NonNull final IParticipantIdentifier aServiceGroupID,
-                                                                       @NonNull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException,
-                                                                                                                               SMPDNSResolutionException
+                                                                       @NonNull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException, SMPDNSResolutionException
   {
     return new SMPClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceMetadata (aServiceGroupID,
                                                                                                aDocumentTypeID);

@@ -69,8 +69,7 @@ public final class SMPClientReadOnlyCustomDNSFuncTest
   }
 
   @NonNull
-  private static SMPClientReadOnly _createSMPClient (@NonNull final IParticipantIdentifier aPI) throws UnknownHostException,
-                                                                                               SMPDNSResolutionException
+  private static SMPClientReadOnly _createSMPClient (@NonNull final IParticipantIdentifier aPI) throws UnknownHostException, SMPDNSResolutionException
   {
     final SMPClientReadOnly ret = new SMPClientReadOnly (_createURLProvider (), aPI, ESML.PEPPOL_PRODUCTION);
     // Explicitly needs the production truststore

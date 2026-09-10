@@ -35,15 +35,14 @@ public interface IPeppolPredefinedProcessIdentifier extends IProcessIdentifier, 
   }
 
   /**
-   * @return The {@link PeppolProcessIdentifier} version of this predefined
-   *         process identifier.
+   * @return The {@link PeppolProcessIdentifier} version of this predefined process identifier.
    */
   @NonNull
   PeppolProcessIdentifier getAsProcessIdentifier ();
 
   /**
-   * @return <code>true</code> if this identifier is deprecated and should no
-   *         longer be used, <code>false</code> if not.
+   * @return <code>true</code> if this identifier is deprecated and should no longer be used,
+   *         <code>false</code> if not.
    * @since 7.0.0
    */
   default boolean isDeprecated ()

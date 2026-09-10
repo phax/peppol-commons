@@ -30,9 +30,8 @@ import com.helger.peppolid.IProcessIdentifier;
 import com.helger.xsds.bdxr.smp2.bc.IDType;
 
 /**
- * This is a sanity class around the {@link IDType} class with easier
- * construction and some sanity access methods. It may be used in all places
- * where {@link IDType} objects are required.<br>
+ * This is a sanity class around the {@link IDType} class with easier construction and some sanity
+ * access methods. It may be used in all places where {@link IDType} objects are required.<br>
  *
  * @author Philip Helger
  */

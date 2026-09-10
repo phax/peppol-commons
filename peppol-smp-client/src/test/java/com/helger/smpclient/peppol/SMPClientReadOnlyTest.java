@@ -100,9 +100,7 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
-  public void testGetSMPHostURI_PeppolCustomDNS () throws SMPClientException,
-                                                   SMPDNSResolutionException,
-                                                   UnknownHostException
+  public void testGetSMPHostURI_PeppolCustomDNS () throws SMPClientException, SMPDNSResolutionException, UnknownHostException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
@@ -150,10 +148,7 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
-  public void testInvalidTrustStore () throws SMPDNSResolutionException,
-                                       SMPClientException,
-                                       GeneralSecurityException,
-                                       IOException
+  public void testInvalidTrustStore () throws SMPDNSResolutionException, SMPClientException, GeneralSecurityException, IOException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 

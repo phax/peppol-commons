@@ -221,8 +221,8 @@ public final class SMPJsonResponse
   @NonNull
   public static IJsonObject convertEndpoint (final com.helger.xsds.peppol.smp1.@NonNull EndpointType aEndpoint)
   {
-    final String sEndpointRef = aEndpoint.getEndpointReference () == null ? null : W3CEndpointReferenceHelper
-                                                                                                             .getAddress (aEndpoint.getEndpointReference ());
+    final String sEndpointRef = aEndpoint.getEndpointReference () == null ? null
+                                                                          : W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ());
     final IJsonObject aJsonEP = new JsonObject ().add (JSON_TRANSPORT_PROFILE, aEndpoint.getTransportProfile ())
                                                  .add (JSON_ENDPOINT_REFERENCE, sEndpointRef)
                                                  .add (JSON_REQUIRE_BUSINESS_LEVEL_SIGNATURE,

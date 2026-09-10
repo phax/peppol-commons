@@ -29,10 +29,10 @@ import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierSche
  * Implementation of {@link IParticipantIdentifierValidatorSPI} for the Belgian enterprise number
  * (scheme <code>0208</code>) and the Belgian VAT number (scheme <code>9925</code>).
  * <p>
- * Both schemes carry the same 10 digit CBE number (Banque-Carrefour des Entreprises /
- * Kruispuntbank van Ondernemingen), but they differ in the way it is written down: scheme
- * <code>0208</code> contains the plain number and must not carry the VAT country code
- * <code>BE</code>, whereas scheme <code>9925</code> contains the VAT number and must carry it.
+ * Both schemes carry the same 10 digit CBE number (Banque-Carrefour des Entreprises / Kruispuntbank
+ * van Ondernemingen), but they differ in the way it is written down: scheme <code>0208</code>
+ * contains the plain number and must not carry the VAT country code <code>BE</code>, whereas scheme
+ * <code>9925</code> contains the VAT number and must carry it.
  * </p>
  * <p>
  * This is a pure syntax check - it verifies the structure and the check digits only. Whether an
@@ -95,8 +95,7 @@ public final class ParticipantIdentifierValidatorBelgium implements IParticipant
            EPredefinedParticipantIdentifierScheme.BE_VAT.getISO6523Code ().equals (sIssuingAgencyID);
   }
 
-  public boolean isValueValid (@NonNull @Nonempty final String sIssuingAgencyID,
-                               @NonNull @Nonempty final String sValue)
+  public boolean isValueValid (@NonNull @Nonempty final String sIssuingAgencyID, @NonNull @Nonempty final String sValue)
   {
     // Only scheme 9925 carries the leading VAT country code, and there it is mandatory
     if (EPredefinedParticipantIdentifierScheme.BE_VAT.getISO6523Code ().equals (sIssuingAgencyID))

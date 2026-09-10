@@ -52,8 +52,8 @@ public interface IPeppolURLProvider extends ISMPURLProvider
    *         In case one argument is invalid
    */
   @NonNull
-  String getDNSNameOfParticipant (@NonNull IParticipantIdentifier aParticipantIdentifier, @Nullable String sSMLZoneName)
-                                                                                                                         throws SMPDNSResolutionException;
+  String getDNSNameOfParticipant (@NonNull IParticipantIdentifier aParticipantIdentifier,
+                                  @Nullable String sSMLZoneName) throws SMPDNSResolutionException;
 
   /**
    * Get DNS record from ParticipantIdentifier.<br>

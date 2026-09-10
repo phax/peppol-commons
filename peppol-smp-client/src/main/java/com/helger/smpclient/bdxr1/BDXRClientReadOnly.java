@@ -660,8 +660,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   @NonNull
   public static ServiceGroupType getServiceGroupByDNS (@NonNull final ISMPURLProvider aURLProvider,
                                                        @NonNull final ISMLInfo aSMLInfo,
-                                                       @NonNull final IParticipantIdentifier aServiceGroupID) throws SMPClientException,
-                                                                                                              SMPDNSResolutionException
+                                                       @NonNull final IParticipantIdentifier aServiceGroupID) throws SMPClientException, SMPDNSResolutionException
   {
     return new BDXRClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceGroup (aServiceGroupID);
   }
@@ -693,8 +692,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   public static SignedServiceMetadataType getServiceRegistrationByDNS (@NonNull final ISMPURLProvider aURLProvider,
                                                                        @NonNull final ISMLInfo aSMLInfo,
                                                                        @NonNull final IParticipantIdentifier aServiceGroupID,
-                                                                       @NonNull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException,
-                                                                                                                               SMPDNSResolutionException
+                                                                       @NonNull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException, SMPDNSResolutionException
   {
     return new BDXRClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceMetadata (aServiceGroupID,
                                                                                                 aDocumentTypeID);

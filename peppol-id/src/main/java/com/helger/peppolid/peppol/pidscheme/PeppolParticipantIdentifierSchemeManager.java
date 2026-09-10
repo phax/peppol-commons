@@ -85,8 +85,7 @@ public final class PeppolParticipantIdentifierSchemeManager
    *
    * @param sISO6523Code
    *        The value to search. May be <code>null</code>.
-   * @return <code>true</code> if such an agency exists, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if such an agency exists, <code>false</code> otherwise.
    */
   public static boolean containsSchemeWithISO6523Code (@Nullable final String sISO6523Code)
   {
@@ -94,13 +93,13 @@ public final class PeppolParticipantIdentifierSchemeManager
   }
 
   /**
-   * Get the schemeID code of the passed ISO6523 code. If the passed ISO6523
-   * code is unknown, <code>null</code> is returned.
+   * Get the schemeID code of the passed ISO6523 code. If the passed ISO6523 code is unknown,
+   * <code>null</code> is returned.
    *
    * @param sISO6523Code
    *        The value to search. May be <code>null</code>.
-   * @return The matching schemeID or <code>null</code> if no agency with the
-   *         given ISO6523 code exists.
+   * @return The matching schemeID or <code>null</code> if no agency with the given ISO6523 code
+   *         exists.
    */
   @Nullable
   public static String getSchemeIDOfISO6523Code (@Nullable final String sISO6523Code)
@@ -131,8 +130,7 @@ public final class PeppolParticipantIdentifierSchemeManager
    *
    * @param sSchemeID
    *        The value to search. May be <code>null</code>.
-   * @return <code>true</code> if such an agency exists, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if such an agency exists, <code>false</code> otherwise.
    */
   public static boolean containsSchemeWithSchemeID (@Nullable final String sSchemeID)
   {
@@ -140,13 +138,13 @@ public final class PeppolParticipantIdentifierSchemeManager
   }
 
   /**
-   * Get the ISO6523 code of the passed schemeID. If the passed schemeID is
-   * unknown, <code>null</code> is returned.
+   * Get the ISO6523 code of the passed schemeID. If the passed schemeID is unknown,
+   * <code>null</code> is returned.
    *
    * @param sSchemeID
    *        The value to search. May be <code>null</code>.
-   * @return The matching ISO6523 code or <code>null</code> if no agency with
-   *         the given schemeID exists.
+   * @return The matching ISO6523 code or <code>null</code> if no agency with the given schemeID
+   *         exists.
    */
   @Nullable
   public static String getISO6523CodeOfSchemeID (@Nullable final String sSchemeID)
@@ -156,15 +154,13 @@ public final class PeppolParticipantIdentifierSchemeManager
   }
 
   /**
-   * Check if the specified ISO6523 value references a deprecated issuing
-   * agency.
+   * Check if the specified ISO6523 value references a deprecated issuing agency.
    *
    * @param sISO6523Code
    *        The value to search. May be <code>null</code>.
-   * @return {@link ETriState#TRUE} if and only if an agency with the passed
-   *         value was found and is deprecated. {@link ETriState#FALSE} if the
-   *         agency was found and is not deprecated. {@link ETriState#UNDEFINED}
-   *         if no such agency exists.
+   * @return {@link ETriState#TRUE} if and only if an agency with the passed value was found and is
+   *         deprecated. {@link ETriState#FALSE} if the agency was found and is not deprecated.
+   *         {@link ETriState#UNDEFINED} if no such agency exists.
    */
   @NonNull
   public static ETriState isSchemeWithISO6523CodeDeprecated (@Nullable final String sISO6523Code)
@@ -178,10 +174,9 @@ public final class PeppolParticipantIdentifierSchemeManager
    *
    * @param sSchemeID
    *        The value to search. May be <code>null</code>.
-   * @return {@link ETriState#TRUE} if and only if an agency with the passed
-   *         value was found and is deprecated. {@link ETriState#FALSE} if the
-   *         agency was found and is not deprecated. {@link ETriState#UNDEFINED}
-   *         if no such agency exists.
+   * @return {@link ETriState#TRUE} if and only if an agency with the passed value was found and is
+   *         deprecated. {@link ETriState#FALSE} if the agency was found and is not deprecated.
+   *         {@link ETriState#UNDEFINED} if no such agency exists.
    */
   @NonNull
   public static ETriState isSchemeWithSchemeIDDeprecated (@Nullable final String sSchemeID)
@@ -191,14 +186,12 @@ public final class PeppolParticipantIdentifierSchemeManager
   }
 
   /**
-   * Find the identifier scheme that matches the provided participant ID. This
-   * method checks only participants that use the default Peppol identifier
-   * scheme `iso6523-actorid-upis`.
+   * Find the identifier scheme that matches the provided participant ID. This method checks only
+   * participants that use the default Peppol identifier scheme `iso6523-actorid-upis`.
    *
    * @param aParticipantID
    *        The participant ID to search. May be <code>null</code>.
-   * @return <code>null</code> if no such agency exists or if the participant ID
-   *         is not suitable.
+   * @return <code>null</code> if no such agency exists or if the participant ID is not suitable.
    * @since 5.2.5
    */
   @Nullable

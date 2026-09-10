@@ -83,25 +83,25 @@ public final class SPIDHelper
   public static boolean isValidUseCaseID (@Nullable final String s)
   {
     return s != null &&
-      s.length () >= MIN_LEN_USE_CASE_ID &&
-      s.length () <= MAX_LEN_USE_CASE_ID &&
-      RegExHelper.stringMatchesPattern (REGEX_USE_CASE_ID, s);
+           s.length () >= MIN_LEN_USE_CASE_ID &&
+           s.length () <= MAX_LEN_USE_CASE_ID &&
+           RegExHelper.stringMatchesPattern (REGEX_USE_CASE_ID, s);
   }
 
   public static boolean isValidServiceProviderSuffix (@Nullable final String s)
   {
     return s != null &&
-      s.length () >= MIN_LEN_SERVICE_PROVIDER_SUFFIX &&
-      s.length () <= MAX_LEN_SERVICE_PROVIDER_SUFFIX &&
-      RegExHelper.stringMatchesPattern (REGEX_SERVICE_PROVIDER_SUFFIX, s);
+           s.length () >= MIN_LEN_SERVICE_PROVIDER_SUFFIX &&
+           s.length () <= MAX_LEN_SERVICE_PROVIDER_SUFFIX &&
+           RegExHelper.stringMatchesPattern (REGEX_SERVICE_PROVIDER_SUFFIX, s);
   }
 
   public static boolean isValidSPID (@Nullable final String s)
   {
     return s != null &&
-      s.length () >= MIN_LEN_SPID &&
-      s.length () <= MAX_LEN_SPID &&
-      RegExHelper.stringMatchesPattern (REGEX_COMPLETE, s);
+           s.length () >= MIN_LEN_SPID &&
+           s.length () <= MAX_LEN_SPID &&
+           RegExHelper.stringMatchesPattern (REGEX_COMPLETE, s);
   }
 
   /**

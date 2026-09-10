@@ -584,7 +584,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     // Scheme is always case sensitive; value depends on the scheme
     final boolean bCaseInsensitive = aIdentifierFactory.isParticipantIdentifierCaseInsensitive (aRequested.getScheme ());
     return EqualsHelper.equals (aRequested.getScheme (), aReturned.getScheme ()) &&
-      _hasSameValue (aIdentifierFactory, aRequested.getValue (), aReturned.getValue (), bCaseInsensitive);
+           _hasSameValue (aIdentifierFactory, aRequested.getValue (), aReturned.getValue (), bCaseInsensitive);
   }
 
   /**
@@ -609,7 +609,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     // Scheme is always case sensitive; value depends on the scheme
     final boolean bCaseInsensitive = aIdentifierFactory.isDocumentTypeIdentifierCaseInsensitive (aRequested.getScheme ());
     return EqualsHelper.equals (aRequested.getScheme (), aReturned.getScheme ()) &&
-      _hasSameValue (aIdentifierFactory, aRequested.getValue (), aReturned.getValue (), bCaseInsensitive);
+           _hasSameValue (aIdentifierFactory, aRequested.getValue (), aReturned.getValue (), bCaseInsensitive);
   }
 
   /**
@@ -644,7 +644,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
       return;
 
     if (aReturnedServiceGroupID != null &&
-      !isSameParticipantIdentifier (m_aIdentifierFactory, aRequestedServiceGroupID, aReturnedServiceGroupID))
+        !isSameParticipantIdentifier (m_aIdentifierFactory, aRequestedServiceGroupID, aReturnedServiceGroupID))
     {
       throw new SMPClientException ("The SMP response contained the participant identifier '" +
                                     aReturnedServiceGroupID.getURIEncoded () +
@@ -654,7 +654,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     }
 
     if (aReturnedDocumentTypeID != null &&
-      !isSameDocumentTypeIdentifier (m_aIdentifierFactory, aRequestedDocumentTypeID, aReturnedDocumentTypeID))
+        !isSameDocumentTypeIdentifier (m_aIdentifierFactory, aRequestedDocumentTypeID, aReturnedDocumentTypeID))
     {
       throw new SMPClientException ("The SMP response contained the document type identifier '" +
                                     aReturnedDocumentTypeID.getURIEncoded () +

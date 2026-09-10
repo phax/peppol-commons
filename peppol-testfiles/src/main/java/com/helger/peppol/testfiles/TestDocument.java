@@ -48,8 +48,7 @@ public final class TestDocument
   }
 
   /**
-   * @return The filename of the underlying resources. Neither <code>null</code>
-   *         nor empty.
+   * @return The filename of the underlying resources. Neither <code>null</code> nor empty.
    */
   @NonNull
   @Nonempty
@@ -59,8 +58,7 @@ public final class TestDocument
   }
 
   /**
-   * @return The expected validation errors. Never <code>null</code> but maybe
-   *         empty.
+   * @return The expected validation errors. Never <code>null</code> but maybe empty.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -80,6 +78,8 @@ public final class TestDocument
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("filename", m_sFilename).append ("expectedErrors", m_aExpectedErrors).getToString ();
+    return new ToStringGenerator (null).append ("filename", m_sFilename)
+                                       .append ("expectedErrors", m_aExpectedErrors)
+                                       .getToString ();
   }
 }

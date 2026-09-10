@@ -40,8 +40,8 @@ import com.helger.wsclient.WSClientConfig;
 import jakarta.xml.ws.BindingProvider;
 
 /**
- * This class is used for calling the service meta data interface of the SML. It
- * is used for connecting SMPs to the SML.
+ * This class is used for calling the service meta data interface of the SML. It is used for
+ * connecting SMPs to the SML.
  *
  * @author Ravnholt
  * @author Philip Helger
@@ -65,8 +65,7 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    * Creates a service caller for the service meta data interface
    *
    * @param aEndpointAddress
-   *        The address of the SML management interface. May not be
-   *        <code>null</code>.
+   *        The address of the SML management interface. May not be <code>null</code>.
    */
   public ManageServiceMetadataServiceCaller (@NonNull final URL aEndpointAddress)
   {
@@ -91,24 +90,22 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
   }
 
   /**
-   * Custom validation method to provide additional physical address validation.
-   * Throw an {@link IllegalArgumentException} if validation fails.
+   * Custom validation method to provide additional physical address validation. Throw an
+   * {@link IllegalArgumentException} if validation fails.
    *
    * @param sPhysicalAddress
-   *        The physical address to be validated. Neither <code>null</code> nor
-   *        empty.
+   *        The physical address to be validated. Neither <code>null</code> nor empty.
    */
   @OverrideOnDemand
   protected void validatePhysicalAddress (@NonNull @Nonempty final String sPhysicalAddress)
   {}
 
   /**
-   * Custom validation method to provide additional logical address validation.
-   * Throw an {@link IllegalArgumentException} if validation fails.
+   * Custom validation method to provide additional logical address validation. Throw an
+   * {@link IllegalArgumentException} if validation fails.
    *
    * @param sLogicalAddress
-   *        The logical address to be validated. Neither <code>null</code> nor
-   *        empty.
+   *        The logical address to be validated. Neither <code>null</code> nor empty.
    */
   @OverrideOnDemand
   protected void validateLogicalAddress (@NonNull @Nonempty final String sLogicalAddress)
@@ -118,14 +115,13 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    * Creates the service metadata for the specified user.
    *
    * @param sSMPID
-   *        The certificate UID of the SMP. May neither be <code>null</code> nor
-   *        empty.
+   *        The certificate UID of the SMP. May neither be <code>null</code> nor empty.
    * @param sSMPAddressPhysical
-   *        The physical address of the SMP (Example: 198.0.0.1). May neither be
-   *        <code>null</code> nor empty.
+   *        The physical address of the SMP (Example: 198.0.0.1). May neither be <code>null</code>
+   *        nor empty.
    * @param sSMPAddressLogical
-   *        The logical address of the SMP (Example: http://smp.example.org/).
-   *        May neither be <code>null</code> nor empty.
+   *        The logical address of the SMP (Example: http://smp.example.org/). May neither be
+   *        <code>null</code> nor empty.
    * @throws BadRequestFault
    *         The request was not well formed.
    * @throws InternalErrorFault
@@ -135,9 +131,7 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    */
   public void create (@NonNull @Nonempty final String sSMPID,
                       @NonNull @Nonempty final String sSMPAddressPhysical,
-                      @NonNull @Nonempty final String sSMPAddressLogical) throws BadRequestFault,
-                                                                          InternalErrorFault,
-                                                                          UnauthorizedFault
+                      @NonNull @Nonempty final String sSMPAddressLogical) throws BadRequestFault, InternalErrorFault, UnauthorizedFault
   {
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
     ValueEnforcer.notEmpty (sSMPAddressPhysical, "SMPAddressPhysical");
@@ -168,9 +162,7 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    * @throws UnauthorizedFault
    *         The user name or password was not correct.
    */
-  public void create (@NonNull final ServiceMetadataPublisherServiceType aServiceMetadata) throws BadRequestFault,
-                                                                                           InternalErrorFault,
-                                                                                           UnauthorizedFault
+  public void create (@NonNull final ServiceMetadataPublisherServiceType aServiceMetadata) throws BadRequestFault, InternalErrorFault, UnauthorizedFault
   {
     ValueEnforcer.notNull (aServiceMetadata, "ServiceMetadata");
     ValueEnforcer.notEmpty (aServiceMetadata.getServiceMetadataPublisherID (),
@@ -198,11 +190,11 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    * @param sSMPID
    *        The publisher id. May neither be <code>null</code> nor empty.
    * @param sSMPAddressPhysical
-   *        The physical address of the SMP (Example: 198.0.0.1). May neither be
-   *        <code>null</code> nor empty.
+   *        The physical address of the SMP (Example: 198.0.0.1). May neither be <code>null</code>
+   *        nor empty.
    * @param sSMPAddressLogical
-   *        The logical address of the SMP (Example: http://smp.example.org/).
-   *        May neither be <code>null</code> nor empty.
+   *        The logical address of the SMP (Example: http://smp.example.org/). May neither be
+   *        <code>null</code> nor empty.
    * @throws InternalErrorFault
    *         An internal error happened on the server.
    * @throws NotFoundFault
@@ -214,10 +206,7 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    */
   public void update (@NonNull @Nonempty final String sSMPID,
                       @NonNull @Nonempty final String sSMPAddressPhysical,
-                      @NonNull @Nonempty final String sSMPAddressLogical) throws InternalErrorFault,
-                                                                          NotFoundFault,
-                                                                          UnauthorizedFault,
-                                                                          BadRequestFault
+                      @NonNull @Nonempty final String sSMPAddressLogical) throws InternalErrorFault, NotFoundFault, UnauthorizedFault, BadRequestFault
   {
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
     ValueEnforcer.notEmpty (sSMPAddressPhysical, "SMPAddressPhysical");
@@ -240,8 +229,7 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    * Updates the specified service metadata.
    *
    * @param aServiceMetadata
-   *        The service metadata instance to update. May not be
-   *        <code>null</code>.
+   *        The service metadata instance to update. May not be <code>null</code>.
    * @throws InternalErrorFault
    *         An internal error happened on the server.
    * @throws NotFoundFault
@@ -251,10 +239,7 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    * @throws BadRequestFault
    *         The request was not well formed.
    */
-  public void update (@NonNull final ServiceMetadataPublisherServiceType aServiceMetadata) throws InternalErrorFault,
-                                                                                           NotFoundFault,
-                                                                                           UnauthorizedFault,
-                                                                                           BadRequestFault
+  public void update (@NonNull final ServiceMetadataPublisherServiceType aServiceMetadata) throws InternalErrorFault, NotFoundFault, UnauthorizedFault, BadRequestFault
   {
     ValueEnforcer.notNull (aServiceMetadata, "ServiceMetadata");
     ValueEnforcer.notEmpty (aServiceMetadata.getServiceMetadataPublisherID (),
@@ -280,8 +265,8 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    * Deletes the service metadata given by the publisher id.
    *
    * @param sSMPID
-   *        The publisher id of the service metadata to delete. May neither be
-   *        <code>null</code> nor empty.
+   *        The publisher id of the service metadata to delete. May neither be <code>null</code> nor
+   *        empty.
    * @throws InternalErrorFault
    *         An internal error happened on the server.
    * @throws NotFoundFault
@@ -291,10 +276,7 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    * @throws BadRequestFault
    *         The request was not well formed.
    */
-  public void delete (@NonNull @Nonempty final String sSMPID) throws InternalErrorFault,
-                                                              NotFoundFault,
-                                                              UnauthorizedFault,
-                                                              BadRequestFault
+  public void delete (@NonNull @Nonempty final String sSMPID) throws InternalErrorFault, NotFoundFault, UnauthorizedFault, BadRequestFault
   {
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
 
@@ -319,10 +301,7 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    *         The request was not well formed.
    */
   @NonNull
-  public ServiceMetadataPublisherServiceType read (@NonNull @Nonempty final String sSMPID) throws InternalErrorFault,
-                                                                                           NotFoundFault,
-                                                                                           UnauthorizedFault,
-                                                                                           BadRequestFault
+  public ServiceMetadataPublisherServiceType read (@NonNull @Nonempty final String sSMPID) throws InternalErrorFault, NotFoundFault, UnauthorizedFault, BadRequestFault
   {
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
 
@@ -335,8 +314,8 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    * Returns information about the publisher given by the publisher id.
    *
    * @param aSMPService
-   *        The publisher id is read from this service metadata object. May not
-   *        be <code>null</code>.
+   *        The publisher id is read from this service metadata object. May not be
+   *        <code>null</code>.
    * @return The service metadata given by the id.
    * @throws InternalErrorFault
    *         An internal error happened on the server.
@@ -348,10 +327,7 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    *         The request was not well formed.
    */
   @NonNull
-  public ServiceMetadataPublisherServiceType read (@NonNull final ServiceMetadataPublisherServiceType aSMPService) throws InternalErrorFault,
-                                                                                                                   NotFoundFault,
-                                                                                                                   UnauthorizedFault,
-                                                                                                                   BadRequestFault
+  public ServiceMetadataPublisherServiceType read (@NonNull final ServiceMetadataPublisherServiceType aSMPService) throws InternalErrorFault, NotFoundFault, UnauthorizedFault, BadRequestFault
   {
     ValueEnforcer.notNull (aSMPService, "SMPService");
     ValueEnforcer.notEmpty (aSMPService.getServiceMetadataPublisherID (), "SMPService.ServiceMetadataPublisherID");

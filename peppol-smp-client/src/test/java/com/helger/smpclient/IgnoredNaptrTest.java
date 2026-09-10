@@ -20,8 +20,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Internal marker annotation to clearly identify NAPTR tests that fails
- * indeterministically with SERVFAIL and should be enabled manually
+ * Internal marker annotation to clearly identify NAPTR tests that fails indeterministically with
+ * SERVFAIL and should be enabled manually
  *
  * @author Philip Helger
  */

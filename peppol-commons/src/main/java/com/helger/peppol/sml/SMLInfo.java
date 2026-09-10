@@ -183,8 +183,8 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
     ValueEnforcer.notEmpty (sDisplayName, "DisplayName");
     ValueEnforcer.notEmpty (sDNSZone, "DNSZone");
     ValueEnforcer.notEmpty (sManagementServiceURL, "ManagementServiceURL");
-    ValueEnforcer.isFalse ( () -> sManagementServiceURL.endsWith ("/"),
-                            "ManagementServiceURL must not end with a slash");
+    ValueEnforcer.isFalse (() -> sManagementServiceURL.endsWith ("/"),
+                           "ManagementServiceURL must not end with a slash");
     ValueEnforcer.notNull (sURLSuffixManageSMP, "URLSuffixManageSMP");
     ValueEnforcer.notNull (sURLSuffixManageParticipant, "URLSuffixManageParticipant");
 
@@ -431,7 +431,7 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
     public SMLInfoBuilder urlSuffixManageSMP (@NonNull final String s)
     {
       ValueEnforcer.notNull (s, "URLSuffixManageSMP");
-      ValueEnforcer.isTrue ( () -> isValidURLSuffix (s), "URLSuffixManageSMP");
+      ValueEnforcer.isTrue (() -> isValidURLSuffix (s), "URLSuffixManageSMP");
 
       m_sURLSuffixManageSMP = s;
       return this;
@@ -441,7 +441,7 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
     public SMLInfoBuilder urlSuffixManageParticipant (@NonNull final String s)
     {
       ValueEnforcer.notNull (s, "URLSuffixManageParticipant");
-      ValueEnforcer.isTrue ( () -> isValidURLSuffix (s), "URLSuffixManageParticipant");
+      ValueEnforcer.isTrue (() -> isValidURLSuffix (s), "URLSuffixManageParticipant");
 
       m_sURLSuffixManageParticipant = s;
       return this;

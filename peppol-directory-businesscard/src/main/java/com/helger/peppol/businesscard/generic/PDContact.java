@@ -304,9 +304,10 @@ public class PDContact implements IHasJson, Serializable, ICloneable <PDContact>
   @Nullable
   public static PDContact of (@Nullable final IJsonObject aJson)
   {
-    return aJson == null ? null : new PDContact (aJson.getAsString ("type"),
-                                                 aJson.getAsString ("name"),
-                                                 aJson.getAsString ("phonenumber"),
-                                                 aJson.getAsString ("email"));
+    return aJson == null ? null
+                         : new PDContact (aJson.getAsString ("type"),
+                                          aJson.getAsString ("name"),
+                                          aJson.getAsString ("phonenumber"),
+                                          aJson.getAsString ("email"));
   }
 }

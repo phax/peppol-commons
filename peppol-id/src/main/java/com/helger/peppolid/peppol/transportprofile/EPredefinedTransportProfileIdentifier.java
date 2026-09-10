@@ -26,156 +26,200 @@ import com.helger.peppolid.peppol.EPeppolCodeListItemState;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
-
 /**
- * This file was automatically generated.
- * Do NOT edit!
+ * This file was automatically generated. Do NOT edit!
  */
 @CodingStyleguideUnaware
-public enum EPredefinedTransportProfileIdentifier
-    implements IPredefinedTransportProfileIdentifier
+public enum EPredefinedTransportProfileIdentifier implements IPredefinedTransportProfileIdentifier
 {
 
-    /**
-     * ID: <code>busdox-transport-start</code><br>
-     * Same as {@link #START_1_0_1}
-     * 
-     * @since code list 1.0.0
-     * @deprecated since v1.0.0 - this item should not be used to issue new identifiers!<br>Removed per 2023-09-06
-     */
-    @Deprecated(forRemoval = false)
-    busdox_transport_start("START", "1.0.1", "busdox-transport-start", Version.parse("1.0.0"), EPeppolCodeListItemState.REMOVED, Version.parse("1.0.0"), PDTFactory.createLocalDate(2023, Month.of(9), 6)),
+  /**
+   * ID: <code>busdox-transport-start</code><br>
+   * Same as {@link #START_1_0_1}
+   * 
+   * @since code list 1.0.0
+   * @deprecated since v1.0.0 - this item should not be used to issue new identifiers!<br>
+   *             Removed per 2023-09-06
+   */
+  @Deprecated (forRemoval = false)
+  busdox_transport_start("START",
+                         "1.0.1",
+                         "busdox-transport-start",
+                         Version.parse ("1.0.0"),
+                         EPeppolCodeListItemState.REMOVED,
+                         Version.parse ("1.0.0"),
+                         PDTFactory.createLocalDate (2023, Month.of (9), 6)),
 
-    /**
-     * ID: <code>busdox-transport-as2-ver1p0</code><br>
-     * Same as {@link #AS2_1_0}
-     * 
-     * @since code list 1.0.0
-     * @deprecated since v7 - this item should not be used to issue new identifiers!<br>Removed per 2023-09-06
-     */
-    @Deprecated(forRemoval = false)
-    busdox_transport_as2_ver1p0("AS2", "1.0", "busdox-transport-as2-ver1p0", Version.parse("1.0.0"), EPeppolCodeListItemState.REMOVED, Version.parse("7"), PDTFactory.createLocalDate(2023, Month.of(9), 6)),
+  /**
+   * ID: <code>busdox-transport-as2-ver1p0</code><br>
+   * Same as {@link #AS2_1_0}
+   * 
+   * @since code list 1.0.0
+   * @deprecated since v7 - this item should not be used to issue new identifiers!<br>
+   *             Removed per 2023-09-06
+   */
+  @Deprecated (forRemoval = false)
+  busdox_transport_as2_ver1p0("AS2",
+                              "1.0",
+                              "busdox-transport-as2-ver1p0",
+                              Version.parse ("1.0.0"),
+                              EPeppolCodeListItemState.REMOVED,
+                              Version.parse ("7"),
+                              PDTFactory.createLocalDate (2023, Month.of (9), 6)),
 
-    /**
-     * ID: <code>peppol-transport-as4-v1_0</code><br>
-     * Same as {@link #AS4_1_0}
-     * 
-     * @since code list 2
-     * @deprecated since v3 - this item should not be used to issue new identifiers!<br>Removed per 2023-09-06
-     */
-    @Deprecated(forRemoval = false)
-    peppol_transport_as4_v1_0("AS4", "1.0", "peppol-transport-as4-v1_0", Version.parse("2"), EPeppolCodeListItemState.REMOVED, Version.parse("3"), PDTFactory.createLocalDate(2023, Month.of(9), 6)),
+  /**
+   * ID: <code>peppol-transport-as4-v1_0</code><br>
+   * Same as {@link #AS4_1_0}
+   * 
+   * @since code list 2
+   * @deprecated since v3 - this item should not be used to issue new identifiers!<br>
+   *             Removed per 2023-09-06
+   */
+  @Deprecated (forRemoval = false)
+  peppol_transport_as4_v1_0("AS4",
+                            "1.0",
+                            "peppol-transport-as4-v1_0",
+                            Version.parse ("2"),
+                            EPeppolCodeListItemState.REMOVED,
+                            Version.parse ("3"),
+                            PDTFactory.createLocalDate (2023, Month.of (9), 6)),
 
-    /**
-     * ID: <code>peppol-transport-as4-v2_0</code><br>
-     * Same as {@link #AS4_2_0}
-     * 
-     * @since code list 3
-     */
-    peppol_transport_as4_v2_0("AS4", "2.0", "peppol-transport-as4-v2_0", Version.parse("3"), EPeppolCodeListItemState.ACTIVE, null, null),
+  /**
+   * ID: <code>peppol-transport-as4-v2_0</code><br>
+   * Same as {@link #AS4_2_0}
+   * 
+   * @since code list 3
+   */
+  peppol_transport_as4_v2_0 ("AS4",
+                             "2.0",
+                             "peppol-transport-as4-v2_0",
+                             Version.parse ("3"),
+                             EPeppolCodeListItemState.ACTIVE,
+                             null,
+                             null),
 
-    /**
-     * ID: <code>busdox-transport-as2-ver2p0</code><br>
-     * Same as {@link #AS2_2_0}
-     * 
-     * @since code list 5
-     * @deprecated since v8.4 - this item should not be used to issue new identifiers!<br>Removed per 2023-09-06
-     */
-    @Deprecated(forRemoval = false)
-    busdox_transport_as2_ver2p0("AS2", "2.0", "busdox-transport-as2-ver2p0", Version.parse("5"), EPeppolCodeListItemState.REMOVED, Version.parse("8.4"), PDTFactory.createLocalDate(2023, Month.of(9), 6));
-    public static final String CODE_LIST_VERSION = "9.7";
-    public static final int CODE_LIST_ENTRY_COUNT = 5;
-    /**
-     * Same as {@link #busdox_transport_start}
-     * 
-     * @deprecated since v1.0.0 - this item should not be used to issue new identifiers!<br>Removed per 2023-09-06
-     */
-    @Deprecated(forRemoval = false)
-    public static final EPredefinedTransportProfileIdentifier START_1_0_1 = EPredefinedTransportProfileIdentifier.busdox_transport_start;
-    /**
-     * Same as {@link #busdox_transport_as2_ver1p0}
-     * 
-     * @deprecated since v7 - this item should not be used to issue new identifiers!<br>Removed per 2023-09-06
-     */
-    @Deprecated(forRemoval = false)
-    public static final EPredefinedTransportProfileIdentifier AS2_1_0 = EPredefinedTransportProfileIdentifier.busdox_transport_as2_ver1p0;
-    /**
-     * Same as {@link #peppol_transport_as4_v1_0}
-     * 
-     * @deprecated since v3 - this item should not be used to issue new identifiers!<br>Removed per 2023-09-06
-     */
-    @Deprecated(forRemoval = false)
-    public static final EPredefinedTransportProfileIdentifier AS4_1_0 = EPredefinedTransportProfileIdentifier.peppol_transport_as4_v1_0;
-    /**
-     * Same as {@link #peppol_transport_as4_v2_0}
-     */
-    public static final EPredefinedTransportProfileIdentifier AS4_2_0 = EPredefinedTransportProfileIdentifier.peppol_transport_as4_v2_0;
-    /**
-     * Same as {@link #busdox_transport_as2_ver2p0}
-     * 
-     * @deprecated since v8.4 - this item should not be used to issue new identifiers!<br>Removed per 2023-09-06
-     */
-    @Deprecated(forRemoval = false)
-    public static final EPredefinedTransportProfileIdentifier AS2_2_0 = EPredefinedTransportProfileIdentifier.busdox_transport_as2_ver2p0;
-    private final String m_sProtocol;
-    private final String m_sProfileVersion;
-    private final String m_sProfileID;
-    private final Version m_aInitialRelease;
-    private final EPeppolCodeListItemState m_eState;
-    private final Version m_aDeprecationRelease;
-    private final LocalDate m_aRemovalDate;
+  /**
+   * ID: <code>busdox-transport-as2-ver2p0</code><br>
+   * Same as {@link #AS2_2_0}
+   * 
+   * @since code list 5
+   * @deprecated since v8.4 - this item should not be used to issue new identifiers!<br>
+   *             Removed per 2023-09-06
+   */
+  @Deprecated (forRemoval = false)
+  busdox_transport_as2_ver2p0("AS2",
+                              "2.0",
+                              "busdox-transport-as2-ver2p0",
+                              Version.parse ("5"),
+                              EPeppolCodeListItemState.REMOVED,
+                              Version.parse ("8.4"),
+                              PDTFactory.createLocalDate (2023, Month.of (9), 6));
 
-    EPredefinedTransportProfileIdentifier(@NonNull @Nonempty final String sProtocol,
-        @NonNull @Nonempty final String sProfileVersion,
-        @NonNull @Nonempty final String sProfileID,
-        @NonNull final Version aInitialRelease,
-        @NonNull final EPeppolCodeListItemState eState,
-        @Nullable final Version aDeprecationRelease,
-        @Nullable final LocalDate aRemovalDate) {
-        m_sProtocol = sProtocol;
-        m_sProfileVersion = sProfileVersion;
-        m_sProfileID = sProfileID;
-        m_aInitialRelease = aInitialRelease;
-        m_eState = eState;
-        m_aDeprecationRelease = aDeprecationRelease;
-        m_aRemovalDate = aRemovalDate;
-    }
+  public static final String CODE_LIST_VERSION = "9.7";
+  public static final int CODE_LIST_ENTRY_COUNT = 5;
+  /**
+   * Same as {@link #busdox_transport_start}
+   * 
+   * @deprecated since v1.0.0 - this item should not be used to issue new identifiers!<br>
+   *             Removed per 2023-09-06
+   */
+  @Deprecated (forRemoval = false)
+  public static final EPredefinedTransportProfileIdentifier START_1_0_1 = EPredefinedTransportProfileIdentifier.busdox_transport_start;
+  /**
+   * Same as {@link #busdox_transport_as2_ver1p0}
+   * 
+   * @deprecated since v7 - this item should not be used to issue new identifiers!<br>
+   *             Removed per 2023-09-06
+   */
+  @Deprecated (forRemoval = false)
+  public static final EPredefinedTransportProfileIdentifier AS2_1_0 = EPredefinedTransportProfileIdentifier.busdox_transport_as2_ver1p0;
+  /**
+   * Same as {@link #peppol_transport_as4_v1_0}
+   * 
+   * @deprecated since v3 - this item should not be used to issue new identifiers!<br>
+   *             Removed per 2023-09-06
+   */
+  @Deprecated (forRemoval = false)
+  public static final EPredefinedTransportProfileIdentifier AS4_1_0 = EPredefinedTransportProfileIdentifier.peppol_transport_as4_v1_0;
+  /**
+   * Same as {@link #peppol_transport_as4_v2_0}
+   */
+  public static final EPredefinedTransportProfileIdentifier AS4_2_0 = EPredefinedTransportProfileIdentifier.peppol_transport_as4_v2_0;
+  /**
+   * Same as {@link #busdox_transport_as2_ver2p0}
+   * 
+   * @deprecated since v8.4 - this item should not be used to issue new identifiers!<br>
+   *             Removed per 2023-09-06
+   */
+  @Deprecated (forRemoval = false)
+  public static final EPredefinedTransportProfileIdentifier AS2_2_0 = EPredefinedTransportProfileIdentifier.busdox_transport_as2_ver2p0;
+  private final String m_sProtocol;
+  private final String m_sProfileVersion;
+  private final String m_sProfileID;
+  private final Version m_aInitialRelease;
+  private final EPeppolCodeListItemState m_eState;
+  private final Version m_aDeprecationRelease;
+  private final LocalDate m_aRemovalDate;
 
-    @NonNull
-    @Nonempty
-    public String getProtocol() {
-        return m_sProtocol;
-    }
+  EPredefinedTransportProfileIdentifier (@NonNull @Nonempty final String sProtocol,
+                                         @NonNull @Nonempty final String sProfileVersion,
+                                         @NonNull @Nonempty final String sProfileID,
+                                         @NonNull final Version aInitialRelease,
+                                         @NonNull final EPeppolCodeListItemState eState,
+                                         @Nullable final Version aDeprecationRelease,
+                                         @Nullable final LocalDate aRemovalDate)
+  {
+    m_sProtocol = sProtocol;
+    m_sProfileVersion = sProfileVersion;
+    m_sProfileID = sProfileID;
+    m_aInitialRelease = aInitialRelease;
+    m_eState = eState;
+    m_aDeprecationRelease = aDeprecationRelease;
+    m_aRemovalDate = aRemovalDate;
+  }
 
-    @NonNull
-    @Nonempty
-    public String getProfileVersion() {
-        return m_sProfileVersion;
-    }
+  @NonNull
+  @Nonempty
+  public String getProtocol ()
+  {
+    return m_sProtocol;
+  }
 
-    @NonNull
-    @Nonempty
-    public String getProfileID() {
-        return m_sProfileID;
-    }
+  @NonNull
+  @Nonempty
+  public String getProfileVersion ()
+  {
+    return m_sProfileVersion;
+  }
 
-    @NonNull
-    public Version getInitialRelease() {
-        return m_aInitialRelease;
-    }
+  @NonNull
+  @Nonempty
+  public String getProfileID ()
+  {
+    return m_sProfileID;
+  }
 
-    @NonNull
-    public EPeppolCodeListItemState getState() {
-        return m_eState;
-    }
+  @NonNull
+  public Version getInitialRelease ()
+  {
+    return m_aInitialRelease;
+  }
 
-    @Nullable
-    public Version getDeprecationRelease() {
-        return m_aDeprecationRelease;
-    }
+  @NonNull
+  public EPeppolCodeListItemState getState ()
+  {
+    return m_eState;
+  }
 
-    @Nullable
-    public LocalDate getRemovalDate() {
-        return m_aRemovalDate;
-    }
+  @Nullable
+  public Version getDeprecationRelease ()
+  {
+    return m_aDeprecationRelease;
+  }
+
+  @Nullable
+  public LocalDate getRemovalDate ()
+  {
+    return m_aRemovalDate;
+  }
 }

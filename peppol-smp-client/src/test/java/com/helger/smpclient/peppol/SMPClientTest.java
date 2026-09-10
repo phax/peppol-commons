@@ -57,8 +57,8 @@ import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 
 /**
- * Expects an running SMP, depending on the configuration file. DNS is not
- * needed. See {@link #SMP_URI} constant.
+ * Expects an running SMP, depending on the configuration file. DNS is not needed. See
+ * {@link #SMP_URI} constant.
  *
  * @author Philip Helger
  */

@@ -52,9 +52,8 @@ import com.helger.xsds.peppol.smp1.ServiceMetadataReferenceCollectionType;
 import com.helger.xsds.peppol.smp1.ServiceMetadataType;
 
 /**
- * This class is used for calling the Peppol SMP REST interface. This particular
- * class contains the writing methods. It inherits all reading methods from
- * {@link SMPClientReadOnly}.
+ * This class is used for calling the Peppol SMP REST interface. This particular class contains the
+ * writing methods. It inherits all reading methods from {@link SMPClientReadOnly}.
  *
  * @author Philip Helger
  */
@@ -68,14 +67,12 @@ public class SMPClient extends SMPClientReadOnly
    * @param aURLProvider
    *        The URL provider to be used. May not be <code>null</code>.
    * @param aParticipantIdentifier
-   *        The participant identifier to be used. Required to build the SMP
-   *        access URI.
+   *        The participant identifier to be used. Required to build the SMP access URI.
    * @param aSMLInfo
    *        The SML to be used. Required to build the SMP access URI.
    * @throws SMPDNSResolutionException
    *         if DNS resolution fails
-   * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
-   *      ISMLInfo)
+   * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
    */
   public SMPClient (@NonNull final ISMPURLProvider aURLProvider,
                     @NonNull final IParticipantIdentifier aParticipantIdentifier,
@@ -90,13 +87,11 @@ public class SMPClient extends SMPClientReadOnly
    * @param aURLProvider
    *        The URL provider to be used. May not be <code>null</code>.
    * @param aParticipantIdentifier
-   *        The participant identifier to be used. Required to build the SMP
-   *        access URI.
+   *        The participant identifier to be used. Required to build the SMP access URI.
    * @param sSMLZoneName
-   *        The SML DNS zone name to be used. Required to build the SMP access
-   *        URI. Must end with a trailing dot (".") and may neither be
-   *        <code>null</code> nor empty to build a correct URL. May not start
-   *        with "http://". Example: <code>sml.peppolcentral.org.</code>
+   *        The SML DNS zone name to be used. Required to build the SMP access URI. Must end with a
+   *        trailing dot (".") and may neither be <code>null</code> nor empty to build a correct
+   *        URL. May not start with "http://". Example: <code>sml.peppolcentral.org.</code>
    * @throws SMPDNSResolutionException
    *         if DNS resolution fails
    * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, String)
@@ -113,8 +108,8 @@ public class SMPClient extends SMPClientReadOnly
    * Remember: must be HTTP and using port 80 only!
    *
    * @param aSMPHost
-   *        The address of the SMP service. Must be port 80 and basic http only
-   *        (no https!). Example: http://smpcompany.company.org
+   *        The address of the SMP service. Must be port 80 and basic http only (no https!).
+   *        Example: http://smpcompany.company.org
    */
   public SMPClient (@NonNull final URI aSMPHost)
   {
@@ -122,21 +117,18 @@ public class SMPClient extends SMPClientReadOnly
   }
 
   /**
-   * Saves a service group. The meta data references should not be set and are
-   * not used.
+   * Saves a service group. The meta data references should not be set and are not used.
    *
    * @param aServiceGroup
    *        The service group to save. May not be <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as credentials. May not be
-   *        <code>null</code>.
+   *        The user name and password to use as credentials. May not be <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
    *         The user name or password was not correct.
    * @throws SMPClientNotFoundException
-   *         A HTTP Not Found was received. This can happen if the service was
-   *         not found.
+   *         A HTTP Not Found was received. This can happen if the service was not found.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    */
@@ -163,8 +155,7 @@ public class SMPClient extends SMPClientReadOnly
   }
 
   /**
-   * Saves a service group. The meta data references should not be set and are
-   * not used.
+   * Saves a service group. The meta data references should not be set and are not used.
    *
    * @param aParticipantID
    *        The participant identifier for which the service group is to save.
@@ -176,8 +167,7 @@ public class SMPClient extends SMPClientReadOnly
    * @throws SMPClientUnauthorizedException
    *         The user name or password was not correct.
    * @throws SMPClientNotFoundException
-   *         A HTTP Not Found was received. This can happen if the service was
-   *         not found.
+   *         A HTTP Not Found was received. This can happen if the service was not found.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    */
@@ -201,11 +191,9 @@ public class SMPClient extends SMPClientReadOnly
    * Deletes a service group given by its service group id.
    *
    * @param aServiceGroupID
-   *        The service group id of the service group to delete. May not be
-   *        <code>null</code>.
+   *        The service group id of the service group to delete. May not be <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as credentials. May not be
-   *        <code>null</code>.
+   *        The user name and password to use as credentials. May not be <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientSMPUnavailableException
@@ -260,11 +248,9 @@ public class SMPClient extends SMPClientReadOnly
    * Saves a service information data object.
    *
    * @param aServiceInformation
-   *        The service information object to save. May not be
-   *        <code>null</code>.
+   *        The service information object to save. May not be <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as credentials. May not be
-   *        <code>null</code>.
+   *        The user name and password to use as credentials. May not be <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -275,8 +261,8 @@ public class SMPClient extends SMPClientReadOnly
    *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @see #saveServiceRedirect(IParticipantIdentifier, IDocumentTypeIdentifier,
-   *      RedirectType, BasicAuthClientCredentials)
+   * @see #saveServiceRedirect(IParticipantIdentifier, IDocumentTypeIdentifier, RedirectType,
+   *      BasicAuthClientCredentials)
    */
   public void saveServiceInformation (@NonNull final ServiceInformationType aServiceInformation,
                                       @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
@@ -306,8 +292,7 @@ public class SMPClient extends SMPClientReadOnly
    * @param aRedirect
    *        The redirect to be saved. May not be <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as credentials. May not be
-   *        <code>null</code>.
+   *        The user name and password to use as credentials. May not be <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -318,8 +303,7 @@ public class SMPClient extends SMPClientReadOnly
    *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @see #saveServiceInformation(ServiceInformationType,
-   *      BasicAuthClientCredentials)
+   * @see #saveServiceInformation(ServiceInformationType, BasicAuthClientCredentials)
    */
   public void saveServiceRedirect (@NonNull final IParticipantIdentifier aServiceGroupID,
                                    @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
@@ -337,18 +321,14 @@ public class SMPClient extends SMPClientReadOnly
   }
 
   /**
-   * Deletes a service meta data object given by its service group id and its
-   * document type.
+   * Deletes a service meta data object given by its service group id and its document type.
    *
    * @param aServiceGroupID
-   *        The service group id of the service meta data to delete. May not be
-   *        <code>null</code>.
+   *        The service group id of the service meta data to delete. May not be <code>null</code>.
    * @param aDocumentTypeID
-   *        The document type of the service meta data to delete. May not be
-   *        <code>null</code>.
+   *        The document type of the service meta data to delete. May not be <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as credentials. May not be
-   *        <code>null</code>.
+   *        The user name and password to use as credentials. May not be <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException

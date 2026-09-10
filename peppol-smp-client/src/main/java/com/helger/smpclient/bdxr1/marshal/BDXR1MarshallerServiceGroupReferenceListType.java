@@ -28,8 +28,8 @@ public class BDXR1MarshallerServiceGroupReferenceListType extends
                                                           AbstractBDXR1Marshaller <ServiceGroupReferenceListType>
 {
   /**
-   * Constructor with validation enabled by default. Use
-   * {@link #setUseSchema(boolean)} to change this.
+   * Constructor with validation enabled by default. Use {@link #setUseSchema(boolean)} to change
+   * this.
    *
    * @since 9.0.5
    */

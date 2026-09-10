@@ -222,9 +222,9 @@ public final class PeppolMLSLineResponseBuilderTest
   {
     // Build a LineResponseType first
     final LineResponseType aOriginal = new PeppolMLSLineResponseBuilder ().errorField ("Invoice/Note")
-                                                                         .addResponse (EPeppolMLSStatusReasonCode.FAILURE_OF_DELIVERY,
-                                                                                       "Delivery failed")
-                                                                         .build ();
+                                                                          .addResponse (EPeppolMLSStatusReasonCode.FAILURE_OF_DELIVERY,
+                                                                                        "Delivery failed")
+                                                                          .build ();
 
     // Reverse it
     final PeppolMLSLineResponseBuilder aReverse = PeppolMLSLineResponseBuilder.createForLineResponse (aOriginal);
@@ -242,11 +242,11 @@ public final class PeppolMLSLineResponseBuilderTest
   public void testCreateForLineResponseMultipleResponses ()
   {
     final LineResponseType aOriginal = new PeppolMLSLineResponseBuilder ().errorField ("Invoice/ID")
-                                                                         .addResponse (EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_FATAL,
-                                                                                       "ID missing")
-                                                                         .addResponse (EPeppolMLSStatusReasonCode.SYNTAX_VIOLATION,
-                                                                                       "ID format wrong")
-                                                                         .build ();
+                                                                          .addResponse (EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_FATAL,
+                                                                                        "ID missing")
+                                                                          .addResponse (EPeppolMLSStatusReasonCode.SYNTAX_VIOLATION,
+                                                                                        "ID format wrong")
+                                                                          .build ();
 
     final PeppolMLSLineResponseBuilder aReverse = PeppolMLSLineResponseBuilder.createForLineResponse (aOriginal);
     assertEquals ("Invoice/ID", aReverse.errorField ());

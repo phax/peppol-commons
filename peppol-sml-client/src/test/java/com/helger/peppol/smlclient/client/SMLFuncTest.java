@@ -146,7 +146,8 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
 
     m_aSMClient.delete (aServiceMetadataRead.getServiceMetadataPublisherID ());
 
-    assertEquals (m_aServiceMetadataPublisher.getServiceMetadataPublisherID (), aServiceMetadataRead.getServiceMetadataPublisherID ());
+    assertEquals (m_aServiceMetadataPublisher.getServiceMetadataPublisherID (),
+                  aServiceMetadataRead.getServiceMetadataPublisherID ());
     assertEquals (m_aServiceMetadataPublisher.getPublisherEndpoint ().getLogicalAddress (),
                   aServiceMetadataRead.getPublisherEndpoint ().getLogicalAddress ());
     assertEquals (m_aServiceMetadataPublisher.getPublisherEndpoint ().getPhysicalAddress (),
@@ -166,7 +167,8 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
       LOGGER.info ("Creating number: " + i);
       final long nIdentifier = nStartIdentifier + i;
       aPIClient.create (m_aServiceMetadataPublisher.getServiceMetadataPublisherID (),
-                        PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:" + nIdentifier));
+                        PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:" +
+                                                                                                       nIdentifier));
     }
 
     m_aSMClient.delete (m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
@@ -176,7 +178,8 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     // Delete one that was on a second page
     final long nIdentifier = nStartIdentifier + nLastIdentifier;
     aPIClient.create (aServiceMetadataCreateNew.getServiceMetadataPublisherID (),
-                      PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:" + nIdentifier));
+                      PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:" +
+                                                                                                     nIdentifier));
   }
 
   @Test (expected = NotFoundFault.class)
@@ -216,7 +219,8 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
 
     aPIClient.create (saSrviceMetadataPublisherServiceForBusiness);
 
-    final ParticipantIdentifierPageType aResult = aPIClient.list ("", m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
+    final ParticipantIdentifierPageType aResult = aPIClient.list ("",
+                                                                  m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
     assertNotNull (aResult);
     final List <ParticipantIdentifierType> aBusinessIdentifiers = aResult.getParticipantIdentifier ();
 
@@ -247,7 +251,8 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
 
     aPIClient.create (aServiceMetadataPublisherServiceForBusiness);
 
-    final ParticipantIdentifierPageType aResult = aPIClient.list ("", m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
+    final ParticipantIdentifierPageType aResult = aPIClient.list ("",
+                                                                  m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
     assertNotNull (aResult);
     final List <ParticipantIdentifierType> aBusinessIdentifiers = aResult.getParticipantIdentifier ();
 
@@ -274,7 +279,8 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
 
     aPIClient.createList (aRecipientBusinessIdentifiers, SMP_ID);
 
-    final ParticipantIdentifierPageType aResult = aPIClient.list ("", m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
+    final ParticipantIdentifierPageType aResult = aPIClient.list ("",
+                                                                  m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
     assertNotNull (aResult);
 
     final List <ParticipantIdentifierType> aBusinessIdentifiers = aResult.getParticipantIdentifier ();
@@ -295,7 +301,8 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
 
     aPIClient.createList (aRecipientBusinessIdentifiers, SMP_ID);
 
-    final ParticipantIdentifierPageType aResult = aPIClient.list ("", m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
+    final ParticipantIdentifierPageType aResult = aPIClient.list ("",
+                                                                  m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
     assertNotNull (aResult);
 
     final List <ParticipantIdentifierType> aBusinessIdentifiers = aResult.getParticipantIdentifier ();
@@ -328,7 +335,8 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
 
     aPIClient.createList (aBusinessIdentifiersCreate.values (), SMP_ID);
 
-    final ParticipantIdentifierPageType aResult = aPIClient.list ("", m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
+    final ParticipantIdentifierPageType aResult = aPIClient.list ("",
+                                                                  m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
     assertNotNull (aResult);
 
     final List <ParticipantIdentifierType> aBusinessIdentifiers = aResult.getParticipantIdentifier ();
@@ -416,8 +424,10 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     final ManageParticipantIdentifierServiceCaller aPIClientNew = new ManageParticipantIdentifierServiceCaller (SML_INFO);
     aPIClientNew.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
 
-    aPIClientOld.create (SMP_ID, PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1));
+    aPIClientOld.create (SMP_ID,
+                         PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1));
 
-    aPIClientNew.create (SMP_ID, PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1));
+    aPIClientNew.create (SMP_ID,
+                         PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1));
   }
 }

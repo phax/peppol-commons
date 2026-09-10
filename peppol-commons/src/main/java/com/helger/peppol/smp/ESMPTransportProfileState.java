@@ -40,8 +40,7 @@ public enum ESMPTransportProfileState implements IHasID <String>, IHasDisplayTex
   ACTIVE ("active", ESMPTransportProfileStateText.ACTIVE),
 
   /**
-   * A transport profile can still be used, but should not be used for new SMP
-   * entries.
+   * A transport profile can still be used, but should not be used for new SMP entries.
    */
   DEPRECATED ("deprecated", ESMPTransportProfileStateText.DEPRECATED),
 

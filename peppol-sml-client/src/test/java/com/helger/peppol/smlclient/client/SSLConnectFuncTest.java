@@ -40,8 +40,8 @@ import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.security.keystore.KeyStoreHelper;
 
 /**
- * This class tests the URL connection to the SML that is secured with client
- * certificates. It requires a valid keystore to be configured.
+ * This class tests the URL connection to the SML that is secured with client certificates. It
+ * requires a valid keystore to be configured.
  *
  * @author Philip Helger
  */

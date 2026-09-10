@@ -31,10 +31,7 @@ public final class PeppolTrustedCAWithoutBCTest
     assertThrows (ClassNotFoundException.class, () -> Class.forName ("com.helger.bc.PBCProvider"));
 
     assertEquals (2,
-                  PeppolTrustedCA.peppolAllAP ()
-                                 .getAllTrustedAPCertificates ()
-                                 .getAllTrustedCACertificates ()
-                                 .size ());
+                  PeppolTrustedCA.peppolAllAP ().getAllTrustedAPCertificates ().getAllTrustedCACertificates ().size ());
     assertEquals (2,
                   PeppolTrustedCA.peppolAllSMP ()
                                  .getAllTrustedAPCertificates ()

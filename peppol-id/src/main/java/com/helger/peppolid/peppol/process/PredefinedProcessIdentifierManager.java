@@ -34,10 +34,9 @@ import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 
 /**
- * This class manages the predefined Peppol process identifiers the
- * <b>cenbii-procid-ubl</b> scheme. This class provides sanity methods around
- * {@link EPredefinedProcessIdentifier} which would be to bogus to generate
- * them.
+ * This class manages the predefined Peppol process identifiers the <b>cenbii-procid-ubl</b> scheme.
+ * This class provides sanity methods around {@link EPredefinedProcessIdentifier} which would be to
+ * bogus to generate them.
  *
  * @author Philip Helger
  */
@@ -71,8 +70,8 @@ public final class PredefinedProcessIdentifierManager
   }
 
   /**
-   * @return A non-<code>null</code> list of all Peppol process identifier IDs.
-   *         Since v9.2.4 this include the identifier scheme.
+   * @return A non-<code>null</code> list of all Peppol process identifier IDs. Since v9.2.4 this
+   *         include the identifier scheme.
    */
   @NonNull
   @Nonempty
@@ -83,12 +82,11 @@ public final class PredefinedProcessIdentifierManager
   }
 
   /**
-   * Find the process identifier with the given ID. This search is done case
-   * insensitive.
+   * Find the process identifier with the given ID. This search is done case insensitive.
    *
    * @param sProcID
-   *        The URI encoded process ID or the process value to search. May or
-   *        may not include the scheme ID. May be <code>null</code>.
+   *        The URI encoded process ID or the process value to search. May or may not include the
+   *        scheme ID. May be <code>null</code>.
    * @return <code>null</code> if no such process identifier exists.
    */
   @Nullable
@@ -115,10 +113,9 @@ public final class PredefinedProcessIdentifierManager
    * Check if a process identifier with the given ID exists.
    *
    * @param sProcID
-   *        The URI encoded process ID or the process value to search. May or
-   *        may not include the scheme ID. May be <code>null</code>.
-   * @return <code>true</code> if such a process identifier exists,
-   *         <code>false</code> otherwise.
+   *        The URI encoded process ID or the process value to search. May or may not include the
+   *        scheme ID. May be <code>null</code>.
+   * @return <code>true</code> if such a process identifier exists, <code>false</code> otherwise.
    */
   public static boolean containsProcessIdentifierWithID (@Nullable final String sProcID)
   {

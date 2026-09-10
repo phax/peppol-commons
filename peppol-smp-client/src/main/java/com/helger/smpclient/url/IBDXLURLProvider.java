@@ -48,8 +48,8 @@ public interface IBDXLURLProvider extends ISMPURLProvider
    *         In case one argument is invalid
    */
   @NonNull
-  String getDNSNameOfParticipant (@NonNull IParticipantIdentifier aParticipantIdentifier, @Nullable String sSMLZoneName)
-                                                                                                                         throws SMPDNSResolutionException;
+  String getDNSNameOfParticipant (@NonNull IParticipantIdentifier aParticipantIdentifier,
+                                  @Nullable String sSMLZoneName) throws SMPDNSResolutionException;
 
   /**
    * Get the name of the DNS NAPTR record.

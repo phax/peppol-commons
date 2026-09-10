@@ -119,10 +119,7 @@ public class BDMSLClient extends WSClientConfig
    *         In case of error
    */
   public void prepareChangeCertificate (@NonNull @Nonempty final String sNewCertificatePublicKey,
-                                        @Nullable final LocalDate aMigrationDate) throws BadRequestFault,
-                                                                                  InternalErrorFault,
-                                                                                  NotFoundFault,
-                                                                                  UnauthorizedFault
+                                        @Nullable final LocalDate aMigrationDate) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
   {
     ValueEnforcer.notEmpty (sNewCertificatePublicKey, "NewCertificatePublicKey");
 
@@ -137,10 +134,7 @@ public class BDMSLClient extends WSClientConfig
 
   public void createParticipantIdentifier (@NonNull @Nonempty final String sSMPID,
                                            @NonNull final IParticipantIdentifier aParticipantID,
-                                           @NonNull @Nonempty final String sServiceName) throws BadRequestFault,
-                                                                                         InternalErrorFault,
-                                                                                         NotFoundFault,
-                                                                                         UnauthorizedFault
+                                           @NonNull @Nonempty final String sServiceName) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
   {
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
     ValueEnforcer.notNull (aParticipantID, "ParticipantID");

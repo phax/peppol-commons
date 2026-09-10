@@ -32,9 +32,9 @@ import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.xsds.peppol.id1.ProcessIdentifierType;
 
 /**
- * This is a sanity class around the {@link ProcessIdentifierType} class with
- * easier construction and some sanity access methods. It may be used in all
- * places where {@link ProcessIdentifierType} objects are required.<br>
+ * This is a sanity class around the {@link ProcessIdentifierType} class with easier construction
+ * and some sanity access methods. It may be used in all places where {@link ProcessIdentifierType}
+ * objects are required.<br>
  *
  * @author Philip Helger
  */
@@ -83,8 +83,8 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
   }
 
   /**
-   * Private constructor that passed the pre-checked values directly to the
-   * super class. Has a dummy parameter for a unique signature.
+   * Private constructor that passed the pre-checked values directly to the super class. Has a dummy
+   * parameter for a unique signature.
    *
    * @param bVerified
    *        dummy
@@ -137,17 +137,16 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
   }
 
   /**
-   * Take the passed identifier scheme and value and create a new
-   * {@link PeppolProcessIdentifier}. This method is for internal use only.
+   * Take the passed identifier scheme and value and create a new {@link PeppolProcessIdentifier}.
+   * This method is for internal use only.
    *
    * @param sScheme
-   *        The identifier scheme. May be <code>null</code> in which case
-   *        <code>null</code> is returned.
+   *        The identifier scheme. May be <code>null</code> in which case <code>null</code> is
+   *        returned.
    * @param sValue
-   *        The identifier value. May be <code>null</code> in which case
-   *        <code>null</code> is returned.
-   * @return The process identifier or <code>null</code> if any of the parts is
-   *         invalid.
+   *        The identifier value. May be <code>null</code> in which case <code>null</code> is
+   *        returned.
+   * @return The process identifier or <code>null</code> if any of the parts is invalid.
    */
   @NonNull
   public static PeppolProcessIdentifier internalCreatePreVerified (@Nullable final String sScheme,

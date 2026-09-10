@@ -27,8 +27,8 @@ import com.helger.xsds.bdxr.smp1.ServiceGroupType;
 public class BDXR1MarshallerServiceGroupType extends AbstractBDXR1Marshaller <ServiceGroupType>
 {
   /**
-   * Constructor with validation enabled by default. Use
-   * {@link #setUseSchema(boolean)} to change this.
+   * Constructor with validation enabled by default. Use {@link #setUseSchema(boolean)} to change
+   * this.
    *
    * @since 9.0.5
    */

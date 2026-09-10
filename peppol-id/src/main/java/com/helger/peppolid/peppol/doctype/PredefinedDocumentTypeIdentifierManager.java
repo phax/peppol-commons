@@ -29,11 +29,10 @@ import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
 
 /**
- * This class manages the predefined Peppol document identifiers the
- * <b>busdox-docid-qns</b> scheme.<br>
- * This class provides sanity methods around
- * {@link EPredefinedDocumentTypeIdentifier} which would be to bogus to generate
- * them.
+ * This class manages the predefined Peppol document identifiers the <b>busdox-docid-qns</b>
+ * scheme.<br>
+ * This class provides sanity methods around {@link EPredefinedDocumentTypeIdentifier} which would
+ * be to bogus to generate them.
  *
  * @author Philip Helger
  */
@@ -67,8 +66,7 @@ public final class PredefinedDocumentTypeIdentifierManager
   }
 
   /**
-   * @return A non-<code>null</code> list of all Peppol document type identifier
-   *         IDs.
+   * @return A non-<code>null</code> list of all Peppol document type identifier IDs.
    */
   @NonNull
   @Nonempty
@@ -79,13 +77,13 @@ public final class PredefinedDocumentTypeIdentifierManager
   }
 
   /**
-   * Find the document identifier with the given ID. This search is done case
-   * sensitive. Since v9.0.8 it must be Scheme::Value because some entries are
-   * registered for busdox-docid-qns and peppol-wildcard in parallel!
+   * Find the document identifier with the given ID. This search is done case sensitive. Since
+   * v9.0.8 it must be Scheme::Value because some entries are registered for busdox-docid-qns and
+   * peppol-wildcard in parallel!
    *
    * @param sDocTypeID
-   *        The URI encoded document type ID include the identifier scheme. May
-   *        be <code>null</code>.
+   *        The URI encoded document type ID include the identifier scheme. May be
+   *        <code>null</code>.
    * @return <code>null</code> if no such document identifier exists.
    */
   @Nullable
@@ -103,10 +101,9 @@ public final class PredefinedDocumentTypeIdentifierManager
    * Check if a document identifier with the given ID exists.
    *
    * @param sDocTypeID
-   *        The URI encoded document type ID include the identifier scheme. May
-   *        be <code>null</code>.
-   * @return <code>true</code> if such a document identifier exists,
-   *         <code>false</code> otherwise.
+   *        The URI encoded document type ID include the identifier scheme. May be
+   *        <code>null</code>.
+   * @return <code>true</code> if such a document identifier exists, <code>false</code> otherwise.
    */
   public static boolean containsDocumentTypeIdentifierWithID (@Nullable final String sDocTypeID)
   {

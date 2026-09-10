@@ -530,8 +530,8 @@ public final class PeppolMLSBuilderTest
   public void testFactoryMethodsPreInitialize ()
   {
     // All factory methods should pre-set ID, date and time
-    for (final PeppolMLSBuilder aBuilder : new PeppolMLSBuilder [] { PeppolMLSBuilder.acceptance (), PeppolMLSBuilder
-                                                                                                                     .acknowledging (),
+    for (final PeppolMLSBuilder aBuilder : new PeppolMLSBuilder [] { PeppolMLSBuilder.acceptance (),
+                                                                     PeppolMLSBuilder.acknowledging (),
                                                                      PeppolMLSBuilder.rejection () })
     {
       assertNotNull (aBuilder.id ());

@@ -29,8 +29,8 @@ import com.helger.smpclient.peppol.SMPClient;
 import com.helger.xsds.peppol.smp1.ServiceGroupType;
 
 /**
- * Check if an SMP installation is working. Prior to executing this class, make
- * sure that the file <code>functest.properties</code> filled correctly!
+ * Check if an SMP installation is working. Prior to executing this class, make sure that the file
+ * <code>functest.properties</code> filled correctly!
  *
  * @author Philip Helger
  */

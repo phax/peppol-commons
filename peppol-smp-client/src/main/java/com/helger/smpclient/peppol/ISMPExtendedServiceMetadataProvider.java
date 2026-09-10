@@ -126,10 +126,11 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
     // Get meta data for participant/documentType
     final SignedServiceMetadataType aSignedServiceMetadata = getServiceMetadataOrNull (aServiceGroupID,
                                                                                        aDocumentTypeID);
-    return aSignedServiceMetadata == null ? null : SMPClientReadOnly.getEndpointAt (aSignedServiceMetadata,
-                                                                                    aProcessID,
-                                                                                    aTransportProfile,
-                                                                                    aCheckDT);
+    return aSignedServiceMetadata == null ? null
+                                          : SMPClientReadOnly.getEndpointAt (aSignedServiceMetadata,
+                                                                             aProcessID,
+                                                                             aTransportProfile,
+                                                                             aCheckDT);
   }
 
   /**
@@ -296,8 +297,7 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
   default X509Certificate getEndpointCertificate (@NonNull final IParticipantIdentifier aServiceGroupID,
                                                   @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
                                                   @NonNull final IProcessIdentifier aProcessID,
-                                                  @NonNull final ISMPTransportProfile aTransportProfile) throws SMPClientException,
-                                                                                                         CertificateException
+                                                  @NonNull final ISMPTransportProfile aTransportProfile) throws SMPClientException, CertificateException
   {
     final String sCertString = getEndpointCertificateString (aServiceGroupID,
                                                              aDocumentTypeID,
@@ -335,8 +335,7 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
                                                     @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
                                                     @NonNull final IProcessIdentifier aProcessID,
                                                     @NonNull final ISMPTransportProfile aTransportProfile,
-                                                    @NonNull final LocalDateTime aCheckDT) throws SMPClientException,
-                                                                                           CertificateException
+                                                    @NonNull final LocalDateTime aCheckDT) throws SMPClientException, CertificateException
   {
     final String sCertString = getEndpointCertificateStringAt (aServiceGroupID,
                                                                aDocumentTypeID,

@@ -817,8 +817,8 @@ public class DBNAllianceXHEDataReader
    *         In case the passed Exchange Header Envelope does not conform to the DBNAlliance rules.
    */
   @NonNull
-  public DBNAllianceXHEData extractData (@NonNull final XHE10XHEType aXHE, @NonNull final XHE10PayloadsType aPayloads)
-                                                                                                                       throws DBNAllianceXHEDataReadException
+  public DBNAllianceXHEData extractData (@NonNull final XHE10XHEType aXHE,
+                                         @NonNull final XHE10PayloadsType aPayloads) throws DBNAllianceXHEDataReadException
   {
     ValueEnforcer.notNull (aXHE, "ExchangeHeaderEnvelope");
     ValueEnforcer.notNull (aPayloads, "Payloads");

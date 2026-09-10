@@ -101,8 +101,8 @@ public class PDIdentifier implements IHasJson, Serializable, ICloneable <PDIdent
   }
 
   /**
-   * This method clones all values from <code>this</code> to the passed object.
-   * All data in the parameter object is overwritten!
+   * This method clones all values from <code>this</code> to the passed object. All data in the
+   * parameter object is overwritten!
    *
    * @param ret
    *        The target object to clone to. May not be <code>null</code>.
@@ -123,7 +123,8 @@ public class PDIdentifier implements IHasJson, Serializable, ICloneable <PDIdent
   }
 
   @NonNull
-  public IMicroElement getAsMicroXML (@Nullable final String sNamespaceURI, @NonNull @Nonempty final String sElementName)
+  public IMicroElement getAsMicroXML (@Nullable final String sNamespaceURI,
+                                      @NonNull @Nonempty final String sElementName)
   {
     final IMicroElement ret = new MicroElement (sNamespaceURI, sElementName);
     ret.setAttribute ("scheme", m_sScheme);

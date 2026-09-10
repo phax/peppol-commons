@@ -38,8 +38,8 @@ public final class CBDXR2Identifier
   public static final String DEFAULT_PROCESS_IDENTIFIER_SCHEME = "bdx-procid-transport";
 
   /**
-   * The default process identifier to indicate that no default process belongs
-   * to it. Must be treated case insensitive.
+   * The default process identifier to indicate that no default process belongs to it. Must be
+   * treated case insensitive.
    */
   public static final String DEFAULT_PROCESS_IDENTIFIER_NOPROCESS = "bdx:noprocess";
 

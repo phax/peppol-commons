@@ -30,8 +30,8 @@ import com.helger.peppolid.IParticipantIdentifier;
 /**
  * A single item of the participant list.
  * <p>
- * Note: this class is also licensed under Apache 2 license, as it was not part
- * of the original implementation
+ * Note: this class is also licensed under Apache 2 license, as it was not part of the original
+ * implementation
  * </p>
  *
  * @author Philip Helger
@@ -46,12 +46,12 @@ public class ParticipantListItem implements Serializable
    * Constructor
    *
    * @param sSMPID
-   *        The SMP ID to which the participant belongs. May neither be
-   *        <code>null</code> nor empty.
+   *        The SMP ID to which the participant belongs. May neither be <code>null</code> nor empty.
    * @param aParticipantID
    *        The participant identifier. May not be <code>null</code>.
    */
-  public ParticipantListItem (@NonNull @Nonempty final String sSMPID, @NonNull final IParticipantIdentifier aParticipantID)
+  public ParticipantListItem (@NonNull @Nonempty final String sSMPID,
+                              @NonNull final IParticipantIdentifier aParticipantID)
   {
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
     ValueEnforcer.notNull (aParticipantID, "ParticipantID");
@@ -61,8 +61,8 @@ public class ParticipantListItem implements Serializable
   }
 
   /**
-   * @return The SMP-ID to which this participant identifier belongs. Neither
-   *         <code>null</code> nor empty.
+   * @return The SMP-ID to which this participant identifier belongs. Neither <code>null</code> nor
+   *         empty.
    */
   @NonNull
   @Nonempty
@@ -72,8 +72,7 @@ public class ParticipantListItem implements Serializable
   }
 
   /**
-   * @return The participant identifier as passed in the constructor. Never
-   *         <code>null</code>.
+   * @return The participant identifier as passed in the constructor. Never <code>null</code>.
    */
   @NonNull
   public IParticipantIdentifier getParticipantID ()
@@ -101,6 +100,8 @@ public class ParticipantListItem implements Serializable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("SMPID", m_sSMPID).append ("ParticipantID", m_aParticipantID).getToString ();
+    return new ToStringGenerator (null).append ("SMPID", m_sSMPID)
+                                       .append ("ParticipantID", m_aParticipantID)
+                                       .getToString ();
   }
 }

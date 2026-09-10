@@ -32,8 +32,8 @@ import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.xsds.peppol.id1.DocumentIdentifierType;
 
 /**
- * A special document type identifier that handles the specialties of PEPPOL
- * (like fixed default scheme) etc.
+ * A special document type identifier that handles the specialties of PEPPOL (like fixed default
+ * scheme) etc.
  *
  * @author Philip Helger
  */
@@ -83,8 +83,8 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
   }
 
   /**
-   * Private constructor that passed the pre-checked values directly to the
-   * super class. Has a dummy parameter for a unique signature.
+   * Private constructor that passed the pre-checked values directly to the super class. Has a dummy
+   * parameter for a unique signature.
    *
    * @param bVerified
    *        dummy
@@ -116,11 +116,9 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
   }
 
   /**
-   * Extract the different identifier parts that are contained in a PEPPOL
-   * document type identifier.
+   * Extract the different identifier parts that are contained in a PEPPOL document type identifier.
    *
-   * @return A new object encapsulating the different document type identifier
-   *         parts.
+   * @return A new object encapsulating the different document type identifier parts.
    */
   @NonNull
   public IPeppolGenericDocumentTypeIdentifierParts getParts ()
@@ -155,13 +153,12 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
    * {@link PeppolDocumentTypeIdentifier}. Internal method.
    *
    * @param sScheme
-   *        The identifier scheme. May be <code>null</code> in which case
-   *        <code>null</code> is returned.
+   *        The identifier scheme. May be <code>null</code> in which case <code>null</code> is
+   *        returned.
    * @param sValue
-   *        The identifier value. May be <code>null</code> in which case
-   *        <code>null</code> is returned.
-   * @return The document type identifier or <code>null</code> if any of the
-   *         parts is invalid.
+   *        The identifier value. May be <code>null</code> in which case <code>null</code> is
+   *        returned.
+   * @return The document type identifier or <code>null</code> if any of the parts is invalid.
    */
   @NonNull
   public static PeppolDocumentTypeIdentifier internalCreatePreVerified (@Nullable final String sScheme,

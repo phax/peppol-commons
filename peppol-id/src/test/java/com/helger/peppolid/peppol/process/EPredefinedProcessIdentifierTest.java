@@ -43,6 +43,7 @@ public final class EPredefinedProcessIdentifierTest
       assertSame (e, EPredefinedProcessIdentifier.getFromProcessIdentifierOrNull (e));
     }
     assertNull (EPredefinedProcessIdentifier.getFromProcessIdentifierOrNull (null));
-    assertNull (EPredefinedProcessIdentifier.getFromProcessIdentifierOrNull (new SimpleProcessIdentifier ("bla", "foo")));
+    assertNull (EPredefinedProcessIdentifier.getFromProcessIdentifierOrNull (new SimpleProcessIdentifier ("bla",
+                                                                                                          "foo")));
   }
 }

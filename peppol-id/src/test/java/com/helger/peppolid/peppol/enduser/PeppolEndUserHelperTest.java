@@ -110,7 +110,7 @@ public final class PeppolEndUserHelperTest
     // Non-default scheme - identifier values are case sensitive there
     assertEquals ("scheme-actorid-test::ABC12345",
                   PeppolEndUserHelper.getEffectiveEndUserID (IF.createParticipantIdentifier ("scheme-actorid-test",
-                                                                                    "ABC12345")));
+                                                                                             "ABC12345")));
   }
 
   @Test
@@ -121,7 +121,8 @@ public final class PeppolEndUserHelperTest
     assertNull (PeppolEndUserHelper.getEffectiveEndUserID ("iso6523-actorid-upis", null));
 
     // Identifiers that cannot be created by the identifier factory are used as-is
-    assertEquals ("iso6523-actorid-upis::abc", PeppolEndUserHelper.getEffectiveEndUserID ("iso6523-actorid-upis", "abc"));
+    assertEquals ("iso6523-actorid-upis::abc",
+                  PeppolEndUserHelper.getEffectiveEndUserID ("iso6523-actorid-upis", "abc"));
     assertEquals ("bla::9925:BE0123456789", PeppolEndUserHelper.getEffectiveEndUserID ("bla", "9925:BE0123456789"));
   }
 

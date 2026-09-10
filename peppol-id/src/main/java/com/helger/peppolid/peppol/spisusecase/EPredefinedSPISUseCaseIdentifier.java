@@ -24,65 +24,69 @@ import com.helger.peppolid.peppol.EPeppolCodeListItemState;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
-
 /**
- * This file was automatically generated.
- * Do NOT edit!
+ * This file was automatically generated. Do NOT edit!
  */
 @CodingStyleguideUnaware
-public enum EPredefinedSPISUseCaseIdentifier
-    implements IPredefinedSPISUseCaseIdentifier
+public enum EPredefinedSPISUseCaseIdentifier implements IPredefinedSPISUseCaseIdentifier
 {
 
-    /**
-     * ID: <code>MLS</code><br>
-     * 
-     * @since code list 9.4
-     */
-    MLS("MLS", Version.parse("9.4"), EPeppolCodeListItemState.ACTIVE, null, null);
-    public static final String CODE_LIST_VERSION = "9.7";
-    public static final int CODE_LIST_ENTRY_COUNT = 1;
-    private final String m_sUseCaseID;
-    private final Version m_aInitialRelease;
-    private final EPeppolCodeListItemState m_eState;
-    private final Version m_aDeprecationRelease;
-    private final LocalDate m_aRemovalDate;
+  /**
+   * ID: <code>MLS</code><br>
+   * 
+   * @since code list 9.4
+   */
+  MLS ("MLS", Version.parse ("9.4"), EPeppolCodeListItemState.ACTIVE, null, null);
 
-    EPredefinedSPISUseCaseIdentifier(@NonNull @Nonempty final String sProfileID,
-        @NonNull final Version aInitialRelease,
-        @NonNull final EPeppolCodeListItemState eState,
-        @Nullable final Version aDeprecationRelease,
-        @Nullable final LocalDate aRemovalDate) {
-        m_sUseCaseID = sProfileID;
-        m_aInitialRelease = aInitialRelease;
-        m_eState = eState;
-        m_aDeprecationRelease = aDeprecationRelease;
-        m_aRemovalDate = aRemovalDate;
-    }
+  public static final String CODE_LIST_VERSION = "9.7";
+  public static final int CODE_LIST_ENTRY_COUNT = 1;
+  private final String m_sUseCaseID;
+  private final Version m_aInitialRelease;
+  private final EPeppolCodeListItemState m_eState;
+  private final Version m_aDeprecationRelease;
+  private final LocalDate m_aRemovalDate;
 
-    @NonNull
-    @Nonempty
-    public String getUseCaseID() {
-        return m_sUseCaseID;
-    }
+  EPredefinedSPISUseCaseIdentifier (@NonNull @Nonempty final String sProfileID,
+                                    @NonNull final Version aInitialRelease,
+                                    @NonNull final EPeppolCodeListItemState eState,
+                                    @Nullable final Version aDeprecationRelease,
+                                    @Nullable final LocalDate aRemovalDate)
+  {
+    m_sUseCaseID = sProfileID;
+    m_aInitialRelease = aInitialRelease;
+    m_eState = eState;
+    m_aDeprecationRelease = aDeprecationRelease;
+    m_aRemovalDate = aRemovalDate;
+  }
 
-    @NonNull
-    public Version getInitialRelease() {
-        return m_aInitialRelease;
-    }
+  @NonNull
+  @Nonempty
+  public String getUseCaseID ()
+  {
+    return m_sUseCaseID;
+  }
 
-    @NonNull
-    public EPeppolCodeListItemState getState() {
-        return m_eState;
-    }
+  @NonNull
+  public Version getInitialRelease ()
+  {
+    return m_aInitialRelease;
+  }
 
-    @Nullable
-    public Version getDeprecationRelease() {
-        return m_aDeprecationRelease;
-    }
+  @NonNull
+  public EPeppolCodeListItemState getState ()
+  {
+    return m_eState;
+  }
 
-    @Nullable
-    public LocalDate getRemovalDate() {
-        return m_aRemovalDate;
-    }
+  @Nullable
+  public Version getDeprecationRelease ()
+  {
+    return m_aDeprecationRelease;
+  }
+
+  @Nullable
+  public LocalDate getRemovalDate ()
+  {
+    return m_aRemovalDate;
+  }
 }

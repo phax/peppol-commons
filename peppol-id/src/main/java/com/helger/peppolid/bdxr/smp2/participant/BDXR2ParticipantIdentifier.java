@@ -30,9 +30,9 @@ import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.xsds.bdxr.smp2.bc.ParticipantIDType;
 
 /**
- * This is a sanity class around the {@link ParticipantIDType} class with easier
- * construction and some sanity access methods. It may be used in all places
- * where {@link ParticipantIDType} objects are required.
+ * This is a sanity class around the {@link ParticipantIDType} class with easier construction and
+ * some sanity access methods. It may be used in all places where {@link ParticipantIDType} objects
+ * are required.
  *
  * @author Philip Helger
  */

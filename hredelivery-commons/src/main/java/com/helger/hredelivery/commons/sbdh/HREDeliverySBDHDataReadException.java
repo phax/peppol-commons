@@ -27,7 +27,8 @@ public class HREDeliverySBDHDataReadException extends Exception
 {
   private final EHREDeliverySBDHDataError m_eErrorCode;
 
-  HREDeliverySBDHDataReadException (@NonNull final String sErrorMsg, @NonNull final EHREDeliverySBDHDataError eErrorCode)
+  HREDeliverySBDHDataReadException (@NonNull final String sErrorMsg,
+                                    @NonNull final EHREDeliverySBDHDataError eErrorCode)
   {
     super (sErrorMsg);
     m_eErrorCode = eErrorCode;

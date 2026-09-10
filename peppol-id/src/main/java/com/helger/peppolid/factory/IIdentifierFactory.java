@@ -17,14 +17,16 @@
 package com.helger.peppolid.factory;
 
 /**
- * A generic factory interface that allows to easily switch between default
- * identifiers (<code>Simple...Identifier</code>), Peppol identifiers (
- * <code>Peppol...Identifier</code>) and BDXR identifiers (
- * <code>BDXR...Identifier</code>).
+ * A generic factory interface that allows to easily switch between default identifiers
+ * (<code>Simple...Identifier</code>), Peppol identifiers ( <code>Peppol...Identifier</code>) and
+ * BDXR identifiers ( <code>BDXR...Identifier</code>).
  *
  * @author Philip Helger
  */
-public interface IIdentifierFactory extends IDocumentTypeIdentifierFactory, IParticipantIdentifierFactory, IProcessIdentifierFactory
+public interface IIdentifierFactory extends
+                                    IDocumentTypeIdentifierFactory,
+                                    IParticipantIdentifierFactory,
+                                    IProcessIdentifierFactory
 {
   /* empty */
 }

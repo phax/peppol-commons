@@ -60,8 +60,7 @@ public final class SMPExtensionListTest
     assertNull (SMPExtensionList.of (new SMPExtension (), new SMPExtension ()).getExtensionsAsJsonString ());
     assertEquals ("[{\"ID\":\"a\"},{\"ID\":\"b\"}]",
                   SMPExtensionList.of (new SMPExtension ().setExtensionID ("a"),
-                                       new SMPExtension ().setExtensionID ("b"))
-                                  .getExtensionsAsJsonString ());
+                                       new SMPExtension ().setExtensionID ("b")).getExtensionsAsJsonString ());
   }
 
   @Test

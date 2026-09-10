@@ -79,9 +79,10 @@ public interface IBDXRExtendedServiceMetadataProvider extends IBDXRServiceMetada
     // Get meta data for participant/documentType
     final SignedServiceMetadataType aSignedServiceMetadata = getServiceMetadataOrNull (aServiceGroupID,
                                                                                        aDocumentTypeID);
-    return aSignedServiceMetadata == null ? null : BDXRClientReadOnly.getEndpoint (aSignedServiceMetadata,
-                                                                                   aProcessID,
-                                                                                   aTransportProfile);
+    return aSignedServiceMetadata == null ? null
+                                          : BDXRClientReadOnly.getEndpoint (aSignedServiceMetadata,
+                                                                            aProcessID,
+                                                                            aTransportProfile);
   }
 
   /**
@@ -169,8 +170,7 @@ public interface IBDXRExtendedServiceMetadataProvider extends IBDXRServiceMetada
   default X509Certificate getEndpointCertificate (@NonNull final IParticipantIdentifier aServiceGroupID,
                                                   @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
                                                   @NonNull final IProcessIdentifier aProcessID,
-                                                  @NonNull final ISMPTransportProfile aTransportProfile) throws SMPClientException,
-                                                                                                         CertificateException
+                                                  @NonNull final ISMPTransportProfile aTransportProfile) throws SMPClientException, CertificateException
   {
     final byte [] aCertBytes = getEndpointCertificateBytes (aServiceGroupID,
                                                             aDocumentTypeID,

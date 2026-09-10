@@ -19,8 +19,8 @@ package com.helger.smpclient.exception;
 import org.jspecify.annotations.NonNull;
 
 /**
- * Base class for all SMP client exceptions. It can also be used as a generic
- * exception for catching.
+ * Base class for all SMP client exceptions. It can also be used as a generic exception for
+ * catching.
  *
  * @author Philip Helger
  */

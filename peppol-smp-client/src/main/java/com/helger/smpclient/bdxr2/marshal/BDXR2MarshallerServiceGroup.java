@@ -32,8 +32,8 @@ public class BDXR2MarshallerServiceGroup extends AbstractBDXR2Marshaller <Servic
   private static final ICommonsList <ClassPathResource> XSDS = CBDXRSMP2.getAllXSDResourceServiceGroup ();
 
   /**
-   * Constructor with validation enabled by default. Use
-   * {@link #setUseSchema(boolean)} to change this.
+   * Constructor with validation enabled by default. Use {@link #setUseSchema(boolean)} to change
+   * this.
    *
    * @since 9.0.5
    */

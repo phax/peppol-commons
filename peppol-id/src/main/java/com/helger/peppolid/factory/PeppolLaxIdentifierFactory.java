@@ -17,9 +17,8 @@
 package com.helger.peppolid.factory;
 
 /**
- * Specific implementation of {@link IIdentifierFactory} for lax handling of
- * Peppol identifiers. See https://github.com/phax/phoss-smp/issues/275 for
- * background information.
+ * Specific implementation of {@link IIdentifierFactory} for lax handling of Peppol identifiers. See
+ * https://github.com/phax/phoss-smp/issues/275 for background information.
  *
  * @author Philip Helger
  * @since 9.3.6

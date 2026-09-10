@@ -54,12 +54,12 @@ import com.helger.xsds.bdxr.smp2.bc.IDType;
 import com.helger.xsds.bdxr.smp2.bc.ParticipantIDType;
 
 /**
- * This class is used for calling the OASIS BDXR SMP v2 REST interface. This
- * particular class also contains the non-standard writing methods. It inherits
- * all reading methods from {@link BDXR2ClientReadOnly}.
+ * This class is used for calling the OASIS BDXR SMP v2 REST interface. This particular class also
+ * contains the non-standard writing methods. It inherits all reading methods from
+ * {@link BDXR2ClientReadOnly}.
  * <p>
- * Note: this class is also licensed under Apache 2 license, as it was not part
- * of the original implementation
+ * Note: this class is also licensed under Apache 2 license, as it was not part of the original
+ * implementation
  * </p>
  *
  * @author Philip Helger
@@ -74,14 +74,12 @@ public class BDXR2Client extends BDXR2ClientReadOnly
    * @param aURLProvider
    *        The URL provider to be used. May not be <code>null</code>.
    * @param aParticipantIdentifier
-   *        The participant identifier to be used. Required to build the SMP
-   *        access URI.
+   *        The participant identifier to be used. Required to build the SMP access URI.
    * @param aSMLInfo
    *        The SML to be used. Required to build the SMP access URI.
    * @throws SMPDNSResolutionException
    *         if DNS resolution fails
-   * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
-   *      ISMLInfo)
+   * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
    */
   public BDXR2Client (@NonNull final ISMPURLProvider aURLProvider,
                       @NonNull final IParticipantIdentifier aParticipantIdentifier,
@@ -96,13 +94,11 @@ public class BDXR2Client extends BDXR2ClientReadOnly
    * @param aURLProvider
    *        The URL provider to be used. May not be <code>null</code>.
    * @param aParticipantIdentifier
-   *        The participant identifier to be used. Required to build the SMP
-   *        access URI.
+   *        The participant identifier to be used. Required to build the SMP access URI.
    * @param sSMLZoneName
-   *        The SML DNS zone name to be used. Required to build the SMP access
-   *        URI. Must end with a trailing dot (".") and may neither be
-   *        <code>null</code> nor empty to build a correct URL. May not start
-   *        with "http://". Example: <code>sml.peppolcentral.org.</code>
+   *        The SML DNS zone name to be used. Required to build the SMP access URI. Must end with a
+   *        trailing dot (".") and may neither be <code>null</code> nor empty to build a correct
+   *        URL. May not start with "http://". Example: <code>sml.peppolcentral.org.</code>
    * @throws SMPDNSResolutionException
    *         if DNS resolution fails
    * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, String)
@@ -119,8 +115,8 @@ public class BDXR2Client extends BDXR2ClientReadOnly
    * Remember: must be HTTP and using port 80 only!
    *
    * @param aSMPHost
-   *        The address of the SMP service. Must be port 80 and basic http only
-   *        (no https!). Example: http://smpcompany.company.org
+   *        The address of the SMP service. Must be port 80 and basic http only (no https!).
+   *        Example: http://smpcompany.company.org
    */
   public BDXR2Client (@NonNull final URI aSMPHost)
   {
@@ -128,21 +124,18 @@ public class BDXR2Client extends BDXR2ClientReadOnly
   }
 
   /**
-   * Saves a service group. The meta data references should not be set and are
-   * not used.
+   * Saves a service group. The meta data references should not be set and are not used.
    *
    * @param aServiceGroup
    *        The service group to save. May not be <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as credentials. May not be
-   *        <code>null</code>.
+   *        The user name and password to use as credentials. May not be <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
    *         The user name or password was not correct.
    * @throws SMPClientNotFoundException
-   *         A HTTP Not Found was received. This can happen if the service was
-   *         not found.
+   *         A HTTP Not Found was received. This can happen if the service was not found.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    */
@@ -170,8 +163,7 @@ public class BDXR2Client extends BDXR2ClientReadOnly
   }
 
   /**
-   * Saves a service group. The meta data references should not be set and are
-   * not used.
+   * Saves a service group. The meta data references should not be set and are not used.
    *
    * @param aParticipantID
    *        The participant identifier for which the service group is to save.
@@ -183,8 +175,7 @@ public class BDXR2Client extends BDXR2ClientReadOnly
    * @throws SMPClientUnauthorizedException
    *         The user name or password was not correct.
    * @throws SMPClientNotFoundException
-   *         A HTTP Not Found was received. This can happen if the service was
-   *         not found.
+   *         A HTTP Not Found was received. This can happen if the service was not found.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    */
@@ -206,11 +197,9 @@ public class BDXR2Client extends BDXR2ClientReadOnly
    * Deletes a service group given by its service group id.
    *
    * @param aServiceGroupID
-   *        The service group id of the service group to delete. May not be
-   *        <code>null</code>.
+   *        The service group id of the service group to delete. May not be <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as credentials. May not be
-   *        <code>null</code>.
+   *        The user name and password to use as credentials. May not be <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientSMPUnavailableException
@@ -268,11 +257,9 @@ public class BDXR2Client extends BDXR2ClientReadOnly
    * @param aDocumentTypeID
    *        The document type ID to use. May not be <code>null</code>.
    * @param aEndpoints
-   *        The endpoints to the created or updated. May not be
-   *        <code>null</code>.
+   *        The endpoints to the created or updated. May not be <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as credentials. May not be
-   *        <code>null</code>.
+   *        The user name and password to use as credentials. May not be <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -283,8 +270,7 @@ public class BDXR2Client extends BDXR2ClientReadOnly
    *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @see #saveServiceRedirect(ParticipantIDType, IDType, RedirectType,
-   *      BasicAuthClientCredentials)
+   * @see #saveServiceRedirect(ParticipantIDType, IDType, RedirectType, BasicAuthClientCredentials)
    */
   public void saveServiceEndpoints (@NonNull final ParticipantIDType aServiceGroupID,
                                     @NonNull final IDType aDocumentTypeID,
@@ -318,8 +304,7 @@ public class BDXR2Client extends BDXR2ClientReadOnly
    * @param aRedirect
    *        The redirect to be saved. May not be <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as credentials. May not be
-   *        <code>null</code>.
+   *        The user name and password to use as credentials. May not be <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -330,8 +315,7 @@ public class BDXR2Client extends BDXR2ClientReadOnly
    *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @see #saveServiceEndpoints(ParticipantIDType, IDType, List,
-   *      BasicAuthClientCredentials)
+   * @see #saveServiceEndpoints(ParticipantIDType, IDType, List, BasicAuthClientCredentials)
    */
   public void saveServiceRedirect (@NonNull final ParticipantIDType aServiceGroupID,
                                    @NonNull final IDType aDocumentTypeID,
@@ -356,18 +340,14 @@ public class BDXR2Client extends BDXR2ClientReadOnly
   }
 
   /**
-   * Deletes a service meta data object given by its service group id and its
-   * document type.
+   * Deletes a service meta data object given by its service group id and its document type.
    *
    * @param aServiceGroupID
-   *        The service group id of the service meta data to delete. May not be
-   *        <code>null</code>.
+   *        The service group id of the service meta data to delete. May not be <code>null</code>.
    * @param aDocumentTypeID
-   *        The document type of the service meta data to delete. May not be
-   *        <code>null</code>.
+   *        The document type of the service meta data to delete. May not be <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as credentials. May not be
-   *        <code>null</code>.
+   *        The user name and password to use as credentials. May not be <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException

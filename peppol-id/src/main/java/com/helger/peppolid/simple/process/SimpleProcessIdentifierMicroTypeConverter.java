@@ -20,7 +20,8 @@ import org.jspecify.annotations.NonNull;
 
 import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
 
-public final class SimpleProcessIdentifierMicroTypeConverter extends AbstractIdentifierMicroTypeConverter <SimpleProcessIdentifier>
+public final class SimpleProcessIdentifierMicroTypeConverter extends
+                                                             AbstractIdentifierMicroTypeConverter <SimpleProcessIdentifier>
 {
   @Override
   @NonNull

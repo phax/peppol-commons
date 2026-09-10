@@ -61,10 +61,8 @@ public interface IPeppolGenericDocumentTypeIdentifierParts
   String getVersion ();
 
   /**
-   * @return {@link #getSyntaxSpecificID()} +
-   *         {@link #SYNTAX_SPECIFIC_ID_SEPARATOR} +
-   *         {@link #getCustomizationID()} + {@link #VERSION_SEPARATOR} +
-   *         {@link #getVersion()}
+   * @return {@link #getSyntaxSpecificID()} + {@link #SYNTAX_SPECIFIC_ID_SEPARATOR} +
+   *         {@link #getCustomizationID()} + {@link #VERSION_SEPARATOR} + {@link #getVersion()}
    */
   @NonNull
   @Nonempty

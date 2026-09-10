@@ -108,40 +108,40 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
 
   public final boolean isLowercaseValueBeforeHashing ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> m_bLowercaseValueBeforeHashing);
+    return m_aRWLock.readLockedBoolean (() -> m_bLowercaseValueBeforeHashing);
   }
 
   public final void setLowercaseValueBeforeHashing (final boolean bLowercaseValueBeforeHashing)
   {
-    m_aRWLock.writeLocked ( () -> m_bLowercaseValueBeforeHashing = bLowercaseValueBeforeHashing);
+    m_aRWLock.writeLocked (() -> m_bLowercaseValueBeforeHashing = bLowercaseValueBeforeHashing);
   }
 
   public final boolean isAddIdentifierSchemeToZone ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> m_bAddIdentifierSchemeToZone);
+    return m_aRWLock.readLockedBoolean (() -> m_bAddIdentifierSchemeToZone);
   }
 
   public final void setAddIdentifierSchemeToZone (final boolean bAddIdentifierSchemeToZone)
   {
-    m_aRWLock.writeLocked ( () -> m_bAddIdentifierSchemeToZone = bAddIdentifierSchemeToZone);
+    m_aRWLock.writeLocked (() -> m_bAddIdentifierSchemeToZone = bAddIdentifierSchemeToZone);
   }
 
   @NonNull
   @Nonempty
   public final String getNAPTRServiceName ()
   {
-    return m_aRWLock.readLockedGet ( () -> m_sNAPTRServiceName);
+    return m_aRWLock.readLockedGet (() -> m_sNAPTRServiceName);
   }
 
   public final void setNAPTRServiceName (@NonNull @Nonempty final String sNAPTRServiceName)
   {
     ValueEnforcer.notEmpty (sNAPTRServiceName, "NAPTRServiceName");
-    m_aRWLock.writeLocked ( () -> m_sNAPTRServiceName = sNAPTRServiceName);
+    m_aRWLock.writeLocked (() -> m_sNAPTRServiceName = sNAPTRServiceName);
   }
 
   public final boolean isUseDNSCache ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> m_bUseDNSCache);
+    return m_aRWLock.readLockedBoolean (() -> m_bUseDNSCache);
   }
 
   /**
@@ -152,7 +152,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
    */
   public final void setUseDNSCache (final boolean bUseDNSCache)
   {
-    m_aRWLock.writeLocked ( () -> m_bUseDNSCache = bUseDNSCache);
+    m_aRWLock.writeLocked (() -> m_bUseDNSCache = bUseDNSCache);
   }
 
   /**
@@ -166,7 +166,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
   @Nullable
   public final String getDNSCacheEntry (@Nullable final String sName)
   {
-    return StringHelper.isNotEmpty (sName) ? m_aRWLock.readLockedGet ( () -> m_aDNSCache.get (sName)) : null;
+    return StringHelper.isNotEmpty (sName) ? m_aRWLock.readLockedGet (() -> m_aDNSCache.get (sName)) : null;
   }
 
   @NonNull
@@ -186,14 +186,14 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
   public final void addDNSCacheEntries (@Nullable final Map <String, String> aEntries)
   {
     if (aEntries != null && !aEntries.isEmpty ())
-      m_aRWLock.writeLocked ( () -> m_aDNSCache.putAll (aEntries));
+      m_aRWLock.writeLocked (() -> m_aDNSCache.putAll (aEntries));
   }
 
   public final void addDNSCacheEntry (@NonNull @Nonempty final String sName, @NonNull final String sNaptrValue)
   {
     ValueEnforcer.notEmpty (sName, "Name");
     ValueEnforcer.notNull (sNaptrValue, "Value");
-    m_aRWLock.writeLocked ( () -> m_aDNSCache.put (sName, sNaptrValue));
+    m_aRWLock.writeLocked (() -> m_aDNSCache.put (sName, sNaptrValue));
   }
 
   /**
@@ -209,12 +209,12 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
 
   public final boolean isUseNaptrDebug ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> m_bUseNaptrDebug);
+    return m_aRWLock.readLockedBoolean (() -> m_bUseNaptrDebug);
   }
 
   public final void setUseNaptrDebug (final boolean b)
   {
-    m_aRWLock.writeLocked ( () -> m_bUseNaptrDebug = b);
+    m_aRWLock.writeLocked (() -> m_bUseNaptrDebug = b);
   }
 
   /**
@@ -257,8 +257,8 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
 
     // Append the hashed identifier part
     {
-      String sIdentifierValue = bAddIdentifierSchemeToZone ? aParticipantIdentifier.getValue () : aParticipantIdentifier
-                                                                                                                        .getURIEncoded ();
+      String sIdentifierValue = bAddIdentifierSchemeToZone ? aParticipantIdentifier.getValue ()
+                                                           : aParticipantIdentifier.getURIEncoded ();
       if (bLowercaseValueBeforeHashing)
         sIdentifierValue = sIdentifierValue.toLowerCase (URL_LOCALE);
       ret.append (getHashValueStringRepresentation (sIdentifierValue)).append ('.');

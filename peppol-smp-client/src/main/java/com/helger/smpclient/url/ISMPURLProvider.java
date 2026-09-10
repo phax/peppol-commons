@@ -50,8 +50,8 @@ public interface ISMPURLProvider
    * @see #getSMPURLOfParticipant(IParticipantIdentifier, String)
    */
   @NonNull
-  URI getSMPURIOfParticipant (@NonNull IParticipantIdentifier aParticipantIdentifier, @Nullable String sSMLZoneName)
-                                                                                                                     throws SMPDNSResolutionException;
+  URI getSMPURIOfParticipant (@NonNull IParticipantIdentifier aParticipantIdentifier,
+                              @Nullable String sSMLZoneName) throws SMPDNSResolutionException;
 
   /**
    * Get the SMP URI of the passed participant ID in the provided SML DNS zone name.

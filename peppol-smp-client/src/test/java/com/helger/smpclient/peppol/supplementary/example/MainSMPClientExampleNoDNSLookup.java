@@ -49,6 +49,7 @@ public final class MainSMPClientExampleNoDNSLookup
                                                                    ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2);
 
     // Endpoint address should be "https://testap.erechnung.gv.at/as4"
-    LOGGER.info ("The Austrian government test AS4 AP that handles invoices according to Billing BIS 3 is located at: " + sEndpointAddress);
+    LOGGER.info ("The Austrian government test AS4 AP that handles invoices according to Billing BIS 3 is located at: " +
+                 sEndpointAddress);
   }
 }

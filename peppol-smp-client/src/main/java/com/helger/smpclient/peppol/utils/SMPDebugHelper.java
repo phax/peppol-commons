@@ -31,8 +31,7 @@ import com.helger.xsds.peppol.smp1.ServiceMetadataReferenceType;
 import com.helger.xsds.peppol.smp1.ServiceMetadataType;
 
 /**
- * SMP utilities for debugging purposes. It converts the complex types to
- * strings for printing.
+ * SMP utilities for debugging purposes. It converts the complex types to strings for printing.
  *
  * @author Philip Helger
  */
@@ -47,7 +46,9 @@ public final class SMPDebugHelper
   {
     final StringBuilder aSB = new StringBuilder ();
     aSB.append ("ServiceGroup information:\n");
-    aSB.append ("ParticipantIdentifier: ").append (CIdentifier.getURIEncoded (aServiceGroup.getParticipantIdentifier ())).append ('\n');
+    aSB.append ("ParticipantIdentifier: ")
+       .append (CIdentifier.getURIEncoded (aServiceGroup.getParticipantIdentifier ()))
+       .append ('\n');
 
     // References
     final ServiceMetadataReferenceCollectionType aSMRC = aServiceGroup.getServiceMetadataReferenceCollection ();
@@ -79,18 +80,26 @@ public final class SMPDebugHelper
     if (aServiceInformation != null)
     {
       aSB.append ("  Service information:\n");
-      aSB.append ("    Participant: ").append (CIdentifier.getURIEncoded (aServiceInformation.getParticipantIdentifier ())).append ('\n');
-      aSB.append ("    Document type: ").append (CIdentifier.getURIEncoded (aServiceInformation.getDocumentIdentifier ())).append ('\n');
+      aSB.append ("    Participant: ")
+         .append (CIdentifier.getURIEncoded (aServiceInformation.getParticipantIdentifier ()))
+         .append ('\n');
+      aSB.append ("    Document type: ")
+         .append (CIdentifier.getURIEncoded (aServiceInformation.getDocumentIdentifier ()))
+         .append ('\n');
       for (final ProcessType aProcess : aServiceInformation.getProcessList ().getProcess ())
       {
-        aSB.append ("      Process: ").append (CIdentifier.getURIEncoded (aProcess.getProcessIdentifier ())).append ('\n');
+        aSB.append ("      Process: ")
+           .append (CIdentifier.getURIEncoded (aProcess.getProcessIdentifier ()))
+           .append ('\n');
         for (final EndpointType aEndpoint : aProcess.getServiceEndpointList ().getEndpoint ())
         {
           aSB.append ("        Endpoint: ")
              .append (W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ()))
              .append ('\n');
           aSB.append ("        Transport profile: ").append (aEndpoint.getTransportProfile ()).append ('\n');
-          aSB.append ("        Business level signature: ").append (aEndpoint.isRequireBusinessLevelSignature ()).append ('\n');
+          aSB.append ("        Business level signature: ")
+             .append (aEndpoint.isRequireBusinessLevelSignature ())
+             .append ('\n');
           aSB.append ("        Min auth level: ").append (aEndpoint.getMinimumAuthenticationLevel ()).append ('\n');
           if (aEndpoint.getServiceActivationDate () != null)
             aSB.append ("        Valid from: ").append (aEndpoint.getServiceActivationDate ()).append ('\n');

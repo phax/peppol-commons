@@ -41,8 +41,7 @@ public class BDXR2NamespaceContext extends MapBasedNamespaceContext
   /**
    * Deprecated constructor.
    *
-   * @deprecated Since 8.7.3. Use {@link BDXR2NamespaceContext#getInstance()}
-   *             instead.
+   * @deprecated Since 8.7.3. Use {@link BDXR2NamespaceContext#getInstance()} instead.
    */
   @Deprecated (forRemoval = false)
   public BDXR2NamespaceContext ()

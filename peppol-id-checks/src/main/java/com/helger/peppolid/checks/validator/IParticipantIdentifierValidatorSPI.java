@@ -22,9 +22,9 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.IsSPIInterface;
 
 /**
- * An SPI interface to validate arbitrary identifier values (independent of the
- * identifier type). This interface can e.g. be used to validate VATIN numbers
- * that are used as PEPPOL participant IDs.
+ * An SPI interface to validate arbitrary identifier values (independent of the identifier type).
+ * This interface can e.g. be used to validate VATIN numbers that are used as PEPPOL participant
+ * IDs.
  *
  * @author Philip Helger
  */
@@ -32,32 +32,28 @@ import com.helger.annotation.style.IsSPIInterface;
 public interface IParticipantIdentifierValidatorSPI
 {
   /**
-   * Check if the passed issuing agency UD (like "9908") is supported by this
-   * validator implementation.
+   * Check if the passed issuing agency UD (like "9908") is supported by this validator
+   * implementation.
    *
    * @param sIssuingAgencyID
-   *        The identifier scheme to check for support. Is neither null nor
-   *        empty.
-   * @return <code>true</code> if this validator can validate values of the
-   *         passed scheme, <code>false</code> otherwise.
+   *        The identifier scheme to check for support. Is neither null nor empty.
+   * @return <code>true</code> if this validator can validate values of the passed scheme,
+   *         <code>false</code> otherwise.
    */
   boolean isSupportedIssuingAgency (@NonNull @Nonempty String sIssuingAgencyID);
 
   /**
-   * Check if the identifier value is valid. This method is only called if the
-   * check for the scheme ({@link #isSupportedIssuingAgency(String)} returned
-   * <code>true</code>.
+   * Check if the identifier value is valid. This method is only called if the check for the scheme
+   * ({@link #isSupportedIssuingAgency(String)} returned <code>true</code>.
    *
    * @param sIssuingAgencyID
-   *        The issuing agency ID (like "9908") the value belongs to. Is neither
-   *        null nor empty. This is the same value for which
-   *        {@link #isSupportedIssuingAgency(String)} returned <code>true</code>
-   *        and it allows a single implementation to apply different rules per
+   *        The issuing agency ID (like "9908") the value belongs to. Is neither null nor empty.
+   *        This is the same value for which {@link #isSupportedIssuingAgency(String)} returned
+   *        <code>true</code> and it allows a single implementation to apply different rules per
    *        supported issuing agency.
    * @param sValue
    *        The identifier value to be checked. Is neither null nor empty.
-   * @return <code>true</code> if the identifier value is valid,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if the identifier value is valid, <code>false</code> if not.
    * @since 12.9.0 the issuing agency ID is passed in as well
    */
   boolean isValueValid (@NonNull @Nonempty String sIssuingAgencyID, @NonNull @Nonempty String sValue);

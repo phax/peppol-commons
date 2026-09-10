@@ -82,8 +82,7 @@ public final class ParticipantIdentifierValidatorNorwayOrgNumber implements IPar
            EPredefinedParticipantIdentifierScheme.NO_VAT.getISO6523Code ().equals (sIssuingAgencyID);
   }
 
-  public boolean isValueValid (@NonNull @Nonempty final String sIssuingAgencyID,
-                               @NonNull @Nonempty final String sValue)
+  public boolean isValueValid (@NonNull @Nonempty final String sIssuingAgencyID, @NonNull @Nonempty final String sValue)
   {
     // The same organisation number syntax applies to all supported issuing agencies
     return isValidOrganisationNumber (sValue);

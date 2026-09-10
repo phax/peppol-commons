@@ -38,15 +38,14 @@ public final class BDXR2IdentifierHelper
   {}
 
   /**
-   * Check if the given identifier is valid. It is valid if it is empty or a
-   * valid URI.<br>
+   * Check if the given identifier is valid. It is valid if it is empty or a valid URI.<br>
    * The scheme of the participant identifier MUST be in the form of a URI.<br>
    * The scheme of the document identifier MUST be in the form of a URI.
    *
    * @param sScheme
    *        The scheme to check.
-   * @return <code>true</code> if the passed scheme is a valid identifier
-   *         scheme, <code>false</code> otherwise.
+   * @return <code>true</code> if the passed scheme is a valid identifier scheme, <code>false</code>
+   *         otherwise.
    */
   public static boolean isValidIdentifierScheme (@Nullable final String sScheme)
   {
@@ -56,13 +55,11 @@ public final class BDXR2IdentifierHelper
   }
 
   /**
-   * Check if an identifier value is valid. Currently this check always returns
-   * true.
+   * Check if an identifier value is valid. Currently this check always returns true.
    *
    * @param sValue
    *        The value to check. May be <code>null</code>.
-   * @return <code>true</code> if the passed value is valid, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if the passed value is valid, <code>false</code> otherwise.
    */
   public static boolean isValidIdentifierValue (@Nullable final String sValue)
   {

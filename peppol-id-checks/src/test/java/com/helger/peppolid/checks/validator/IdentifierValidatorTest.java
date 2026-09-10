@@ -83,7 +83,8 @@ public final class IdentifierValidatorTest
                                                                             "BE0417497107")));
     assertTrue (IdentifierValidator.isValidParticipantIdentifier (F.apply (EPredefinedParticipantIdentifierScheme.BE_VAT,
                                                                            "BE0417497106")));
-    // The identifier factory lower cases the value, so the prefix must be handled case insensitively
+    // The identifier factory lower cases the value, so the prefix must be handled case
+    // insensitively
     assertTrue (IdentifierValidator.isValidParticipantIdentifier (F.apply (EPredefinedParticipantIdentifierScheme.BE_VAT,
                                                                            "be0417497106")));
     // The prefix is mandatory in scheme 9925

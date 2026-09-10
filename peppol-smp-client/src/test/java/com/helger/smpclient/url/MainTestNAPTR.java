@@ -25,8 +25,6 @@ import com.helger.base.timing.StopWatch;
 import com.helger.base.url.URLHelper;
 import com.helger.dns.naptr.NaptrResolver;
 
-
-
 public class MainTestNAPTR
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainTestNAPTR.class);

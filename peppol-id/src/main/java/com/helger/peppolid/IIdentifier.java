@@ -27,8 +27,8 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.StringHelper;
 
 /**
- * Base interface for a single read-only identifier independent of its usage
- * (participant, document or process).
+ * Base interface for a single read-only identifier independent of its usage (participant, document
+ * or process).
  *
  * @author Philip Helger
  */
@@ -42,8 +42,7 @@ public interface IIdentifier extends Serializable
   String getScheme ();
 
   /**
-   * Since v9.3.4 non-null but empty identifier schemes are allowed (required
-   * for DBNA)
+   * Since v9.3.4 non-null but empty identifier schemes are allowed (required for DBNA)
    *
    * @return <code>true</code> if a non-<code>null</code> is present.
    */
@@ -57,8 +56,7 @@ public interface IIdentifier extends Serializable
    *
    * @param sScheme
    *        The scheme to check. May be <code>null</code>.
-   * @return <code>true</code> if the scheme of this identifier matches the
-   *         passed scheme.
+   * @return <code>true</code> if the scheme of this identifier matches the passed scheme.
    */
   default boolean hasScheme (@Nullable final String sScheme)
   {
@@ -66,15 +64,13 @@ public interface IIdentifier extends Serializable
   }
 
   /**
-   * @return The identifier value, dependent on the scheme. Never
-   *         <code>null</code>.
+   * @return The identifier value, dependent on the scheme. Never <code>null</code>.
    */
   @NonNull
   String getValue ();
 
   /**
-   * @return <code>true</code> if a non-<code>null</code> and non-empty value is
-   *         present.
+   * @return <code>true</code> if a non-<code>null</code> and non-empty value is present.
    */
   default boolean hasValue ()
   {
@@ -86,8 +82,7 @@ public interface IIdentifier extends Serializable
    *
    * @param sValue
    *        The value to check. May be <code>null</code>.
-   * @return <code>true</code> if the value of this identifier matches the
-   *         passed value.
+   * @return <code>true</code> if the value of this identifier matches the passed value.
    */
   default boolean hasValue (@Nullable final String sValue)
   {
@@ -95,11 +90,9 @@ public interface IIdentifier extends Serializable
   }
 
   /**
-   * Get the identifier URI encoded (without percent encoding) as in
-   * <code>scheme::value</code>.
+   * Get the identifier URI encoded (without percent encoding) as in <code>scheme::value</code>.
    *
-   * @return The URI encoded identifier value. (E.g.
-   *         <code>iso6523-actorid-upis::0088:123456</code>)
+   * @return The URI encoded identifier value. (E.g. <code>iso6523-actorid-upis::0088:123456</code>)
    */
   @NonNull
   @Nonempty

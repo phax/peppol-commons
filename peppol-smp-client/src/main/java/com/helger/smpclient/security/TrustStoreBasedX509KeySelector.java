@@ -192,38 +192,38 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
     if (sAlgName.equalsIgnoreCase ("DSA"))
     {
       if (sAlgURI.equalsIgnoreCase (SignatureMethod.DSA_SHA1) ||
-        sAlgURI.equalsIgnoreCase ("http://www.w3.org/2009/xmldsig11#dsa-sha256"))
+          sAlgURI.equalsIgnoreCase ("http://www.w3.org/2009/xmldsig11#dsa-sha256"))
         return true;
     }
     else
       if (sAlgName.equalsIgnoreCase ("RSA"))
       {
         if (sAlgURI.equalsIgnoreCase (SignatureMethod.RSA_SHA1) ||
-          sAlgURI.equalsIgnoreCase ("http://www.w3.org/2007/05/xmldsig-more#sha1-rsa-MGF1") ||
-          sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#rsa-ripemd160") ||
-          sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#rsa-sha224") ||
-          sAlgURI.equalsIgnoreCase ("http://www.w3.org/2007/05/xmldsig-more#sha224-rsa-MGF1") ||
-          sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#rsa-sha256") ||
-          sAlgURI.equalsIgnoreCase ("http://www.w3.org/2007/05/xmldsig-more#sha256-rsa-MGF1") ||
-          sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#rsa-sha384") ||
-          sAlgURI.equalsIgnoreCase ("http://www.w3.org/2007/05/xmldsig-more#sha384-rsa-MGF1") ||
-          sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#rsa-sha512") ||
-          sAlgURI.equalsIgnoreCase ("http://www.w3.org/2007/05/xmldsig-more#sha512-rsa-MGF1") ||
-          sAlgURI.equalsIgnoreCase ("http://www.w3.org/2007/05/xmldsig-more#sha3-224-rsa-MGF1") ||
-          sAlgURI.equalsIgnoreCase ("http://www.w3.org/2007/05/xmldsig-more#sha3-256-rsa-MGF1") ||
-          sAlgURI.equalsIgnoreCase ("http://www.w3.org/2007/05/xmldsig-more#sha3-384-rsa-MGF1") ||
-          sAlgURI.equalsIgnoreCase ("http://www.w3.org/2007/05/xmldsig-more#sha3-512-rsa-MGF1"))
+            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2007/05/xmldsig-more#sha1-rsa-MGF1") ||
+            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#rsa-ripemd160") ||
+            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#rsa-sha224") ||
+            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2007/05/xmldsig-more#sha224-rsa-MGF1") ||
+            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#rsa-sha256") ||
+            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2007/05/xmldsig-more#sha256-rsa-MGF1") ||
+            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#rsa-sha384") ||
+            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2007/05/xmldsig-more#sha384-rsa-MGF1") ||
+            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#rsa-sha512") ||
+            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2007/05/xmldsig-more#sha512-rsa-MGF1") ||
+            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2007/05/xmldsig-more#sha3-224-rsa-MGF1") ||
+            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2007/05/xmldsig-more#sha3-256-rsa-MGF1") ||
+            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2007/05/xmldsig-more#sha3-384-rsa-MGF1") ||
+            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2007/05/xmldsig-more#sha3-512-rsa-MGF1"))
           return true;
       }
       else
         if (sAlgName.equalsIgnoreCase ("EC"))
         {
           if (sAlgURI.equalsIgnoreCase ("http://www.w3.org/2007/05/xmldsig-more#ecdsa-ripemd160") ||
-            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha1") ||
-            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha224") ||
-            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha256") ||
-            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha384") ||
-            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha512"))
+              sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha1") ||
+              sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha224") ||
+              sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha256") ||
+              sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha384") ||
+              sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha512"))
             return true;
         }
 

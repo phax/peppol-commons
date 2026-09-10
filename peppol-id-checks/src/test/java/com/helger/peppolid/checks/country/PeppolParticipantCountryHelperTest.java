@@ -63,7 +63,8 @@ public final class PeppolParticipantCountryHelperTest
     // The mappings that were hard coded before
     assertEquals (PeppolParticipantCountryHelper.AU,
                   PeppolParticipantCountryHelper.getCountryCode ("0088:9312345678901"));
-    assertEquals (PeppolParticipantCountryHelper.AU, PeppolParticipantCountryHelper.getCountryCode ("0151:12345678901"));
+    assertEquals (PeppolParticipantCountryHelper.AU,
+                  PeppolParticipantCountryHelper.getCountryCode ("0151:12345678901"));
 
     assertEquals (PeppolParticipantCountryHelper.BE,
                   PeppolParticipantCountryHelper.getCountryCode ("0088:5412345678901"));
@@ -83,7 +84,8 @@ public final class PeppolParticipantCountryHelperTest
     assertEquals (PeppolParticipantCountryHelper.DE,
                   PeppolParticipantCountryHelper.getCountryCode ("0204:05314000-12345-67"));
     assertEquals (PeppolParticipantCountryHelper.DE, PeppolParticipantCountryHelper.getCountryCode ("0246:0123456789"));
-    assertEquals (PeppolParticipantCountryHelper.DE, PeppolParticipantCountryHelper.getCountryCode ("9930:DE123456789"));
+    assertEquals (PeppolParticipantCountryHelper.DE,
+                  PeppolParticipantCountryHelper.getCountryCode ("9930:DE123456789"));
     assertEquals (PeppolParticipantCountryHelper.DE, PeppolParticipantCountryHelper.getCountryCode ("9958:0123456789"));
 
     assertEquals (PeppolParticipantCountryHelper.DK, PeppolParticipantCountryHelper.getCountryCode ("0096:0123456789"));

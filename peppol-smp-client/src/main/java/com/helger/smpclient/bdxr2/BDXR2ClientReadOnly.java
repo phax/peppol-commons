@@ -337,7 +337,8 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
                                      aMetadata.getParticipantID () == null ? null
                                                                            : SimpleParticipantIdentifier.wrap (aMetadata.getParticipantID ()),
                                      aDocumentTypeID,
-                                     aMetadata.getID () == null ? null : SimpleDocumentTypeIdentifier.wrap (aMetadata.getID ()));
+                                     aMetadata.getID () == null ? null
+                                                                : SimpleDocumentTypeIdentifier.wrap (aMetadata.getID ()));
 
     // If a Redirect element is present, then follow 1 redirect.
     for (final ProcessMetadataType aPM : aMetadata.getProcessMetadata ())
@@ -510,9 +511,10 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
                        "' and transport profile '" +
                        aTransportProfile.getID () +
                        "'" +
-                       (aRelevantEndpoints.isEmpty () ? "" : ": " +
-                                                             aRelevantEndpoints.toString () +
-                                                             " - using the first one"));
+                       (aRelevantEndpoints.isEmpty () ? ""
+                                                      : ": " +
+                                                        aRelevantEndpoints.toString () +
+                                                        " - using the first one"));
         }
 
         // Use the first endpoint or null
@@ -604,8 +606,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
   @NonNull
   public static ServiceGroupType getServiceGroupByDNS (@NonNull final ISMPURLProvider aURLProvider,
                                                        @NonNull final ISMLInfo aSMLInfo,
-                                                       @NonNull final IParticipantIdentifier aServiceGroupID) throws SMPClientException,
-                                                                                                              SMPDNSResolutionException
+                                                       @NonNull final IParticipantIdentifier aServiceGroupID) throws SMPClientException, SMPDNSResolutionException
   {
     return new BDXR2ClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceGroup (aServiceGroupID);
   }
@@ -639,8 +640,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
   public static ServiceMetadataType getServiceRegistrationByDNS (@NonNull final ISMPURLProvider aURLProvider,
                                                                  @NonNull final ISMLInfo aSMLInfo,
                                                                  @NonNull final IParticipantIdentifier aServiceGroupID,
-                                                                 @NonNull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException,
-                                                                                                                         SMPDNSResolutionException
+                                                                 @NonNull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException, SMPDNSResolutionException
   {
     return new BDXR2ClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceMetadata (aServiceGroupID,
                                                                                                  aDocumentTypeID);

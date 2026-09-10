@@ -37,6 +37,7 @@ public final class MicroTypeConverterRegistrar_peppol_commons implements IMicroT
   public void registerMicroTypeConverter (@NonNull final IMicroTypeConverterRegistry aRegistry)
   {
     aRegistry.registerMicroElementTypeConverter (SMLInfo.class, new SMLInfoMicroTypeConverter ());
-    aRegistry.registerMicroElementTypeConverter (SMPTransportProfile.class, new SMPTransportProfileMicroTypeConverter ());
+    aRegistry.registerMicroElementTypeConverter (SMPTransportProfile.class,
+                                                 new SMPTransportProfileMicroTypeConverter ());
   }
 }

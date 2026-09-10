@@ -28,8 +28,7 @@ import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 
 /**
- * This class ensures the SML contains the necessary data for performing the SMP
- * client tests.
+ * This class ensures the SML contains the necessary data for performing the SMP client tests.
  *
  * @author Philip Helger
  */
@@ -45,7 +44,8 @@ public final class MainSetupSMLForSMPTests
     aSMClient.setSSLSocketFactory (AbstractSMLClientTestCase.createConfiguredSSLSocketFactory (SML_INFO, false));
 
     final ManageParticipantIdentifierServiceCaller aParticipantClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-    aParticipantClient.setSSLSocketFactory (AbstractSMLClientTestCase.createConfiguredSSLSocketFactory (SML_INFO, false));
+    aParticipantClient.setSSLSocketFactory (AbstractSMLClientTestCase.createConfiguredSSLSocketFactory (SML_INFO,
+                                                                                                        false));
 
     try
     {

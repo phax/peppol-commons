@@ -28,11 +28,10 @@ import jakarta.xml.ws.handler.soap.SOAPHandler;
 import jakarta.xml.ws.handler.soap.SOAPMessageContext;
 
 /**
- * A dummy SOAP handler that handles wsse:Security SOAP header elements as
- * returned by the BDSML 3.0
+ * A dummy SOAP handler that handles wsse:Security SOAP header elements as returned by the BDSML 3.0
  * <p>
- * Note: this class is also licensed under Apache 2 license, as it was not part
- * of the original implementation
+ * Note: this class is also licensed under Apache 2 license, as it was not part of the original
+ * implementation
  * </p>
  *
  * @author Philip Helger

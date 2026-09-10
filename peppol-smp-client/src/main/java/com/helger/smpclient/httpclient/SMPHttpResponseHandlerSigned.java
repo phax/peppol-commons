@@ -368,8 +368,7 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
   }
 
   @NonNull
-  private ESuccess _checkSignature (@NonNull @WillNotClose final InputStream aEntityInputStream) throws MarshalException,
-                                                                                                 XMLSignatureException
+  private ESuccess _checkSignature (@NonNull @WillNotClose final InputStream aEntityInputStream) throws MarshalException, XMLSignatureException
   {
     // Get response from servlet
     final Document aDocument = DOMReader.readXMLDOM (aEntityInputStream);

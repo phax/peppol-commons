@@ -28,11 +28,10 @@ import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
 
 /**
- * This is the Apache HTTP client response handler to verify unsigned HTTP
- * response messages.
+ * This is the Apache HTTP client response handler to verify unsigned HTTP response messages.
  * <p>
- * Note: this class is also licensed under Apache 2 license, as it was not part
- * of the original implementation
+ * Note: this class is also licensed under Apache 2 license, as it was not part of the original
+ * implementation
  * </p>
  *
  * @author Philip Helger

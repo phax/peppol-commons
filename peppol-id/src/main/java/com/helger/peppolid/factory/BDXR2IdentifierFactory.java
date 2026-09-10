@@ -28,8 +28,7 @@ import com.helger.peppolid.bdxr.smp2.process.BDXR2ProcessIdentifier;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 
 /**
- * Default implementation of {@link IIdentifierFactory} for BDXR SMP v2
- * identifiers.
+ * Default implementation of {@link IIdentifierFactory} for BDXR SMP v2 identifiers.
  *
  * @author Philip Helger
  */
