@@ -51,6 +51,7 @@ import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
+import com.helger.network.sbdh.AbstractSBDHData;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.typeconvert.collection.StringMap;
@@ -64,17 +65,12 @@ import com.helger.xml.XMLHelper;
  * @since 9.2.0 - was previously called "PeppolSBDHDocument"
  */
 @NotThreadSafe
-public class PeppolSBDHData
+public class PeppolSBDHData extends AbstractSBDHData <PeppolSBDHData>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolSBDHData.class);
 
-  private final IIdentifierFactory m_aIdentifierFactory;
   // Sender
-  private String m_sSenderScheme;
-  private String m_sSenderValue;
   // Receiver
-  private String m_sReceiverScheme;
-  private String m_sReceiverValue;
   // BusinessScope
   private String m_sDocumentTypeScheme;
   private String m_sDocumentTypeValue;
@@ -85,13 +81,7 @@ public class PeppolSBDHData
   private String m_sMLSToValue;
   private EPeppolMLSType m_eMLSType;
   // DocumentIdentification
-  private String m_sStandard;
-  private String m_sTypeVersion;
-  private String m_sType;
-  private String m_sInstanceIdentifier;
-  private XMLOffsetDateTime m_aCreationDateAndTime;
   // BusinessMessage
-  private Element m_aBusinessMessage;
   // Additional attributes
   private final StringMap m_aAdditionalAttrs = new StringMap ();
 
@@ -103,38 +93,7 @@ public class PeppolSBDHData
    */
   public PeppolSBDHData (@NonNull final IIdentifierFactory aIdentifierFactory)
   {
-    m_aIdentifierFactory = ValueEnforcer.notNull (aIdentifierFactory, "IdentifierFactory");
-  }
-
-  /**
-   * @return The sender participant identifier scheme. May be <code>null</code> if not initialized.
-   *         This field is mapped to
-   *         <code>StandardBusinessDocumentHeader/Sender/Identifier/@Authority</code> .
-   */
-  @Nullable
-  public String getSenderScheme ()
-  {
-    return m_sSenderScheme;
-  }
-
-  /**
-   * @return The sender participant identifier value. May be <code>null</code> if not initialized.
-   *         This field is mapped to <code>StandardBusinessDocumentHeader/Sender/Identifier/</code>.
-   */
-  @Nullable
-  public String getSenderValue ()
-  {
-    return m_sSenderValue;
-  }
-
-  /**
-   * @return The sender participant identifier as a participant identifier or <code>null</code> if
-   *         certain information are missing or are invalid.
-   */
-  @Nullable
-  public IParticipantIdentifier getSenderAsIdentifier ()
-  {
-    return m_aIdentifierFactory.createParticipantIdentifier (m_sSenderScheme, m_sSenderValue);
+    super (aIdentifierFactory);
   }
 
   /**
@@ -145,49 +104,9 @@ public class PeppolSBDHData
   @Nullable
   public String getSenderURIEncoded ()
   {
-    if (m_sSenderScheme == null && m_sSenderValue == null)
+    if (getSenderScheme () == null && getSenderValue () == null)
       return null;
-    return CIdentifier.getURIEncoded (m_sSenderScheme, m_sSenderValue);
-  }
-
-  /**
-   * Set the sender participant identifier.
-   *
-   * @param sScheme
-   *        The Peppol identifier scheme. This is usually always
-   *        {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}. May neither be
-   *        <code>null</code> nor empty. This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/Sender/Identifier/@Authority</code> .
-   * @param sValue
-   *        The sender identifier value. May neither be <code>null</code> nor empty. This field is
-   *        mapped to <code>StandardBusinessDocumentHeader/Sender/Identifier/</code>.
-   * @return this
-   */
-  @NonNull
-  public PeppolSBDHData setSender (@NonNull @Nonempty final String sScheme, @NonNull @Nonempty final String sValue)
-  {
-    ValueEnforcer.notEmpty (sScheme, "Scheme");
-    ValueEnforcer.notEmpty (sValue, "Value");
-
-    m_sSenderScheme = sScheme;
-    m_sSenderValue = sValue;
-    return this;
-  }
-
-  /**
-   * Set the sender participant identifier.
-   *
-   * @param aSenderID
-   *        The participant identifier to use. May not be <code>null</code>.
-   * @return this
-   * @since 8.6.1
-   */
-  @NonNull
-  public PeppolSBDHData setSender (@NonNull final IParticipantIdentifier aSenderID)
-  {
-    ValueEnforcer.notNull (aSenderID, "SenderID");
-
-    return setSender (aSenderID.getScheme (), aSenderID.getValue ());
+    return CIdentifier.getURIEncoded (getSenderScheme (), getSenderValue ());
   }
 
   /**
@@ -206,38 +125,6 @@ public class PeppolSBDHData
   }
 
   /**
-   * @return The receiver participant identifier scheme. May be <code>null</code> if not
-   *         initialized. This field is mapped to
-   *         <code>StandardBusinessDocumentHeader/Receiver/Identifier/@Authority</code> .
-   */
-  @Nullable
-  public String getReceiverScheme ()
-  {
-    return m_sReceiverScheme;
-  }
-
-  /**
-   * @return The receiver participant identifier value. May be <code>null</code> if not initialized.
-   *         This field is mapped to
-   *         <code>StandardBusinessDocumentHeader/Receiver/Identifier/</code>.
-   */
-  @Nullable
-  public String getReceiverValue ()
-  {
-    return m_sReceiverValue;
-  }
-
-  /**
-   * @return The receiver participant identifier as a participant identifier or <code>null</code> if
-   *         certain information are missing or are invalid.
-   */
-  @Nullable
-  public IParticipantIdentifier getReceiverAsIdentifier ()
-  {
-    return m_aIdentifierFactory.createParticipantIdentifier (m_sReceiverScheme, m_sReceiverValue);
-  }
-
-  /**
    * @return The URI encoded receiver participant ID or <code>null</code> if both scheme and value
    *         are <code>null</code>.
    * @since 12.3.11
@@ -245,49 +132,9 @@ public class PeppolSBDHData
   @Nullable
   public String getReceiverURIEncoded ()
   {
-    if (m_sReceiverScheme == null && m_sReceiverValue == null)
+    if (getReceiverScheme () == null && getReceiverValue () == null)
       return null;
-    return CIdentifier.getURIEncoded (m_sReceiverScheme, m_sReceiverValue);
-  }
-
-  /**
-   * Set the receiver participant identifier.
-   *
-   * @param sScheme
-   *        The Peppol identifier scheme. This is usually always
-   *        {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME} . May neither be
-   *        <code>null</code> nor empty. This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/Receiver/Identifier/@Authority</code> .
-   * @param sValue
-   *        The receiver identifier value. May neither be <code>null</code> nor empty. This field is
-   *        mapped to <code>StandardBusinessDocumentHeader/Receiver/Identifier/</code>.
-   * @return this
-   */
-  @NonNull
-  public PeppolSBDHData setReceiver (@NonNull @Nonempty final String sScheme, @NonNull @Nonempty final String sValue)
-  {
-    ValueEnforcer.notEmpty (sScheme, "Scheme");
-    ValueEnforcer.notEmpty (sValue, "Value");
-
-    m_sReceiverScheme = sScheme;
-    m_sReceiverValue = sValue;
-    return this;
-  }
-
-  /**
-   * Set the receiver participant identifier.
-   *
-   * @param aReceiverID
-   *        The participant identifier to use. May not be <code>null</code>.
-   * @return this
-   * @since 8.6.1
-   */
-  @NonNull
-  public PeppolSBDHData setReceiver (@NonNull final IParticipantIdentifier aReceiverID)
-  {
-    ValueEnforcer.notNull (aReceiverID, "ReceiverID");
-
-    return setReceiver (aReceiverID.getScheme (), aReceiverID.getValue ());
+    return CIdentifier.getURIEncoded (getReceiverScheme (), getReceiverValue ());
   }
 
   /**
@@ -334,7 +181,7 @@ public class PeppolSBDHData
   @Nullable
   public IDocumentTypeIdentifier getDocumentTypeAsIdentifier ()
   {
-    return m_aIdentifierFactory.createDocumentTypeIdentifier (m_sDocumentTypeScheme, m_sDocumentTypeValue);
+    return getIdentifierFactory ().createDocumentTypeIdentifier (m_sDocumentTypeScheme, m_sDocumentTypeValue);
   }
 
   /**
@@ -455,7 +302,7 @@ public class PeppolSBDHData
   @Nullable
   public IProcessIdentifier getProcessAsIdentifier ()
   {
-    return m_aIdentifierFactory.createProcessIdentifier (m_sProcessScheme, m_sProcessValue);
+    return getIdentifierFactory ().createProcessIdentifier (m_sProcessScheme, m_sProcessValue);
   }
 
   /**
@@ -725,323 +572,6 @@ public class PeppolSBDHData
   }
 
   /**
-   * Set the content of the fields that are mapped to
-   * <code>StandardBusinessDocumentHeader/DocumentIdentification</code>.
-   *
-   * @param sStandard
-   *        The standard of the enveloped business message, normally described by use of the XML
-   *        namespace of the business message root element (such as urn:oasis:names:specification:
-   *        ubl:schema:xsd:Order-2). May not be <code>null</code>. This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/Standard</code> .
-   * @param sTypeVersion
-   *        The version number of the enveloped business message (such as the value "2.1" for OASIS
-   *        UBL 2.1). May not be <code>null</code>. This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/TypeVersion</code> .
-   * @param sType
-   *        Message type - mandatory in SBDH. XML local element name of the root-element in the
-   *        business message. May not be <code>null</code>. This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/Type</code> .
-   * @param sInstanceIdentifier
-   *        An informative unique ID created by the issuer of the envelope. The InstanceIdentifier
-   *        MUST be unique for each Business Message Envelope being created. This ID is not the same
-   *        as the ID of the business message (such as the Invoice Number). It is not the same as a
-   *        transmission Message ID generated by the application sending the message (as defined in
-   *        AS4).<br>
-   *        The InstanceIdentifier MUST be globally unique and it is RECOMMENDED to use UUID (such
-   *        as 118e3040-51d2-11e3-8f96-0800200c9a66). May not be <code>null</code>. This field is
-   *        mapped to
-   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/InstanceIdentifier</code> .
-   * @param aCreationDateAndTime
-   *        The date and time for when this envelope was created. It is NOT necessarily the same as
-   *        the issue date of the business document (such as the invoice) being enveloped. It is NOT
-   *        necessarily the date time for transmission.<br>
-   *        The format of the value of this MUST include timezone information. May not be
-   *        <code>null</code>. This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/CreationDateAndTime</code> .
-   * @return this
-   * @see #setStandard(String)
-   * @see #setTypeVersion(String)
-   * @see #setType(String)
-   * @see #setInstanceIdentifier(String)
-   * @see #setCreationDateAndTime(XMLOffsetDateTime)
-   */
-  @NonNull
-  public PeppolSBDHData setDocumentIdentification (@NonNull @Nonempty final String sStandard,
-                                                   @NonNull @Nonempty final String sTypeVersion,
-                                                   @NonNull @Nonempty final String sType,
-                                                   @NonNull @Nonempty final String sInstanceIdentifier,
-                                                   @NonNull final XMLOffsetDateTime aCreationDateAndTime)
-  {
-    setStandard (sStandard);
-    setTypeVersion (sTypeVersion);
-    setType (sType);
-    setInstanceIdentifier (sInstanceIdentifier);
-    setCreationDateAndTime (aCreationDateAndTime);
-    return this;
-  }
-
-  /**
-   * The standard of the enveloped business message, normally described by use of the XML namespace
-   * of the business message root element (such as
-   * urn:oasis:names:specification:ubl:schema:xsd:Order-2). This field is mapped to
-   * <code>StandardBusinessDocumentHeader/DocumentIdentification/Standard</code> .
-   *
-   * @return The standard value. May be <code>null</code>.
-   */
-  @Nullable
-  public String getStandard ()
-  {
-    return m_sStandard;
-  }
-
-  /**
-   * @return <code>true</code> if a standard is present, <code>false</code> if not.
-   * @since 7.0.0
-   */
-  public boolean hasStandard ()
-  {
-    return StringHelper.isNotEmpty (m_sStandard);
-  }
-
-  /**
-   * Set the content of the fields that are mapped to
-   * <code>StandardBusinessDocumentHeader/DocumentIdentification</code>.
-   *
-   * @param sStandard
-   *        The standard of the enveloped business message, normally described by use of the XML
-   *        namespace of the business message root element (such as urn:oasis:names:specification:
-   *        ubl:schema:xsd:Order-2). May not be <code>null</code>. This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/Standard</code> .
-   * @return this
-   * @see #setDocumentIdentification(String, String, String, String, XMLOffsetDateTime)
-   * @since 8.3.1
-   */
-  @NonNull
-  public PeppolSBDHData setStandard (@NonNull @Nonempty final String sStandard)
-  {
-    ValueEnforcer.notEmpty (sStandard, "Standard");
-
-    m_sStandard = sStandard;
-    return this;
-  }
-
-  /**
-   * The version number of the enveloped business message (such as the value "2.1" for OASIS UBL 2.1
-   * or "2.2" for OASIS UBL 2.2). This field is mapped to
-   * <code>StandardBusinessDocumentHeader/DocumentIdentification/TypeVersion</code> .
-   *
-   * @return The type version. May be <code>null</code>.
-   */
-  @Nullable
-  public String getTypeVersion ()
-  {
-    return m_sTypeVersion;
-  }
-
-  /**
-   * @return <code>true</code> if a type version is present, <code>false</code> if not.
-   * @since 7.0.0
-   */
-  public boolean hasTypeVersion ()
-  {
-    return StringHelper.isNotEmpty (m_sTypeVersion);
-  }
-
-  /**
-   * Set the content of the fields that are mapped to
-   * <code>StandardBusinessDocumentHeader/DocumentIdentification</code>.
-   *
-   * @param sTypeVersion
-   *        The version number of the enveloped business message (such as the value "2.1" for OASIS
-   *        UBL 2.1). May not be <code>null</code>. This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/TypeVersion</code> .
-   * @return this
-   * @see #setDocumentIdentification(String, String, String, String, XMLOffsetDateTime)
-   * @since 8.3.1
-   */
-  @NonNull
-  public PeppolSBDHData setTypeVersion (@NonNull @Nonempty final String sTypeVersion)
-  {
-    ValueEnforcer.notEmpty (sTypeVersion, "TypeVersion");
-
-    m_sTypeVersion = sTypeVersion;
-    return this;
-  }
-
-  /**
-   * Message type - mandatory in SBDH. XML local element name of the root-element in the business
-   * message. This field is mapped to
-   * <code>StandardBusinessDocumentHeader/DocumentIdentification/Type</code>.
-   *
-   * @return Type value. May be <code>null</code>.
-   */
-  @Nullable
-  public String getType ()
-  {
-    return m_sType;
-  }
-
-  /**
-   * @return <code>true</code> if a type is present, <code>false</code> if not.
-   * @since 7.0.0
-   */
-  public boolean hasType ()
-  {
-    return StringHelper.isNotEmpty (m_sType);
-  }
-
-  /**
-   * Set the content of the fields that are mapped to
-   * <code>StandardBusinessDocumentHeader/DocumentIdentification</code>.
-   *
-   * @param sType
-   *        Message type - mandatory in SBDH. XML local element name of the root-element in the
-   *        business message. May not be <code>null</code>. This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/Type</code> .
-   * @return this
-   * @see #setDocumentIdentification(String, String, String, String, XMLOffsetDateTime)
-   * @since 8.3.1
-   */
-  @NonNull
-  public PeppolSBDHData setType (@NonNull @Nonempty final String sType)
-  {
-    ValueEnforcer.notEmpty (sType, "Type");
-
-    m_sType = sType;
-    return this;
-  }
-
-  /**
-   * An informative unique ID created by the issuer of the envelope. The InstanceIdentifier MUST be
-   * unique for each Business Message Envelope being created. This ID is not the same as the ID of
-   * the business message (such as the Invoice Number). It is not the same as a transmission Message
-   * ID generated by the application sending the message (as defined in AS2 or START).<br>
-   * The InstanceIdentifier MUST be globally unique and it is RECOMMENDED to use UUID (such as
-   * 118e3040-51d2-11e3-8f96-0800200c9a66). This field is mapped to
-   * <code>StandardBusinessDocumentHeader/DocumentIdentification/InstanceIdentifier</code> .
-   *
-   * @return The instance identifier. May be <code>null</code>.
-   */
-  @Nullable
-  public String getInstanceIdentifier ()
-  {
-    return m_sInstanceIdentifier;
-  }
-
-  /**
-   * @return <code>true</code> if an instance identifier is present, <code>false</code> if not.
-   * @since 7.0.0
-   */
-  public boolean hasInstanceIdentifier ()
-  {
-    return StringHelper.isNotEmpty (m_sInstanceIdentifier);
-  }
-
-  /**
-   * Set the content of the fields that are mapped to
-   * <code>StandardBusinessDocumentHeader/DocumentIdentification</code>.
-   *
-   * @param sInstanceIdentifier
-   *        An informative unique ID created by the issuer of the envelope. The InstanceIdentifier
-   *        MUST be unique for each Business Message Envelope being created. This ID is not the same
-   *        as the ID of the business message (such as the Invoice Number). It is not the same as a
-   *        transmission Message ID generated by the application sending the message (as defined in
-   *        AS4).<br>
-   *        The InstanceIdentifier MUST be globally unique and it is RECOMMENDED to use UUID (such
-   *        as 118e3040-51d2-11e3-8f96-0800200c9a66). May not be <code>null</code>. This field is
-   *        mapped to
-   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/InstanceIdentifier</code> .
-   * @return this
-   * @see #setDocumentIdentification(String, String, String, String, XMLOffsetDateTime)
-   * @since 8.3.1
-   */
-  @NonNull
-  public PeppolSBDHData setInstanceIdentifier (@NonNull @Nonempty final String sInstanceIdentifier)
-  {
-    ValueEnforcer.notEmpty (sInstanceIdentifier, "InstanceIdentifier");
-
-    m_sInstanceIdentifier = sInstanceIdentifier;
-    return this;
-  }
-
-  /**
-   * The date and time for when this envelope was created. It is NOT necessarily the same as the
-   * issue date of the business document (such as the invoice) being enveloped. It is NOT
-   * necessarily the date time for transmission.<br>
-   * The format of the value of this MUST include timezone information. This field is mapped to
-   * <code>StandardBusinessDocumentHeader/DocumentIdentification/CreationDateAndTime</code> .
-   *
-   * @return The creation date time. May be <code>null</code>.
-   */
-  @Nullable
-  public XMLOffsetDateTime getCreationDateAndTime ()
-  {
-    return m_aCreationDateAndTime;
-  }
-
-  /**
-   * @return <code>true</code> if creation date and time is present, <code>false</code> if not.
-   * @since 7.0.0
-   */
-  public boolean hasCreationDateAndTime ()
-  {
-    return m_aCreationDateAndTime != null;
-  }
-
-  /**
-   * Set the content of the fields that are mapped to
-   * <code>StandardBusinessDocumentHeader/DocumentIdentification</code>.
-   *
-   * @param aCreationDateAndTime
-   *        The date and time for when this envelope was created. It is NOT necessarily the same as
-   *        the issue date of the business document (such as the invoice) being enveloped. It is NOT
-   *        necessarily the date time for transmission.<br>
-   *        The format of the value of this MUST include timezone information. May not be
-   *        <code>null</code>. This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/CreationDateAndTime</code> .
-   * @return this
-   * @see #setDocumentIdentification(String, String, String, String, XMLOffsetDateTime)
-   * @since 8.3.1
-   */
-  @NonNull
-  public PeppolSBDHData setCreationDateAndTime (@NonNull final XMLOffsetDateTime aCreationDateAndTime)
-  {
-    ValueEnforcer.notNull (aCreationDateAndTime, "CreationDateAndTime");
-
-    // Make sure to use only milliseconds for XML usage
-    m_aCreationDateAndTime = PDTFactory.getWithMillisOnly (aCreationDateAndTime);
-    return this;
-  }
-
-  /**
-   * Get the contained business message.
-   *
-   * @return <code>null</code> if no business message is present. A clone (deep copy) of the
-   *         business message otherwise.
-   * @see #getBusinessMessageNoClone()
-   */
-  @Nullable
-  @ReturnsMutableCopy
-  public Element getBusinessMessage ()
-  {
-    return m_aBusinessMessage == null ? null : (Element) m_aBusinessMessage.cloneNode (true);
-  }
-
-  /**
-   * Get the contained business message without cloning it.
-   *
-   * @return <code>null</code> if no business message is present.
-   * @see #getBusinessMessage()
-   * @since 8.6.1
-   */
-  @Nullable
-  @ReturnsMutableObject
-  public Element getBusinessMessageNoClone ()
-  {
-    return m_aBusinessMessage;
-  }
-
-  /**
    * @return <code>true</code> if the payload is to be considered non-XML, <code>false</code> if it
    *         is not present or XML.
    * @see #hasBusinessMessage()
@@ -1049,19 +579,7 @@ public class PeppolSBDHData
    */
   public boolean isNonXMLPayload ()
   {
-    return isNonXMLSBDHPayload (m_aBusinessMessage);
-  }
-
-  /**
-   * Check if a business message is present without having the need to explicitly call
-   * {@link #getBusinessMessage()} which returns a cloned node and is therefore an expensive
-   * operation.
-   *
-   * @return <code>true</code> if a business message is present, <code>false</code> otherwise.
-   */
-  public boolean hasBusinessMessage ()
-  {
-    return m_aBusinessMessage != null;
+    return isNonXMLSBDHPayload (getBusinessMessageNoClone ());
   }
 
   /**
@@ -1075,13 +593,13 @@ public class PeppolSBDHData
   @Nullable
   public BinaryContentType getBusinessMessageAsBinaryContent ()
   {
-    if (m_aBusinessMessage == null)
+    if (getBusinessMessageNoClone () == null)
       return null;
 
-    if (!"BinaryContent".equals (XMLHelper.getLocalNameOrTagName (m_aBusinessMessage)))
+    if (!"BinaryContent".equals (XMLHelper.getLocalNameOrTagName (getBusinessMessageNoClone ())))
       return null;
 
-    return new PeppolSBDHPayloadBinaryMarshaller ().read (m_aBusinessMessage);
+    return new PeppolSBDHPayloadBinaryMarshaller ().read (getBusinessMessageNoClone ());
   }
 
   /**
@@ -1095,55 +613,13 @@ public class PeppolSBDHData
   @Nullable
   public TextContentType getBusinessMessageAsTextContent ()
   {
-    if (m_aBusinessMessage == null)
+    if (getBusinessMessageNoClone () == null)
       return null;
 
-    if (!"TextContent".equals (XMLHelper.getLocalNameOrTagName (m_aBusinessMessage)))
+    if (!"TextContent".equals (XMLHelper.getLocalNameOrTagName (getBusinessMessageNoClone ())))
       return null;
 
-    return new PeppolSBDHPayloadTextMarshaller ().read (m_aBusinessMessage);
-  }
-
-  /**
-   * Set the main business message that should be transmitted together with the SBDH. The DOM
-   * element is cloned internally to avoid outside modification
-   *
-   * @param aBusinessMessage
-   *        The business message to be set. May not be <code>null</code>. Internally the passed
-   *        element is cloned, so that further modifications outside of this method have no impact
-   *        on the business message inside this object.
-   * @return this
-   * @see #setBusinessMessageNoClone(Element)
-   */
-  @NonNull
-  public PeppolSBDHData setBusinessMessage (@NonNull final Element aBusinessMessage)
-  {
-    ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
-
-    // Create a deep copy of the element to avoid outside modifications
-    m_aBusinessMessage = (Element) aBusinessMessage.cloneNode (true);
-    return this;
-  }
-
-  /**
-   * Set the main business message that should be transmitted together with the SBDH. The DOM
-   * element is not cloned / copied internally.
-   *
-   * @param aBusinessMessage
-   *        The business message to be set. May not be <code>null</code>. Internally the passed
-   *        element is cloned, so that further modifications outside of this method have no impact
-   *        on the business message inside this object.
-   * @return this
-   * @see #setBusinessMessage(Element)
-   * @since 8.8.1
-   */
-  @NonNull
-  public PeppolSBDHData setBusinessMessageNoClone (@NonNull final Element aBusinessMessage)
-  {
-    ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
-
-    m_aBusinessMessage = aBusinessMessage;
-    return this;
+    return new PeppolSBDHPayloadTextMarshaller ().read (getBusinessMessageNoClone ());
   }
 
   /**
@@ -1174,9 +650,10 @@ public class PeppolSBDHData
     aBC.setValue (aBinaryPayload);
     aBC.setMimeType (aMimeType.getAsString ());
     aBC.setEncoding (aCharset == null ? null : aCharset.name ());
-    m_aBusinessMessage = new PeppolSBDHPayloadBinaryMarshaller ().getAsElement (aBC);
-    if (m_aBusinessMessage == null)
+    final Element aElement = new PeppolSBDHPayloadBinaryMarshaller ().getAsElement (aBC);
+    if (aElement == null)
       throw new IllegalStateException ("Failed to create 'BinaryContent' element.");
+    setBusinessMessageNoClone (aElement);
     return this;
   }
 
@@ -1207,9 +684,10 @@ public class PeppolSBDHData
     final TextContentType aTC = new TextContentType ();
     aTC.setValue (sTextPayload);
     aTC.setMimeType (aMimeType.getAsString ());
-    m_aBusinessMessage = new PeppolSBDHPayloadTextMarshaller ().getAsElement (aTC);
-    if (m_aBusinessMessage == null)
+    final Element aElement = new PeppolSBDHPayloadTextMarshaller ().getAsElement (aTC);
+    if (aElement == null)
       throw new IllegalStateException ("Failed to create 'TextContent' element.");
+    setBusinessMessageNoClone (aElement);
     return this;
   }
 
@@ -1240,23 +718,23 @@ public class PeppolSBDHData
     ValueEnforcer.notNull (aMissingFieldConsumer, "MissingFieldConsumer");
 
     int nMissing = 0;
-    if (StringHelper.isEmpty (m_sSenderScheme))
+    if (StringHelper.isEmpty (getSenderScheme ()))
     {
       aMissingFieldConsumer.accept ("Peppol SBDH data - Sender Scheme is missing");
       nMissing++;
     }
-    if (StringHelper.isEmpty (m_sSenderValue))
+    if (StringHelper.isEmpty (getSenderValue ()))
     {
       aMissingFieldConsumer.accept ("Peppol SBDH data - Sender Value is missing");
       nMissing++;
     }
 
-    if (StringHelper.isEmpty (m_sReceiverScheme))
+    if (StringHelper.isEmpty (getReceiverScheme ()))
     {
       aMissingFieldConsumer.accept ("Peppol SBDH data - Receiver Scheme is missing");
       nMissing++;
     }
-    if (StringHelper.isEmpty (m_sReceiverValue))
+    if (StringHelper.isEmpty (getReceiverValue ()))
     {
       aMissingFieldConsumer.accept ("Peppol SBDH data - Reeiver Value is missing");
       nMissing++;
@@ -1289,32 +767,32 @@ public class PeppolSBDHData
       aMissingFieldConsumer.accept ("Peppol SBDH data - Country C1 is missing");
       nMissing++;
     }
-    if (StringHelper.isEmpty (m_sStandard))
+    if (StringHelper.isEmpty (getStandard ()))
     {
       aMissingFieldConsumer.accept ("Peppol SBDH data - Standard is missing");
       nMissing++;
     }
-    if (StringHelper.isEmpty (m_sTypeVersion))
+    if (StringHelper.isEmpty (getTypeVersion ()))
     {
       aMissingFieldConsumer.accept ("Peppol SBDH data - Type Version is missing");
       nMissing++;
     }
-    if (StringHelper.isEmpty (m_sType))
+    if (StringHelper.isEmpty (getType ()))
     {
       aMissingFieldConsumer.accept ("Peppol SBDH data - Type is missing");
       nMissing++;
     }
-    if (StringHelper.isEmpty (m_sInstanceIdentifier))
+    if (StringHelper.isEmpty (getInstanceIdentifier ()))
     {
       aMissingFieldConsumer.accept ("Peppol SBDH data - Instance Identifier is missing");
       nMissing++;
     }
-    if (m_aCreationDateAndTime == null)
+    if (getCreationDateAndTime () == null)
     {
       aMissingFieldConsumer.accept ("Peppol SBDH data - Creation Date and Time is missing");
       nMissing++;
     }
-    if (m_aBusinessMessage == null)
+    if (getBusinessMessageNoClone () == null)
     {
       aMissingFieldConsumer.accept ("Peppol SBDH data - Business Message is missing");
       nMissing++;
@@ -1364,15 +842,11 @@ public class PeppolSBDHData
   {
     if (o == this)
       return true;
-    if (o == null || !getClass ().equals (o.getClass ()))
+    if (!super.equals (o))
       return false;
 
     final PeppolSBDHData rhs = (PeppolSBDHData) o;
-    return EqualsHelper.equals (m_sSenderScheme, rhs.m_sSenderScheme) &&
-           EqualsHelper.equals (m_sSenderValue, rhs.m_sSenderValue) &&
-           EqualsHelper.equals (m_sReceiverScheme, rhs.m_sReceiverScheme) &&
-           EqualsHelper.equals (m_sReceiverValue, rhs.m_sReceiverValue) &&
-           EqualsHelper.equals (m_sDocumentTypeScheme, rhs.m_sDocumentTypeScheme) &&
+    return EqualsHelper.equals (m_sDocumentTypeScheme, rhs.m_sDocumentTypeScheme) &&
            EqualsHelper.equals (m_sDocumentTypeValue, rhs.m_sDocumentTypeValue) &&
            EqualsHelper.equals (m_sProcessScheme, rhs.m_sProcessScheme) &&
            EqualsHelper.equals (m_sProcessValue, rhs.m_sProcessValue) &&
@@ -1380,63 +854,39 @@ public class PeppolSBDHData
            EqualsHelper.equals (m_sMLSToScheme, rhs.m_sMLSToScheme) &&
            EqualsHelper.equals (m_sMLSToValue, rhs.m_sMLSToValue) &&
            EqualsHelper.equals (m_eMLSType, rhs.m_eMLSType) &&
-           EqualsHelper.equals (m_sStandard, rhs.m_sStandard) &&
-           EqualsHelper.equals (m_sTypeVersion, rhs.m_sTypeVersion) &&
-           EqualsHelper.equals (m_sType, rhs.m_sType) &&
-           EqualsHelper.equals (m_sInstanceIdentifier, rhs.m_sInstanceIdentifier) &&
-           EqualsHelper.equals (m_aCreationDateAndTime, rhs.m_aCreationDateAndTime) &&
-           JAXBHelper.equalDOMNodes (m_aBusinessMessage, rhs.m_aBusinessMessage) &&
            m_aAdditionalAttrs.equals (rhs.m_aAdditionalAttrs);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sSenderScheme)
-                                       .append (m_sSenderValue)
-                                       .append (m_sReceiverScheme)
-                                       .append (m_sReceiverValue)
-                                       .append (m_sDocumentTypeScheme)
-                                       .append (m_sDocumentTypeValue)
-                                       .append (m_sProcessScheme)
-                                       .append (m_sProcessValue)
-                                       .append (m_sCountryC1)
-                                       .append (m_sMLSToScheme)
-                                       .append (m_sMLSToValue)
-                                       .append (m_eMLSType)
-                                       .append (m_sStandard)
-                                       .append (m_sTypeVersion)
-                                       .append (m_sType)
-                                       .append (m_sInstanceIdentifier)
-                                       .append (m_aCreationDateAndTime)
-                                       .append (JAXBHelper.getHashCode (m_aBusinessMessage))
-                                       .append (m_aAdditionalAttrs)
-                                       .getHashCode ();
+    return HashCodeGenerator.getDerived (super.hashCode ())
+                            .append (m_sDocumentTypeScheme)
+                            .append (m_sDocumentTypeValue)
+                            .append (m_sProcessScheme)
+                            .append (m_sProcessValue)
+                            .append (m_sCountryC1)
+                            .append (m_sMLSToScheme)
+                            .append (m_sMLSToValue)
+                            .append (m_eMLSType)
+                            .append (m_aAdditionalAttrs)
+                            .getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("SenderScheme", m_sSenderScheme)
-                                       .append ("SenderValue", m_sSenderValue)
-                                       .append ("ReceiverScheme", m_sReceiverScheme)
-                                       .append ("ReceiverValue", m_sReceiverValue)
-                                       .append ("DocumentTypeScheme", m_sDocumentTypeScheme)
-                                       .append ("DocumentTypeValue", m_sDocumentTypeValue)
-                                       .append ("ProcessScheme", m_sProcessScheme)
-                                       .append ("ProcessValue", m_sProcessValue)
-                                       .append ("CountryC1", m_sCountryC1)
-                                       .append ("MLSToScheme", m_sMLSToScheme)
-                                       .append ("MLSToValue", m_sMLSToValue)
-                                       .append ("MLSType", m_eMLSType)
-                                       .append ("Standard", m_sStandard)
-                                       .append ("TypeVersion", m_sTypeVersion)
-                                       .append ("Type", m_sType)
-                                       .append ("InstanceIdentifier", m_sInstanceIdentifier)
-                                       .append ("CreationDateAndTime", m_aCreationDateAndTime)
-                                       .append ("BusinessMessage", m_aBusinessMessage)
-                                       .append ("AdditionalAttributes", m_aAdditionalAttrs)
-                                       .getToString ();
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("DocumentTypeScheme", m_sDocumentTypeScheme)
+                            .append ("DocumentTypeValue", m_sDocumentTypeValue)
+                            .append ("ProcessScheme", m_sProcessScheme)
+                            .append ("ProcessValue", m_sProcessValue)
+                            .append ("CountryC1", m_sCountryC1)
+                            .append ("MLSToScheme", m_sMLSToScheme)
+                            .append ("MLSToValue", m_sMLSToValue)
+                            .append ("MLSType", m_eMLSType)
+                            .append ("AdditionalAttributes", m_aAdditionalAttrs)
+                            .getToString ();
   }
 
   private static boolean _hasQName (@NonNull final QName aQName, @NonNull final Element aBusinessMessage)

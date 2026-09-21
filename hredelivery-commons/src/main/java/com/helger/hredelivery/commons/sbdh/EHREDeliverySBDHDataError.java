@@ -20,7 +20,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
-import com.helger.base.id.IHasID;
+import com.helger.network.sbdh.ISBDHDataError;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.text.TextFormatter;
 
@@ -29,7 +29,7 @@ import com.helger.base.text.TextFormatter;
  *
  * @author Philip Helger
  */
-public enum EHREDeliverySBDHDataError implements IHasID <String>
+public enum EHREDeliverySBDHDataError implements ISBDHDataError
 {
   /** Failed to interpret StandardBusinessDocument as XML */
   INVALID_SBD_XML ("invalid-sbd-xml", "Failed to interpret StandardBusinessDocument as XML."),

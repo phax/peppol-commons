@@ -51,6 +51,11 @@
   <dependencies>
     <dependency>
       <groupId>com.helger.peppol</groupId>
+      <artifactId>network-sbdh</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.helger.peppol</groupId>
       <artifactId>network-commons</artifactId>
       <version>${project.version}</version>
     </dependency>

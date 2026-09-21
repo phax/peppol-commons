@@ -239,6 +239,7 @@
     <module>peppol-id-checks</module>
     <module>peppol-commons</module>
     <module>peppol-testfiles</module>
+    <module>network-sbdh</module>
     <module>peppol-sbdh</module>
     <module>peppol-smp-datatypes</module>
     <module>smp-client-base</module>
