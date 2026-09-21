@@ -20,8 +20,8 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
-import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
+import com.helger.network.stage.INetworkStage;
 
 /**
  * The list of supported HR eDelivery stages
@@ -29,7 +29,7 @@ import com.helger.base.lang.EnumHelper;
  * @author Philip Helger
  * @since 12.0.2
  */
-public enum EHREDeliveryStage implements IHasID <String>
+public enum EHREDeliveryStage implements INetworkStage
 {
   DEMO ("demo", EHREDeliverySML.DEMO),
   PRODUCTION ("prod", EHREDeliverySML.PRODUCTION);

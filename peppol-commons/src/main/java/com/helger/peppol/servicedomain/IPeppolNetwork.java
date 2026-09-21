@@ -19,8 +19,8 @@ package com.helger.peppol.servicedomain;
 import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.Nonempty;
-import com.helger.base.id.IHasID;
 import com.helger.base.name.IHasDisplayName;
+import com.helger.network.stage.INetworkStage;
 import com.helger.peppol.sml.ISMLInfo;
 
 /**
@@ -29,7 +29,7 @@ import com.helger.peppol.sml.ISMLInfo;
  * @author Philip Helger
  * @since 12.3.7
  */
-public interface IPeppolNetwork extends IHasID <String>, IHasDisplayName
+public interface IPeppolNetwork extends INetworkStage, IHasDisplayName
 {
   /**
    * @return The URL of the Peppol Directory for this network stage. Ends with the domain name and
@@ -44,11 +44,6 @@ public interface IPeppolNetwork extends IHasID <String>, IHasDisplayName
    */
   @NonNull
   ISMLInfo getSMLInfo ();
-
-  /**
-   * @return <code>true</code> if this is a production network, <code>false</code> otherwise.
-   */
-  boolean isProduction ();
 
   /**
    * @return <code>true</code> if this is a test network, <code>false</code> otherwise.

@@ -17,17 +17,12 @@
 package com.helger.peppol.security;
 
 import java.security.KeyStore;
-import java.security.KeyStoreException;
 import java.security.cert.X509Certificate;
 
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.network.security.NetworkTrustStoreHelper;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.ITrustStoreDescriptor;
 import com.helger.security.keystore.TrustStoreDescriptor;
@@ -43,25 +38,7 @@ public final class PeppolTrustStores
   /** The password used to access the trust stores */
   public static final String TRUSTSTORE_PASSWORD = "peppol";
 
-  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolTrustStores.class);
 
-  @Nullable
-  private static X509Certificate _resolveCert (@NonNull final KeyStore aKeyStore,
-                                               @NonNull @Nonempty final String sAlias)
-  {
-    try
-    {
-      final X509Certificate ret = (X509Certificate) aKeyStore.getCertificate (sAlias);
-      if (ret == null)
-        LOGGER.warn ("Failed to resolve alias '" + sAlias + "' in trust store");
-      return ret;
-    }
-    catch (final KeyStoreException ex)
-    {
-      LOGGER.warn ("Failed to resolve alias '" + sAlias + "' in trust store.", ex);
-      return null;
-    }
-  }
 
   /**
    * The truststore configuration for Peppol PKI G2 valid from 2018 to 2028. The G2 CAs are
@@ -104,14 +81,8 @@ public final class PeppolTrustStores
      * The full AP production truststore. Never modify.
      */
     @Deprecated
-    public static final KeyStore TRUSTSTORE_AP_PRODUCTION = TRUSTSTORE_DESCRIPTOR_AP_PRODUCTION.loadTrustStore ()
-                                                                                               .getKeyStore ();
-
-    static
-    {
-      if (TRUSTSTORE_AP_PRODUCTION == null)
-        throw new IllegalStateException ("Failed to load pre-configured production AP trust store");
-    }
+    public static final KeyStore TRUSTSTORE_AP_PRODUCTION = NetworkTrustStoreHelper.loadTrustStore (TRUSTSTORE_DESCRIPTOR_AP_PRODUCTION,
+                                                                                                    "production AP");
 
     // SMP Production
 
@@ -133,14 +104,8 @@ public final class PeppolTrustStores
      * The full SMP production truststore. Never modify.
      */
     @Deprecated
-    public static final KeyStore TRUSTSTORE_SMP_PRODUCTION = TRUSTSTORE_DESCRIPTOR_SMP_PRODUCTION.loadTrustStore ()
-                                                                                                 .getKeyStore ();
-
-    static
-    {
-      if (TRUSTSTORE_SMP_PRODUCTION == null)
-        throw new IllegalStateException ("Failed to load pre-configured SMP production trust store");
-    }
+    public static final KeyStore TRUSTSTORE_SMP_PRODUCTION = NetworkTrustStoreHelper.loadTrustStore (TRUSTSTORE_DESCRIPTOR_SMP_PRODUCTION,
+                                                                                                     "SMP production");
 
     // Production CA certificates
 
@@ -150,8 +115,8 @@ public final class PeppolTrustStores
 
     /** The OpenPeppol production root certificate */
     @Deprecated
-    public static final X509Certificate CERTIFICATE_PRODUCTION_ROOT = _resolveCert (TRUSTSTORE_AP_PRODUCTION,
-                                                                                    TRUSTSTORE_PRODUCTION_ALIAS_ROOT);
+    public static final X509Certificate CERTIFICATE_PRODUCTION_ROOT = NetworkTrustStoreHelper.resolveCertificate (TRUSTSTORE_AP_PRODUCTION,
+                                                                                                                  TRUSTSTORE_PRODUCTION_ALIAS_ROOT);
 
     /** The truststore alias for the OpenPeppol production AP certificate */
     @Deprecated
@@ -159,8 +124,8 @@ public final class PeppolTrustStores
 
     /** The OpenPeppol production AP certificate */
     @Deprecated
-    public static final X509Certificate CERTIFICATE_PRODUCTION_AP = _resolveCert (TRUSTSTORE_AP_PRODUCTION,
-                                                                                  TRUSTSTORE_PRODUCTION_ALIAS_AP);
+    public static final X509Certificate CERTIFICATE_PRODUCTION_AP = NetworkTrustStoreHelper.resolveCertificate (TRUSTSTORE_AP_PRODUCTION,
+                                                                                                                TRUSTSTORE_PRODUCTION_ALIAS_AP);
 
     /** The truststore alias for the OpenPeppol production SMP certificate */
     @Deprecated
@@ -168,8 +133,8 @@ public final class PeppolTrustStores
 
     /** The OpenPeppol production SMP certificate */
     @Deprecated
-    public static final X509Certificate CERTIFICATE_PRODUCTION_SMP = _resolveCert (TRUSTSTORE_AP_PRODUCTION,
-                                                                                   TRUSTSTORE_PRODUCTION_ALIAS_SMP);
+    public static final X509Certificate CERTIFICATE_PRODUCTION_SMP = NetworkTrustStoreHelper.resolveCertificate (TRUSTSTORE_AP_PRODUCTION,
+                                                                                                                 TRUSTSTORE_PRODUCTION_ALIAS_SMP);
 
     // AP Test
 
@@ -191,13 +156,8 @@ public final class PeppolTrustStores
      * The full AP pilot truststore. Never modify.
      */
     @Deprecated
-    public static final KeyStore TRUSTSTORE_AP_PILOT = TRUSTSTORE_DESCRIPTOR_AP_PILOT.loadTrustStore ().getKeyStore ();
-
-    static
-    {
-      if (TRUSTSTORE_AP_PILOT == null)
-        throw new IllegalStateException ("Failed to load pre-configured AP pilot trust store");
-    }
+    public static final KeyStore TRUSTSTORE_AP_PILOT = NetworkTrustStoreHelper.loadTrustStore (TRUSTSTORE_DESCRIPTOR_AP_PILOT,
+                                                                                               "AP pilot");
 
     // SMP Test
 
@@ -219,14 +179,8 @@ public final class PeppolTrustStores
      * The full SMP pilot truststore. Never modify.
      */
     @Deprecated
-    public static final KeyStore TRUSTSTORE_SMP_PILOT = TRUSTSTORE_DESCRIPTOR_SMP_PILOT.loadTrustStore ()
-                                                                                       .getKeyStore ();
-
-    static
-    {
-      if (TRUSTSTORE_SMP_PILOT == null)
-        throw new IllegalStateException ("Failed to load pre-configured SMP pilot trust store");
-    }
+    public static final KeyStore TRUSTSTORE_SMP_PILOT = NetworkTrustStoreHelper.loadTrustStore (TRUSTSTORE_DESCRIPTOR_SMP_PILOT,
+                                                                                                "SMP pilot");
 
     // Test CA certificates
 
@@ -236,8 +190,8 @@ public final class PeppolTrustStores
 
     /** The OpenPeppol pilot root certificate */
     @Deprecated
-    public static final X509Certificate CERTIFICATE_PILOT_ROOT = _resolveCert (TRUSTSTORE_AP_PILOT,
-                                                                               TRUSTSTORE_PILOT_ALIAS_ROOT);
+    public static final X509Certificate CERTIFICATE_PILOT_ROOT = NetworkTrustStoreHelper.resolveCertificate (TRUSTSTORE_AP_PILOT,
+                                                                                                             TRUSTSTORE_PILOT_ALIAS_ROOT);
 
     /** The truststore alias for the OpenPeppol pilot AP certificate */
     @Deprecated
@@ -245,8 +199,8 @@ public final class PeppolTrustStores
 
     /** The OpenPeppol pilot AP certificate */
     @Deprecated
-    public static final X509Certificate CERTIFICATE_PILOT_AP = _resolveCert (TRUSTSTORE_AP_PILOT,
-                                                                             TRUSTSTORE_PILOT_ALIAS_AP);
+    public static final X509Certificate CERTIFICATE_PILOT_AP = NetworkTrustStoreHelper.resolveCertificate (TRUSTSTORE_AP_PILOT,
+                                                                                                           TRUSTSTORE_PILOT_ALIAS_AP);
 
     /** The truststore alias for the OpenPeppol pilot SMP certificate */
     @Deprecated
@@ -254,8 +208,8 @@ public final class PeppolTrustStores
 
     /** The OpenPeppol pilot SMP certificate */
     @Deprecated
-    public static final X509Certificate CERTIFICATE_PILOT_SMP = _resolveCert (TRUSTSTORE_AP_PILOT,
-                                                                              TRUSTSTORE_PILOT_ALIAS_SMP);
+    public static final X509Certificate CERTIFICATE_PILOT_SMP = NetworkTrustStoreHelper.resolveCertificate (TRUSTSTORE_AP_PILOT,
+                                                                                                            TRUSTSTORE_PILOT_ALIAS_SMP);
   }
 
   /**
@@ -291,14 +245,8 @@ public final class PeppolTrustStores
     /**
      * The full AP production truststore. Never modify.
      */
-    public static final KeyStore TRUSTSTORE_AP_PRODUCTION = TRUSTSTORE_DESCRIPTOR_AP_PRODUCTION.loadTrustStore ()
-                                                                                               .getKeyStore ();
-
-    static
-    {
-      if (TRUSTSTORE_AP_PRODUCTION == null)
-        throw new IllegalStateException ("Failed to load pre-configured production AP trust store");
-    }
+    public static final KeyStore TRUSTSTORE_AP_PRODUCTION = NetworkTrustStoreHelper.loadTrustStore (TRUSTSTORE_DESCRIPTOR_AP_PRODUCTION,
+                                                                                                    "production AP");
 
     // SMP Production
 
@@ -317,14 +265,8 @@ public final class PeppolTrustStores
     /**
      * The full SMP production truststore. Never modify.
      */
-    public static final KeyStore TRUSTSTORE_SMP_PRODUCTION = TRUSTSTORE_DESCRIPTOR_SMP_PRODUCTION.loadTrustStore ()
-                                                                                                 .getKeyStore ();
-
-    static
-    {
-      if (TRUSTSTORE_SMP_PRODUCTION == null)
-        throw new IllegalStateException ("Failed to load pre-configured SMP production trust store");
-    }
+    public static final KeyStore TRUSTSTORE_SMP_PRODUCTION = NetworkTrustStoreHelper.loadTrustStore (TRUSTSTORE_DESCRIPTOR_SMP_PRODUCTION,
+                                                                                                     "SMP production");
 
     // Production CA certificates
 
@@ -332,22 +274,22 @@ public final class PeppolTrustStores
     public static final String TRUSTSTORE_PRODUCTION_ALIAS_ROOT = "peppol root ca - g3";
 
     /** The OpenPeppol production root certificate */
-    public static final X509Certificate CERTIFICATE_PRODUCTION_ROOT = _resolveCert (TRUSTSTORE_AP_PRODUCTION,
-                                                                                    TRUSTSTORE_PRODUCTION_ALIAS_ROOT);
+    public static final X509Certificate CERTIFICATE_PRODUCTION_ROOT = NetworkTrustStoreHelper.resolveCertificate (TRUSTSTORE_AP_PRODUCTION,
+                                                                                                                  TRUSTSTORE_PRODUCTION_ALIAS_ROOT);
 
     /** The truststore alias for the OpenPeppol production AP certificate */
     public static final String TRUSTSTORE_PRODUCTION_ALIAS_AP = "peppol access point ca - g3 (peppol root ca - g3)";
 
     /** The OpenPeppol production AP certificate */
-    public static final X509Certificate CERTIFICATE_PRODUCTION_AP = _resolveCert (TRUSTSTORE_AP_PRODUCTION,
-                                                                                  TRUSTSTORE_PRODUCTION_ALIAS_AP);
+    public static final X509Certificate CERTIFICATE_PRODUCTION_AP = NetworkTrustStoreHelper.resolveCertificate (TRUSTSTORE_AP_PRODUCTION,
+                                                                                                                TRUSTSTORE_PRODUCTION_ALIAS_AP);
 
     /** The truststore alias for the OpenPeppol production SMP certificate */
     public static final String TRUSTSTORE_PRODUCTION_ALIAS_SMP = "peppol service metadata publisher ca - g3 (peppol root ca - g3)";
 
     /** The OpenPeppol production SMP certificate */
-    public static final X509Certificate CERTIFICATE_PRODUCTION_SMP = _resolveCert (TRUSTSTORE_AP_PRODUCTION,
-                                                                                   TRUSTSTORE_PRODUCTION_ALIAS_SMP);
+    public static final X509Certificate CERTIFICATE_PRODUCTION_SMP = NetworkTrustStoreHelper.resolveCertificate (TRUSTSTORE_AP_PRODUCTION,
+                                                                                                                 TRUSTSTORE_PRODUCTION_ALIAS_SMP);
 
     // AP Test
 
@@ -366,13 +308,8 @@ public final class PeppolTrustStores
     /**
      * The full AP test truststore. Never modify.
      */
-    public static final KeyStore TRUSTSTORE_AP_TEST = TRUSTSTORE_DESCRIPTOR_AP_TEST.loadTrustStore ().getKeyStore ();
-
-    static
-    {
-      if (TRUSTSTORE_AP_TEST == null)
-        throw new IllegalStateException ("Failed to load pre-configured AP test trust store");
-    }
+    public static final KeyStore TRUSTSTORE_AP_TEST = NetworkTrustStoreHelper.loadTrustStore (TRUSTSTORE_DESCRIPTOR_AP_TEST,
+                                                                                              "AP test");
 
     // SMP Test
 
@@ -391,13 +328,8 @@ public final class PeppolTrustStores
     /**
      * The full SMP test truststore. Never modify.
      */
-    public static final KeyStore TRUSTSTORE_SMP_TEST = TRUSTSTORE_DESCRIPTOR_SMP_TEST.loadTrustStore ().getKeyStore ();
-
-    static
-    {
-      if (TRUSTSTORE_SMP_TEST == null)
-        throw new IllegalStateException ("Failed to load pre-configured SMP test trust store");
-    }
+    public static final KeyStore TRUSTSTORE_SMP_TEST = NetworkTrustStoreHelper.loadTrustStore (TRUSTSTORE_DESCRIPTOR_SMP_TEST,
+                                                                                               "SMP test");
 
     // Test CA certificates
 
@@ -405,22 +337,22 @@ public final class PeppolTrustStores
     public static final String TRUSTSTORE_TEST_ALIAS_ROOT = "peppol root test ca - g3";
 
     /** The OpenPeppol test root certificate */
-    public static final X509Certificate CERTIFICATE_TEST_ROOT = _resolveCert (TRUSTSTORE_AP_TEST,
-                                                                              TRUSTSTORE_TEST_ALIAS_ROOT);
+    public static final X509Certificate CERTIFICATE_TEST_ROOT = NetworkTrustStoreHelper.resolveCertificate (TRUSTSTORE_AP_TEST,
+                                                                                                            TRUSTSTORE_TEST_ALIAS_ROOT);
 
     /** The truststore alias for the OpenPeppol test AP certificate */
     public static final String TRUSTSTORE_TEST_ALIAS_AP = "peppol access point test ca - g3 (peppol root test ca - g3)";
 
     /** The OpenPeppol test AP certificate */
-    public static final X509Certificate CERTIFICATE_TEST_AP = _resolveCert (TRUSTSTORE_AP_TEST,
-                                                                            TRUSTSTORE_TEST_ALIAS_AP);
+    public static final X509Certificate CERTIFICATE_TEST_AP = NetworkTrustStoreHelper.resolveCertificate (TRUSTSTORE_AP_TEST,
+                                                                                                          TRUSTSTORE_TEST_ALIAS_AP);
 
     /** The truststore alias for the OpenPeppol test SMP certificate */
     public static final String TRUSTSTORE_TEST_ALIAS_SMP = "peppol service metadata publisher test ca - g3 (peppol root test ca - g3)";
 
     /** The OpenPeppol test SMP certificate */
-    public static final X509Certificate CERTIFICATE_TEST_SMP = _resolveCert (TRUSTSTORE_AP_TEST,
-                                                                             TRUSTSTORE_TEST_ALIAS_SMP);
+    public static final X509Certificate CERTIFICATE_TEST_SMP = NetworkTrustStoreHelper.resolveCertificate (TRUSTSTORE_AP_TEST,
+                                                                                                           TRUSTSTORE_TEST_ALIAS_SMP);
   }
 
   @PresentForCodeCoverage

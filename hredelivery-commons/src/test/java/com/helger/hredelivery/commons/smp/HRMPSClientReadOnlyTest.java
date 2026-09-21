@@ -29,7 +29,6 @@ import com.helger.hredelivery.commons.CHREDeliveryID;
 import com.helger.hredelivery.commons.EHREDeliverySML;
 import com.helger.hredelivery.commons.security.HREDeliveryTrustStores;
 import com.helger.hredelivery.commons.url.HREDeliveryNaptrURLProvider;
-import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.smpclient.url.SMPDNSResolutionException;
@@ -72,7 +71,7 @@ public final class HRMPSClientReadOnlyTest
     final EndpointType aEndpoint = aMPSClient.getEndpoint (aPI,
                                                            CHREDeliveryID.DOC_TYPE_ID_HR_ERACUN_INVOICE_EXT_2025_1_0,
                                                            CHREDeliveryID.PROCESS_ID_HR_ERACUN,
-                                                           ESMPTransportProfile.TRANSPORT_PROFILE_ERACUN_AS4_V1);
+                                                           EHREDeliveryTransportProfile.AS4_V1);
     assertNotNull (aEndpoint);
   }
 
@@ -92,7 +91,7 @@ public final class HRMPSClientReadOnlyTest
     final EndpointType aEndpoint = aMPSClient.getEndpoint (aPI,
                                                            CHREDeliveryID.DOC_TYPE_ID_HR_ERACUN_INVOICE_EXT_2025_1_0,
                                                            CHREDeliveryID.PROCESS_ID_HR_ERACUN,
-                                                           ESMPTransportProfile.TRANSPORT_PROFILE_ERACUN_AS4_V1);
+                                                           EHREDeliveryTransportProfile.AS4_V1);
     assertNotNull (aEndpoint);
   }
 
@@ -120,7 +119,7 @@ public final class HRMPSClientReadOnlyTest
     final EndpointType aEndpoint = aMPSClient.getEndpoint (aPI,
                                                            PeppolIdentifierFactory.INSTANCE.parseDocumentTypeIdentifier ("busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:mfin.gov.hr:cius-2025:1.0#conformant#urn:mfin.gov.hr:ext-2025:1.0::2.1"),
                                                            PeppolIdentifierFactory.INSTANCE.parseProcessIdentifier ("cenbii-procid-ubl::urn:fdc:eracun.hr:poacc:en16931:any"),
-                                                           ESMPTransportProfile.TRANSPORT_PROFILE_ERACUN_AS4_V1);
+                                                           EHREDeliveryTransportProfile.AS4_V1);
     assertNotNull (aEndpoint);
     assertEquals ("https://acc.as4-hr.markant.services/as4", aEndpoint.getEndpointURI ());
   }

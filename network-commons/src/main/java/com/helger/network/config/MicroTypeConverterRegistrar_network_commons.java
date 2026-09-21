@@ -14,13 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.config;
+package com.helger.network.config;
 
 import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.style.IsSPIImplementation;
-import com.helger.peppol.sml.SMLInfo;
-import com.helger.peppol.sml.SMLInfoMicroTypeConverter;
+import com.helger.network.smp.SMPTransportProfile;
+import com.helger.network.smp.SMPTransportProfileMicroTypeConverter;
 import com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI;
 import com.helger.xml.microdom.convert.IMicroTypeConverterRegistry;
 
@@ -28,12 +28,14 @@ import com.helger.xml.microdom.convert.IMicroTypeConverterRegistry;
  * Special micro type converter for this project.
  *
  * @author Philip Helger
+ * @since 13.0.0
  */
 @IsSPIImplementation
-public final class MicroTypeConverterRegistrar_peppol_commons implements IMicroTypeConverterRegistrarSPI
+public final class MicroTypeConverterRegistrar_network_commons implements IMicroTypeConverterRegistrarSPI
 {
   public void registerMicroTypeConverter (@NonNull final IMicroTypeConverterRegistry aRegistry)
   {
-    aRegistry.registerMicroElementTypeConverter (SMLInfo.class, new SMLInfoMicroTypeConverter ());
+    aRegistry.registerMicroElementTypeConverter (SMPTransportProfile.class,
+                                                 new SMPTransportProfileMicroTypeConverter ());
   }
 }

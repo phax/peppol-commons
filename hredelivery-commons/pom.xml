@@ -50,6 +50,11 @@
   </developers>
   <dependencies>
     <dependency>
+      <groupId>com.helger.peppol</groupId>
+      <artifactId>network-commons</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-security</artifactId>
     </dependency>

@@ -35,7 +35,7 @@ import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.peppol.sml.ISMLInfo;
-import com.helger.peppol.smp.ISMPTransportProfile;
+import com.helger.network.smp.ISMPTransportProfile;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;

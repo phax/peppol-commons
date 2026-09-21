@@ -233,6 +233,7 @@
   </dependencies>
   
   <modules>
+    <module>network-commons</module>
     <module>peppol-id-datatypes</module>
     <module>peppol-id</module>
     <module>peppol-id-checks</module>

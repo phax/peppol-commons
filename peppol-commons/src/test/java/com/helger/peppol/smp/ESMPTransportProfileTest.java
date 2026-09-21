@@ -22,6 +22,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.helger.network.smp.ESMPTransportProfileState;
+import com.helger.network.smp.ISMPTransportProfile;
 import com.helger.base.string.StringHelper;
 
 /**

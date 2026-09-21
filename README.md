@@ -373,6 +373,13 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 v13.0.0 - work in progress
 * Started the v13 development branch
+* Added the new submodule `network-commons` that contains the network neutral base types, so that Peppol, DBNAlliance, HR eDelivery and future networks share them instead of copying them
+* **Breaking API change** Moved `ISMPTransportProfile`, `SMPTransportProfile`, `ESMPTransportProfileState`, `ESMPTransportProfileStateText` and `SMPTransportProfileMicroTypeConverter` from `com.helger.peppol.smp` to `com.helger.network.smp` in the new submodule `network-commons`
+* **Breaking API change** Moved `ESMPAPIType` from `com.helger.peppol.sml` to `com.helger.network.smp` in the new submodule `network-commons`
+* **Breaking API change** Removed `ESMPTransportProfile.TRANSPORT_PROFILE_DBNA_AS4_V1` and `ESMPTransportProfile.TRANSPORT_PROFILE_ERACUN_AS4_V1` - a network no longer needs to modify a Peppol enum to make its transport profiles known. Use the new `EDBNAllianceTransportProfile` and `EHREDeliveryTransportProfile` instead
+* Added `SMPTransportProfileRegistry` that collects the transport profiles of all networks via the new SPI interface `ISMPTransportProfileProviderSPI`
+* Added `NetworkTrustStoreHelper` so that `PeppolTrustStores`, `DBNAllianceTrustStores` and `HREDeliveryTrustStores` no longer each carry their own copy of the trust store loading and certificate resolution code
+* Added `INetworkStage` as the common base interface of `IPeppolNetwork`, `EDBNAllianceStage` and `EHREDeliveryStage`
 
 v12.10.0 - 2026-09-06
 * Removed the dependency of the module `peppol-commons` onto `ph-bc` and therefore onto Bouncy Castle.

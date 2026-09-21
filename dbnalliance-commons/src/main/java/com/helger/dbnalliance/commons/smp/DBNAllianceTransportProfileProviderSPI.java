@@ -14,26 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.config;
+package com.helger.dbnalliance.commons.smp;
 
 import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.style.IsSPIImplementation;
-import com.helger.peppol.sml.SMLInfo;
-import com.helger.peppol.sml.SMLInfoMicroTypeConverter;
-import com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI;
-import com.helger.xml.microdom.convert.IMicroTypeConverterRegistry;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.network.smp.ISMPTransportProfile;
+import com.helger.network.smp.ISMPTransportProfileProviderSPI;
 
 /**
- * Special micro type converter for this project.
+ * Provide all DBNAlliance transport profiles to the central transport profile registry.
  *
  * @author Philip Helger
+ * @since 13.0.0
  */
 @IsSPIImplementation
-public final class MicroTypeConverterRegistrar_peppol_commons implements IMicroTypeConverterRegistrarSPI
+public final class DBNAllianceTransportProfileProviderSPI implements ISMPTransportProfileProviderSPI
 {
-  public void registerMicroTypeConverter (@NonNull final IMicroTypeConverterRegistry aRegistry)
+  @NonNull
+  @ReturnsMutableCopy
+  public ICommonsList <ISMPTransportProfile> getAllTransportProfiles ()
   {
-    aRegistry.registerMicroElementTypeConverter (SMLInfo.class, new SMLInfoMicroTypeConverter ());
+    return new CommonsArrayList <> (EDBNAllianceTransportProfile.values ());
   }
 }
