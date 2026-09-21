@@ -22,7 +22,6 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
-import com.helger.base.version.Version;
 import com.helger.peppolid.codelist.ICodeListItemWithRelease;
 
 /**

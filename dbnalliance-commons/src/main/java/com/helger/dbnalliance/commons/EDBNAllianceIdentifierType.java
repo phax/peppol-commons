@@ -21,6 +21,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.lang.EnumHelper;
+import com.helger.peppolid.factory.DBNAllianceIdentifierFactory;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.factory.IIdentifierFactoryType;
 

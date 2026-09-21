@@ -16,12 +16,8 @@
  */
 package com.helger.network.sbdh;
 
-import java.util.UUID;
-
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 
 import com.helger.annotation.Nonempty;
@@ -54,10 +50,8 @@ import com.helger.peppolid.peppol.PeppolIdentifierHelper;
  */
 @NotThreadSafe
 public abstract class AbstractSBDHData <IMPLTYPE extends AbstractSBDHData <IMPLTYPE>> implements
-                                      IGenericImplTrait <IMPLTYPE>
+                                       IGenericImplTrait <IMPLTYPE>
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (AbstractSBDHData.class);
-
   private final IIdentifierFactory m_aIdentifierFactory;
   // Sender
   private String m_sSenderScheme;
@@ -164,7 +158,6 @@ public abstract class AbstractSBDHData <IMPLTYPE extends AbstractSBDHData <IMPLT
     return setSender (aSenderID.getScheme (), aSenderID.getValue ());
   }
 
-
   /**
    * @return The receiver participant identifier scheme. May be <code>null</code> if not
    *         initialized. This field is mapped to
@@ -211,8 +204,7 @@ public abstract class AbstractSBDHData <IMPLTYPE extends AbstractSBDHData <IMPLT
    * @return this
    */
   @NonNull
-  public IMPLTYPE setReceiver (@NonNull @Nonempty final String sScheme,
-                                          @NonNull @Nonempty final String sValue)
+  public IMPLTYPE setReceiver (@NonNull @Nonempty final String sScheme, @NonNull @Nonempty final String sValue)
   {
     ValueEnforcer.notEmpty (sScheme, "Scheme");
     ValueEnforcer.notEmpty (sValue, "Value");
@@ -236,7 +228,6 @@ public abstract class AbstractSBDHData <IMPLTYPE extends AbstractSBDHData <IMPLT
 
     return setReceiver (aReceiverID.getScheme (), aReceiverID.getValue ());
   }
-
 
   /**
    * Set the content of the fields that are mapped to
@@ -281,10 +272,10 @@ public abstract class AbstractSBDHData <IMPLTYPE extends AbstractSBDHData <IMPLT
    */
   @NonNull
   public IMPLTYPE setDocumentIdentification (@NonNull @Nonempty final String sStandard,
-                                                        @NonNull @Nonempty final String sTypeVersion,
-                                                        @NonNull @Nonempty final String sType,
-                                                        @NonNull @Nonempty final String sInstanceIdentifier,
-                                                        @NonNull final XMLOffsetDateTime aCreationDateAndTime)
+                                             @NonNull @Nonempty final String sTypeVersion,
+                                             @NonNull @Nonempty final String sType,
+                                             @NonNull @Nonempty final String sInstanceIdentifier,
+                                             @NonNull final XMLOffsetDateTime aCreationDateAndTime)
   {
     setStandard (sStandard);
     setTypeVersion (sTypeVersion);
@@ -597,10 +588,6 @@ public abstract class AbstractSBDHData <IMPLTYPE extends AbstractSBDHData <IMPLT
     return thisAsT ();
   }
 
-
-
-
-
   @Override
   public boolean equals (final Object o)
   {
@@ -653,5 +640,4 @@ public abstract class AbstractSBDHData <IMPLTYPE extends AbstractSBDHData <IMPLT
                                        .append ("BusinessMessage", m_aBusinessMessage)
                                        .getToString ();
   }
-
 }

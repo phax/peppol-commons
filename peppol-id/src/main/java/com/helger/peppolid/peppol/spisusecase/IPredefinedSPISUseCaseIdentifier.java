@@ -19,7 +19,6 @@ package com.helger.peppolid.peppol.spisusecase;
 import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.Nonempty;
-import com.helger.base.version.Version;
 import com.helger.peppolid.codelist.ICodeListItemWithRelease;
 
 /**
@@ -37,5 +36,4 @@ public interface IPredefinedSPISUseCaseIdentifier extends ICodeListItemWithRelea
   @NonNull
   @Nonempty
   String getUseCaseID ();
-
 }

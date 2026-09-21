@@ -22,7 +22,6 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.version.Version;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
