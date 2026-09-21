@@ -392,6 +392,21 @@ v13.0.0 - work in progress
 * Added the new submodule `network-sbdh` that contains the network neutral parts of the SBDH handling
 * **Breaking API change** `PeppolSBDHData` and `HREDeliverySBDHData` now extend `AbstractSBDHData`, `PeppolSBDHDataReader` and `HREDeliverySBDHDataReader` extend `AbstractSBDHDataReader` and `PeppolSBDHDataWriter` and `HREDeliverySBDHDataWriter` extend `AbstractSBDHDataWriter`. The public API of the Peppol classes is unchanged, except that the error enums now implement `ISBDHDataError` and the read exceptions extend `SBDHDataReadException`
 * The `BusinessScope` handling is the only part of the SBDH writing that is network specific - it is filled via `fillBusinessScope`
+* **Breaking API change** Removed all the code that was deprecated and marked for removal:
+    * `ESML.DIGIT_PRODUCTION` and `ESML.DIGIT_TEST` (deprecated since 12.4.0)
+    * `CSMLDefault.DNS_PUBLISHER_SUBZONE` and `ISMLInfo.getPublisherDNSZone ()`
+    * The three `SMLInfo` constructors - use `SMLInfo.builder ()` instead
+    * `PeppolIdentifierHelper.DEFAULT_CHARSET_CHECKS_DISABLED`, `PeppolIdentifierHelper.areCharsetChecksDisabled ()` and `PeppolIdentifierHelper.disableCharsetChecks (boolean)`
+    * The annotations `Pfuoi430` and `Pfuoi440`
+    * `CPeppolMLS.SPIS_PARTICIPANT_ID_SCHEME` and `CPeppolMLS.REGEX_SPID` - use `SPIDHelper` instead
+    * `PeppolSBDHDataReader.DEFAULT_CHECK_FOR_COUNTRY_C1`, `isCheckForCountryC1 ()` and `setCheckForCountryC1 (boolean)` - the Country C1 is now always checked, as soon as the value checks are enabled
+    * `PeppolURLProvider` and `PeppolConfigurableURLProvider` - use `PeppolNaptrURLProvider` instead
+    * The two `ISMPURLProvider.getSMPURLOfParticipant (...)` default methods that returned an `URL` - use the `getSMPURIOfParticipant (...)` methods that return an `URI`
+    * `SMPClientParticipantNotFoundException`; `SMPClientSMPUnavailableException` now extends `SMPClientException` directly
+    * `SMPDNSResolutionException.EErrorCode.DNS_RESOLVING_ERROR` - use `DNS_TECHNICAL_FAILURE`, `PARTICIPANT_NOT_REGISTERED` or `NO_MATCHING_SMP_SERVICE` instead
+    * The static getters `getConnectTimeout ()`, `getResponseTimeout ()`, `getHttpProxy ()`, `getHttpProxyCredentials ()`, `getNonProxyHosts ()` and `isUseDNSClientCache ()` of `SMPClientConfiguration`
+    * `SMPHttpClientSettings.fromLegacyConfiguration ()` and `SMPHttpClientSettings.resetToConfiguration ()`
+    * `com.helger.dbnalliance.commons.DBNAllianceIdentifierFactory` - use `com.helger.peppolid.factory.DBNAllianceIdentifierFactory` instead
 
 v12.10.0 - 2026-09-06
 * Removed the dependency of the module `peppol-commons` onto `ph-bc` and therefore onto Bouncy Castle.
