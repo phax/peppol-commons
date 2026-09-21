@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.smpclient.url;
+package com.helger.smpclient.url.dns;
 
 import org.jspecify.annotations.NonNull;
 
@@ -23,31 +23,28 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.clone.ICloneable;
 
 /**
- * The implementation of {@link IPeppolURLProvider} suitable for the Peppol Network to resolve NAPTR
- * records as defined in the Peppol Policy for use of Identifiers v4.4.0.<br>
+ * The default implementation of {@link IBDXLURLProvider} suitable for the E-SENS network. See e.g.
+ * http://wiki.ds.unipi.gr/display/ESENS/PR+-+BDXL+1.4.0<br>
  * Layout:
  * <code>strip-trailing(base32(sha256(lowercase(ID-VALUE))),"=")+"."+ID-SCHEME+"."+SML-ZONE-NAME</code>
  *
  * @author Philip Helger
- * @since 9.6.1
  */
 @ThreadSafe
-public class PeppolNaptrURLProvider extends AbstractBDXLURLProvider implements
-                                    IPeppolURLProvider,
-                                    ICloneable <PeppolNaptrURLProvider>
+public class BDXLURLProvider extends AbstractBDXLURLProvider implements ICloneable <BDXLURLProvider>
 {
-  /** U NAPTR service name for Peppol */
+  /** U NAPTR service name for e-SENS/PEPPOL */
   public static final String DNS_UNAPTR_SERVICE_NAME_META_SMP = "Meta:SMP";
 
   /** The writable API of the default instance */
-  public static final PeppolNaptrURLProvider MUTABLE_INSTANCE = new PeppolNaptrURLProvider ();
+  public static final BDXLURLProvider MUTABLE_INSTANCE = new BDXLURLProvider ();
   /** The default instance that should be used */
-  public static final IPeppolURLProvider INSTANCE = MUTABLE_INSTANCE;
+  public static final IBDXLURLProvider INSTANCE = MUTABLE_INSTANCE;
 
   /**
    * Default constructor.
    */
-  public PeppolNaptrURLProvider ()
+  public BDXLURLProvider ()
   {
     setLowercaseValueBeforeHashing (true);
     setAddIdentifierSchemeToZone (true);
@@ -61,15 +58,15 @@ public class PeppolNaptrURLProvider extends AbstractBDXLURLProvider implements
    * @param rhs
    *        the object to copy from. May not be <code>null</code>.
    */
-  protected PeppolNaptrURLProvider (@NonNull final PeppolNaptrURLProvider rhs)
+  protected BDXLURLProvider (@NonNull final BDXLURLProvider rhs)
   {
     super (rhs);
   }
 
   @NonNull
   @ReturnsMutableCopy
-  public PeppolNaptrURLProvider getClone ()
+  public BDXLURLProvider getClone ()
   {
-    return new PeppolNaptrURLProvider (this);
+    return new BDXLURLProvider (this);
   }
 }

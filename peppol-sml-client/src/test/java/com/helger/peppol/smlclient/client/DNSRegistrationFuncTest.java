@@ -47,7 +47,7 @@ import com.helger.peppol.smlclient.smp.NotFoundFault;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier;
-import com.helger.smpclient.url.PeppolNaptrURLProvider;
+import com.helger.smpclient.url.dns.PeppolNaptrURLProvider;
 
 /**
  * This class is for BRZ internal use only!

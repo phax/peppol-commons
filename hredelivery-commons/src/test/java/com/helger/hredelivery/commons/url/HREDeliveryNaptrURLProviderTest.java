@@ -23,7 +23,7 @@ import org.junit.Test;
 import com.helger.hredelivery.commons.EHREDeliverySML;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
-import com.helger.smpclient.url.IBDXLURLProvider;
+import com.helger.smpclient.url.dns.IBDXLURLProvider;
 import com.helger.smpclient.url.SMPDNSResolutionException;
 
 /**

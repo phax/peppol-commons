@@ -35,8 +35,8 @@ import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
 import com.helger.smpclient.exception.SMPClientNotFoundException;
-import com.helger.smpclient.url.IPeppolURLProvider;
-import com.helger.smpclient.url.PeppolNaptrURLProvider;
+import com.helger.smpclient.url.dns.IPeppolURLProvider;
+import com.helger.smpclient.url.dns.PeppolNaptrURLProvider;
 import com.helger.xsds.peppol.smp1.ServiceGroupType;
 import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 

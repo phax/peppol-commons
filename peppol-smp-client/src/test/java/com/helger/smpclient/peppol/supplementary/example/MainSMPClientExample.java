@@ -26,7 +26,7 @@ import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier;
 import com.helger.smpclient.peppol.SMPClientReadOnly;
-import com.helger.smpclient.url.PeppolNaptrURLProvider;
+import com.helger.smpclient.url.dns.PeppolNaptrURLProvider;
 
 /**
  * Example application that shows how to invoke the {@link SMPClientReadOnly}

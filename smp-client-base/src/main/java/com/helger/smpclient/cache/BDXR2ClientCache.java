@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.smpclient.peppol;
+package com.helger.smpclient.cache;
 
 import java.time.Duration;
 
@@ -26,33 +26,32 @@ import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.enforce.ValueEnforcer;
-import com.helger.smpclient.cache.AbstractSMPClientCache;
-import com.helger.xsds.peppol.smp1.ServiceGroupType;
-import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
+import com.helger.xsds.bdxr.smp2.ServiceGroupType;
+import com.helger.xsds.bdxr.smp2.ServiceMetadataType;
 
 /**
- * A shareable cache for Peppol SMP Service Group and Service Metadata objects, as used by
- * {@link CachingSMPClientReadOnly}. See {@link AbstractSMPClientCache} for the details.
+ * A shareable cache for OASIS BDXR SMP v2 Service Group and Service Metadata objects. See
+ * {@link AbstractSMPClientCache} for the details.
  *
  * @author Philip Helger
- * @since 12.7.0
+ * @since 13.0.0
  */
 @ThreadSafe
-public class SMPClientCache extends AbstractSMPClientCache <ServiceGroupType, SignedServiceMetadataType>
+public class BDXR2ClientCache extends AbstractSMPClientCache <ServiceGroupType, ServiceMetadataType>
 {
   /** The statistics and log name of the internal Service Group cache */
-  public static final String CACHE_NAME_SERVICE_GROUP = "peppol-smp-client$ServiceGroup";
+  public static final String CACHE_NAME_SERVICE_GROUP = "bdxr2-smp-client$ServiceGroup";
   /** The statistics and log name of the internal Service Metadata cache */
-  public static final String CACHE_NAME_SERVICE_METADATA = "peppol-smp-client$ServiceMetadata";
+  public static final String CACHE_NAME_SERVICE_METADATA = "bdxr2-smp-client$ServiceMetadata";
 
   private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
   @GuardedBy ("RW_LOCK")
-  private static SMPClientCache s_aDefaultInstance = new SMPClientCache ();
+  private static BDXR2ClientCache s_aDefaultInstance = new BDXR2ClientCache ();
 
   /**
    * Constructor using {@link #DEFAULT_CACHE_TTL} and {@link #DEFAULT_MAX_SIZE}.
    */
-  public SMPClientCache ()
+  public BDXR2ClientCache ()
   {
     super (CACHE_NAME_SERVICE_GROUP, CACHE_NAME_SERVICE_METADATA);
   }
@@ -67,7 +66,7 @@ public class SMPClientCache extends AbstractSMPClientCache <ServiceGroupType, Si
    *        The maximum number of entries of each of the two internal caches. All values &le; 0
    *        indicate an unlimited size.
    */
-  public SMPClientCache (@NonNull final Duration aCacheTTL, @CheckForSigned final int nMaxSize)
+  public BDXR2ClientCache (@NonNull final Duration aCacheTTL, @CheckForSigned final int nMaxSize)
   {
     this (aCacheTTL, nMaxSize, null);
   }
@@ -85,9 +84,9 @@ public class SMPClientCache extends AbstractSMPClientCache <ServiceGroupType, Si
    *        scheduler thread. May be <code>null</code>, zero or negative to disable background
    *        eviction.
    */
-  public SMPClientCache (@NonNull final Duration aCacheTTL,
-                         @CheckForSigned final int nMaxSize,
-                         @Nullable final Duration aEvictionInterval)
+  public BDXR2ClientCache (@NonNull final Duration aCacheTTL,
+                           @CheckForSigned final int nMaxSize,
+                           @Nullable final Duration aEvictionInterval)
   {
     super (aCacheTTL, nMaxSize, aEvictionInterval, CACHE_NAME_SERVICE_GROUP, CACHE_NAME_SERVICE_METADATA);
   }
@@ -97,7 +96,7 @@ public class SMPClientCache extends AbstractSMPClientCache <ServiceGroupType, Si
    *         <code>null</code>.
    */
   @NonNull
-  public static SMPClientCache getDefaultInstance ()
+  public static BDXR2ClientCache getDefaultInstance ()
   {
     return RW_LOCK.readLockedGet ( () -> s_aDefaultInstance);
   }
@@ -110,12 +109,12 @@ public class SMPClientCache extends AbstractSMPClientCache <ServiceGroupType, Si
    * @return The previous default instance. Never <code>null</code>.
    */
   @NonNull
-  public static SMPClientCache setDefaultInstance (@NonNull final SMPClientCache aDefaultInstance)
+  public static BDXR2ClientCache setDefaultInstance (@NonNull final BDXR2ClientCache aDefaultInstance)
   {
     ValueEnforcer.notNull (aDefaultInstance, "DefaultInstance");
 
     return RW_LOCK.writeLockedGet ( () -> {
-      final SMPClientCache aOld = s_aDefaultInstance;
+      final BDXR2ClientCache aOld = s_aDefaultInstance;
       s_aDefaultInstance = aDefaultInstance;
       return aOld;
     });

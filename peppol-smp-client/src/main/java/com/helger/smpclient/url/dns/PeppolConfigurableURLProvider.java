@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.smpclient.url;
+package com.helger.smpclient.url.dns;
 
 import java.net.URI;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -22,6 +22,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
+import com.helger.smpclient.url.SMPDNSResolutionException;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppolid.IParticipantIdentifier;
 

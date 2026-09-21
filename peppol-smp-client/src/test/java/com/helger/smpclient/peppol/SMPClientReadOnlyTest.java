@@ -70,7 +70,7 @@ import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.httpclient.AbstractGenericSMPClient;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceMetadataType;
-import com.helger.smpclient.url.PeppolNaptrURLProvider;
+import com.helger.smpclient.url.dns.PeppolNaptrURLProvider;
 import com.helger.smpclient.url.SMPDNSResolutionException;
 import com.helger.xsds.peppol.id1.DocumentIdentifierType;
 import com.helger.xsds.peppol.id1.ParticipantIdentifierType;

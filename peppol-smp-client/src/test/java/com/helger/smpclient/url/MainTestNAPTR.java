@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.base.timing.StopWatch;
 import com.helger.base.url.URLHelper;
 import com.helger.dns.naptr.NaptrResolver;
+import com.helger.smpclient.url.dns.BDXLURLProvider;
 
 public class MainTestNAPTR
 {

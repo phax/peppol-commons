@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.smpclient.url;
+package com.helger.smpclient.url.dns;
 
 import java.net.InetAddress;
 import java.net.URI;
@@ -52,6 +52,7 @@ import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
 import com.helger.smpclient.url.SMPDNSResolutionException.EErrorCode;
+import com.helger.smpclient.url.SMPDNSResolutionException;
 
 /**
  * An abstract implementation of {@link IBDXLURLProvider} that support U-NAPTR record resolution.

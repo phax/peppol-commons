@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.dns.naptr.NaptrLookup;
 import com.helger.dns.naptr.NaptrResolver;
+import com.helger.smpclient.url.dns.BDXLURLProvider;
 
 public final class MainTestCNAME2NAPTR
 {

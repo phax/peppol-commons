@@ -21,8 +21,8 @@ import org.jspecify.annotations.NonNull;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.clone.ICloneable;
-import com.helger.smpclient.url.AbstractBDXLURLProvider;
-import com.helger.smpclient.url.IBDXLURLProvider;
+import com.helger.smpclient.url.dns.AbstractBDXLURLProvider;
+import com.helger.smpclient.url.dns.IBDXLURLProvider;
 
 /**
  * The implementation of {@link IBDXLURLProvider} suitable for the HR eDelivery Network to resolve

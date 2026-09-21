@@ -241,6 +241,7 @@
     <module>peppol-testfiles</module>
     <module>peppol-sbdh</module>
     <module>peppol-smp-datatypes</module>
+    <module>smp-client-base</module>
     <module>peppol-smp-client</module>
     <module>peppol-sml-client</module>
     <module>peppol-directory-businesscard</module>

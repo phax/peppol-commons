@@ -384,6 +384,11 @@ v13.0.0 - work in progress
 * Added `ICodeListItem` and `ICodeListItemWithRelease` - the state and release lifecycle of a code list entry was previously repeated in five interfaces
 * **Breaking API change** Removed `ESMPIdentifierType.DBNALLIANCE` - use the new `EDBNAllianceIdentifierType.DBNALLIANCE` instead
 * Added `IdentifierFactoryTypeRegistry` and the SPI interface `IIdentifierFactoryTypeProviderSPI`, so that a network can contribute its identifier rules without modifying `ESMPIdentifierType`
+* Added the new submodule `smp-client-base` that contains the network neutral parts of the SMP client - HTTP execution, signature verification, exceptions, extensions, redirects, caching and the OASIS BDXR SMP v1 and v2 clients. It does **not** depend on `dnsjava` and `ph-dns`, so a BDXR SMP user without SML no longer drags the DNS stack into the class path
+* **Breaking API change** Moved the packages `com.helger.smpclient.httpclient`, `.exception`, `.security`, `.extension`, `.redirect`, `.config`, `.bdxr1` and `.bdxr2` from `peppol-smp-client` to `smp-client-base`. The package names are unchanged
+* **Breaking API change** Moved the DNS based URL providers (`AbstractBDXLURLProvider`, `BDXLURLProvider`, `IBDXLURLProvider`, `PeppolURLProvider`, `IPeppolURLProvider`, `PeppolNaptrURLProvider`, `PeppolConfigurableURLProvider` and `DBNAURLProviderSMP`) from `com.helger.smpclient.url` to `com.helger.smpclient.url.dns`. `ISMPURLProvider` and `SMPDNSResolutionException` stay where they are and moved to `smp-client-base`
+* **Breaking API change** `SMPClientCache` now extends the new generic `AbstractSMPClientCache` - the public API of `SMPClientCache` is unchanged
+* Added `BDXR2ClientCache` and `CachingBDXR2ClientReadOnly` - OASIS BDXR SMP v2 had no caching at all so far
 
 v12.10.0 - 2026-09-06
 * Removed the dependency of the module `peppol-commons` onto `ph-bc` and therefore onto Bouncy Castle.

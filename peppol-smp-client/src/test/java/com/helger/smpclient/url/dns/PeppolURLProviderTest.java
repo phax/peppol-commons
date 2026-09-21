@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.smpclient.url;
+package com.helger.smpclient.url.dns;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -37,6 +37,7 @@ import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
+import com.helger.smpclient.url.SMPDNSResolutionException;
 
 /**
  * Test class for class {@link PeppolURLProvider}.

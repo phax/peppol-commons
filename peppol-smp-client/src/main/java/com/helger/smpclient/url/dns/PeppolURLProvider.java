@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.smpclient.url;
+package com.helger.smpclient.url.dns;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -35,6 +35,7 @@ import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
 import com.helger.smpclient.url.SMPDNSResolutionException.EErrorCode;
+import com.helger.smpclient.url.SMPDNSResolutionException;
 
 /**
  * The implementation of {@link IPeppolURLProvider} suitable for the Peppol Network to resolve CNAME

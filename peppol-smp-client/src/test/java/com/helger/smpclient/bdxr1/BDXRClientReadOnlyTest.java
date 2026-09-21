@@ -37,8 +37,8 @@ import com.helger.security.keystore.KeyStoreHelper;
 import com.helger.smpclient.IgnoredNaptrTest;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.exception.SMPClientException;
-import com.helger.smpclient.url.BDXLURLProvider;
-import com.helger.smpclient.url.PeppolNaptrURLProvider;
+import com.helger.smpclient.url.dns.BDXLURLProvider;
+import com.helger.smpclient.url.dns.PeppolNaptrURLProvider;
 import com.helger.smpclient.url.SMPDNSResolutionException;
 import com.helger.xsds.bdxr.smp1.SignedServiceMetadataType;
 
