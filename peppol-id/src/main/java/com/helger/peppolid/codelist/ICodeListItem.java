@@ -14,28 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppolid.peppol.spisusecase;
+package com.helger.peppolid.codelist;
 
 import org.jspecify.annotations.NonNull;
 
-import com.helger.annotation.Nonempty;
-import com.helger.base.version.Version;
-import com.helger.peppolid.codelist.ICodeListItemWithRelease;
-
 /**
- * Base interface for predefined SPIS Use Case identifiers.
+ * Base interface for a single entry of a code list. Every code list entry has a state that
+ * determines whether it may still be used or not.
  *
  * @author Philip Helger
- * @since 11.0.3
+ * @since 13.0.0
  */
-public interface IPredefinedSPISUseCaseIdentifier extends ICodeListItemWithRelease
+public interface ICodeListItem
 {
   /**
-   * @return The unique ID of this SPIS Use case profile. This identifier is the one used in SMP
-   *         endpoints.
+   * @return The state of this item. Never <code>null</code>.
    */
   @NonNull
-  @Nonempty
-  String getUseCaseID ();
+  ECodeListItemState getState ();
 
+  /**
+   * @return <code>true</code> if this item is deprecated and should no longer be used.
+   */
+  default boolean isDeprecated ()
+  {
+    return getState ().isDeprecated ();
+  }
 }

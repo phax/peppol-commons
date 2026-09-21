@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppolid.peppol;
+package com.helger.peppolid.codelist;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -29,7 +29,7 @@ import com.helger.base.lang.EnumHelper;
  * @author Philip Helger
  * @since 8.7.0
  */
-public enum EPeppolCodeListItemState implements IHasID <String>
+public enum ECodeListItemState implements IHasID <String>
 {
   ACTIVE ("act"),
   DEPRECATED ("dep"),
@@ -37,7 +37,7 @@ public enum EPeppolCodeListItemState implements IHasID <String>
 
   private final String m_sID;
 
-  EPeppolCodeListItemState (@NonNull @Nonempty final String sID)
+  ECodeListItemState (@NonNull @Nonempty final String sID)
   {
     m_sID = sID;
   }
@@ -65,8 +65,8 @@ public enum EPeppolCodeListItemState implements IHasID <String>
   }
 
   @Nullable
-  public static EPeppolCodeListItemState getFromIDOrNull (@Nullable final String s)
+  public static ECodeListItemState getFromIDOrNull (@Nullable final String s)
   {
-    return EnumHelper.getFromIDOrNull (EPeppolCodeListItemState.class, s);
+    return EnumHelper.getFromIDOrNull (ECodeListItemState.class, s);
   }
 }

@@ -14,28 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppolid.peppol.spisusecase;
+package com.helger.peppolid.factory;
 
 import org.jspecify.annotations.NonNull;
 
-import com.helger.annotation.Nonempty;
-import com.helger.base.version.Version;
-import com.helger.peppolid.codelist.ICodeListItemWithRelease;
+import com.helger.annotation.style.IsSPIImplementation;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 
 /**
- * Base interface for predefined SPIS Use Case identifiers.
+ * Provide all predefined identifier factory types to the central registry.
  *
  * @author Philip Helger
- * @since 11.0.3
+ * @since 13.0.0
  */
-public interface IPredefinedSPISUseCaseIdentifier extends ICodeListItemWithRelease
+@IsSPIImplementation
+public final class PeppolIdentifierFactoryTypeProviderSPI implements IIdentifierFactoryTypeProviderSPI
 {
-  /**
-   * @return The unique ID of this SPIS Use case profile. This identifier is the one used in SMP
-   *         endpoints.
-   */
   @NonNull
-  @Nonempty
-  String getUseCaseID ();
-
+  @ReturnsMutableCopy
+  public ICommonsList <IIdentifierFactoryType> getAllIdentifierFactoryTypes ()
+  {
+    return new CommonsArrayList <> (ESMPIdentifierType.values ());
+  }
 }

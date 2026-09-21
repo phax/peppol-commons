@@ -16,13 +16,13 @@
  */
 package com.helger.peppolid.peppol.transportprofile;
 
-import java.time.LocalDate;
-import java.time.Month;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.base.version.Version;
 import com.helger.datetime.helper.PDTFactory;
-import com.helger.peppolid.peppol.EPeppolCodeListItemState;
+import com.helger.peppolid.codelist.ECodeListItemState;
+import java.time.LocalDate;
+import java.time.Month;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -46,7 +46,7 @@ public enum EPredefinedTransportProfileIdentifier implements IPredefinedTranspor
                          "1.0.1",
                          "busdox-transport-start",
                          Version.parse ("1.0.0"),
-                         EPeppolCodeListItemState.REMOVED,
+                         ECodeListItemState.REMOVED,
                          Version.parse ("1.0.0"),
                          PDTFactory.createLocalDate (2023, Month.of (9), 6)),
 
@@ -63,7 +63,7 @@ public enum EPredefinedTransportProfileIdentifier implements IPredefinedTranspor
                               "1.0",
                               "busdox-transport-as2-ver1p0",
                               Version.parse ("1.0.0"),
-                              EPeppolCodeListItemState.REMOVED,
+                              ECodeListItemState.REMOVED,
                               Version.parse ("7"),
                               PDTFactory.createLocalDate (2023, Month.of (9), 6)),
 
@@ -80,7 +80,7 @@ public enum EPredefinedTransportProfileIdentifier implements IPredefinedTranspor
                             "1.0",
                             "peppol-transport-as4-v1_0",
                             Version.parse ("2"),
-                            EPeppolCodeListItemState.REMOVED,
+                            ECodeListItemState.REMOVED,
                             Version.parse ("3"),
                             PDTFactory.createLocalDate (2023, Month.of (9), 6)),
 
@@ -94,7 +94,7 @@ public enum EPredefinedTransportProfileIdentifier implements IPredefinedTranspor
                              "2.0",
                              "peppol-transport-as4-v2_0",
                              Version.parse ("3"),
-                             EPeppolCodeListItemState.ACTIVE,
+                             ECodeListItemState.ACTIVE,
                              null,
                              null),
 
@@ -111,7 +111,7 @@ public enum EPredefinedTransportProfileIdentifier implements IPredefinedTranspor
                               "2.0",
                               "busdox-transport-as2-ver2p0",
                               Version.parse ("5"),
-                              EPeppolCodeListItemState.REMOVED,
+                              ECodeListItemState.REMOVED,
                               Version.parse ("8.4"),
                               PDTFactory.createLocalDate (2023, Month.of (9), 6));
 
@@ -157,7 +157,7 @@ public enum EPredefinedTransportProfileIdentifier implements IPredefinedTranspor
   private final String m_sProfileVersion;
   private final String m_sProfileID;
   private final Version m_aInitialRelease;
-  private final EPeppolCodeListItemState m_eState;
+  private final ECodeListItemState m_eState;
   private final Version m_aDeprecationRelease;
   private final LocalDate m_aRemovalDate;
 
@@ -165,7 +165,7 @@ public enum EPredefinedTransportProfileIdentifier implements IPredefinedTranspor
                                          @NonNull @Nonempty final String sProfileVersion,
                                          @NonNull @Nonempty final String sProfileID,
                                          @NonNull final Version aInitialRelease,
-                                         @NonNull final EPeppolCodeListItemState eState,
+                                         @NonNull final ECodeListItemState eState,
                                          @Nullable final Version aDeprecationRelease,
                                          @Nullable final LocalDate aRemovalDate)
   {
@@ -206,7 +206,7 @@ public enum EPredefinedTransportProfileIdentifier implements IPredefinedTranspor
   }
 
   @NonNull
-  public EPeppolCodeListItemState getState ()
+  public ECodeListItemState getState ()
   {
     return m_eState;
   }

@@ -14,36 +14,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppolid.factory;
+package com.helger.dbnalliance.commons;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.lang.EnumHelper;
+import com.helger.peppolid.factory.IIdentifierFactory;
+import com.helger.peppolid.factory.IIdentifierFactoryType;
 
 /**
- * Defines the identifier types to be used - simple (allows all), Peppol (special schemes) or BDXR
- * (different implementation type).
+ * Defines the identifier types of DBNAlliance.
  *
  * @author Philip Helger
- * @since 8.0.2
+ * @since 13.0.0
  */
-public enum ESMPIdentifierType implements IIdentifierFactoryType
+public enum EDBNAllianceIdentifierType implements IIdentifierFactoryType
 {
-  SIMPLE ("simple", "Simple", SimpleIdentifierFactory.INSTANCE),
-  PEPPOL ("peppol", "Peppol", PeppolIdentifierFactory.INSTANCE),
-  PEPPOL_LAX ("peppol-lax", "Peppol (lax)", PeppolLaxIdentifierFactory.INSTANCE),
-  BDXR1 ("bdxr1", "OASIS BDXR v1", BDXR1IdentifierFactory.INSTANCE),
-  BDXR2 ("bdxr2", "OASIS BDXR v2", BDXR2IdentifierFactory.INSTANCE);
+  DBNALLIANCE ("dbnalliance", "DBNAlliance", DBNAllianceIdentifierFactory.INSTANCE);
 
   private final String m_sID;
   private final String m_sDisplayName;
   private final IIdentifierFactory m_aIF;
 
-  ESMPIdentifierType (@NonNull @Nonempty final String sID,
-                      @NonNull @Nonempty final String sDisplayName,
-                      @NonNull final IIdentifierFactory aIF)
+  EDBNAllianceIdentifierType (@NonNull @Nonempty final String sID,
+                              @NonNull @Nonempty final String sDisplayName,
+                              @NonNull final IIdentifierFactory aIF)
   {
     m_sID = sID;
     m_sDisplayName = sDisplayName;
@@ -71,15 +68,8 @@ public enum ESMPIdentifierType implements IIdentifierFactoryType
   }
 
   @Nullable
-  public static ESMPIdentifierType getFromIDOrNull (@Nullable final String sID)
+  public static EDBNAllianceIdentifierType getFromIDOrNull (@Nullable final String sID)
   {
-    return getFromIDOrDefault (sID, null);
-  }
-
-  @Nullable
-  public static ESMPIdentifierType getFromIDOrDefault (@Nullable final String sID,
-                                                       @Nullable final ESMPIdentifierType eDefault)
-  {
-    return EnumHelper.getFromIDOrDefault (ESMPIdentifierType.class, sID, eDefault);
+    return EnumHelper.getFromIDOrNull (EDBNAllianceIdentifierType.class, sID);
   }
 }

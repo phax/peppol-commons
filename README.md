@@ -380,6 +380,10 @@ v13.0.0 - work in progress
 * Added `SMPTransportProfileRegistry` that collects the transport profiles of all networks via the new SPI interface `ISMPTransportProfileProviderSPI`
 * Added `NetworkTrustStoreHelper` so that `PeppolTrustStores`, `DBNAllianceTrustStores` and `HREDeliveryTrustStores` no longer each carry their own copy of the trust store loading and certificate resolution code
 * Added `INetworkStage` as the common base interface of `IPeppolNetwork`, `EDBNAllianceStage` and `EHREDeliveryStage`
+* **Breaking API change** Renamed `EPeppolCodeListItemState` to `ECodeListItemState` and moved it from `com.helger.peppolid.peppol` to `com.helger.peppolid.codelist`
+* Added `ICodeListItem` and `ICodeListItemWithRelease` - the state and release lifecycle of a code list entry was previously repeated in five interfaces
+* **Breaking API change** Removed `ESMPIdentifierType.DBNALLIANCE` - use the new `EDBNAllianceIdentifierType.DBNALLIANCE` instead
+* Added `IdentifierFactoryTypeRegistry` and the SPI interface `IIdentifierFactoryTypeProviderSPI`, so that a network can contribute its identifier rules without modifying `ESMPIdentifierType`
 
 v12.10.0 - 2026-09-06
 * Removed the dependency of the module `peppol-commons` onto `ph-bc` and therefore onto Bouncy Castle.

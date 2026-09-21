@@ -17,14 +17,13 @@
 package com.helger.peppolid.peppol.pidscheme;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.version.Version;
-import com.helger.peppolid.peppol.EPeppolCodeListItemState;
+import com.helger.peppolid.codelist.ICodeListItemWithRelease;
 
 /**
  * The Peppol specific version of a participant identifier scheme
@@ -32,7 +31,7 @@ import com.helger.peppolid.peppol.EPeppolCodeListItemState;
  * @author Philip Helger
  * @since 9.4.0
  */
-public interface IPeppolParticipantIdentifierScheme extends Serializable
+public interface IPeppolParticipantIdentifierScheme extends Serializable, ICodeListItemWithRelease
 {
   /**
    * Get the scheme ID of this issuing agency.<br>
@@ -99,57 +98,4 @@ public interface IPeppolParticipantIdentifierScheme extends Serializable
     return getISO6523Code () + ':' + sIdentifier;
   }
 
-  /**
-   * @return The internal code list version in which the identifier was added. Never
-   *         <code>null</code>.
-   * @since 8.7.1
-   */
-  @NonNull
-  Version getInitialRelease ();
-
-  /**
-   * @return <code>true</code> if the agency is deprecated and should not be used any longer,
-   *         <code>false</code> otherwise.
-   */
-  default boolean isDeprecated ()
-  {
-    return getState ().isDeprecated ();
-  }
-
-  /**
-   * @return The state of the item. Never <code>null</code>.
-   * @since 8.7.1
-   */
-  @NonNull
-  EPeppolCodeListItemState getState ();
-
-  /**
-   * Get the version since when this item is deprecated.
-   *
-   * @return <code>null</code> if this item is not deprecated.
-   * @see #getState()
-   * @see #isDeprecated()
-   * @since 8.7.1
-   */
-  @Nullable
-  Version getDeprecationRelease ();
-
-  /**
-   * @return <code>true</code> if this item has a removal date, <code>false</code> if not.
-   * @since 8.7.1
-   */
-  default boolean hasRemovalDate ()
-  {
-    return getRemovalDate () != null;
-  }
-
-  /**
-   * Get the date, when this particular entry will be removed. This may be set, even if the state is
-   * not "removed". This date may be in the future.
-   *
-   * @return <code>null</code> if no removal date is scheduled yet.
-   * @since 8.7.1
-   */
-  @Nullable
-  LocalDate getRemovalDate ();
 }

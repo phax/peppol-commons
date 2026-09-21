@@ -61,8 +61,8 @@ import com.helger.jcodemodel.writer.JCMWriter;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
+import com.helger.peppolid.codelist.ECodeListItemState;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
-import com.helger.peppolid.peppol.EPeppolCodeListItemState;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.doctype.IPeppolDocumentTypeIdentifierParts;
 import com.helger.peppolid.peppol.doctype.IPeppolGenericDocumentTypeIdentifierParts;
@@ -107,13 +107,13 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
   private static final String DO_NOT_EDIT = "This file was automatically generated.\nDo NOT edit!";
 
   @NonNull
-  private static EPeppolCodeListItemState _getState (@NonNull final PCLStateType eState)
+  private static ECodeListItemState _getState (@NonNull final PCLStateType eState)
   {
     return switch (eState)
     {
-      case ACTIVE -> EPeppolCodeListItemState.ACTIVE;
-      case DEPRECATION_SCHEDULED, DEPRECATED -> EPeppolCodeListItemState.DEPRECATED;
-      case REMOVED -> EPeppolCodeListItemState.REMOVED;
+      case ACTIVE -> ECodeListItemState.ACTIVE;
+      case DEPRECATION_SCHEDULED, DEPRECATED -> ECodeListItemState.DEPRECATED;
+      case REMOVED -> ECodeListItemState.REMOVED;
       default -> throw new IllegalStateException ("Unsupported state " + eState);
     };
   }
@@ -165,7 +165,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
         final String sScheme = aRow.getScheme ();
         final String sValue = aRow.getValue ();
         final String sInitialRelease = aRow.getInitialRelease ();
-        final EPeppolCodeListItemState eState = _getState (aRow.getState ());
+        final ECodeListItemState eState = _getState (aRow.getState ());
         final boolean bDeprecated = !eState.isActive ();
         final String sDeprecationRelease = aRow.getDeprecationRelease ();
         final LocalDate aRemovalDate = aRow.getRemovalDateLocal ();
@@ -220,7 +220,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
         }
         jEnumConst.arg (JExpr.lit (sProfileCode));
         jEnumConst.arg (CM.ref (Version.class).staticInvoke ("parse").arg (sInitialRelease));
-        jEnumConst.arg (CM.ref (EPeppolCodeListItemState.class).enumConstantRef (eState));
+        jEnumConst.arg (CM.ref (ECodeListItemState.class).enumConstantRef (eState));
         jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease)
                                     : JExpr._null ());
         jEnumConst.arg (_asExpr (aRemovalDate));
@@ -275,7 +275,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
       final JFieldVar fCommonName = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sCommonName");
       final JFieldVar fID = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sID");
       final JFieldVar fInitialRelease = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aInitialRelease");
-      final JFieldVar fState = jEnum.field (JMod.PRIVATE | JMod.FINAL, EPeppolCodeListItemState.class, "m_eState");
+      final JFieldVar fState = jEnum.field (JMod.PRIVATE | JMod.FINAL, ECodeListItemState.class, "m_eState");
       final JFieldVar fDeprecationRelease = jEnum.field (JMod.PRIVATE | JMod.FINAL,
                                                          Version.class,
                                                          "m_aDeprecationRelease");
@@ -302,7 +302,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
       jCommonName.annotate (Nonempty.class);
       final JVar jInitialRelease = jCtor.param (JMod.FINAL, Version.class, "aInitialRelease");
       jInitialRelease.annotate (NonNull.class);
-      final JVar jState = jCtor.param (JMod.FINAL, EPeppolCodeListItemState.class, "eState");
+      final JVar jState = jCtor.param (JMod.FINAL, ECodeListItemState.class, "eState");
       jState.annotate (NonNull.class);
       final JVar jDeprecationRelease = jCtor.param (JMod.FINAL, Version.class, "aDeprecationRelease");
       jDeprecationRelease.annotate (Nullable.class);
@@ -405,8 +405,8 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
       m.annotate (NonNull.class);
       m.body ()._return (fInitialRelease);
 
-      // public EPeppolCodeListItemState getState ()
-      m = jEnum.method (JMod.PUBLIC, EPeppolCodeListItemState.class, "getState");
+      // public ECodeListItemState getState ()
+      m = jEnum.method (JMod.PUBLIC, ECodeListItemState.class, "getState");
       m.annotate (NonNull.class);
       m.body ()._return (fState);
 
@@ -509,7 +509,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
         final String sSchemeName = aRow.getSchemeName ();
         final String sIssuingAgency = aRow.getIssuingAgency ();
         final String sInitialRelease = aRow.getInitialRelease ();
-        final EPeppolCodeListItemState eState = _getState (aRow.getState ());
+        final ECodeListItemState eState = _getState (aRow.getState ());
         final boolean bDeprecated = !eState.isActive ();
         final String sDeprecationRelease = aRow.getDeprecationRelease ();
         final LocalDate aRemovalDate = aRow.getRemovalDateLocal ();
@@ -526,7 +526,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
         jEnumConst.arg (JExpr.lit (sSchemeName));
         jEnumConst.arg (sIssuingAgency == null ? JExpr._null () : JExpr.lit (sIssuingAgency));
         jEnumConst.arg (CM.ref (Version.class).staticInvoke ("parse").arg (sInitialRelease));
-        jEnumConst.arg (CM.ref (EPeppolCodeListItemState.class).enumConstantRef (eState));
+        jEnumConst.arg (CM.ref (ECodeListItemState.class).enumConstantRef (eState));
         jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease)
                                     : JExpr._null ());
         jEnumConst.arg (_asExpr (aRemovalDate));
@@ -559,7 +559,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
       final JFieldVar fSchemeName = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sSchemeName");
       final JFieldVar fIssuingAgency = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sIssuingAgency");
       final JFieldVar fInitialRelease = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aInitialRelease");
-      final JFieldVar fState = jEnum.field (JMod.PRIVATE | JMod.FINAL, EPeppolCodeListItemState.class, "m_eState");
+      final JFieldVar fState = jEnum.field (JMod.PRIVATE | JMod.FINAL, ECodeListItemState.class, "m_eState");
       final JFieldVar fDeprecationRelease = jEnum.field (JMod.PRIVATE | JMod.FINAL,
                                                          Version.class,
                                                          "m_aDeprecationRelease");
@@ -583,7 +583,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
       jIssuingAgency.annotate (Nullable.class);
       final JVar jInitialRelease = jCtor.param (JMod.FINAL, Version.class, "aInitialRelease");
       jInitialRelease.annotate (NonNull.class);
-      final JVar jState = jCtor.param (JMod.FINAL, EPeppolCodeListItemState.class, "eState");
+      final JVar jState = jCtor.param (JMod.FINAL, ECodeListItemState.class, "eState");
       jState.annotate (NonNull.class);
       final JVar jDeprecationRelease = jCtor.param (JMod.FINAL, Version.class, "aDeprecationRelease");
       jDeprecationRelease.annotate (Nullable.class);
@@ -634,8 +634,8 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
       m.annotate (NonNull.class);
       m.body ()._return (fInitialRelease);
 
-      // public EPeppolCodeListItemState getState ()
-      m = jEnum.method (JMod.PUBLIC, EPeppolCodeListItemState.class, "getState");
+      // public ECodeListItemState getState ()
+      m = jEnum.method (JMod.PUBLIC, ECodeListItemState.class, "getState");
       m.annotate (NonNull.class);
       m.body ()._return (fState);
 
@@ -689,7 +689,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
       {
         final String sScheme = aRow.getScheme ();
         final String sValue = aRow.getValue ();
-        final EPeppolCodeListItemState eState = _getState (aRow.getState ());
+        final ECodeListItemState eState = _getState (aRow.getState ());
         final boolean bDeprecated = !eState.isActive ();
 
         // Prepend the scheme, if it is non-default
@@ -698,7 +698,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
         final JEnumConstant jEnumConst = jEnum.enumConstant (sEnumConstName);
         jEnumConst.arg (JExpr.lit (sScheme));
         jEnumConst.arg (JExpr.lit (sValue));
-        jEnumConst.arg (CM.ref (EPeppolCodeListItemState.class).enumConstantRef (eState));
+        jEnumConst.arg (CM.ref (ECodeListItemState.class).enumConstantRef (eState));
         jEnumConst.javadoc ().add ("ID: <code>" + sScheme + "::" + sValue + "</code><br>");
         if (bDeprecated)
         {
@@ -748,7 +748,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
       // fields
       final JFieldVar fScheme = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sScheme");
       final JFieldVar fValue = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sValue");
-      final JFieldVar fState = jEnum.field (JMod.PRIVATE | JMod.FINAL, EPeppolCodeListItemState.class, "m_eState");
+      final JFieldVar fState = jEnum.field (JMod.PRIVATE | JMod.FINAL, ECodeListItemState.class, "m_eState");
 
       // Constructor
       final JMethod jCtor = jEnum.constructor (0);
@@ -758,7 +758,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
       final JVar jValue = jCtor.param (JMod.FINAL, String.class, "sValue");
       jValue.annotate (NonNull.class);
       jValue.annotate (Nonempty.class);
-      final JVar jState = jCtor.param (JMod.FINAL, EPeppolCodeListItemState.class, "eState");
+      final JVar jState = jCtor.param (JMod.FINAL, ECodeListItemState.class, "eState");
       jState.annotate (NonNull.class);
       jCtor.body ().assign (fScheme, jScheme).assign (fValue, jValue).assign (fState, jState);
 
@@ -774,8 +774,8 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
       m.annotate (Nonempty.class);
       m.body ()._return (fValue);
 
-      // public EPeppolCodeListItemState getState ()
-      m = jEnum.method (JMod.PUBLIC, EPeppolCodeListItemState.class, "getState");
+      // public ECodeListItemState getState ()
+      m = jEnum.method (JMod.PUBLIC, ECodeListItemState.class, "getState");
       m.annotate (NonNull.class);
       m.body ()._return (fState);
 
@@ -848,7 +848,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
         final String sProfileVersion = aRow.getProfileVersion ();
         final String sProfileID = aRow.getProfileId ();
         final String sInitialRelease = aRow.getInitialRelease ();
-        final EPeppolCodeListItemState eState = _getState (aRow.getState ());
+        final ECodeListItemState eState = _getState (aRow.getState ());
         final boolean bDeprecated = !eState.isActive ();
         final String sDeprecationRelease = aRow.getDeprecationRelease ();
         final LocalDate aRemovalDate = aRow.getRemovalDateLocal ();
@@ -860,7 +860,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
         jEnumConst.arg (JExpr.lit (sProfileVersion));
         jEnumConst.arg (JExpr.lit (sProfileID));
         jEnumConst.arg (CM.ref (Version.class).staticInvoke ("parse").arg (sInitialRelease));
-        jEnumConst.arg (CM.ref (EPeppolCodeListItemState.class).enumConstantRef (eState));
+        jEnumConst.arg (CM.ref (ECodeListItemState.class).enumConstantRef (eState));
         jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease)
                                     : JExpr._null ());
         jEnumConst.arg (_asExpr (aRemovalDate));
@@ -909,7 +909,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
       final JFieldVar fProfileVersion = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sProfileVersion");
       final JFieldVar fProfileID = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sProfileID");
       final JFieldVar fInitialRelease = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aInitialRelease");
-      final JFieldVar fState = jEnum.field (JMod.PRIVATE | JMod.FINAL, EPeppolCodeListItemState.class, "m_eState");
+      final JFieldVar fState = jEnum.field (JMod.PRIVATE | JMod.FINAL, ECodeListItemState.class, "m_eState");
       final JFieldVar fDeprecationRelease = jEnum.field (JMod.PRIVATE | JMod.FINAL,
                                                          Version.class,
                                                          "m_aDeprecationRelease");
@@ -928,7 +928,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
       jProfileID.annotate (Nonempty.class);
       final JVar jInitialRelease = jCtor.param (JMod.FINAL, Version.class, "aInitialRelease");
       jInitialRelease.annotate (NonNull.class);
-      final JVar jState = jCtor.param (JMod.FINAL, EPeppolCodeListItemState.class, "eState");
+      final JVar jState = jCtor.param (JMod.FINAL, ECodeListItemState.class, "eState");
       jState.annotate (NonNull.class);
       final JVar jDeprecationRelease = jCtor.param (JMod.FINAL, Version.class, "aDeprecationRelease");
       jDeprecationRelease.annotate (Nullable.class);
@@ -966,8 +966,8 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
       m.annotate (NonNull.class);
       m.body ()._return (fInitialRelease);
 
-      // public EPeppolCodeListItemState getState ()
-      m = jEnum.method (JMod.PUBLIC, EPeppolCodeListItemState.class, "getState");
+      // public ECodeListItemState getState ()
+      m = jEnum.method (JMod.PUBLIC, ECodeListItemState.class, "getState");
       m.annotate (NonNull.class);
       m.body ()._return (fState);
 
@@ -1023,7 +1023,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
       {
         final String sUseCaseID = aRow.getUseCaseId ();
         final String sInitialRelease = aRow.getInitialRelease ();
-        final EPeppolCodeListItemState eState = _getState (aRow.getState ());
+        final ECodeListItemState eState = _getState (aRow.getState ());
         final boolean bDeprecated = !eState.isActive ();
         final String sDeprecationRelease = aRow.getDeprecationRelease ();
         final LocalDate aRemovalDate = aRow.getRemovalDateLocal ();
@@ -1032,7 +1032,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
         final JEnumConstant jEnumConst = jEnum.enumConstant (sEnumConstName);
         jEnumConst.arg (JExpr.lit (sUseCaseID));
         jEnumConst.arg (CM.ref (Version.class).staticInvoke ("parse").arg (sInitialRelease));
-        jEnumConst.arg (CM.ref (EPeppolCodeListItemState.class).enumConstantRef (eState));
+        jEnumConst.arg (CM.ref (ECodeListItemState.class).enumConstantRef (eState));
         jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease)
                                     : JExpr._null ());
         jEnumConst.arg (_asExpr (aRemovalDate));
@@ -1052,7 +1052,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
       // fields
       final JFieldVar fUseCaseID = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sUseCaseID");
       final JFieldVar fInitialRelease = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aInitialRelease");
-      final JFieldVar fState = jEnum.field (JMod.PRIVATE | JMod.FINAL, EPeppolCodeListItemState.class, "m_eState");
+      final JFieldVar fState = jEnum.field (JMod.PRIVATE | JMod.FINAL, ECodeListItemState.class, "m_eState");
       final JFieldVar fDeprecationRelease = jEnum.field (JMod.PRIVATE | JMod.FINAL,
                                                          Version.class,
                                                          "m_aDeprecationRelease");
@@ -1065,7 +1065,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
       jUseCaseID.annotate (Nonempty.class);
       final JVar jInitialRelease = jCtor.param (JMod.FINAL, Version.class, "aInitialRelease");
       jInitialRelease.annotate (NonNull.class);
-      final JVar jState = jCtor.param (JMod.FINAL, EPeppolCodeListItemState.class, "eState");
+      final JVar jState = jCtor.param (JMod.FINAL, ECodeListItemState.class, "eState");
       jState.annotate (NonNull.class);
       final JVar jDeprecationRelease = jCtor.param (JMod.FINAL, Version.class, "aDeprecationRelease");
       jDeprecationRelease.annotate (Nullable.class);
@@ -1089,8 +1089,8 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
       m.annotate (NonNull.class);
       m.body ()._return (fInitialRelease);
 
-      // public EPeppolCodeListItemState getState ()
-      m = jEnum.method (JMod.PUBLIC, EPeppolCodeListItemState.class, "getState");
+      // public ECodeListItemState getState ()
+      m = jEnum.method (JMod.PUBLIC, ECodeListItemState.class, "getState");
       m.annotate (NonNull.class);
       m.body ()._return (fState);
 

@@ -14,28 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppolid.peppol.spisusecase;
+package com.helger.peppolid.factory;
 
 import org.jspecify.annotations.NonNull;
 
-import com.helger.annotation.Nonempty;
-import com.helger.base.version.Version;
-import com.helger.peppolid.codelist.ICodeListItemWithRelease;
+import com.helger.base.id.IHasID;
+import com.helger.base.name.IHasDisplayName;
 
 /**
- * Base interface for predefined SPIS Use Case identifiers.
+ * A named identifier factory, so that an application can let the user choose the identifier rules
+ * to be applied. Implementations are collected in {@link IdentifierFactoryTypeRegistry}.
  *
  * @author Philip Helger
- * @since 11.0.3
+ * @since 13.0.0
  */
-public interface IPredefinedSPISUseCaseIdentifier extends ICodeListItemWithRelease
+public interface IIdentifierFactoryType extends IHasID <String>, IHasDisplayName
 {
   /**
-   * @return The unique ID of this SPIS Use case profile. This identifier is the one used in SMP
-   *         endpoints.
+   * @return The identifier factory to be used. Never <code>null</code>.
    */
   @NonNull
-  @Nonempty
-  String getUseCaseID ();
-
+  IIdentifierFactory getIdentifierFactory ();
 }

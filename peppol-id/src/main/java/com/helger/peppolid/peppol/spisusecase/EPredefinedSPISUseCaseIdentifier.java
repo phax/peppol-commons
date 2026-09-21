@@ -16,11 +16,11 @@
  */
 package com.helger.peppolid.peppol.spisusecase;
 
-import java.time.LocalDate;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.base.version.Version;
-import com.helger.peppolid.peppol.EPeppolCodeListItemState;
+import com.helger.peppolid.codelist.ECodeListItemState;
+import java.time.LocalDate;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -36,19 +36,19 @@ public enum EPredefinedSPISUseCaseIdentifier implements IPredefinedSPISUseCaseId
    * 
    * @since code list 9.4
    */
-  MLS ("MLS", Version.parse ("9.4"), EPeppolCodeListItemState.ACTIVE, null, null);
+  MLS ("MLS", Version.parse ("9.4"), ECodeListItemState.ACTIVE, null, null);
 
   public static final String CODE_LIST_VERSION = "9.7";
   public static final int CODE_LIST_ENTRY_COUNT = 1;
   private final String m_sUseCaseID;
   private final Version m_aInitialRelease;
-  private final EPeppolCodeListItemState m_eState;
+  private final ECodeListItemState m_eState;
   private final Version m_aDeprecationRelease;
   private final LocalDate m_aRemovalDate;
 
   EPredefinedSPISUseCaseIdentifier (@NonNull @Nonempty final String sProfileID,
                                     @NonNull final Version aInitialRelease,
-                                    @NonNull final EPeppolCodeListItemState eState,
+                                    @NonNull final ECodeListItemState eState,
                                     @Nullable final Version aDeprecationRelease,
                                     @Nullable final LocalDate aRemovalDate)
   {
@@ -73,7 +73,7 @@ public enum EPredefinedSPISUseCaseIdentifier implements IPredefinedSPISUseCaseId
   }
 
   @NonNull
-  public EPeppolCodeListItemState getState ()
+  public ECodeListItemState getState ()
   {
     return m_eState;
   }
