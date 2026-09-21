@@ -371,6 +371,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v13.0.0 - work in progress
+* Started the v13 development branch
+
 v12.10.0 - 2026-09-06
 * Removed the dependency of the module `peppol-commons` onto `ph-bc` and therefore onto Bouncy Castle.
   The main source code of `peppol-commons` does not reference Bouncy Castle at all - the provider neutral `ph-security` of `ph-commons` 12.4.0 is sufficient to load the Peppol trust stores.
