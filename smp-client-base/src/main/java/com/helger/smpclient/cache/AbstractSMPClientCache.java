@@ -27,11 +27,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
-import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.enforce.ValueEnforcer;
-import com.helger.base.equals.EqualsHelper;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.cache.impl.ManualCache;
@@ -70,9 +67,7 @@ public abstract class AbstractSMPClientCache <SGTYPE, SMTYPE>
   /** Default maximum number of entries per internal cache: 1000 */
   public static final int DEFAULT_MAX_SIZE = 1000;
 
-
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractSMPClientCache.class);
-
 
   private final ManualCache <String, SGTYPE> m_aServiceGroupCache;
   private final ManualCache <String, SMTYPE> m_aServiceMetadataCache;
@@ -85,7 +80,6 @@ public abstract class AbstractSMPClientCache <SGTYPE, SMTYPE>
   {
     this (DEFAULT_CACHE_TTL, DEFAULT_MAX_SIZE, null, sServiceGroupCacheName, sServiceMetadataCacheName);
   }
-
 
   /**
    * Constructor.
@@ -408,6 +402,5 @@ public abstract class AbstractSMPClientCache <SGTYPE, SMTYPE>
                                        .append ("ServiceMetadataCache", m_aServiceMetadataCache)
                                        .getToString ();
   }
-
 
 }

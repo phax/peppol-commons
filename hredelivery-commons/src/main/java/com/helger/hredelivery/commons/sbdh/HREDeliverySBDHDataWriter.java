@@ -17,141 +17,35 @@
 package com.helger.hredelivery.commons.sbdh;
 
 import org.jspecify.annotations.NonNull;
-import org.unece.cefact.namespaces.sbdh.DocumentIdentification;
-import org.unece.cefact.namespaces.sbdh.Partner;
-import org.unece.cefact.namespaces.sbdh.PartnerIdentification;
-import org.unece.cefact.namespaces.sbdh.StandardBusinessDocument;
 import org.unece.cefact.namespaces.sbdh.StandardBusinessDocumentHeader;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.base.enforce.ValueEnforcer;
+import com.helger.network.sbdh.AbstractSBDHDataWriter;
 
 /**
- * Convert a HR eDelivery SBDH document to a regular SBDH document
+ * Convert a HR eDelivery SBDH document to a regular SBDH document. HR eDelivery does not use the
+ * <code>BusinessScope</code> element at all.
  *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class HREDeliverySBDHDataWriter
+public class HREDeliverySBDHDataWriter extends
+                                       AbstractSBDHDataWriter <HREDeliverySBDHData, HREDeliverySBDHDataWriter>
 {
-  public static final boolean DEFAULT_FAVOUR_SPEED = false;
-
-  private String m_sHeaderVersion = CHREDeliverySBDH.HEADER_VERSION;
-  private boolean m_bFavourSpeed = DEFAULT_FAVOUR_SPEED;
-
   public HREDeliverySBDHDataWriter ()
   {}
 
-  /**
-   * @return The SBDH header version to be used. May not be <code>null</code>.
-   */
-  @NonNull
-  public final String getHeaderVersion ()
+  @Override
+  protected void checkData (@NonNull final HREDeliverySBDHData aData)
   {
-    return m_sHeaderVersion;
-  }
-
-  /**
-   * Set the header version to be used.
-   *
-   * @param sHeaderVersion
-   *        The head version. May not be <code>null</code>.
-   * @return this for chaining
-   */
-  @NonNull
-  public final HREDeliverySBDHDataWriter setHeaderVersion (@NonNull final String sHeaderVersion)
-  {
-    ValueEnforcer.notNull (sHeaderVersion, "HeaderVersion");
-    m_sHeaderVersion = sHeaderVersion;
-    return this;
-  }
-
-  /**
-   * @return <code>true</code> if speed is favoured, <code>false</code> if not. Default is
-   *         {@link #DEFAULT_FAVOUR_SPEED}.
-   */
-  public final boolean isFavourSpeed ()
-  {
-    return m_bFavourSpeed;
-  }
-
-  /**
-   * Enable or disable the "favour speed" option. This
-   *
-   * @param bFavourSpeed
-   *        <code>true</code> to favour speed, <code>false</code> to not favour speed.
-   * @return this for chaining
-   */
-  @NonNull
-  public final HREDeliverySBDHDataWriter setFavourSpeed (final boolean bFavourSpeed)
-  {
-    m_bFavourSpeed = bFavourSpeed;
-    return this;
-  }
-
-  /**
-   * Create a new {@link StandardBusinessDocument} from the specified document data.
-   *
-   * @param aData
-   *        The document data to be used. May not be <code>null</code> and
-   *        {@link HREDeliverySBDHData#areAllFieldsSet()} must return true!
-   * @return Never <code>null</code>.
-   * @throws IllegalArgumentException
-   *         if not all document data fields are set!
-   */
-  @NonNull
-  public StandardBusinessDocument createStandardBusinessDocument (@NonNull final HREDeliverySBDHData aData)
-  {
-    ValueEnforcer.notNull (aData, "Data");
     if (!aData.areAllFieldsSet ())
       throw new IllegalArgumentException ("Not all data fields are set!");
+  }
 
-    final StandardBusinessDocumentHeader aSBDH = new StandardBusinessDocumentHeader ();
-    aSBDH.setHeaderVersion (m_sHeaderVersion);
-
-    // Sender data
-    {
-      final Partner aSender = new Partner ();
-      final PartnerIdentification aSenderID = new PartnerIdentification ();
-      aSenderID.setAuthority (aData.getSenderScheme ());
-      aSenderID.setValue (aData.getSenderValue ());
-      aSender.setIdentifier (aSenderID);
-      aSBDH.addSender (aSender);
-    }
-
-    // Receiver data
-    {
-      final Partner aReceiver = new Partner ();
-      final PartnerIdentification aReceiverID = new PartnerIdentification ();
-      aReceiverID.setAuthority (aData.getReceiverScheme ());
-      aReceiverID.setValue (aData.getReceiverValue ());
-      aReceiver.setIdentifier (aReceiverID);
-      aSBDH.addReceiver (aReceiver);
-    }
-
-    // Document identification
-    {
-      final DocumentIdentification aDI = new DocumentIdentification ();
-      aDI.setStandard (aData.getStandard ());
-      aDI.setTypeVersion (aData.getTypeVersion ());
-      aDI.setType (aData.getType ());
-      aDI.setInstanceIdentifier (aData.getInstanceIdentifier ());
-      aDI.setCreationDateAndTime (aData.getCreationDateAndTime ());
-      aSBDH.setDocumentIdentification (aDI);
-    }
-
-    final StandardBusinessDocument aSBD = new StandardBusinessDocument ();
-    aSBD.setStandardBusinessDocumentHeader (aSBDH);
-    if (m_bFavourSpeed)
-    {
-      // Avoid cloning the business message DOM element
-      aSBD.setAny (aData.getBusinessMessageNoClone ());
-    }
-    else
-    {
-      // getBusinessMessage already returns a cloned node!
-      aSBD.setAny (aData.getBusinessMessage ());
-    }
-    return aSBD;
+  @Override
+  protected void fillBusinessScope (@NonNull final StandardBusinessDocumentHeader aSBDH,
+                                    @NonNull final HREDeliverySBDHData aData)
+  {
+    // HR eDelivery does not use the BusinessScope
   }
 }

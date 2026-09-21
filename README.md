@@ -389,6 +389,9 @@ v13.0.0 - work in progress
 * **Breaking API change** Moved the DNS based URL providers (`AbstractBDXLURLProvider`, `BDXLURLProvider`, `IBDXLURLProvider`, `PeppolURLProvider`, `IPeppolURLProvider`, `PeppolNaptrURLProvider`, `PeppolConfigurableURLProvider` and `DBNAURLProviderSMP`) from `com.helger.smpclient.url` to `com.helger.smpclient.url.dns`. `ISMPURLProvider` and `SMPDNSResolutionException` stay where they are and moved to `smp-client-base`
 * **Breaking API change** `SMPClientCache` now extends the new generic `AbstractSMPClientCache` - the public API of `SMPClientCache` is unchanged
 * Added `BDXR2ClientCache` and `CachingBDXR2ClientReadOnly` - OASIS BDXR SMP v2 had no caching at all so far
+* Added the new submodule `network-sbdh` that contains the network neutral parts of the SBDH handling
+* **Breaking API change** `PeppolSBDHData` and `HREDeliverySBDHData` now extend `AbstractSBDHData`, `PeppolSBDHDataReader` and `HREDeliverySBDHDataReader` extend `AbstractSBDHDataReader` and `PeppolSBDHDataWriter` and `HREDeliverySBDHDataWriter` extend `AbstractSBDHDataWriter`. The public API of the Peppol classes is unchanged, except that the error enums now implement `ISBDHDataError` and the read exceptions extend `SBDHDataReadException`
+* The `BusinessScope` handling is the only part of the SBDH writing that is network specific - it is filled via `fillBusinessScope`
 
 v12.10.0 - 2026-09-06
 * Removed the dependency of the module `peppol-commons` onto `ph-bc` and therefore onto Bouncy Castle.
