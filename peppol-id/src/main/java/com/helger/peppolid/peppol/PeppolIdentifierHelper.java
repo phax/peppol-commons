@@ -78,6 +78,14 @@ public final class PeppolIdentifierHelper
   public static final String DEFAULT_PARTICIPANT_SCHEME = PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS;
 
   /**
+   * The default process identifier to indicate that no default process belongs to it. Must be
+   * treated case insensitive.
+   *
+   * @since 13.0.0 in this class - it was in <code>CIdentifier</code> before
+   */
+  public static final String DEFAULT_PROCESS_IDENTIFIER_NOPROCESS = "busdox:noprocess";
+
+  /**
    * Participant identifier value maximum length (excluding the scheme).<br>
    * PFUOI 4.3: 50 characters<br>
    * PFUOI 4.4: 4 + ":" + 130 characters

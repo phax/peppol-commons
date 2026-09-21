@@ -25,7 +25,6 @@ import com.helger.peppolid.bdxr.smp2.CBDXR2Identifier;
 import com.helger.peppolid.bdxr.smp2.doctype.BDXR2DocumentTypeIdentifier;
 import com.helger.peppolid.bdxr.smp2.participant.BDXR2ParticipantIdentifier;
 import com.helger.peppolid.bdxr.smp2.process.BDXR2ProcessIdentifier;
-import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 
 /**
  * Default implementation of {@link IIdentifierFactory} for BDXR SMP v2 identifiers.
@@ -83,7 +82,7 @@ public class BDXR2IdentifierFactory implements IIdentifierFactory
   @Override
   public boolean isParticipantIdentifierCaseInsensitive (@Nullable final String sScheme)
   {
-    return PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME.equals (sScheme);
+    return CBDXR2Identifier.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS.equals (sScheme);
   }
 
   @Override

@@ -33,11 +33,6 @@ import com.helger.url.codec.URLCoder;
 @Immutable
 public final class CIdentifier
 {
-  /**
-   * The default process identifier to indicate that no default process belongs to it.<br>
-   * See PEPPOL Common definitions chapter 3.6
-   */
-  public static final String DEFAULT_PROCESS_IDENTIFIER_NOPROCESS = "busdox:noprocess";
 
   /**
    * The delimiter used between the identifier scheme and the value ("::").

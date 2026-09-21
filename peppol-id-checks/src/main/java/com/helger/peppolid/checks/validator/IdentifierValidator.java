@@ -25,8 +25,10 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.spi.ServiceLoaderHelper;
-import com.helger.peppolid.peppol.PeppolIdentifierHelper;
-import com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier;
+import org.jspecify.annotations.NonNull;
+
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.peppolid.IParticipantIdentifier;
 
 /**
  * A wrapper around the custom identifier validator implementations.
@@ -53,29 +55,53 @@ public final class IdentifierValidator
   {}
 
   /**
-   * Check if the passed participant ID matches all custom rules. But only participant IDs with the
-   * default scheme {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME} are validated, as we
-   * don't know the details of the other schemes.<br>
+   * Check if the passed participant ID matches all custom rules, using the Peppol way of splitting
+   * a participant identifier - see {@link PeppolParticipantIdentifierPartsProvider}.
+   *
+   * @param aParticipantID
+   *        The participant ID to validate. May be <code>null</code>.
+   * @return <code>true</code> if a) the identifier cannot be split, b) if at least one validator
+   *         matched or c) if no matching validator was found at all. The method returns
+   *         <code>false</code> if a matching validator was found, but the ID did not match.
+   */
+  public static boolean isValidParticipantIdentifier (@Nullable final IParticipantIdentifier aParticipantID)
+  {
+    return isValidParticipantIdentifier (aParticipantID, PeppolParticipantIdentifierPartsProvider.INSTANCE);
+  }
+
+  /**
+   * Check if the passed participant ID matches all custom rules. Only identifiers that the provided
+   * parts provider can split are validated, as the details of the other schemes are unknown.<br>
    * This method can be used to generically check the consistency of certain numbering schemes.
    *
    * @param aParticipantID
    *        The participant ID to validate. May be <code>null</code>.
-   * @return <code>true</code> if a) the identifier is not the default scheme, b) if at least one
-   *         validator matched or c) if no matching validator was found at all. The method returns
-   *         <code>false</code> if a matching validator was found, but the ID did not match.
+   * @param aPartsProvider
+   *        The strategy to split the participant identifier into issuing agency and local
+   *        participant ID. May not be <code>null</code>.
+   * @return <code>true</code> if a) the identifier cannot be split by the provided parts provider,
+   *         b) if at least one validator matched or c) if no matching validator was found at all.
+   *         The method returns <code>false</code> if a matching validator was found, but the ID did
+   *         not match.
    */
-  public static boolean isValidParticipantIdentifier (@Nullable final PeppolParticipantIdentifier aParticipantID)
+  public static boolean isValidParticipantIdentifier (@Nullable final IParticipantIdentifier aParticipantID,
+                                                      @NonNull final IParticipantIdentifierPartsProvider aPartsProvider)
   {
+    ValueEnforcer.notNull (aPartsProvider, "PartsProvider");
+
     if (aParticipantID == null)
       return false;
 
-    // Only validate our default scheme
-    if (!aParticipantID.hasDefaultScheme ())
+    final ParticipantIdentifierParts aParts = aPartsProvider.getParts (aParticipantID);
+    if (aParts == null)
+    {
+      // The identifier uses a scheme we know nothing about
       return true;
+    }
 
     boolean bAtLeastOneSupported = false;
-    final String sIssuingAgencyID = aParticipantID.getIssuingAgencyID ();
-    final String sLocal = aParticipantID.getLocalParticipantID ();
+    final String sIssuingAgencyID = aParts.getIssuingAgencyID ();
+    final String sLocal = aParts.getLocalParticipantID ();
 
     // For all SPI instances
     for (final IParticipantIdentifierValidatorSPI aValidator : PID_VALIDATOR)

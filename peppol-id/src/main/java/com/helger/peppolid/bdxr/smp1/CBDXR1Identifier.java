@@ -28,6 +28,13 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 public final class CBDXR1Identifier
 {
   /**
+   * The ISO 6523 based participant identifier scheme. Values of this scheme are treated case
+   * insensitive. The same value is used by several networks; it is intentionally repeated here, so
+   * that the BDXR identifier handling does not depend on a single network.
+   */
+  public static final String PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS = "iso6523-actorid-upis";
+
+  /**
    * The default document identifier scheme.
    */
   public static final String DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME = "bdx-docid-qns";
