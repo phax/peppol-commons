@@ -20,7 +20,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
-import com.helger.network.sbdh.ISBDHDataError;
+import com.helger.edelivery.sbdh.ISBDHDataError;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.text.TextFormatter;
 

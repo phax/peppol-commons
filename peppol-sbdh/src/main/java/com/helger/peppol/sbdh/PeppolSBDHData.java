@@ -47,7 +47,7 @@ import com.helger.peppol.sbdh.spec12.TextContentType;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
-import com.helger.network.sbdh.AbstractSBDHData;
+import com.helger.edelivery.sbdh.AbstractSBDHData;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.typeconvert.collection.StringMap;

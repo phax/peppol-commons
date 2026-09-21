@@ -18,7 +18,7 @@ package com.helger.peppol.sbdh;
 
 import org.jspecify.annotations.NonNull;
 
-import com.helger.network.sbdh.SBDHDataReadException;
+import com.helger.edelivery.sbdh.SBDHDataReadException;
 
 /**
  * Exception that can occur during the reading of SBDH documents.

@@ -20,7 +20,7 @@ import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.name.IHasDisplayName;
-import com.helger.network.stage.INetworkStage;
+import com.helger.edelivery.stage.INetworkStage;
 import com.helger.peppol.sml.ISMLInfo;
 
 /**

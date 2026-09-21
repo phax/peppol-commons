@@ -8,6 +8,9 @@
 <!-- ph-badge-end -->
 
 This project contains different libraries that are commonly used in the Peppol/eDelivery area:
+* [`edelivery-commons`](#edelivery-commons) - the network neutral base types shared by all supported networks (since v13.0.0)
+* [`edelivery-sbdh`](#edelivery-sbdh) - the network neutral parts of the SBDH handling (since v13.0.0)
+* [`smp-client-base`](#smp-client-base) - the network neutral parts of the SMP client, including the OASIS BDXR SMP v1 and v2 clients (since v13.0.0)
 * [`peppol-id-datatypes`](#peppol-id-datatypes) - the generated JAXB classes for ID handling (since v8.4.0)
 * [`peppol-id`](#peppol-id) - the ID data structures (since v7.0.0)
 * [`peppol-id-checks`](#peppol-id-checks) - checks and derivations on top of the ID data structures (since v12.9.0)
@@ -32,6 +35,26 @@ These project are used implicitly by e.g. the following projects:
 * [phoss-directory](https://github.com/phax/phoss-directory/) - the phoss Directory for Peppol and TOOP
 
 This project is licensed under the Apache 2.0 license.
+
+## edelivery-commons
+
+Java library with the base types that are shared by all networks in this project - the transport
+profile handling including a registry, the trust store helper, the SML base data and the network
+stage interface.
+First created in v13.0.0.
+
+## edelivery-sbdh
+
+Java library with the network neutral parts of the Standard Business Document Header handling - the
+data model, the reader and the writer. `peppol-sbdh` and the HR eDelivery SBDH support build on it.
+First created in v13.0.0.
+
+## smp-client-base
+
+Java library with the network neutral parts of the SMP client - HTTP execution, signature
+verification, exceptions, extensions, redirects, caching and the OASIS BDXR SMP v1 and v2 clients.
+It does not depend on `dnsjava`, so an SMP user without SML does not get the DNS stack.
+First created in v13.0.0.
 
 ## peppol-id-datatypes
 
@@ -373,9 +396,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 v13.0.0 - work in progress
 * Started the v13 development branch
-* Added the new submodule `network-commons` that contains the network neutral base types, so that Peppol, DBNAlliance, HR eDelivery and future networks share them instead of copying them
-* **Breaking API change** Moved `ISMPTransportProfile`, `SMPTransportProfile`, `ESMPTransportProfileState`, `ESMPTransportProfileStateText` and `SMPTransportProfileMicroTypeConverter` from `com.helger.peppol.smp` to `com.helger.network.smp` in the new submodule `network-commons`
-* **Breaking API change** Moved `ESMPAPIType` from `com.helger.peppol.sml` to `com.helger.network.smp` in the new submodule `network-commons`
+* Added the new submodule `edelivery-commons` that contains the network neutral base types, so that Peppol, DBNAlliance, HR eDelivery and future networks share them instead of copying them
+* **Breaking API change** Moved `ISMPTransportProfile`, `SMPTransportProfile`, `ESMPTransportProfileState`, `ESMPTransportProfileStateText` and `SMPTransportProfileMicroTypeConverter` from `com.helger.peppol.smp` to `com.helger.edelivery.smp` in the new submodule `edelivery-commons`
+* **Breaking API change** Moved `ESMPAPIType` from `com.helger.peppol.sml` to `com.helger.edelivery.smp` in the new submodule `edelivery-commons`
 * **Breaking API change** Removed `ESMPTransportProfile.TRANSPORT_PROFILE_DBNA_AS4_V1` and `ESMPTransportProfile.TRANSPORT_PROFILE_ERACUN_AS4_V1` - a network no longer needs to modify a Peppol enum to make its transport profiles known. Use the new `EDBNAllianceTransportProfile` and `EHREDeliveryTransportProfile` instead
 * Added `SMPTransportProfileRegistry` that collects the transport profiles of all networks via the new SPI interface `ISMPTransportProfileProviderSPI`
 * Added `NetworkTrustStoreHelper` so that `PeppolTrustStores`, `DBNAllianceTrustStores` and `HREDeliveryTrustStores` no longer each carry their own copy of the trust store loading and certificate resolution code
@@ -389,7 +412,7 @@ v13.0.0 - work in progress
 * **Breaking API change** Moved the DNS based URL providers (`AbstractBDXLURLProvider`, `BDXLURLProvider`, `IBDXLURLProvider`, `PeppolURLProvider`, `IPeppolURLProvider`, `PeppolNaptrURLProvider`, `PeppolConfigurableURLProvider` and `DBNAURLProviderSMP`) from `com.helger.smpclient.url` to `com.helger.smpclient.url.dns`. `ISMPURLProvider` and `SMPDNSResolutionException` stay where they are and moved to `smp-client-base`
 * **Breaking API change** `SMPClientCache` now extends the new generic `AbstractSMPClientCache` - the public API of `SMPClientCache` is unchanged
 * Added `BDXR2ClientCache` and `CachingBDXR2ClientReadOnly` - OASIS BDXR SMP v2 had no caching at all so far
-* Added the new submodule `network-sbdh` that contains the network neutral parts of the SBDH handling
+* Added the new submodule `edelivery-sbdh` that contains the network neutral parts of the SBDH handling
 * **Breaking API change** `PeppolSBDHData` and `HREDeliverySBDHData` now extend `AbstractSBDHData`, `PeppolSBDHDataReader` and `HREDeliverySBDHDataReader` extend `AbstractSBDHDataReader` and `PeppolSBDHDataWriter` and `HREDeliverySBDHDataWriter` extend `AbstractSBDHDataWriter`. The public API of the Peppol classes is unchanged, except that the error enums now implement `ISBDHDataError` and the read exceptions extend `SBDHDataReadException`
 * The `BusinessScope` handling is the only part of the SBDH writing that is network specific - it is filled via `fillBusinessScope`
 * **Breaking API change** Removed all the code that was deprecated and marked for removal:
@@ -407,10 +430,10 @@ v13.0.0 - work in progress
     * The static getters `getConnectTimeout ()`, `getResponseTimeout ()`, `getHttpProxy ()`, `getHttpProxyCredentials ()`, `getNonProxyHosts ()` and `isUseDNSClientCache ()` of `SMPClientConfiguration`
     * `SMPHttpClientSettings.fromLegacyConfiguration ()` and `SMPHttpClientSettings.resetToConfiguration ()`
     * `com.helger.dbnalliance.commons.DBNAllianceIdentifierFactory` - use `com.helger.peppolid.factory.DBNAllianceIdentifierFactory` instead
-* **Breaking API change** Split `ISMLInfo`: the new parent interface `ISMLBase` in `network-commons` contains the data needed to **use** an SML (ID, display name, DNS zone, client certificate flag), `ISMLInfo` keeps everything needed to **manage** entries in a Peppol SML. The SMP clients and `ISMPURLProvider` now work with `ISMLBase`
+* **Breaking API change** Split `ISMLInfo`: the new parent interface `ISMLBase` in `edelivery-commons` contains the data needed to **use** an SML (ID, display name, DNS zone, client certificate flag), `ISMLInfo` keeps everything needed to **manage** entries in a Peppol SML. The SMP clients and `ISMPURLProvider` now work with `ISMLBase`
 * `EDBNAllianceSML` now implements `ISMLBase` - it previously implemented nothing, because `ISMLInfo` demanded the SML management endpoints that DBNAlliance does not have. Its constants now carry an ID and a display name; `getZoneName ()` is kept next to the new `getDNSZone ()`
 * **Breaking API change** Removed `SMPExtension.getAsPeppolExtension ()` and `SMPExtensionList.getAsPeppolExtension ()` - use the new `PeppolSMPExtensionHelper.getAsPeppolExtension (...)` in `peppol-smp-client` instead. The OASIS BDXR SMP v1 and v2 conversions stay where they are
-* `smp-client-base` no longer depends on `peppol-commons` and `peppol-smp-datatypes` - it now only requires `network-commons`, `peppol-id` and the ph-* libraries. The User-Agent header uses the new `CSMPClientVersion` of that module
+* `smp-client-base` no longer depends on `peppol-commons` and `peppol-smp-datatypes` - it now only requires `edelivery-commons`, `peppol-id` and the ph-* libraries. The User-Agent header uses the new `CSMPClientVersion` of that module
 * **Breaking API change** `BDXR1IdentifierFactory` and `BDXR2IdentifierFactory` no longer reference `PeppolIdentifierHelper`. The ISO 6523 scheme name, that decides whether participant identifiers are compared case insensitive, is now a constant of `CBDXR1Identifier` and `CBDXR2Identifier`. The behaviour is unchanged
 * **Breaking API change** `DBNAllianceIdentifierFactory` no longer extends `BDXR2IdentifierFactory` - the networks are independent of each other, so a change in one of them cannot silently change the other any more. The behaviour is unchanged
 * **Breaking API change** Moved `CIdentifier.DEFAULT_PROCESS_IDENTIFIER_NOPROCESS` to `PeppolIdentifierHelper` - the value `busdox:noprocess` is Peppol specific and had no place in the generic identifier class

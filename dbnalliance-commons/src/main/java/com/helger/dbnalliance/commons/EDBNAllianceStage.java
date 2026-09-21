@@ -21,7 +21,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.lang.EnumHelper;
-import com.helger.network.stage.INetworkStage;
+import com.helger.edelivery.stage.INetworkStage;
 
 /**
  * The list of supported DBNAlliance stages

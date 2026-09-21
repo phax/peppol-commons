@@ -20,7 +20,7 @@ import org.jspecify.annotations.NonNull;
 import org.unece.cefact.namespaces.sbdh.StandardBusinessDocumentHeader;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.network.sbdh.AbstractSBDHDataWriter;
+import com.helger.edelivery.sbdh.AbstractSBDHDataWriter;
 
 /**
  * Convert a HR eDelivery SBDH document to a regular SBDH document. HR eDelivery does not use the

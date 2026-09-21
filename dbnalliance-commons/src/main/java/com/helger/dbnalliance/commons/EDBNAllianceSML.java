@@ -20,7 +20,7 @@ import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.type.ObjectType;
-import com.helger.network.sml.ISMLBase;
+import com.helger.edelivery.sml.ISMLBase;
 
 /**
  * The list of supported DBNAlliance SML zones

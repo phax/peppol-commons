@@ -22,8 +22,8 @@ import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.network.smp.ISMPTransportProfile;
-import com.helger.network.smp.ISMPTransportProfileProviderSPI;
+import com.helger.edelivery.smp.ISMPTransportProfile;
+import com.helger.edelivery.smp.ISMPTransportProfileProviderSPI;
 
 /**
  * Provide all DBNAlliance transport profiles to the central transport profile registry.

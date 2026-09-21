@@ -22,7 +22,7 @@ import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
-import com.helger.network.sml.ISMLBase;
+import com.helger.edelivery.sml.ISMLBase;
 
 /**
  * Specifies the different properties a Peppol SML implementation uses, including everything that

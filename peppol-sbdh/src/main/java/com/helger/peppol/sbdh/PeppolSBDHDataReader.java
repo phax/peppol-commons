@@ -45,7 +45,7 @@ import com.helger.diagnostics.error.SingleError;
 import com.helger.diagnostics.error.level.IHasErrorLevel;
 import com.helger.diagnostics.error.list.ErrorList;
 import com.helger.io.resource.IReadableResource;
-import com.helger.network.sbdh.AbstractSBDHDataReader;
+import com.helger.edelivery.sbdh.AbstractSBDHDataReader;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;

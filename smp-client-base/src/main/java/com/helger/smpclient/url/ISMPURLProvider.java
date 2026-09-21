@@ -22,7 +22,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.base.enforce.ValueEnforcer;
-import com.helger.network.sml.ISMLBase;
+import com.helger.edelivery.sml.ISMLBase;
 import com.helger.peppolid.IParticipantIdentifier;
 
 /**

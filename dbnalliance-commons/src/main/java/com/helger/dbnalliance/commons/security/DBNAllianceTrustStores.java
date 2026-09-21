@@ -22,7 +22,7 @@ import java.security.cert.X509Certificate;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.network.security.NetworkTrustStoreHelper;
+import com.helger.edelivery.security.NetworkTrustStoreHelper;
 import com.helger.security.certificate.TrustedCAChecker;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.ITrustStoreDescriptor;

@@ -22,9 +22,9 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.Nonempty;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.type.ObjectType;
-import com.helger.network.smp.ESMPTransportProfileState;
-import com.helger.network.smp.ISMPTransportProfile;
-import com.helger.network.smp.SMPTransportProfile;
+import com.helger.edelivery.smp.ESMPTransportProfileState;
+import com.helger.edelivery.smp.ISMPTransportProfile;
+import com.helger.edelivery.smp.SMPTransportProfile;
 
 /**
  * This class contains the predefined transport profiles of HR eDelivery.

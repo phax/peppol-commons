@@ -22,8 +22,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.network.smp.ISMPTransportProfile;
-import com.helger.network.smp.SMPTransportProfileRegistry;
+import com.helger.edelivery.smp.ISMPTransportProfile;
+import com.helger.edelivery.smp.SMPTransportProfileRegistry;
 
 /**
  * Test class for class {@link SMPTransportProfileRegistry} with the Peppol transport profiles.
@@ -54,7 +54,7 @@ public final class SMPTransportProfileRegistryTest
   @Test
   public void testRuntimeRegistration ()
   {
-    final ISMPTransportProfile aProfile = new com.helger.network.smp.SMPTransportProfile ("unit-test-profile",
+    final ISMPTransportProfile aProfile = new com.helger.edelivery.smp.SMPTransportProfile ("unit-test-profile",
                                                                                           "Unit Test");
     assertTrue (SMPTransportProfileRegistry.registerTransportProfile (aProfile).isChanged ());
     assertSame (aProfile, SMPTransportProfileRegistry.getTransportProfileOfIDOrNull ("unit-test-profile"));

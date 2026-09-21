@@ -42,7 +42,7 @@ import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.datetime.helper.PDTFactory;
-import com.helger.network.smp.ISMPTransportProfile;
+import com.helger.edelivery.smp.ISMPTransportProfile;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;

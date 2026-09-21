@@ -30,7 +30,7 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.datetime.helper.PDTFactory;
-import com.helger.network.sbdh.AbstractSBDHData;
+import com.helger.edelivery.sbdh.AbstractSBDHData;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 

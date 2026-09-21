@@ -133,7 +133,7 @@
 
       <dependency>
         <groupId>com.helger.peppol</groupId>
-        <artifactId>network-commons</artifactId>
+        <artifactId>edelivery-commons</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -163,7 +163,7 @@
       </dependency>
       <dependency>
         <groupId>com.helger.peppol</groupId>
-        <artifactId>network-sbdh</artifactId>
+        <artifactId>edelivery-sbdh</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -248,13 +248,13 @@
   </dependencies>
   
   <modules>
-    <module>network-commons</module>
+    <module>edelivery-commons</module>
     <module>peppol-id-datatypes</module>
     <module>peppol-id</module>
     <module>peppol-id-checks</module>
     <module>peppol-commons</module>
     <module>peppol-testfiles</module>
-    <module>network-sbdh</module>
+    <module>edelivery-sbdh</module>
     <module>peppol-sbdh</module>
     <module>peppol-smp-datatypes</module>
     <module>smp-client-base</module>

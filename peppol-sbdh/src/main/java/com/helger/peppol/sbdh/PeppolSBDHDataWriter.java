@@ -25,7 +25,7 @@ import org.unece.cefact.namespaces.sbdh.StandardBusinessDocumentHeader;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.string.StringHelper;
-import com.helger.network.sbdh.AbstractSBDHDataWriter;
+import com.helger.edelivery.sbdh.AbstractSBDHDataWriter;
 
 /**
  * Convert a Peppol SBDH document to a regular SBDH document.

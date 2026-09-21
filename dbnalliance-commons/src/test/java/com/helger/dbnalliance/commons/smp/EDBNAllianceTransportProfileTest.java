@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.network.smp.SMPTransportProfileRegistry;
+import com.helger.edelivery.smp.SMPTransportProfileRegistry;
 import com.helger.peppolid.factory.IdentifierFactoryTypeRegistry;
 
 /**
