@@ -76,17 +76,7 @@
     </dependency>
     <dependency>
       <groupId>com.helger.peppol</groupId>
-      <artifactId>peppol-commons</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.peppol</groupId>
       <artifactId>peppol-id</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.peppol</groupId>
-      <artifactId>peppol-smp-datatypes</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>

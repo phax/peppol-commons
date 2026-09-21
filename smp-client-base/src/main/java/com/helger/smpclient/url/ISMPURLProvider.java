@@ -22,7 +22,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.base.enforce.ValueEnforcer;
-import com.helger.peppol.sml.ISMLInfo;
+import com.helger.network.sml.ISMLBase;
 import com.helger.peppolid.IParticipantIdentifier;
 
 /**
@@ -43,8 +43,8 @@ public interface ISMPURLProvider
    * @return A new URI starting with "http://" or "https://" and never ending with a slash.
    * @throws SMPDNSResolutionException
    *         If the URL resolution failed.
-   * @see #getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
-   * @see #getSMPURLOfParticipant(IParticipantIdentifier, ISMLInfo)
+   * @see #getSMPURIOfParticipant(IParticipantIdentifier, ISMLBase)
+   * @see #getSMPURLOfParticipant(IParticipantIdentifier, ISMLBase)
    * @see #getSMPURLOfParticipant(IParticipantIdentifier, String)
    */
   @NonNull
@@ -62,12 +62,12 @@ public interface ISMPURLProvider
    * @throws SMPDNSResolutionException
    *         If the URL resolution failed.
    * @see #getSMPURIOfParticipant(IParticipantIdentifier, String)
-   * @see #getSMPURLOfParticipant(IParticipantIdentifier, ISMLInfo)
+   * @see #getSMPURLOfParticipant(IParticipantIdentifier, ISMLBase)
    * @see #getSMPURLOfParticipant(IParticipantIdentifier, String)
    */
   @NonNull
   default URI getSMPURIOfParticipant (@NonNull final IParticipantIdentifier aParticipantIdentifier,
-                                      @NonNull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
+                                      @NonNull final ISMLBase aSMLInfo) throws SMPDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
     ValueEnforcer.notNull (aSMLInfo, "SMLInfo");

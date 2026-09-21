@@ -138,17 +138,6 @@ public class SMPExtensionList
     return EChange.CHANGED;
   }
 
-  @ReturnsMutableCopy
-  public com.helger.xsds.peppol.smp1.@Nullable ExtensionType getAsPeppolExtension ()
-  {
-    if (m_aExtensions.isEmpty ())
-      return null;
-
-    if (m_aExtensions.size () > 1)
-      LOGGER.warn ("The Peppol data model only knows 1 extension. You have " + m_aExtensions.size () + " extension");
-    return m_aExtensions.getFirstOrNull ().getAsPeppolExtension ();
-  }
-
   @Nullable
   @ReturnsMutableCopy
   public ICommonsList <com.helger.xsds.bdxr.smp1.@NonNull ExtensionType> getAsBDXRExtensions ()

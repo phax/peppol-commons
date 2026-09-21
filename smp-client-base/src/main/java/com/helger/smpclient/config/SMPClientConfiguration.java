@@ -33,7 +33,6 @@ import com.helger.config.IConfig;
 import com.helger.config.fallback.ConfigWithFallback;
 import com.helger.config.fallback.IConfigWithFallback;
 import com.helger.config.source.MultiConfigurationValueProvider;
-import com.helger.peppol.security.PeppolTrustStores;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
 
@@ -153,7 +152,7 @@ public final class SMPClientConfiguration
   /**
    * @return The truststore password as specified in the configuration file by the key
    *         <code>smpclient.truststore.password</code>. If none is present
-   *         {@link PeppolTrustStores#TRUSTSTORE_PASSWORD} is returned as a default.
+   *         no password is used.
    */
   @Nullable
   public static char [] getTrustStorePasswordCharArray ()

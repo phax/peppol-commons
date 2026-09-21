@@ -38,7 +38,7 @@ import com.helger.xml.serialize.write.XMLWriter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 
 /**
- * This class contains a generic extension that works for Peppol SMP, OASIS BDXR SMP v1 and OASIS
+ * This class contains a generic extension that works for OASIS BDXR SMP v1 and OASIS
  * BDXR SMP v2.
  *
  * @author Philip Helger
@@ -337,18 +337,6 @@ public class SMPExtension
       ret.add (JSON_ANY, sAny);
     }
     return ret.isEmpty () ? null : ret;
-  }
-
-  @ReturnsMutableCopy
-  public com.helger.xsds.peppol.smp1.@Nullable ExtensionType getAsPeppolExtension ()
-  {
-    if (m_aAny == null)
-      return null;
-
-    // Use only the XML element of the first extension
-    final com.helger.xsds.peppol.smp1.ExtensionType ret = new com.helger.xsds.peppol.smp1.ExtensionType ();
-    ret.setAny (m_aAny);
-    return ret;
   }
 
   public com.helger.xsds.bdxr.smp1.@NonNull ExtensionType getAsBDXRExtension ()

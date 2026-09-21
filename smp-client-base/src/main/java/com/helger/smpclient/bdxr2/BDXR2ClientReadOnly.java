@@ -32,7 +32,7 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.network.smp.ISMPTransportProfile;
-import com.helger.peppol.sml.ISMLInfo;
+import com.helger.network.sml.ISMLBase;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
@@ -98,11 +98,11 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
    *        The SML to be used. Required to build the SMP access URI.
    * @throws SMPDNSResolutionException
    *         If DNS resolution failed
-   * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
+   * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, ISMLBase)
    */
   public BDXR2ClientReadOnly (@NonNull final ISMPURLProvider aURLProvider,
                               @NonNull final IParticipantIdentifier aParticipantIdentifier,
-                              @NonNull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
+                              @NonNull final ISMLBase aSMLInfo) throws SMPDNSResolutionException
   {
     this (aURLProvider.getSMPURIOfParticipant (aParticipantIdentifier, aSMLInfo));
   }
@@ -605,7 +605,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
    */
   @NonNull
   public static ServiceGroupType getServiceGroupByDNS (@NonNull final ISMPURLProvider aURLProvider,
-                                                       @NonNull final ISMLInfo aSMLInfo,
+                                                       @NonNull final ISMLBase aSMLInfo,
                                                        @NonNull final IParticipantIdentifier aServiceGroupID) throws SMPClientException, SMPDNSResolutionException
   {
     return new BDXR2ClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceGroup (aServiceGroupID);
@@ -638,7 +638,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
    */
   @NonNull
   public static ServiceMetadataType getServiceRegistrationByDNS (@NonNull final ISMPURLProvider aURLProvider,
-                                                                 @NonNull final ISMLInfo aSMLInfo,
+                                                                 @NonNull final ISMLBase aSMLInfo,
                                                                  @NonNull final IParticipantIdentifier aServiceGroupID,
                                                                  @NonNull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException, SMPDNSResolutionException
   {

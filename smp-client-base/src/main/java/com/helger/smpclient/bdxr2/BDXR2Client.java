@@ -30,7 +30,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.http.CHttpHeader;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
-import com.helger.peppol.sml.ISMLInfo;
+import com.helger.network.sml.ISMLBase;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
@@ -79,11 +79,11 @@ public class BDXR2Client extends BDXR2ClientReadOnly
    *        The SML to be used. Required to build the SMP access URI.
    * @throws SMPDNSResolutionException
    *         if DNS resolution fails
-   * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
+   * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, ISMLBase)
    */
   public BDXR2Client (@NonNull final ISMPURLProvider aURLProvider,
                       @NonNull final IParticipantIdentifier aParticipantIdentifier,
-                      @NonNull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
+                      @NonNull final ISMLBase aSMLInfo) throws SMPDNSResolutionException
   {
     super (aURLProvider, aParticipantIdentifier, aSMLInfo);
   }

@@ -25,7 +25,6 @@ import com.helger.http.tls.ETLSVersion;
 import com.helger.http.tls.TLSConfigurationMode;
 import com.helger.httpclient.HttpClientSettings;
 import com.helger.httpclient.HttpClientSettingsConfig;
-import com.helger.peppol.commons.CPeppolCommonsVersion;
 import com.helger.security.revocation.CertificateRevocationCheckerDefaults;
 import com.helger.smpclient.config.SMPClientConfiguration;
 
@@ -38,7 +37,7 @@ import com.helger.smpclient.config.SMPClientConfiguration;
  */
 public class SMPHttpClientSettings extends HttpClientSettings
 {
-  public static final String USER_AGENT = "phax/peppol-commons smp-client/" + CPeppolCommonsVersion.BUILD_VERSION;
+  public static final String USER_AGENT = "phax/peppol-commons smp-client/" + CSMPClientVersion.BUILD_VERSION;
   private static final Logger LOGGER = LoggerFactory.getLogger (SMPHttpClientSettings.class);
 
   /**

@@ -407,6 +407,10 @@ v13.0.0 - work in progress
     * The static getters `getConnectTimeout ()`, `getResponseTimeout ()`, `getHttpProxy ()`, `getHttpProxyCredentials ()`, `getNonProxyHosts ()` and `isUseDNSClientCache ()` of `SMPClientConfiguration`
     * `SMPHttpClientSettings.fromLegacyConfiguration ()` and `SMPHttpClientSettings.resetToConfiguration ()`
     * `com.helger.dbnalliance.commons.DBNAllianceIdentifierFactory` - use `com.helger.peppolid.factory.DBNAllianceIdentifierFactory` instead
+* **Breaking API change** Split `ISMLInfo`: the new parent interface `ISMLBase` in `network-commons` contains the data needed to **use** an SML (ID, display name, DNS zone, client certificate flag), `ISMLInfo` keeps everything needed to **manage** entries in a Peppol SML. The SMP clients and `ISMPURLProvider` now work with `ISMLBase`
+* `EDBNAllianceSML` now implements `ISMLBase` - it previously implemented nothing, because `ISMLInfo` demanded the SML management endpoints that DBNAlliance does not have. Its constants now carry an ID and a display name; `getZoneName ()` is kept next to the new `getDNSZone ()`
+* **Breaking API change** Removed `SMPExtension.getAsPeppolExtension ()` and `SMPExtensionList.getAsPeppolExtension ()` - use the new `PeppolSMPExtensionHelper.getAsPeppolExtension (...)` in `peppol-smp-client` instead. The OASIS BDXR SMP v1 and v2 conversions stay where they are
+* `smp-client-base` no longer depends on `peppol-commons` and `peppol-smp-datatypes` - it now only requires `network-commons`, `peppol-id` and the ph-* libraries. The User-Agent header uses the new `CSMPClientVersion` of that module
 
 v12.10.0 - 2026-09-06
 * Removed the dependency of the module `peppol-commons` onto `ph-bc` and therefore onto Bouncy Castle.

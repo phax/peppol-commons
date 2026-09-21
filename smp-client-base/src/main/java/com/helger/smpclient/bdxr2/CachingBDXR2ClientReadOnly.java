@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.enforce.ValueEnforcer;
-import com.helger.peppol.sml.ISMLInfo;
+import com.helger.network.sml.ISMLBase;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.smpclient.exception.SMPClientException;
@@ -88,7 +88,7 @@ public class CachingBDXR2ClientReadOnly extends BDXR2ClientReadOnly
    */
   public CachingBDXR2ClientReadOnly (@NonNull final ISMPURLProvider aURLProvider,
                                    @NonNull final IParticipantIdentifier aParticipantIdentifier,
-                                   @NonNull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
+                                   @NonNull final ISMLBase aSMLInfo) throws SMPDNSResolutionException
   {
     super (aURLProvider, aParticipantIdentifier, aSMLInfo);
   }

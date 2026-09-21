@@ -16,42 +16,25 @@
  */
 package com.helger.peppol.sml;
 
-import java.io.Serializable;
 import java.net.URL;
 
 import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
-import com.helger.base.name.IHasDisplayName;
-import com.helger.base.type.ITypedObject;
+import com.helger.network.sml.ISMLBase;
 
 /**
- * Specifies the different properties an SML implementation uses. A set of predefined SML
- * information can be found at {@link ESML} whereas a generic implementation can be found at
- * {@link SMLInfo}.
+ * Specifies the different properties a Peppol SML implementation uses, including everything that
+ * is needed to manage entries in it. The network neutral part is {@link ISMLBase}. A set of
+ * predefined SML information can be found at {@link ESML} whereas a generic implementation can be
+ * found at {@link SMLInfo}.
  *
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface ISMLInfo extends ITypedObject <String>, IHasDisplayName, Serializable
+public interface ISMLInfo extends ISMLBase
 {
-  /**
-   * @return The "shorthand" display name like "SML" or "SMK".
-   */
-  @NonNull
-  @Nonempty
-  String getDisplayName ();
-
-  /**
-   * @return The DNS zone on which this SML is operating. Never <code>null</code>. It must be
-   *         ensured that the value consists only of lower case characters!<br>
-   *         Example: <code>sml.peppolcentral.org</code>
-   */
-  @NonNull
-  @Nonempty
-  String getDNSZone ();
-
   /**
    * @return The service URL where the management application is running on including the host name.
    *         Never <code>null</code>. The difference to the host name is the eventually present
@@ -95,10 +78,4 @@ public interface ISMLInfo extends ITypedObject <String>, IHasDisplayName, Serial
   @NonNull
   URL getManageParticipantIdentifierEndpointAddress ();
 
-  /**
-   * @return <code>true</code> if this SML requires a client certificate for access,
-   *         <code>false</code> otherwise. Both PEPPOL production SML and SMK require a client
-   *         certificate. Only a locally running SML software may not require a client certificate.
-   */
-  boolean isClientCertificateRequired ();
 }
