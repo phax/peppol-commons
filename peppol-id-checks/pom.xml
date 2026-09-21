@@ -30,6 +30,7 @@
   <description>Peppol identifier checks and derivations that require additional dependencies</description>
   <url>https://github.com/phax/peppol-commons/peppol-id-checks</url>
   <inceptionYear>2015</inceptionYear>
+  
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -37,10 +38,12 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  
   <organization>
     <name>Philip Helger</name>
     <url>http://www.helger.com</url>
   </organization>
+  
   <developers>
     <developer>
       <id>philip</id>
@@ -49,6 +52,7 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
+  
   <dependencies>
     <dependency>
       <groupId>com.helger.peppol</groupId>
@@ -57,11 +61,6 @@
     <dependency>
       <groupId>com.helger.masterdata</groupId>
       <artifactId>ph-masterdata</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>

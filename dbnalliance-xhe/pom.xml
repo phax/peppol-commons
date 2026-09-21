@@ -30,6 +30,7 @@
   <url>https://github.com/phax/peppol-commons/dbnalliance-xhe</url>
   <inceptionYear>2024</inceptionYear>
   <description>Library for reading and writing OASIS Exchange Header Envelope (XHE) Version 1.0 documents conforming to the DBNAlliance specifications</description>
+  
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -37,10 +38,12 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  
   <organization>
     <name>Philip Helger</name>
     <url>http://www.helger.com</url>
   </organization>
+  
   <developers>
     <developer>
       <id>robinsongarciax</id>
@@ -76,11 +79,6 @@
     <dependency>
       <groupId>com.helger.peppol</groupId>
       <artifactId>peppol-testfiles</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>

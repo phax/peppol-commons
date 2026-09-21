@@ -31,12 +31,6 @@ public final class CSBDHConstants
   /** The expected SBDH header version */
   public static final String HEADER_VERSION = "1.0";
 
-  /** The BusinessScope Type value of the document type identifier */
-  public static final String SCOPE_DOCUMENT_TYPE_ID = "DOCUMENTID";
-
-  /** The BusinessScope Type value of the process identifier */
-  public static final String SCOPE_PROCESS_ID = "PROCESSID";
-
   @PresentForCodeCoverage
   private static final CSBDHConstants INSTANCE = new CSBDHConstants ();
 

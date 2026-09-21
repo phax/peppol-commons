@@ -29,6 +29,7 @@
   <name>network-commons</name>
   <url>https://github.com/phax/peppol-commons/network-commons</url>
   <inceptionYear>2026</inceptionYear>
+  
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -36,10 +37,12 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  
   <organization>
     <name>Philip Helger</name>
     <url>http://www.helger.com</url>
   </organization>
+  
   <developers>
     <developer>
       <id>philip</id>
@@ -48,6 +51,7 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
+  
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
@@ -57,30 +61,5 @@
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-security</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
-  <build>
-    <resources>
-      <!-- Don't specify the targetPath because this leads to a broken JAR file 
-        in combination with the bundle plugin (absolute file paths in ZIP file) -->
-      <resource>
-        <directory>${basedir}/src/main/resources</directory>
-        <filtering>true</filtering>
-        <includes>
-          <include>**/*.properties</include>
-        </includes>
-      </resource>
-      <resource>
-        <directory>${basedir}/src/main/resources</directory>
-        <filtering>false</filtering>
-        <excludes>
-          <exclude>**/*.properties</exclude>
-        </excludes>
-      </resource>
-    </resources>
-  </build>
 </project>

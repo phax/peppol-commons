@@ -133,6 +133,11 @@
 
       <dependency>
         <groupId>com.helger.peppol</groupId>
+        <artifactId>network-commons</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.peppol</groupId>
         <artifactId>peppol-id-datatypes</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -158,12 +163,22 @@
       </dependency>
       <dependency>
         <groupId>com.helger.peppol</groupId>
+        <artifactId>network-sbdh</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.peppol</groupId>
         <artifactId>peppol-sbdh</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>com.helger.peppol</groupId>
         <artifactId>peppol-smp-datatypes</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.peppol</groupId>
+        <artifactId>smp-client-base</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -252,9 +267,4 @@
     <module>dbnalliance-xhe</module>
     <module>hredelivery-commons</module>
   </modules>
-
-  <build>
-    <plugins>
-    </plugins>
-  </build>
 </project>

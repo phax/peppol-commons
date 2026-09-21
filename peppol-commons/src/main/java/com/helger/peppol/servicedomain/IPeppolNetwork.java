@@ -24,7 +24,7 @@ import com.helger.network.stage.INetworkStage;
 import com.helger.peppol.sml.ISMLInfo;
 
 /**
- * Base interface defining the parameters for a general Peppol Network defintion.
+ * Base interface defining the parameters for a general Peppol Network definition.
  *
  * @author Philip Helger
  * @since 12.3.7

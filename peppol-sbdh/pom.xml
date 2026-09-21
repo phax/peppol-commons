@@ -30,6 +30,7 @@
   <description>Library for reading and writing OASIS Standard Business Document Header (SBDH) documents conforming to the PEPPOL specifications</description>
   <url>https://github.com/phax/peppol-commons/peppol-sbdh</url>
   <inceptionYear>2014</inceptionYear>
+  
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -37,10 +38,12 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  
   <organization>
     <name>Philip Helger</name>
     <url>http://www.helger.com</url>
   </organization>
+  
   <developers>
     <developer>
       <id>philip</id>
@@ -49,12 +52,8 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
+  
   <dependencies>
-    <dependency>
-      <groupId>com.helger.peppol</groupId>
-      <artifactId>network-sbdh</artifactId>
-      <version>${project.version}</version>
-    </dependency>
     <dependency>
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-jaxb</artifactId>
@@ -77,12 +76,12 @@
     </dependency>
     <dependency>
       <groupId>com.helger.peppol</groupId>
-      <artifactId>peppol-testfiles</artifactId>
-      <scope>test</scope>
+      <artifactId>network-sbdh</artifactId>
     </dependency>
+
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
+      <groupId>com.helger.peppol</groupId>
+      <artifactId>peppol-testfiles</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
