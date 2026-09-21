@@ -46,13 +46,6 @@ public class SMPDNSResolutionException extends Exception
      */
     DOMAIN_NAME_SYNTAX_ERROR ("dname-err"),
     /**
-     * Generic DNS resolution failure. Retained for backwards compatibility; new code should prefer
-     * one of the more specific codes {@link #DNS_TECHNICAL_FAILURE},
-     * {@link #PARTICIPANT_NOT_REGISTERED} or {@link #NO_MATCHING_SMP_SERVICE}.
-     */
-    @Deprecated (forRemoval = true, since = "12.5.0")
-    DNS_RESOLVING_ERROR("dnsresolve-err"),
-    /**
      * The resolved SMP URI is invalid.
      */
     RESOLVED_URI_SYNTAX_ERROR ("resolveduri-err"),

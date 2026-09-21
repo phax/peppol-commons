@@ -33,7 +33,6 @@ import org.jspecify.annotations.Nullable;
 public class DBNAllianceIdentifierFactory extends BDXR2IdentifierFactory
 {
   /** Global instance to be used. */
-  @SuppressWarnings ("hiding")
   public static final DBNAllianceIdentifierFactory INSTANCE = new DBNAllianceIdentifierFactory ();
 
   public DBNAllianceIdentifierFactory ()

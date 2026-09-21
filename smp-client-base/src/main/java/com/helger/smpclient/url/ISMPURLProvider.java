@@ -16,9 +16,7 @@
  */
 package com.helger.smpclient.url;
 
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URL;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -74,64 +72,5 @@ public interface ISMPURLProvider
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
     ValueEnforcer.notNull (aSMLInfo, "SMLInfo");
     return getSMPURIOfParticipant (aParticipantIdentifier, aSMLInfo.getDNSZone ());
-  }
-
-  /**
-   * Get the SMP URL of the passed participant ID in the provided SML DNS zone name.
-   *
-   * @param aParticipantIdentifier
-   *        The participant ID. May not be <code>null</code>.
-   * @param aSMLInfo
-   *        The SML zone to use. May not be <code>null</code>.
-   * @return A new URL with scheme "http://" or "https://" and never ending with a slash.
-   * @throws SMPDNSResolutionException
-   *         If the URL resolution failed.
-   * @see #getSMPURIOfParticipant(IParticipantIdentifier, String)
-   * @see #getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
-   * @see #getSMPURLOfParticipant(IParticipantIdentifier, String)
-   * @deprecated Use {@link #getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)} instead
-   */
-  @NonNull
-  @Deprecated (forRemoval = true, since = "12.0.2")
-  default URL getSMPURLOfParticipant (@NonNull final IParticipantIdentifier aParticipantIdentifier,
-                                      @NonNull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
-  {
-    ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
-    ValueEnforcer.notNull (aSMLInfo, "SMLInfo");
-
-    return getSMPURLOfParticipant (aParticipantIdentifier, aSMLInfo.getDNSZone ());
-  }
-
-  /**
-   * Get the SMP URL of the passed participant ID in the provided SML DNS zone name.
-   *
-   * @param aParticipantIdentifier
-   *        The participant ID. May not be <code>null</code>.
-   * @param sSMLZoneName
-   *        The SML zone name to use. May be <code>null</code>.
-   * @return A new URL with scheme "http://" or "https://" and never ending with a slash.
-   * @throws SMPDNSResolutionException
-   *         If the URL resolution failed.
-   * @see #getSMPURIOfParticipant(IParticipantIdentifier, String)
-   * @see #getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
-   * @see #getSMPURLOfParticipant(IParticipantIdentifier, ISMLInfo)
-   * @deprecated Use {@link #getSMPURIOfParticipant(IParticipantIdentifier, String)} instead
-   */
-  @NonNull
-  @Deprecated (forRemoval = true, since = "12.0.2")
-  default URL getSMPURLOfParticipant (@NonNull final IParticipantIdentifier aParticipantIdentifier,
-                                      @Nullable final String sSMLZoneName) throws SMPDNSResolutionException
-  {
-    ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
-
-    final URI aURI = getSMPURIOfParticipant (aParticipantIdentifier, sSMLZoneName);
-    try
-    {
-      return aURI.toURL ();
-    }
-    catch (final MalformedURLException ex)
-    {
-      throw new IllegalArgumentException ("Error building SMP URL from URI: " + aURI, ex);
-    }
   }
 }

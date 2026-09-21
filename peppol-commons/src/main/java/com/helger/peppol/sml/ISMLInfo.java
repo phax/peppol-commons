@@ -53,22 +53,6 @@ public interface ISMLInfo extends ITypedObject <String>, IHasDisplayName, Serial
   String getDNSZone ();
 
   /**
-   * @return The DNS sub zone name that is used for SMP publishers. This is done by prepending
-   *         {@link CSMLDefault#DNS_PUBLISHER_SUBZONE} to the DNS zone name - never starts with a
-   *         dot! May not be <code>null</code>. This is only needed when the Peppol way of
-   *         registration is used.
-   * @see #getDNSZone()
-   * @deprecated Since the DNS entries were removed
-   */
-  @NonNull
-  @Nonempty
-  @Deprecated (forRemoval = true, since = "12.1.1")
-  default String getPublisherDNSZone ()
-  {
-    return CSMLDefault.DNS_PUBLISHER_SUBZONE + getDNSZone ();
-  }
-
-  /**
    * @return The service URL where the management application is running on including the host name.
    *         Never <code>null</code>. The difference to the host name is the eventually present
    *         context path. This path may <b>never</b> end with a slash.

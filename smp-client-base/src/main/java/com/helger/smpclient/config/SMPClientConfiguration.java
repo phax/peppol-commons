@@ -18,9 +18,6 @@ package com.helger.smpclient.config;
 
 import java.security.KeyStore;
 
-import org.apache.hc.client5.http.auth.UsernamePasswordCredentials;
-import org.apache.hc.core5.http.HttpHost;
-import org.apache.hc.core5.util.Timeout;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
@@ -36,7 +33,6 @@ import com.helger.config.IConfig;
 import com.helger.config.fallback.ConfigWithFallback;
 import com.helger.config.fallback.IConfigWithFallback;
 import com.helger.config.source.MultiConfigurationValueProvider;
-import com.helger.httpclient.HttpClientSettings;
 import com.helger.peppol.security.PeppolTrustStores;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
@@ -189,98 +185,5 @@ public final class SMPClientConfiguration
       LOGGER.warn ("Failed to load SMP client truststore: " + ex.getClass ().getName () + " - " + ex.getMessage ());
       return null;
     }
-  }
-
-  /**
-   * @return The HttpProxy object to be used by SMP clients based on the Java System properties
-   *         "http.proxyHost" and "http.proxyPort". Note: https is not needed, because SMPs must run
-   *         on http only.
-   */
-  @Nullable
-  @Deprecated (forRemoval = true, since = "12.5.0")
-  public static HttpHost getHttpProxy ()
-  {
-    final String sProxyHost = getConfig ().getAsStringOrFallback ("http.proxy.host", "http.proxyHost");
-    final int nProxyPort = getConfig ().getAsIntOrFallback ("http.proxy.port", -1, "http.proxyPort");
-    if (sProxyHost != null && nProxyPort > 0)
-      return new HttpHost (sProxyHost, nProxyPort);
-
-    return null;
-  }
-
-  /**
-   * @return The {@link UsernamePasswordCredentials} object to be used for proxy server
-   *         authentication.
-   * @since 5.2.5
-   */
-  @Nullable
-  @Deprecated (forRemoval = true, since = "12.5.0")
-  public static UsernamePasswordCredentials getHttpProxyCredentials ()
-  {
-    final String sProxyUsername = getConfig ().getAsStringOrFallback ("http.proxy.username", "http.proxyUsername");
-    final String sProxyPassword = getConfig ().getAsStringOrFallback ("http.proxy.password", "http.proxyPassword");
-    if (sProxyUsername != null && sProxyPassword != null)
-      return new UsernamePasswordCredentials (sProxyUsername, sProxyPassword.toCharArray ());
-
-    return null;
-  }
-
-  /**
-   * @return A pipe separated list of non-proxy hosts. E.g. <code>localhost|127.0.0.1</code>. May be
-   *         <code>null</code>.
-   * @since 6.2.4
-   */
-  @Nullable
-  @Deprecated (forRemoval = true, since = "12.5.0")
-  public static String getNonProxyHosts ()
-  {
-    return getConfig ().getAsStringOrFallback ("http.proxy.nonProxyHosts", "http.nonProxyHosts");
-  }
-
-  /**
-   * Get the content of the property "http.useDNSClientCache" or <code>true</code> if undefined.
-   *
-   * @return <code>true</code> if the SMP client should use DNS client caching (default) or
-   *         <code>false</code> if DNS caching should be disabled. The default behavior is to return
-   *         <code>true</code>.
-   * @since 5.2.5
-   */
-  @Deprecated (forRemoval = true, since = "12.5.0")
-  public static boolean isUseDNSClientCache ()
-  {
-    return getConfig ().getAsBoolean ("http.useDNSClientCache", HttpClientSettings.DEFAULT_USE_DNS_CACHE);
-  }
-
-  /**
-   * Get the content of the property "http.connect.timeout.ms" or the default value.
-   *
-   * @return The connection timeout of the SMP client. Defaults to 5 seconds.
-   * @since 8.8.0
-   */
-  @NonNull
-  @Deprecated (forRemoval = true, since = "12.5.0")
-  public static Timeout getConnectTimeout ()
-  {
-    final long nMS = getConfig ().getAsLong ("http.connect.timeout.ms", -1);
-    if (nMS >= 0)
-      return Timeout.ofMilliseconds (nMS);
-    return HttpClientSettings.DEFAULT_CONNECT_TIMEOUT;
-  }
-
-  /**
-   * Get the content of the property "http.response.timeout.ms" or the default value. The fallback
-   * value is "http.request.timeout.ms".
-   *
-   * @return The response timeout of the SMP client. Defaults to 10 seconds.
-   * @since 8.8.0
-   */
-  @NonNull
-  @Deprecated (forRemoval = true, since = "12.5.0")
-  public static Timeout getResponseTimeout ()
-  {
-    final long nMS = getConfig ().getAsLongOrFallback ("http.response.timeout.ms", -1, "http.request.timeout.ms");
-    if (nMS >= 0)
-      return Timeout.ofMilliseconds (nMS);
-    return HttpClientSettings.DEFAULT_RESPONSE_TIMEOUT;
   }
 }

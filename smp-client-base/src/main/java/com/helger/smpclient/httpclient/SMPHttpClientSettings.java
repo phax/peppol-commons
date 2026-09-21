@@ -61,35 +61,10 @@ public class SMPHttpClientSettings extends HttpClientSettings
     setUserAgent (USER_AGENT);
   }
 
-  /**
-   * Overwrite all settings that can appear in the configuration file.
-   */
-  @SuppressWarnings ("removal")
-  @Deprecated (forRemoval = true, since = "12.5.0")
-  public final void resetToConfiguration ()
-  {
-    getGeneralProxy ().setProxyHost (SMPClientConfiguration.getHttpProxy ());
-    getGeneralProxy ().setProxyCredentials (SMPClientConfiguration.getHttpProxyCredentials ());
-    getGeneralProxy ().setNonProxyHostsFromPipeString (SMPClientConfiguration.getNonProxyHosts ());
-    setUseDNSClientCache (SMPClientConfiguration.isUseDNSClientCache ());
-    setConnectTimeout (SMPClientConfiguration.getConnectTimeout ());
-    setResponseTimeout (SMPClientConfiguration.getResponseTimeout ());
-  }
-
   private void _verifySettings ()
   {
     if (isFollowRedirects ())
       LOGGER.warn ("The SMP Client is configured to follow HTTP redirects - this is against the Peppol SMP specification");
-  }
-
-  @NonNull
-  @Deprecated (forRemoval = true, since = "12.5.0")
-  public static SMPHttpClientSettings fromLegacyConfiguration ()
-  {
-    final SMPHttpClientSettings ret = new SMPHttpClientSettings ();
-    ret.resetToConfiguration ();
-    ret._verifySettings ();
-    return ret;
   }
 
   @NonNull
