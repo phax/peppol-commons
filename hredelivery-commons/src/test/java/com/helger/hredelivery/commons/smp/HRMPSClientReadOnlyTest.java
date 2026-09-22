@@ -106,7 +106,7 @@ public final class HRMPSClientReadOnlyTest
   }
 
   @Test
-  @Ignore ("Returns 503 on April 20th, 2026")
+  @Ignore ("Returns DNS error on 2026-09-22")
   public void testResolveMarkant () throws Exception
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:29071087912");
@@ -125,6 +125,7 @@ public final class HRMPSClientReadOnlyTest
   }
 
   @Test
+  @Ignore ("Does not work per 2026-09-22")
   public void testResolveComarch () throws SMPDNSResolutionException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:70583020747");

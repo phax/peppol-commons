@@ -51,8 +51,8 @@ import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
-import com.helger.smpclient.url.SMPDNSResolutionException.EErrorCode;
 import com.helger.smpclient.url.SMPDNSResolutionException;
+import com.helger.smpclient.url.SMPDNSResolutionException.EErrorCode;
 
 /**
  * An abstract implementation of {@link IBDXLURLProvider} that support U-NAPTR record resolution.
@@ -341,7 +341,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
         aLookupResult = NaptrLookup.builder ()
                                    .domainName (sBuildDomainName)
                                    .customDNSServers (customDNSServers ())
-                                   .maxRetries (1)
+                                   .maxRetries (2)
                                    .debugMode (m_bUseNaptrDebug)
                                    .build ()
                                    .lookupResult ();
