@@ -23,7 +23,6 @@ import org.w3c.dom.Element;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
-import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringHelper;
@@ -38,8 +37,7 @@ import com.helger.xml.serialize.write.XMLWriter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 
 /**
- * This class contains a generic extension that works for OASIS BDXR SMP v1 and OASIS
- * BDXR SMP v2.
+ * This class contains a generic extension that works for OASIS BDXR SMP v1 and OASIS BDXR SMP v2.
  *
  * @author Philip Helger
  * @since 8.7.3
@@ -502,7 +500,7 @@ public class SMPExtension
     ret.setExtensionURI (aExt.getExtensionURI ());
     ret.setExtensionReasonCode (aExt.getExtensionReasonCode ());
     ret.setExtensionReason (aExt.getExtensionReason ());
-    if (aExt.getAny () instanceof Element aElement)
+    if (aExt.getAny () instanceof final Element aElement)
       ret.setAny (aElement);
     return ret;
   }
@@ -524,7 +522,7 @@ public class SMPExtension
     ret.setExtensionReasonCode (aExt.getExtensionReasonCodeValue ());
     ret.setExtensionReason (aExt.getExtensionReasonValue ());
     final com.helger.xsds.bdxr.smp2.ec.ExtensionContentType aEC = aExt.getExtensionContent ();
-    if (aEC != null && aEC.getAny () instanceof Element aElement)
+    if (aEC != null && aEC.getAny () instanceof final Element aElement)
       ret.setAny (aElement);
     return ret;
   }
