@@ -16,13 +16,13 @@
  */
 package com.helger.peppolid.peppol.pidscheme;
 
-import java.time.LocalDate;
-import java.time.Month;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.base.version.Version;
 import com.helger.datetime.helper.PDTFactory;
-import com.helger.peppolid.peppol.EPeppolCodeListItemState;
+import com.helger.peppolid.codelist.ECodeListItemState;
+import java.time.LocalDate;
+import java.time.Month;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -53,7 +53,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
              "System Information et Repertoire des Entreprise et des Etablissements: SIRENE",
              "Institut National de la Statistique et des Etudes Economiques, (I.N.S.E.E.)",
              Version.parse ("1.0.0"),
-             EPeppolCodeListItemState.ACTIVE,
+             ECodeListItemState.ACTIVE,
              null,
              null),
 
@@ -72,7 +72,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
             "Organisationsnummer",
             "The National Tax Board",
             Version.parse ("1.0.0"),
-            EPeppolCodeListItemState.ACTIVE,
+            ECodeListItemState.ACTIVE,
             null,
             null),
 
@@ -91,7 +91,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
             "SIRET-CODE",
             "DU PONT DE NEMOURS",
             Version.parse ("1.1.1"),
-            EPeppolCodeListItemState.ACTIVE,
+            ECodeListItemState.ACTIVE,
             null,
             null),
 
@@ -119,7 +119,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
          "LY-tunnus",
          "National Board of Taxes, (Verohallitus)",
          Version.parse ("1.0.0"),
-         EPeppolCodeListItemState.REMOVED,
+         ECodeListItemState.REMOVED,
          Version.parse ("8.9"),
          PDTFactory.createLocalDate (2024, Month.of (12), 31)),
 
@@ -143,7 +143,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
         "Data Universal Numbering System (D-U-N-S Number)",
         "Dun and Bradstreet Ltd",
         Version.parse ("1.0.0"),
-        EPeppolCodeListItemState.ACTIVE,
+        ECodeListItemState.ACTIVE,
         null,
         null),
 
@@ -162,7 +162,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
        "Global Location Number",
        "GS1 GLN",
        Version.parse ("1.0.0"),
-       EPeppolCodeListItemState.ACTIVE,
+       ECodeListItemState.ACTIVE,
        null,
        null),
 
@@ -180,7 +180,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
         "The Danish Business Authority - P-number (DK:P)",
         "The Danish Business Authority",
         Version.parse ("1.0.0"),
-        EPeppolCodeListItemState.ACTIVE,
+        ECodeListItemState.ACTIVE,
         null,
         null),
 
@@ -205,7 +205,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "FTI - Ediforum Italia",
           "FTI - Ediforum Italia",
           Version.parse ("1.0.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -230,7 +230,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Vereniging van Kamers van Koophandel en Fabrieken in Nederland (Association of\nChambers of Commerce and Industry in the Netherlands), Scheme",
           "Vereniging van Kamers van Koophandel en Fabrieken in Nederland",
           Version.parse ("1.1.2"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -248,7 +248,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Directorates of the European Commission",
           "European Commission, Information Directorate, Data Transmission Service",
           Version.parse ("4"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -266,7 +266,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "SIA Object Identifiers",
           "SIA-Societ\u00e0 Interbancaria per l'Automazione S.p.A.",
           Version.parse ("1.0.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -284,7 +284,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
              "SECETI Object Identifiers",
              "Servizi Centralizzati SECETI S.p.A.",
              Version.parse ("1.0.0"),
-             EPeppolCodeListItemState.ACTIVE,
+             ECodeListItemState.ACTIVE,
              null,
              null),
 
@@ -310,7 +310,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Australian Business Number (ABN) Scheme",
           "Australian Taxation Office",
           Version.parse ("5"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -329,7 +329,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Identification number of economic subject (ICO)",
           "Slovak Statistical Office",
           Version.parse ("9.7"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -353,7 +353,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
            "Swiss Unique Business Identification Number (UIDB)",
            "Swiss Federal Statistical Office (FSO)",
            Version.parse ("5"),
-           EPeppolCodeListItemState.ACTIVE,
+           ECodeListItemState.ACTIVE,
            null,
            null),
 
@@ -372,7 +372,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
             "The Danish Business Authority - CVR-number (DK:CVR)",
             "The Danish Business Authority",
             Version.parse ("1.2.1"),
-            EPeppolCodeListItemState.ACTIVE,
+            ECodeListItemState.ACTIVE,
             null,
             null),
 
@@ -393,7 +393,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Corporate Number of The Social Security and Tax Number System",
           "National Tax Agency Japan",
           Version.parse ("8.1"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -416,7 +416,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
            "Organisatie-identificatienummer (OIN)",
            "Logius",
            Version.parse ("2"),
-           EPeppolCodeListItemState.ACTIVE,
+           ECodeListItemState.ACTIVE,
            null,
            null),
 
@@ -437,7 +437,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
          "Company code",
          "Centre of Registers and Information Systems of the Ministry of Justice",
          Version.parse ("2"),
-         EPeppolCodeListItemState.ACTIVE,
+         ECodeListItemState.ACTIVE,
          null,
          null),
 
@@ -457,7 +457,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Organisasjonsnummer",
           "The Br\u00f8nn\u00f8ysund Register Centre",
           Version.parse ("2"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -479,7 +479,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
         "UBL.BE Party Identifier",
         "UBL.BE",
         Version.parse ("3"),
-        EPeppolCodeListItemState.DEPRECATED,
+        ECodeListItemState.DEPRECATED,
         Version.parse ("9.6"),
         PDTFactory.createLocalDate (2026, Month.of (7), 7)),
 
@@ -500,7 +500,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Singapore Nationwide E-Invoice Framework",
           "lnfocomm Media Development Authority",
           Version.parse ("4"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -521,7 +521,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
            "Icelandic identifier",
            "Icelandic National Registry",
            Version.parse ("4"),
-           EPeppolCodeListItemState.ACTIVE,
+           ECodeListItemState.ACTIVE,
            null,
            null),
 
@@ -538,7 +538,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
            "The Danish Business Authority - SE-number (DK:SE)",
            "The Danish Business Authority",
            Version.parse ("5"),
-           EPeppolCodeListItemState.ACTIVE,
+           ECodeListItemState.ACTIVE,
            null,
            null),
 
@@ -584,7 +584,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
        "Legal Entity Identifier (LEI)",
        "As of December 2018, there are 33 LEI issuing organizations in the world.",
        Version.parse ("5"),
-       EPeppolCodeListItemState.ACTIVE,
+       ECodeListItemState.ACTIVE,
        null,
        null),
 
@@ -605,7 +605,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Legal entity code",
           "State Enterprise Centre of Registers",
           Version.parse ("5"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -623,7 +623,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
            "Codice Univoco Unit\u00e0 Organizzativa iPA",
            "Agenzia per l\u2019Italia digitale",
            Version.parse ("6"),
-           EPeppolCodeListItemState.ACTIVE,
+           ECodeListItemState.ACTIVE,
            null,
            null),
 
@@ -643,7 +643,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
            "Peppol-Leitweg-ID",
            "Koordinierungsstelle f\u00fcr IT-Standards (KoSIT)",
            Version.parse ("6"),
-           EPeppolCodeListItemState.ACTIVE,
+           ECodeListItemState.ACTIVE,
            null,
            null),
 
@@ -660,7 +660,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "CODDEST",
           "Agenzia delle Entrate",
           Version.parse ("8.4"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -678,7 +678,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
          "Numero d'entreprise / ondernemingsnummer / Unternehmensnummer",
          "Banque-Carrefour des Entreprises (BCE) / Kruispuntbank van Ondernemingen (KBO) / Zentrale Datenbank der Unternehmen (ZOU)\nService public f\u00e9d\u00e9ral Economie, P.M.E. Classes moyennes et Energie",
          Version.parse ("7"),
-         EPeppolCodeListItemState.ACTIVE,
+         ECodeListItemState.ACTIVE,
          null,
          null),
 
@@ -699,7 +699,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
        "GS1 identification keys",
        "GS1",
        Version.parse ("7.5"),
-       EPeppolCodeListItemState.ACTIVE,
+       ECodeListItemState.ACTIVE,
        null,
        null),
 
@@ -723,7 +723,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "CODICE FISCALE",
           "Agenzia delle Entrate",
           Version.parse ("7.5"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -741,7 +741,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "PARTITA IVA",
           "Agenzia delle Entrate",
           Version.parse ("7.5"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -763,7 +763,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
          "Finnish Organization Identifier",
          "State Treasury of Finland / Valtiokonttori",
          Version.parse ("7.5"),
-         EPeppolCodeListItemState.REMOVED,
+         ECodeListItemState.REMOVED,
          Version.parse ("8.9"),
          PDTFactory.createLocalDate (2024, Month.of (12), 31)),
 
@@ -784,7 +784,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
          "Finnish Organization Value Add Tax Identifier",
          "State Treasury of Finland / Valtiokonttori",
          Version.parse ("7.5"),
-         EPeppolCodeListItemState.REMOVED,
+         ECodeListItemState.REMOVED,
          Version.parse ("8.9"),
          PDTFactory.createLocalDate (2024, Month.of (12), 31)),
 
@@ -809,7 +809,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
          "Net service ID",
          "Tieto Finland Oy",
          Version.parse ("8.1"),
-         EPeppolCodeListItemState.REMOVED,
+         ECodeListItemState.REMOVED,
          Version.parse ("8.9"),
          PDTFactory.createLocalDate (2024, Month.of (12), 31)),
 
@@ -835,7 +835,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
            "OVTcode",
            "TIEKE- Tietoyhteiskunnan kehittamiskeskus ry",
            Version.parse ("8.1"),
-           EPeppolCodeListItemState.ACTIVE,
+           ECodeListItemState.ACTIVE,
            null,
            null),
 
@@ -854,7 +854,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Unified registration number",
           "The Register of Enterprises of the Republic of Latvia",
           Version.parse ("8.8"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -877,7 +877,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "The registered number of the qualified invoice issuer",
           "Name: National Tax Agency Japan",
           Version.parse ("8.5"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -897,7 +897,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "FRCTC Electronic Address",
           "AIFE (Agence pour l\u2019Informatique Financi\u00e8re de l\u2019Etat)",
           Version.parse ("9.1"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -917,7 +917,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "National e-Invoicing Framework",
           "Malaysia Digital Economy Corporation Sdn Bhd (MDEC)",
           Version.parse ("8.5"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -946,7 +946,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "UAE Tax Identification Number (TIN)",
           "UAE Federal Tax Authority",
           Version.parse ("9.1"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -964,7 +964,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Register of legal persons",
           "Centre des technologies de l'information de l'Etat (CTIE)",
           Version.parse ("9.1"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -986,7 +986,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
         "OpenPeppol Service Provider Identification Scheme",
         "OpenPeppol AISBL",
         Version.parse ("9.3"),
-        EPeppolCodeListItemState.ACTIVE,
+        ECodeListItemState.ACTIVE,
         null,
         null),
 
@@ -1013,7 +1013,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Tax Identification (Tax ID)",
           "Federal Inland Revenue Service Revenue (FIRS)",
           Version.parse ("9.5"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1035,7 +1035,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Tax identification number (DI\u010c)",
           "The tax office according to the local jurisdiction of the taxpayer.\nHead office:\nFinancial Directorate of the Slovak Republic\nLazovn\u00e1 63 , Bansk\u00e1 Bystrica\n974 01 Bansk\u00e1 Bystrica\nSlovakia",
           Version.parse ("9.5"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1061,7 +1061,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
            "German Electronic Business Address",
            "Koordinierungsstelle fu\u0308r IT-Standards (KoSIT)",
            Version.parse ("9.5"),
-           EPeppolCodeListItemState.ACTIVE,
+           ECodeListItemState.ACTIVE,
            null,
            null),
 
@@ -1087,7 +1087,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Oman Value Added Tax Identification Number (VATIN)",
           "Tax Authority, Oman",
           Version.parse ("9.6"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1108,7 +1108,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
          "Danish Ministry of the Interior and Health",
          "Danish Ministry of the Interior and Health",
          Version.parse ("1.0.0"),
-         EPeppolCodeListItemState.REMOVED,
+         ECodeListItemState.REMOVED,
          Version.parse ("8.6"),
          PDTFactory.createLocalDate (2023, Month.of (11), 30)),
 
@@ -1127,7 +1127,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
          "The Danish Commerce and Companies Agency",
          "The Danish Commerce and Companies Agency",
          Version.parse ("1.0.0"),
-         EPeppolCodeListItemState.REMOVED,
+         ECodeListItemState.REMOVED,
          Version.parse ("8.6"),
          PDTFactory.createLocalDate (2023, Month.of (11), 30)),
 
@@ -1146,7 +1146,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
         "Danish Ministry of Taxation, Central Customs and Tax Administration",
         "Danish Ministry of Taxation, Central Customs and Tax Administration",
         Version.parse ("1.0.0"),
-        EPeppolCodeListItemState.REMOVED,
+        ECodeListItemState.REMOVED,
         Version.parse ("8.6"),
         PDTFactory.createLocalDate (2023, Month.of (11), 30)),
 
@@ -1166,7 +1166,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Danish VANS providers",
           "Danish VANS providers",
           Version.parse ("1.0.0"),
-          EPeppolCodeListItemState.REMOVED,
+          ECodeListItemState.REMOVED,
           Version.parse ("8.6"),
           PDTFactory.createLocalDate (2023, Month.of (11), 30)),
 
@@ -1188,7 +1188,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
          "Ufficio responsabile gestione partite IVA",
          null,
          Version.parse ("1.0.0"),
-         EPeppolCodeListItemState.REMOVED,
+         ECodeListItemState.REMOVED,
          Version.parse ("8.1"),
          PDTFactory.createLocalDate (2023, Month.of (5), 24)),
 
@@ -1210,7 +1210,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
         "TAX Authority",
         "TAX Authority",
         Version.parse ("1.0.0"),
-        EPeppolCodeListItemState.REMOVED,
+        ECodeListItemState.REMOVED,
         Version.parse ("8.1"),
         PDTFactory.createLocalDate (2023, Month.of (5), 24)),
 
@@ -1232,7 +1232,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
            "Enhetsregisteret ved Bronnoysundregisterne",
            "The Br\u00f8nn\u00f8ysund Register Centre",
            Version.parse ("1.0.0"),
-           EPeppolCodeListItemState.REMOVED,
+           ECodeListItemState.REMOVED,
            Version.parse ("8.3"),
            PDTFactory.createLocalDate (2023, Month.of (5), 24)),
 
@@ -1251,7 +1251,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
          "Norwegian VAT number",
          "Enhetsregisteret ved Bronnoysundregisterne",
          Version.parse ("1.0.0"),
-         EPeppolCodeListItemState.DEPRECATED,
+         ECodeListItemState.DEPRECATED,
          Version.parse ("1.1.0"),
          null),
 
@@ -1266,7 +1266,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Hungary VAT number",
           null,
           Version.parse ("1.0.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1286,7 +1286,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
          "National ministries of Economy",
          null,
          Version.parse ("1.0.0"),
-         EPeppolCodeListItemState.DEPRECATED,
+         ECodeListItemState.DEPRECATED,
          Version.parse ("1.1.0"),
          null),
 
@@ -1302,7 +1302,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
            "Business Registers Network",
            "Business Registers Network",
            Version.parse ("1.0.0"),
-           EPeppolCodeListItemState.ACTIVE,
+           ECodeListItemState.ACTIVE,
            null,
            null),
 
@@ -1318,7 +1318,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "\u00d6sterreichische Umsatzsteuer-Identifikationsnummer",
           null,
           Version.parse ("1.0.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1335,7 +1335,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "\u00d6sterreichisches Verwaltungs bzw. Organisationskennzeichen",
           null,
           Version.parse ("1.0.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1352,7 +1352,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
          "Firmenidentifikationsnummer der Statistik Austria",
          null,
          Version.parse ("1.0.0"),
-         EPeppolCodeListItemState.DEPRECATED,
+         ECodeListItemState.DEPRECATED,
          Version.parse ("1.0.2"),
          null),
 
@@ -1376,7 +1376,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
         "Icelandic National Registry",
         null,
         Version.parse ("1.0.0"),
-        EPeppolCodeListItemState.DEPRECATED,
+        ECodeListItemState.DEPRECATED,
         Version.parse ("4"),
         null),
 
@@ -1394,7 +1394,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
         "SOCIETY FOR WORLDWIDE INTERBANK FINANCIAL, TELECOMMUNICATION S.W.I.F.T",
         "SOCIETY FOR WORLDWIDE INTERBANK FINANCIAL, TELECOMMUNICATION S.W.I.F.T",
         Version.parse ("1.0.1"),
-        EPeppolCodeListItemState.ACTIVE,
+        ECodeListItemState.ACTIVE,
         null,
         null),
 
@@ -1411,7 +1411,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Kennziffer des Unternehmensregisters",
           null,
           Version.parse ("1.0.2"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1426,7 +1426,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Agencia Espa\u00f1ola de Administraci\u00f3n Tributaria",
           "Agencia Espa\u00f1ola de Administraci\u00f3n Tributaria",
           Version.parse ("1.0.2"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1445,7 +1445,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
          "Indice delle Pubbliche Amministrazioni",
          "Indice delle Pubbliche Amministrazioni",
          Version.parse ("1.1.0"),
-         EPeppolCodeListItemState.REMOVED,
+         ECodeListItemState.REMOVED,
          Version.parse ("6"),
          PDTFactory.createLocalDate (2023, Month.of (11), 30)),
 
@@ -1460,7 +1460,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Andorra VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1475,7 +1475,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Albania VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1490,7 +1490,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Bosnia and Herzegovina VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1505,7 +1505,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Belgium VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1520,7 +1520,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Bulgaria VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1535,7 +1535,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Switzerland VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1550,7 +1550,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Cyprus VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1565,7 +1565,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Czech Republic VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1580,7 +1580,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Germany VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1595,7 +1595,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Estonia VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1610,7 +1610,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "United Kingdom VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1625,7 +1625,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Greece VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1640,7 +1640,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Croatia VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1655,7 +1655,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Ireland VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1670,7 +1670,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Liechtenstein VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1685,7 +1685,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Lithuania VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1700,7 +1700,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Luxemburg VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1715,7 +1715,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Latvia VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1730,7 +1730,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Monaco VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1745,7 +1745,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Montenegro VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1760,7 +1760,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Macedonia, the former Yugoslav Republic of VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1775,7 +1775,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Malta VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1790,7 +1790,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Netherlands VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1805,7 +1805,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Poland VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1820,7 +1820,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Portugal VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1835,7 +1835,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Romania VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1850,7 +1850,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Serbia VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1865,7 +1865,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Slovenia VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1880,7 +1880,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Slovakia VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1895,7 +1895,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "San Marino VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1910,7 +1910,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Turkey VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1925,7 +1925,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "Holy See (Vatican City State) VAT number",
           null,
           Version.parse ("1.1.0"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -1944,7 +1944,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
          "Dutch Originator's Identification Number",
          null,
          Version.parse ("1.1.3"),
-         EPeppolCodeListItemState.REMOVED,
+         ECodeListItemState.REMOVED,
          Version.parse ("2"),
          PDTFactory.createLocalDate (2026, Month.of (3), 31)),
 
@@ -1962,7 +1962,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
          "Swedish VAT number",
          null,
          Version.parse ("1.2.0"),
-         EPeppolCodeListItemState.REMOVED,
+         ECodeListItemState.REMOVED,
          Version.parse ("8.4"),
          PDTFactory.createLocalDate (2023, Month.of (7), 31)),
 
@@ -1982,7 +1982,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
          "Belgian Crossroad Bank of Enterprise number",
          "Belgian Crossroad Bank of Enterprises",
          Version.parse ("1.2.1"),
-         EPeppolCodeListItemState.REMOVED,
+         ECodeListItemState.REMOVED,
          Version.parse ("7.4"),
          PDTFactory.createLocalDate (2023, Month.of (12), 31)),
 
@@ -1997,7 +1997,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "French VAT number",
           null,
           Version.parse ("1.2.1"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null),
 
@@ -2016,7 +2016,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
          "Peppol-Leitweg-ID",
          null,
          Version.parse ("3"),
-         EPeppolCodeListItemState.REMOVED,
+         ECodeListItemState.REMOVED,
          Version.parse ("6"),
          PDTFactory.createLocalDate (2023, Month.of (7), 31)),
 
@@ -2031,7 +2031,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
           "US Employer ID Number",
           null,
           Version.parse ("8.3"),
-          EPeppolCodeListItemState.ACTIVE,
+          ECodeListItemState.ACTIVE,
           null,
           null);
 
@@ -2043,7 +2043,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
   private final String m_sSchemeName;
   private final String m_sIssuingAgency;
   private final Version m_aInitialRelease;
-  private final EPeppolCodeListItemState m_eState;
+  private final ECodeListItemState m_eState;
   private final Version m_aDeprecationRelease;
   private final LocalDate m_aRemovalDate;
 
@@ -2053,7 +2053,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
                                           @NonNull @Nonempty final String sSchemeName,
                                           @Nullable final String sIssuingAgency,
                                           @NonNull final Version aInitialRelease,
-                                          @NonNull final EPeppolCodeListItemState eState,
+                                          @NonNull final ECodeListItemState eState,
                                           @Nullable final Version aDeprecationRelease,
                                           @Nullable final LocalDate aRemovalDate)
   {
@@ -2109,7 +2109,7 @@ public enum EPredefinedParticipantIdentifierScheme implements IPeppolParticipant
   }
 
   @NonNull
-  public EPeppolCodeListItemState getState ()
+  public ECodeListItemState getState ()
   {
     return m_eState;
   }

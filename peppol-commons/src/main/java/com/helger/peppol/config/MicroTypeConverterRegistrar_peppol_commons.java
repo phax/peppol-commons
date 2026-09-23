@@ -21,8 +21,6 @@ import org.jspecify.annotations.NonNull;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.peppol.sml.SMLInfo;
 import com.helger.peppol.sml.SMLInfoMicroTypeConverter;
-import com.helger.peppol.smp.SMPTransportProfile;
-import com.helger.peppol.smp.SMPTransportProfileMicroTypeConverter;
 import com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI;
 import com.helger.xml.microdom.convert.IMicroTypeConverterRegistry;
 
@@ -37,7 +35,5 @@ public final class MicroTypeConverterRegistrar_peppol_commons implements IMicroT
   public void registerMicroTypeConverter (@NonNull final IMicroTypeConverterRegistry aRegistry)
   {
     aRegistry.registerMicroElementTypeConverter (SMLInfo.class, new SMLInfoMicroTypeConverter ());
-    aRegistry.registerMicroElementTypeConverter (SMPTransportProfile.class,
-                                                 new SMPTransportProfileMicroTypeConverter ());
   }
 }

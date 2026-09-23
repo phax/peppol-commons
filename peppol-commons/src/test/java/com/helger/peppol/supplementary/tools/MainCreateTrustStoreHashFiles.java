@@ -64,7 +64,6 @@ public final class MainCreateTrustStoreHashFiles
   {
     _create ("truststore/sml-truststore.jks");
     _create ("truststore/directory-truststore.jks");
-    _create ("truststore/mozilla-nss-root-certs.p12");
 
     if (false)
     {

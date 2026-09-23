@@ -32,6 +32,7 @@ import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier;
+import com.helger.smpclient.cache.AbstractSMPClientCache;
 import com.helger.xsds.peppol.smp1.ServiceGroupType;
 import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 
@@ -54,8 +55,8 @@ public final class SMPClientCacheTest
   public void testDefaults ()
   {
     final SMPClientCache aCache = new SMPClientCache ();
-    assertEquals (SMPClientCache.DEFAULT_CACHE_TTL, aCache.getCacheTTL ());
-    assertEquals (SMPClientCache.DEFAULT_MAX_SIZE, aCache.getMaxSize ());
+    assertEquals (AbstractSMPClientCache.DEFAULT_CACHE_TTL, aCache.getCacheTTL ());
+    assertEquals (AbstractSMPClientCache.DEFAULT_MAX_SIZE, aCache.getMaxSize ());
     assertEquals (0, aCache.getServiceGroupCacheSize ());
     assertEquals (0, aCache.getServiceMetadataCacheSize ());
     assertNotNull (aCache.toString ());
@@ -88,15 +89,15 @@ public final class SMPClientCacheTest
   public void testCacheKeys ()
   {
     // Participant IDs are case insensitive
-    assertEquals (SMPClientCache.createServiceGroupCacheKey (HOST1, PID1),
-                  SMPClientCache.createServiceGroupCacheKey (HOST1,
-                                                             PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:TEST1")));
+    assertEquals (AbstractSMPClientCache.createServiceGroupCacheKey (HOST1, PID1),
+                  AbstractSMPClientCache.createServiceGroupCacheKey (HOST1,
+                                                                     PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:TEST1")));
     // But the SMP host is part of the key
-    assertNotEquals (SMPClientCache.createServiceGroupCacheKey (HOST1, PID1),
-                     SMPClientCache.createServiceGroupCacheKey (HOST2, PID1));
+    assertNotEquals (AbstractSMPClientCache.createServiceGroupCacheKey (HOST1, PID1),
+                     AbstractSMPClientCache.createServiceGroupCacheKey (HOST2, PID1));
     // As is the document type ID
-    assertNotEquals (SMPClientCache.createServiceMetadataCacheKey (HOST1, PID1, DTID1),
-                     SMPClientCache.createServiceMetadataCacheKey (HOST1, PID1, DTID2));
+    assertNotEquals (AbstractSMPClientCache.createServiceMetadataCacheKey (HOST1, PID1, DTID1),
+                     AbstractSMPClientCache.createServiceMetadataCacheKey (HOST1, PID1, DTID2));
   }
 
   @Test

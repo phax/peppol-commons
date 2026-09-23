@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger.peppol</groupId>
     <artifactId>peppol-commons-parent-pom</artifactId>
-    <version>12.10.1-SNAPSHOT</version>
+    <version>13.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>dbnalliance-xhe</artifactId>
   <packaging>jar</packaging>
@@ -30,6 +30,7 @@
   <url>https://github.com/phax/peppol-commons/dbnalliance-xhe</url>
   <inceptionYear>2024</inceptionYear>
   <description>Library for reading and writing OASIS Exchange Header Envelope (XHE) Version 1.0 documents conforming to the DBNAlliance specifications</description>
+  
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -37,10 +38,12 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  
   <organization>
     <name>Philip Helger</name>
     <url>http://www.helger.com</url>
   </organization>
+  
   <developers>
     <developer>
       <id>robinsongarciax</id>
@@ -72,17 +75,13 @@
       <groupId>com.helger.peppol</groupId>
       <artifactId>peppol-id</artifactId>
     </dependency>
-    
+
     <dependency>
       <groupId>com.helger.peppol</groupId>
-      <artifactId>peppol-testfiles</artifactId>
+      <artifactId>bdxr-id</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <scope>test</scope>
-    </dependency>
+    
     <dependency>
       <groupId>com.sun.xml.bind</groupId>
       <artifactId>jaxb-impl</artifactId>

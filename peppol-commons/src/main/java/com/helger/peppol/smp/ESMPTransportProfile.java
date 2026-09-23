@@ -22,6 +22,9 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.Nonempty;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.type.ObjectType;
+import com.helger.edelivery.smp.ESMPTransportProfileState;
+import com.helger.edelivery.smp.ISMPTransportProfile;
+import com.helger.edelivery.smp.SMPTransportProfile;
 
 /**
  * This class contains predefined transport profiles for service registrations. A generic
@@ -69,26 +72,7 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
   TRANSPORT_PROFILE_PEPPOL_AS4("peppol-transport-as4-v1_0", "Peppol AS4 v1", ESMPTransportProfileState.DELETED),
 
   /** The Peppol AS4 profile v2 */
-  TRANSPORT_PROFILE_PEPPOL_AS4_V2 ("peppol-transport-as4-v2_0", "Peppol AS4 v2", ESMPTransportProfileState.ACTIVE),
-
-  /**
-   * DBNAlliance AS4 profile v1
-   *
-   * @since 9.3.2
-   * @since 12.1.1 the "v1" was changed to "V1"
-   */
-  TRANSPORT_PROFILE_DBNA_AS4_V1 ("bdxr-as4-1.0#dbnalliance-1.0",
-                                 "DBNAlliance AS4 1.0",
-                                 ESMPTransportProfileState.ACTIVE),
-
-  /**
-   * HR eDelivery AS4 profile v1
-   *
-   * @since 12.1.1
-   */
-  TRANSPORT_PROFILE_ERACUN_AS4_V1 ("eracun-transport-as4-v1_0",
-                                   "HR eDelivery AS4 1.0",
-                                   ESMPTransportProfileState.ACTIVE);
+  TRANSPORT_PROFILE_PEPPOL_AS4_V2 ("peppol-transport-as4-v2_0", "Peppol AS4 v2", ESMPTransportProfileState.ACTIVE);
 
   private final String m_sID;
   private final String m_sName;

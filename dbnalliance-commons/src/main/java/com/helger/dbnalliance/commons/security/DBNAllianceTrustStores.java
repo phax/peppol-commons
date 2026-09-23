@@ -17,17 +17,12 @@
 package com.helger.dbnalliance.commons.security;
 
 import java.security.KeyStore;
-import java.security.KeyStoreException;
 import java.security.cert.X509Certificate;
 
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.edelivery.security.NetworkTrustStoreHelper;
 import com.helger.security.certificate.TrustedCAChecker;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.ITrustStoreDescriptor;
@@ -44,25 +39,7 @@ public final class DBNAllianceTrustStores
   /** The password used to access the trust stores */
   public static final String TRUSTSTORE_PASSWORD = "dbnalliance";
 
-  private static final Logger LOGGER = LoggerFactory.getLogger (DBNAllianceTrustStores.class);
 
-  @Nullable
-  private static X509Certificate _resolveCert (@NonNull final KeyStore aKeyStore,
-                                               @NonNull @Nonempty final String sAlias)
-  {
-    try
-    {
-      final X509Certificate ret = (X509Certificate) aKeyStore.getCertificate (sAlias);
-      if (ret == null)
-        LOGGER.warn ("Failed to resolve alias '" + sAlias + "' in trust store");
-      return ret;
-    }
-    catch (final KeyStoreException ex)
-    {
-      LOGGER.warn ("Failed to resolve alias '" + sAlias + "' in trust store.", ex);
-      return null;
-    }
-  }
 
   /**
    * The truststore configuration for DBNAlliance valid from 2023 to 2033.
@@ -87,13 +64,8 @@ public final class DBNAllianceTrustStores
     /**
      * The full Pilot truststore. Never modify.
      */
-    public static final KeyStore TRUSTSTORE_PILOT = TRUSTSTORE_DESCRIPTOR_PILOT.loadTrustStore ().getKeyStore ();
-
-    static
-    {
-      if (TRUSTSTORE_PILOT == null)
-        throw new IllegalStateException ("Failed to load pre-configured production Pilot trust store");
-    }
+    public static final KeyStore TRUSTSTORE_PILOT = NetworkTrustStoreHelper.loadTrustStore (TRUSTSTORE_DESCRIPTOR_PILOT,
+                                                                                            "production Pilot");
 
     // Pilo CA certificates
 
@@ -101,15 +73,15 @@ public final class DBNAllianceTrustStores
     public static final String TRUSTSTORE_PILOT_ALIAS_ROOT = "dbnalliance demo root ca";
 
     /** The DBNAlliance Pilot certificate */
-    public static final X509Certificate CERTIFICATE_PILOT_ROOT = _resolveCert (TRUSTSTORE_PILOT,
-                                                                               TRUSTSTORE_PILOT_ALIAS_ROOT);
+    public static final X509Certificate CERTIFICATE_PILOT_ROOT = NetworkTrustStoreHelper.resolveCertificate (TRUSTSTORE_PILOT,
+                                                                                                             TRUSTSTORE_PILOT_ALIAS_ROOT);
 
     /** The truststore alias for the DBNAlliance Pilot Intermediate certificate */
     public static final String TRUSTSTORE_PILOT_ALIAS_INTERMEDIATE = "dbnalliance demo intermediate test (dbnalliance demo root ca)";
 
     /** The DBNAlliance Pilot Intermediate certificate */
-    public static final X509Certificate CERTIFICATE_PILOT_INTERMEDIATE = _resolveCert (TRUSTSTORE_PILOT,
-                                                                                       TRUSTSTORE_PILOT_ALIAS_INTERMEDIATE);
+    public static final X509Certificate CERTIFICATE_PILOT_INTERMEDIATE = NetworkTrustStoreHelper.resolveCertificate (TRUSTSTORE_PILOT,
+                                                                                                                     TRUSTSTORE_PILOT_ALIAS_INTERMEDIATE);
 
     /** The Pilot CA checker */
     public static final TrustedCAChecker PILOT_CA = TrustedCAChecker.builder ()

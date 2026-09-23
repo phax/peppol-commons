@@ -19,7 +19,7 @@ package com.helger.peppolid.peppol.process;
 import org.jspecify.annotations.NonNull;
 
 import com.helger.peppolid.IProcessIdentifier;
-import com.helger.peppolid.peppol.EPeppolCodeListItemState;
+import com.helger.peppolid.codelist.ICodeListItem;
 import com.helger.peppolid.peppol.IPeppolIdentifier;
 
 /**
@@ -27,7 +27,7 @@ import com.helger.peppolid.peppol.IPeppolIdentifier;
  *
  * @author Philip Helger
  */
-public interface IPeppolPredefinedProcessIdentifier extends IProcessIdentifier, IPeppolIdentifier
+public interface IPeppolPredefinedProcessIdentifier extends IProcessIdentifier, IPeppolIdentifier, ICodeListItem
 {
   default boolean hasDefaultScheme ()
   {
@@ -40,20 +40,4 @@ public interface IPeppolPredefinedProcessIdentifier extends IProcessIdentifier, 
   @NonNull
   PeppolProcessIdentifier getAsProcessIdentifier ();
 
-  /**
-   * @return <code>true</code> if this identifier is deprecated and should no longer be used,
-   *         <code>false</code> if not.
-   * @since 7.0.0
-   */
-  default boolean isDeprecated ()
-  {
-    return getState ().isDeprecated ();
-  }
-
-  /**
-   * @return The state of the item. Never <code>null</code>.
-   * @since 8.7.1
-   */
-  @NonNull
-  EPeppolCodeListItemState getState ();
 }

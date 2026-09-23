@@ -16,19 +16,16 @@
  */
 package com.helger.peppolid.peppol.doctype;
 
-import java.time.LocalDate;
-
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.version.Version;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
-import com.helger.peppolid.peppol.EPeppolCodeListItemState;
+import com.helger.peppolid.codelist.ICodeListItemWithRelease;
 import com.helger.peppolid.peppol.IPeppolIdentifier;
 
 /**
@@ -39,7 +36,8 @@ import com.helger.peppolid.peppol.IPeppolIdentifier;
 public interface IPeppolPredefinedDocumentTypeIdentifier extends
                                                          IDocumentTypeIdentifier,
                                                          IPeppolIdentifier,
-                                                         IPeppolGenericDocumentTypeIdentifierParts
+                                                         IPeppolGenericDocumentTypeIdentifierParts,
+                                                         ICodeListItemWithRelease
 {
   default boolean hasDefaultScheme ()
   {
@@ -58,60 +56,6 @@ public interface IPeppolPredefinedDocumentTypeIdentifier extends
    */
   @NonNull
   PeppolDocumentTypeIdentifier getAsDocumentTypeIdentifier ();
-
-  /**
-   * @return The internal code list version in which the identifier was added. Never
-   *         <code>null</code>.
-   * @since 8.7.1
-   */
-  @NonNull
-  Version getInitialRelease ();
-
-  /**
-   * @return <code>true</code> if this identifier is deprecated, <code>false</code> if not.
-   * @since 7.0.0
-   */
-  default boolean isDeprecated ()
-  {
-    return getState ().isDeprecated ();
-  }
-
-  /**
-   * @return The state of the item. Never <code>null</code>.
-   * @since 8.7.1
-   */
-  @NonNull
-  EPeppolCodeListItemState getState ();
-
-  /**
-   * Get the version since when this item is deprecated.
-   *
-   * @return <code>null</code> if this item is not deprecated.
-   * @see #getState()
-   * @see #isDeprecated()
-   * @since 8.7.1
-   */
-  @Nullable
-  Version getDeprecationRelease ();
-
-  /**
-   * @return <code>true</code> if this item has a removal date, <code>false</code> if not.
-   * @since 8.7.1
-   */
-  default boolean hasRemovalDate ()
-  {
-    return getRemovalDate () != null;
-  }
-
-  /**
-   * Get the date, when this particular entry will be removed. This may be set, even if the state is
-   * not "removed". This date may be in the future.
-   *
-   * @return <code>null</code> if no removal date is scheduled yet.
-   * @since 8.7.1
-   */
-  @Nullable
-  LocalDate getRemovalDate ();
 
   /**
    * @return <code>true</code> if this item was officially issued by OpenPEPPOL, <code>false</code>

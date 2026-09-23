@@ -19,29 +19,75 @@ package com.helger.dbnalliance.commons;
 import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.Nonempty;
+import com.helger.base.type.ObjectType;
+import com.helger.edelivery.sml.ISMLBase;
 
 /**
  * The list of supported DBNAlliance SML zones
  *
  * @author Philip Helger
  */
-public enum EDBNAllianceSML
+public enum EDBNAllianceSML implements ISMLBase
 {
-  PILOT ("sml.dbnalliancepilot.net."),
-  TEST ("sml.dbnalliance.com."),
-  PRODUCTION ("sml.dbnalliance.net.");
+  PILOT ("pilot", "DBNAlliance Pilot SML", "sml.dbnalliancepilot.net."),
+  TEST ("test", "DBNAlliance Test SML", "sml.dbnalliance.com."),
+  PRODUCTION ("prod", "DBNAlliance Production SML", "sml.dbnalliance.net.");
 
+  public static final ObjectType OT = new ObjectType ("dbnalliance.sml");
+
+  private final String m_sID;
+  private final String m_sDisplayName;
   private final String m_sZoneName;
 
-  EDBNAllianceSML (@NonNull @Nonempty final String sZoneName)
+  EDBNAllianceSML (@NonNull @Nonempty final String sID,
+                   @NonNull @Nonempty final String sDisplayName,
+                   @NonNull @Nonempty final String sZoneName)
   {
+    m_sID = sID;
+    m_sDisplayName = sDisplayName;
     m_sZoneName = sZoneName;
   }
 
+  @NonNull
+  public ObjectType getObjectType ()
+  {
+    return OT;
+  }
+
+  @NonNull
+  @Nonempty
+  public String getID ()
+  {
+    return m_sID;
+  }
+
+  @NonNull
+  @Nonempty
+  public String getDisplayName ()
+  {
+    return m_sDisplayName;
+  }
+
+  @NonNull
+  @Nonempty
+  public String getDNSZone ()
+  {
+    return m_sZoneName;
+  }
+
+  /**
+   * @return The DNS zone name. Same as {@link #getDNSZone()}.
+   */
   @NonNull
   @Nonempty
   public String getZoneName ()
   {
     return m_sZoneName;
+  }
+
+  public boolean isClientCertificateRequired ()
+  {
+    // The DBNAlliance SML is read only - no client certificate needed
+    return false;
   }
 }

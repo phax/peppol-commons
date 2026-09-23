@@ -18,30 +18,29 @@ package com.helger.peppol.sbdh;
 
 import org.jspecify.annotations.NonNull;
 
+import com.helger.edelivery.sbdh.SBDHDataReadException;
+
 /**
  * Exception that can occur during the reading of SBDH documents.
  *
  * @author Philip Helger
  */
-public class PeppolSBDHDataReadException extends Exception
+public class PeppolSBDHDataReadException extends SBDHDataReadException
 {
-  private final EPeppolSBDHDataError m_eErrorCode;
-
   PeppolSBDHDataReadException (@NonNull final String sErrorMsg, @NonNull final EPeppolSBDHDataError eErrorCode)
   {
-    super (sErrorMsg);
-    m_eErrorCode = eErrorCode;
+    super (sErrorMsg, eErrorCode);
   }
 
   public PeppolSBDHDataReadException (@NonNull final EPeppolSBDHDataError eErrorCode)
   {
-    super (eErrorCode.getErrorMessage ());
-    m_eErrorCode = eErrorCode;
+    super (eErrorCode);
   }
 
+  @Override
   @NonNull
   public final EPeppolSBDHDataError getErrorCode ()
   {
-    return m_eErrorCode;
+    return (EPeppolSBDHDataError) super.getErrorCode ();
   }
 }

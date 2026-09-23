@@ -24,7 +24,7 @@ import org.junit.Test;
 
 import com.helger.dbnalliance.commons.EDBNAllianceSML;
 import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
-import com.helger.smpclient.url.DBNAURLProviderSMP;
+import com.helger.smpclient.url.dns.DBNAURLProviderSMP;
 import com.helger.smpclient.url.SMPDNSResolutionException;
 
 /**

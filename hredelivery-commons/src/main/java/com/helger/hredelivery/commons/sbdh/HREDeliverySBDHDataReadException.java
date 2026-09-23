@@ -18,31 +18,29 @@ package com.helger.hredelivery.commons.sbdh;
 
 import org.jspecify.annotations.NonNull;
 
+import com.helger.edelivery.sbdh.SBDHDataReadException;
+
 /**
- * Exception that can occur during the reading of HR eDelivery SBDH documents.
+ * Exception that can occur during the reading of SBDH documents.
  *
  * @author Philip Helger
  */
-public class HREDeliverySBDHDataReadException extends Exception
+public class HREDeliverySBDHDataReadException extends SBDHDataReadException
 {
-  private final EHREDeliverySBDHDataError m_eErrorCode;
-
-  HREDeliverySBDHDataReadException (@NonNull final String sErrorMsg,
-                                    @NonNull final EHREDeliverySBDHDataError eErrorCode)
+  HREDeliverySBDHDataReadException (@NonNull final String sErrorMsg, @NonNull final EHREDeliverySBDHDataError eErrorCode)
   {
-    super (sErrorMsg);
-    m_eErrorCode = eErrorCode;
+    super (sErrorMsg, eErrorCode);
   }
 
   public HREDeliverySBDHDataReadException (@NonNull final EHREDeliverySBDHDataError eErrorCode)
   {
-    super (eErrorCode.getErrorMessage ());
-    m_eErrorCode = eErrorCode;
+    super (eErrorCode);
   }
 
+  @Override
   @NonNull
   public final EHREDeliverySBDHDataError getErrorCode ()
   {
-    return m_eErrorCode;
+    return (EHREDeliverySBDHDataError) super.getErrorCode ();
   }
 }

@@ -20,15 +20,15 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
-import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
+import com.helger.edelivery.stage.INetworkStage;
 
 /**
  * The list of supported DBNAlliance stages
  *
  * @author Philip Helger
  */
-public enum EDBNAllianceStage implements IHasID <String>
+public enum EDBNAllianceStage implements INetworkStage
 {
   PILOT ("pilot", EDBNAllianceSML.PILOT),
   TEST ("test", EDBNAllianceSML.TEST),
@@ -48,6 +48,11 @@ public enum EDBNAllianceStage implements IHasID <String>
   public String getID ()
   {
     return m_sID;
+  }
+
+  public boolean isProduction ()
+  {
+    return this == PRODUCTION;
   }
 
   @NonNull

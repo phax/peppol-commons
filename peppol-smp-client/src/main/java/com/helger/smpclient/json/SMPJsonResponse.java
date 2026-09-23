@@ -43,10 +43,11 @@ import com.helger.json.IJsonObject;
 import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
 import com.helger.json.JsonValue;
-import com.helger.peppol.sml.ESMPAPIType;
+import com.helger.edelivery.smp.ESMPAPIType;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.peppolid.bdxr.smp1.BDXR1IdentifierHelper;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.security.certificate.CertificateDecodeHelper;
 import com.helger.security.certificate.CertificateHelper;
@@ -356,7 +357,7 @@ public final class SMPJsonResponse
             if (aProcess.getProcessIdentifier () != null)
             {
               final IJsonObject aJsonProc = new JsonObject ().add (JSON_PROCESS_ID,
-                                                                   CIdentifier.getURIEncoded (aProcess.getProcessIdentifier ()));
+                                                                   BDXR1IdentifierHelper.getURIEncoded (aProcess.getProcessIdentifier ()));
               final IJsonArray aJsonEPs = new JsonArray ();
               // For all endpoints
               if (aProcess.getServiceEndpointList () != null)

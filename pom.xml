@@ -26,7 +26,7 @@
   </parent>
   <groupId>com.helger.peppol</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>12.10.1-SNAPSHOT</version>
+  <version>13.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>peppol-commons-parent-pom</name>
   <description>Base POM to build the peppol-commons projects</description>
@@ -126,11 +126,16 @@
       <dependency>
         <groupId>com.helger.web</groupId>
         <artifactId>ph-web-parent-pom</artifactId>
-        <version>11.4.5</version>
+        <version>11.4.6</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
 
+      <dependency>
+        <groupId>com.helger.peppol</groupId>
+        <artifactId>edelivery-commons</artifactId>
+        <version>${project.version}</version>
+      </dependency>
       <dependency>
         <groupId>com.helger.peppol</groupId>
         <artifactId>peppol-id-datatypes</artifactId>
@@ -138,7 +143,17 @@
       </dependency>
       <dependency>
         <groupId>com.helger.peppol</groupId>
+        <artifactId>edelivery-id</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.peppol</groupId>
         <artifactId>peppol-id</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.peppol</groupId>
+        <artifactId>bdxr-id</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -158,12 +173,22 @@
       </dependency>
       <dependency>
         <groupId>com.helger.peppol</groupId>
+        <artifactId>edelivery-sbdh</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.peppol</groupId>
         <artifactId>peppol-sbdh</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>com.helger.peppol</groupId>
         <artifactId>peppol-smp-datatypes</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.peppol</groupId>
+        <artifactId>smp-client-base</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -233,13 +258,18 @@
   </dependencies>
   
   <modules>
+    <module>edelivery-commons</module>
     <module>peppol-id-datatypes</module>
+    <module>edelivery-id</module>
     <module>peppol-id</module>
+    <module>bdxr-id</module>
     <module>peppol-id-checks</module>
     <module>peppol-commons</module>
     <module>peppol-testfiles</module>
+    <module>edelivery-sbdh</module>
     <module>peppol-sbdh</module>
     <module>peppol-smp-datatypes</module>
+    <module>smp-client-base</module>
     <module>peppol-smp-client</module>
     <module>peppol-sml-client</module>
     <module>peppol-directory-businesscard</module>
@@ -249,9 +279,4 @@
     <module>dbnalliance-xhe</module>
     <module>hredelivery-commons</module>
   </modules>
-
-  <build>
-    <plugins>
-    </plugins>
-  </build>
 </project>

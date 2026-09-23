@@ -47,7 +47,7 @@ import com.helger.peppol.smlclient.smp.NotFoundFault;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier;
-import com.helger.smpclient.url.PeppolNaptrURLProvider;
+import com.helger.smpclient.url.dns.PeppolNaptrURLProvider;
 
 /**
  * This class is for BRZ internal use only!
@@ -55,7 +55,6 @@ import com.helger.smpclient.url.PeppolNaptrURLProvider;
  * @author Philip Helger
  */
 @Ignore ("Requires an SML with active DNS connection to be available")
-@SuppressWarnings ("removal")
 public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (DNSRegistrationFuncTest.class);
@@ -67,15 +66,12 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
 
   private static final String SMP_1_LOGICAL_ADDRESS = "http://mySMP.com";
   private static final String SMP_1_PHYSICAL_ADDRESS = "127.0.0.1";
-  private static final String SMP_1_LOGICAL_ADDRESS_VALIDATION = "mySMP.com.";
 
   private static final String SMP_2_LOGICAL_ADDRESS = "http://mySMP2.com";
   private static final String SMP_2_PHYSICAL_ADDRESS = "127.0.0.1";
-  private static final String SMP_2_LOGICAL_ADDRESS_VALIDATION = "mySMP2.com.";
 
   private static final String PI_VALUE = "0088:1111199991111";
   private static final String PI_SCHEME = "dns-actorid-test";
-  private static final String PI_WILDCARD_SCHEME = "wildcard-actorid-allowed";
 
   private static final String INTERNAL_DNS_SERVER = "blixdns0";
 
@@ -115,12 +111,6 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
   {
     final String sHost = PeppolNaptrURLProvider.INSTANCE.getDNSNameOfParticipant (aPI, SML_INFO);
     return _dnsLookup (sHost);
-  }
-
-  @Nullable
-  private static String _dnsLookupPublisher (@NonNull final String sSMPID) throws Exception
-  {
-    return _dnsLookup (sSMPID + "." + SML_INFO.getPublisherDNSZone ());
   }
 
   @Before
@@ -171,8 +161,6 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
     // @Before creates new SMP!
 
     // verify created
-    final String publisher = _dnsLookupPublisher (SMP_ID);
-    assertEquals (SMP_1_LOGICAL_ADDRESS_VALIDATION, publisher);
 
     // Update SML address
     final ManageServiceMetadataServiceCaller manageServiceMetaData = new ManageServiceMetadataServiceCaller (SML_INFO);
@@ -180,15 +168,11 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
     manageServiceMetaData.update (SMP_ID, SMP_2_PHYSICAL_ADDRESS, SMP_2_LOGICAL_ADDRESS);
 
     // verify update
-    final String updatedPublisher = _dnsLookupPublisher (SMP_ID);
-    assertEquals (SMP_2_LOGICAL_ADDRESS_VALIDATION, updatedPublisher);
 
     // Delete SML
     manageServiceMetaData.delete (SMP_ID);
 
     // verify delete
-    final String deletedPublisher = _dnsLookupPublisher (SMP_ID);
-    assertNull (deletedPublisher);
   }
 
   // PI
@@ -207,43 +191,11 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
 
     // verify PI in DNS
     final String host = _dnsLookupPI (aPI);
-    assertEquals (SMP_ID + "." + SML_INFO.getPublisherDNSZone (), host);
+    assertEquals ("XXX", host);
 
     // delete PI
     client.delete (SMP_ID, aPI);
 
-    final String deletedHost = _dnsLookupPI (aPI);
-    assertNull (deletedHost);
-  }
-
-  // WildCard PI
-
-  @Test
-  public void testVerifyWildcardInDNS () throws Exception
-  {
-    // @Before creates new SMP!
-
-    final ManageParticipantIdentifierServiceCaller client = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-
-    final PeppolParticipantIdentifier aPI = new PeppolParticipantIdentifier (PeppolIdentifierFactory.INSTANCE,
-                                                                             PI_WILDCARD_SCHEME,
-                                                                             "*");
-    client.create (SMP_ID, aPI);
-
-    // verify that PI can be found in Wildcard domain.
-    final String piHost = _dnsLookupPI (new PeppolParticipantIdentifier (PeppolIdentifierFactory.INSTANCE,
-                                                                         PI_WILDCARD_SCHEME,
-                                                                         PI_VALUE));
-    assertEquals (SMP_ID + "." + SML_INFO.getPublisherDNSZone (), piHost);
-
-    // verify that Wildcard can be found
-    final String wildHost = _dnsLookupPI (aPI);
-    assertEquals (SMP_ID + "." + SML_INFO.getPublisherDNSZone (), wildHost);
-
-    // delete wildcard
-    client.delete (SMP_ID, aPI);
-
-    // verify deleted
     final String deletedHost = _dnsLookupPI (aPI);
     assertNull (deletedHost);
   }

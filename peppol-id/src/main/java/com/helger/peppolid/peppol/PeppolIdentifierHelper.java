@@ -16,8 +16,6 @@
  */
 package com.helger.peppolid.peppol;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.RegEx;
@@ -39,17 +37,11 @@ public final class PeppolIdentifierHelper
    */
   public static final int MAX_IDENTIFIER_SCHEME_LENGTH = 25;
 
-  @Deprecated (forRemoval = true, since = "12.3.7")
-  public static final boolean DEFAULT_CHARSET_CHECKS_DISABLED = false;
-
   /**
    * The regular expression to be used for validating participant identifier schemes (not values!).
    * See BusDox specification 1.0.1, chapter 2.3
    */
   public static final String PARTICIPANT_IDENTIFIER_SCHEME_REGEX = "[a-z0-9]+-[a-z0-9]+-[a-z0-9]+";
-
-  @Deprecated (forRemoval = true, since = "12.3.7")
-  private static final AtomicBoolean CHARSET_CHECKS_DISABLED = new AtomicBoolean (DEFAULT_CHARSET_CHECKS_DISABLED);
 
   /**
    * The default document identifier scheme.<br>
@@ -84,6 +76,14 @@ public final class PeppolIdentifierHelper
    * The default identifier scheme ID to be used for participants/businesses.
    */
   public static final String DEFAULT_PARTICIPANT_SCHEME = PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS;
+
+  /**
+   * The default process identifier to indicate that no default process belongs to it. Must be
+   * treated case insensitive.
+   *
+   * @since 13.0.0 in this class - it was in <code>CIdentifier</code> before
+   */
+  public static final String DEFAULT_PROCESS_IDENTIFIER_NOPROCESS = "busdox:noprocess";
 
   /**
    * Participant identifier value maximum length (excluding the scheme).<br>
@@ -146,32 +146,6 @@ public final class PeppolIdentifierHelper
 
   @PresentForCodeCoverage
   private static final PeppolIdentifierHelper INSTANCE = new PeppolIdentifierHelper ();
-
-  /**
-   * @return <code>true</code> if the charset checks for identifier values are disabled,
-   *         <code>false</code> if they are enabled
-   */
-  @Deprecated (forRemoval = true, since = "12.3.7")
-  public static boolean areCharsetChecksDisabled ()
-  {
-    return CHARSET_CHECKS_DISABLED.get ();
-  }
-
-  /**
-   * Enable or disable the charset checks. You may disable charset checks, if you previously checked
-   * them for consistency. Charset checks are by default enabled and check if a participant,
-   * document type and process identifier value can be encoded in US-ASCII (participant) or
-   * ISO-8859-1 (document type and process).
-   *
-   * @param bDisable
-   *        if <code>true</code> all charset checks are disabled. If <code>false</code> charset
-   *        checks are enabled
-   */
-  @Deprecated (forRemoval = true, since = "12.3.7")
-  public static void disableCharsetChecks (final boolean bDisable)
-  {
-    CHARSET_CHECKS_DISABLED.set (bDisable);
-  }
 
   private static boolean _isForbiddenSchemeIDChar (final char c)
   {

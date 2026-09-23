@@ -38,15 +38,14 @@ import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.string.StringHelper;
 import com.helger.datetime.xml.XMLOffsetDateTime;
 import com.helger.diagnostics.error.IError;
-import com.helger.diagnostics.error.SingleError;
 import com.helger.diagnostics.error.level.IHasErrorLevel;
 import com.helger.diagnostics.error.list.ErrorList;
 import com.helger.io.resource.IReadableResource;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.edelivery.sbdh.AbstractSBDHDataReader;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
-import com.helger.sbdh.SBDMarshaller;
 
 /**
  * Main class to read standard business documents and extract the HR eDelivery required data out of
@@ -55,68 +54,14 @@ import com.helger.sbdh.SBDMarshaller;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class HREDeliverySBDHDataReader
+public class HREDeliverySBDHDataReader extends AbstractSBDHDataReader <HREDeliverySBDHData, HREDeliverySBDHDataReader>
 {
-  public static final boolean DEFAULT_PERFORM_VALUE_CHECKS = true;
 
   private static final Logger LOGGER = LoggerFactory.getLogger (HREDeliverySBDHDataReader.class);
 
-  private final IIdentifierFactory m_aIdentifierFactory;
-  private boolean m_bPerformValueChecks = DEFAULT_PERFORM_VALUE_CHECKS;
-
   public HREDeliverySBDHDataReader (@NonNull final IIdentifierFactory aIdentifierFactory)
   {
-    ValueEnforcer.notNull (aIdentifierFactory, "IdentifierFactory");
-
-    m_aIdentifierFactory = aIdentifierFactory;
-  }
-
-  /**
-   * @return The identifier provided in the constructor. Never <code>null</code>.
-   */
-  @NonNull
-  public final IIdentifierFactory getIdentifierFactory ()
-  {
-    return m_aIdentifierFactory;
-  }
-
-  /**
-   * @return <code>true</code> if value checks on data extraction are enabled, <code>false</code> if
-   *         not. By default checks are enabled - see {@link #DEFAULT_PERFORM_VALUE_CHECKS}.
-   */
-  public final boolean isPerformValueChecks ()
-  {
-    return m_bPerformValueChecks;
-  }
-
-  /**
-   * Enable or disable the performing of value checks on data extraction.
-   *
-   * @param b
-   *        <code>true</code> to enable checks, <code>false</code> to disable them.
-   * @return this for chaining
-   */
-  @NonNull
-  public final HREDeliverySBDHDataReader setPerformValueChecks (final boolean b)
-  {
-    m_bPerformValueChecks = b;
-    return this;
-  }
-
-  /**
-   * Check if the passed header version is valid or not. By default is must match
-   * {@link CHREDeliverySBDH#HEADER_VERSION}. Override this method to allow for other schemes as
-   * well.
-   *
-   * @param sHeaderVersion
-   *        The value to be checked. This is the content of the XML element
-   *        <code>HeaderVersion</code>. May be <code>null</code>.
-   * @return <code>true</code> if the value is valid, <code>false</code> otherwise.
-   */
-  @OverrideOnDemand
-  protected boolean isValidHeaderVersion (@Nullable final String sHeaderVersion)
-  {
-    return CHREDeliverySBDH.HEADER_VERSION.equals (sHeaderVersion);
+    super (aIdentifierFactory);
   }
 
   /**
@@ -312,22 +257,6 @@ public class HREDeliverySBDHDataReader
   }
 
   /**
-   * Create a new SBD marshaller used for reading SBD documents. Override this method to customize
-   * reading.
-   *
-   * @return An instance of the {@link SBDMarshaller} and never <code>null</code>.
-   */
-  @NonNull
-  @OverrideOnDemand
-  protected SBDMarshaller createSBDMarshaller ()
-  {
-    final SBDMarshaller ret = new SBDMarshaller ();
-    // Simply swallow all error messages where possible
-    ret.setValidationEventHandler (null);
-    return ret;
-  }
-
-  /**
    * Extract the document data from the Standard Business Document represents by the passed
    * parameter.
    *
@@ -347,7 +276,7 @@ public class HREDeliverySBDHDataReader
     try
     {
       // Convert to domain object
-      final StandardBusinessDocument aSBD = createSBDMarshaller ().read (aStandardBusinessDocument);
+      final StandardBusinessDocument aSBD = parseSBD (aStandardBusinessDocument);
       if (aSBD == null)
         throw new HREDeliverySBDHDataReadException (EHREDeliverySBDHDataError.INVALID_SBD_XML);
 
@@ -376,7 +305,7 @@ public class HREDeliverySBDHDataReader
     ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
 
     // Convert to domain object
-    final StandardBusinessDocument aSBD = createSBDMarshaller ().read (aStandardBusinessDocument);
+    final StandardBusinessDocument aSBD = parseSBD (aStandardBusinessDocument);
     if (aSBD == null)
       throw new HREDeliverySBDHDataReadException (EHREDeliverySBDHDataError.INVALID_SBD_XML);
 
@@ -400,7 +329,7 @@ public class HREDeliverySBDHDataReader
     ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
 
     // Convert to domain object
-    final StandardBusinessDocument aSBD = createSBDMarshaller ().read (aStandardBusinessDocument);
+    final StandardBusinessDocument aSBD = parseSBD (aStandardBusinessDocument);
     if (aSBD == null)
       throw new HREDeliverySBDHDataReadException (EHREDeliverySBDHDataError.INVALID_SBD_XML);
 
@@ -432,18 +361,6 @@ public class HREDeliverySBDHDataReader
     return extractData (aSBDH, aBusinessMessage);
   }
 
-  @NonNull
-  private static IError _toError (@Nullable final String sErrorField,
-                                  @NonNull final EHREDeliverySBDHDataError e,
-                                  @Nullable final Object... aArgs)
-  {
-    return SingleError.builderError ()
-                      .errorFieldName (sErrorField)
-                      .errorID (e.getID ())
-                      .errorText (aArgs == null ? e.getErrorMessage () : e.getErrorMessage (aArgs))
-                      .build ();
-  }
-
   /**
    * Validate the provided SBDH and the Business Message according to the HR eDelivery rules and
    * store the results in an Error List.
@@ -466,7 +383,7 @@ public class HREDeliverySBDHDataReader
 
     // Check that the header version is correct
     if (!isValidHeaderVersion (aSBDH.getHeaderVersion ()))
-      aErrorList.add (_toError ("SBDH/HeaderVersion",
+      aErrorList.add (toError ("SBDH/HeaderVersion",
                                 EHREDeliverySBDHDataError.INVALID_HEADER_VERSION,
                                 aSBDH.getHeaderVersion ()));
 
@@ -474,7 +391,7 @@ public class HREDeliverySBDHDataReader
     {
       final int nSenderCount = aSBDH.getSenderCount ();
       if (nSenderCount != 1)
-        aErrorList.add (_toError ("SBDH",
+        aErrorList.add (toError ("SBDH",
                                   EHREDeliverySBDHDataError.INVALID_SENDER_COUNT,
                                   Integer.toString (nSenderCount)));
 
@@ -487,7 +404,7 @@ public class HREDeliverySBDHDataReader
           final String sScheme = aSenderIdentification.getAuthority ();
           if (!isValidSenderAuthority (sScheme))
           {
-            aErrorList.add (_toError ("SBDH/Sender[1]/Identifier/Authority",
+            aErrorList.add (toError ("SBDH/Sender[1]/Identifier/Authority",
                                       EHREDeliverySBDHDataError.INVALID_SENDER_AUTHORITY,
                                       sScheme));
           }
@@ -496,15 +413,15 @@ public class HREDeliverySBDHDataReader
           final String sValue = aSenderIdentification.getValue ();
           if (!isValidSenderIdentifier (sScheme, sValue))
           {
-            aErrorList.add (_toError ("SBDH/Sender[1]/Identifier/Value",
+            aErrorList.add (toError ("SBDH/Sender[1]/Identifier/Value",
                                       EHREDeliverySBDHDataError.INVALID_SENDER_VALUE,
                                       sValue));
           }
           else
           {
-            final IParticipantIdentifier aPID = m_aIdentifierFactory.createParticipantIdentifier (sScheme, sValue);
+            final IParticipantIdentifier aPID = getIdentifierFactory ().createParticipantIdentifier (sScheme, sValue);
             if (aPID == null)
-              aErrorList.add (_toError ("SBDH/Sender[1]/Identifier",
+              aErrorList.add (toError ("SBDH/Sender[1]/Identifier",
                                         EHREDeliverySBDHDataError.INVALID_SENDER_VALUE,
                                         CIdentifier.getURIEncoded (sScheme, sValue)));
           }
@@ -516,7 +433,7 @@ public class HREDeliverySBDHDataReader
     {
       final int nReceiverCount = aSBDH.getReceiverCount ();
       if (nReceiverCount != 1)
-        aErrorList.add (_toError ("SBDH",
+        aErrorList.add (toError ("SBDH",
                                   EHREDeliverySBDHDataError.INVALID_RECEIVER_COUNT,
                                   Integer.toString (nReceiverCount)));
 
@@ -529,7 +446,7 @@ public class HREDeliverySBDHDataReader
           final String sScheme = aReceiverIdentification.getAuthority ();
           if (!isValidReceiverAuthority (sScheme))
           {
-            aErrorList.add (_toError ("SBDH/Receiver[1]/Identifier/Authority",
+            aErrorList.add (toError ("SBDH/Receiver[1]/Identifier/Authority",
                                       EHREDeliverySBDHDataError.INVALID_RECEIVER_AUTHORITY,
                                       sScheme));
           }
@@ -538,15 +455,15 @@ public class HREDeliverySBDHDataReader
           final String sValue = aReceiverIdentification.getValue ();
           if (!isValidReceiverIdentifier (sScheme, sValue))
           {
-            aErrorList.add (_toError ("SBDH/Receiver[1]/Identifier/Value",
+            aErrorList.add (toError ("SBDH/Receiver[1]/Identifier/Value",
                                       EHREDeliverySBDHDataError.INVALID_RECEIVER_VALUE,
                                       sValue));
           }
           else
           {
-            final IParticipantIdentifier aPID = m_aIdentifierFactory.createParticipantIdentifier (sScheme, sValue);
+            final IParticipantIdentifier aPID = getIdentifierFactory ().createParticipantIdentifier (sScheme, sValue);
             if (aPID == null)
-              aErrorList.add (_toError ("SBDH/Receiver[1]/Identifier",
+              aErrorList.add (toError ("SBDH/Receiver[1]/Identifier",
                                         EHREDeliverySBDHDataError.INVALID_RECEIVER_VALUE,
                                         CIdentifier.getURIEncoded (sScheme, sValue)));
           }
@@ -559,21 +476,21 @@ public class HREDeliverySBDHDataReader
       // Extract the main business message first - cannot be null and must be an
       // Element!
       if (!isValidBusinessMessage (aBusinessMessage))
-        aErrorList.add (_toError (null, EHREDeliverySBDHDataError.INVALID_BUSINESS_MESSAGE));
+        aErrorList.add (toError (null, EHREDeliverySBDHDataError.INVALID_BUSINESS_MESSAGE));
 
       final DocumentIdentification aDI = aSBDH.getDocumentIdentification ();
 
       // The unique message ID
       final String sSBDHID = aDI.getInstanceIdentifier ();
       if (!isValidInstanceIdentifier (sSBDHID))
-        aErrorList.add (_toError ("SBDH/DocumentIdentification/InstanceIdentifier",
+        aErrorList.add (toError ("SBDH/DocumentIdentification/InstanceIdentifier",
                                   EHREDeliverySBDHDataError.INVALID_INSTANCE_IDENTIFIER,
                                   sSBDHID));
 
       // Mandatory date and time (cannot be null)
       final XMLOffsetDateTime aCreationDateAndTime = aDI.getCreationDateAndTime ();
       if (!isValidCreationDateTime (aCreationDateAndTime))
-        aErrorList.add (_toError ("SBDH/DocumentIdentification/CreationDateAndTime",
+        aErrorList.add (toError ("SBDH/DocumentIdentification/CreationDateAndTime",
                                   EHREDeliverySBDHDataError.INVALID_CREATION_DATE_TIME,
                                   String.valueOf (aCreationDateAndTime)));
     }
@@ -654,7 +571,7 @@ public class HREDeliverySBDHDataReader
   {
     ValueEnforcer.notNull (aSBDH, "StandardBusinessDocumentHeader");
     ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
-    final HREDeliverySBDHData ret = new HREDeliverySBDHData (m_aIdentifierFactory);
+    final HREDeliverySBDHData ret = new HREDeliverySBDHData (getIdentifierFactory ());
 
     // Check sender
     if (aSBDH.hasSenderEntries ())

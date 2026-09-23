@@ -30,13 +30,6 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 public final class CSMLDefault
 {
   /**
-   * The DNS zone name part used for SMP information in the SML. This is only needed for Peppol
-   * based registration.
-   */
-  @Deprecated
-  public static final String DNS_PUBLISHER_SUBZONE = "publisher.";
-
-  /**
    * The name of the service to manage SMP meta data. Valid for all SML instances.
    */
   public static final String MANAGEMENT_SERVICE_METADATA = "manageservicemetadata";

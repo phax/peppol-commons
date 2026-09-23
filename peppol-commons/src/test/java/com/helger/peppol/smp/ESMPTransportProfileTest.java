@@ -23,6 +23,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.base.string.StringHelper;
+import com.helger.edelivery.smp.ESMPTransportProfileState;
 
 /**
  * Test class for class {@link ESMPTransportProfile}.
