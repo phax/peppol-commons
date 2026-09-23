@@ -438,6 +438,11 @@ v13.0.0 - work in progress
 * **Breaking API change** `DBNAllianceIdentifierFactory` no longer extends `BDXR2IdentifierFactory` - the networks are independent of each other, so a change in one of them cannot silently change the other any more. The behaviour is unchanged
 * **Breaking API change** Moved `CIdentifier.DEFAULT_PROCESS_IDENTIFIER_NOPROCESS` to `PeppolIdentifierHelper` - the value `busdox:noprocess` is Peppol specific and had no place in the generic identifier class
 * **Breaking API change** `IdentifierValidator.isValidParticipantIdentifier (...)` now takes an `IParticipantIdentifier` instead of the concrete `PeppolParticipantIdentifier`. How an identifier is split into issuing agency and local participant ID is now a strategy - see the new `IParticipantIdentifierPartsProvider`, `ParticipantIdentifierParts` and `PeppolParticipantIdentifierPartsProvider`. The single argument method keeps the previous Peppol behaviour
+* **Breaking API change** Moved `MozillaNSSTrustStore` from `com.helger.peppol.security` to `com.helger.nss` in the new standalone project [ph-nss](https://github.com/phax/ph-nss).
+  The Mozilla NSS root certificates are used for general TLS server certificate verification and have nothing to do with Peppol, no code of `peppol-commons` used them, and they made up roughly half of the `peppol-commons` JAR.
+  Mozilla updates the trust list every couple of weeks, so it now lives in a project that can be released on that cadence.
+  If you used `MozillaNSSTrustStore`, add the dependency `com.helger:ph-nss` and change the import - the API is unchanged.
+  The conversion tool `MainConvertNSSCertData` moved along with it
 
 v12.10.1 - work in progress
 * The NAPTR lookup in `AbstractBDXLURLProvider.getSMPURIOfParticipant` now uses an absolute DNS name, so that the DNS search path of the operating system is no longer applied to it.
