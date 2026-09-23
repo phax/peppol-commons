@@ -371,6 +371,11 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.10.1 - work in progress
+* The NAPTR lookup in `AbstractBDXLURLProvider.getSMPURIOfParticipant` now uses an absolute DNS name, so that the DNS search path of the operating system is no longer applied to it.
+  Previously an unresolvable participant lead to one additional DNS query per `search` entry of the operating system resolver configuration, each of which could run into the full DNS timeout.
+  The return value of `getDNSNameOfParticipant` is unchanged and still contains no trailing dot
+
 v12.10.0 - 2026-09-06
 * Removed the dependency of the module `peppol-commons` onto `ph-bc` and therefore onto Bouncy Castle.
   The main source code of `peppol-commons` does not reference Bouncy Castle at all - the provider neutral `ph-security` of `ph-commons` 12.4.0 is sufficient to load the Peppol trust stores.

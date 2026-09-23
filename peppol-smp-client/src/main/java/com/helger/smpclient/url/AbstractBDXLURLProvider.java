@@ -28,6 +28,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xbill.DNS.Name;
 import org.xbill.DNS.TextParseException;
 
 import com.helger.annotation.Nonempty;
@@ -338,7 +339,13 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
       try
       {
         aLookupResult = NaptrLookup.builder ()
-                                   .domainName (sBuildDomainName)
+                                   // Make the name absolute, so that the DNS
+                                   // search path of the operating system is not
+                                   // applied to the NAPTR lookup. Otherwise
+                                   // every unresolvable participant leads to one
+                                   // additional DNS query per "search" entry of
+                                   // the OS resolver configuration
+                                   .domainName (Name.fromString (sBuildDomainName, Name.root))
                                    .customDNSServers (customDNSServers ())
                                    .maxRetries (1)
                                    .debugMode (m_bUseNaptrDebug)
