@@ -439,6 +439,11 @@ v13.0.0 - work in progress
 * **Breaking API change** Moved `CIdentifier.DEFAULT_PROCESS_IDENTIFIER_NOPROCESS` to `PeppolIdentifierHelper` - the value `busdox:noprocess` is Peppol specific and had no place in the generic identifier class
 * **Breaking API change** `IdentifierValidator.isValidParticipantIdentifier (...)` now takes an `IParticipantIdentifier` instead of the concrete `PeppolParticipantIdentifier`. How an identifier is split into issuing agency and local participant ID is now a strategy - see the new `IParticipantIdentifierPartsProvider`, `ParticipantIdentifierParts` and `PeppolParticipantIdentifierPartsProvider`. The single argument method keeps the previous Peppol behaviour
 
+v12.10.1 - work in progress
+* The NAPTR lookup in `AbstractBDXLURLProvider.getSMPURIOfParticipant` now uses an absolute DNS name, so that the DNS search path of the operating system is no longer applied to it.
+  Previously an unresolvable participant lead to one additional DNS query per `search` entry of the operating system resolver configuration, each of which could run into the full DNS timeout.
+  The return value of `getDNSNameOfParticipant` is unchanged and still contains no trailing dot
+
 v12.10.0 - 2026-09-06
 * Removed the dependency of the module `peppol-commons` onto `ph-bc` and therefore onto Bouncy Castle.
   The main source code of `peppol-commons` does not reference Bouncy Castle at all - the provider neutral `ph-security` of `ph-commons` 12.4.0 is sufficient to load the Peppol trust stores.
