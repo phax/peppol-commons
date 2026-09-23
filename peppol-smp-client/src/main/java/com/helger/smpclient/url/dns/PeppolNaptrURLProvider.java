@@ -31,6 +31,7 @@ import com.helger.base.clone.ICloneable;
  * @author Philip Helger
  * @since 9.6.1
  */
+@SuppressWarnings ("removal")
 @ThreadSafe
 public class PeppolNaptrURLProvider extends AbstractBDXLURLProvider implements
                                     IPeppolURLProvider,

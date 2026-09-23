@@ -35,7 +35,7 @@ import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
 import com.helger.smpclient.exception.SMPClientNotFoundException;
-import com.helger.smpclient.url.dns.IPeppolURLProvider;
+import com.helger.smpclient.url.dns.IBDXLURLProvider;
 import com.helger.smpclient.url.dns.PeppolNaptrURLProvider;
 import com.helger.xsds.peppol.smp1.ServiceGroupType;
 import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
@@ -61,7 +61,7 @@ public final class SMPClientWithDNSFuncTest
   private static final BasicAuthClientCredentials SMP_CREDENTIALS = new BasicAuthClientCredentials (SMP_USERNAME,
                                                                                                     SMP_PASSWORD);
   private static final URI SMP_URI = URLHelper.getAsURI ("http://localhost/");
-  private static final IPeppolURLProvider URL_PROVIDER = PeppolNaptrURLProvider.INSTANCE;
+  private static final IBDXLURLProvider URL_PROVIDER = PeppolNaptrURLProvider.INSTANCE;
 
   @BeforeClass
   public static void beforeClass () throws Exception

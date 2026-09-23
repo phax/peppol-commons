@@ -49,7 +49,7 @@ public final class PeppolNaptrURLProviderTest
     // Only if online
     if (NetworkOnlineStatusDeterminator.getNetworkStatus ().isOnline ())
     {
-      final IPeppolURLProvider aURLProvider = PeppolNaptrURLProvider.INSTANCE;
+      final IBDXLURLProvider aURLProvider = PeppolNaptrURLProvider.INSTANCE;
       final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
       final String sDomain = aURLProvider.getDNSNameOfParticipant (aPI, ESML.PEPPOL_TEST);
       assertEquals ("eh5boavaktmbgzyh2a63dz4qov33fvp5nsdvqklucfraayoodw6a.iso6523-actorid-upis.participant.sml.test.tech.peppol.org",
@@ -64,7 +64,7 @@ public final class PeppolNaptrURLProviderTest
   @Test
   public void testResolveNamePeppol () throws SMPDNSResolutionException
   {
-    final IPeppolURLProvider aURLProvider = PeppolNaptrURLProvider.INSTANCE;
+    final IBDXLURLProvider aURLProvider = PeppolNaptrURLProvider.INSTANCE;
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:1234567890123");
     final String sDomain = aURLProvider.getDNSNameOfParticipant (aPI, ESML.PEPPOL_TEST);
     assertEquals ("sjsyvccmqyjxk3weuapffq4x3umcrf4qryherj4vovhmonh7gccq.iso6523-actorid-upis.participant.sml.test.tech.peppol.org",
@@ -90,7 +90,7 @@ public final class PeppolNaptrURLProviderTest
     // Only if online
     if (NetworkOnlineStatusDeterminator.getNetworkStatus ().isOnline ())
     {
-      final IPeppolURLProvider aURLProvider = PeppolNaptrURLProvider.INSTANCE;
+      final IBDXLURLProvider aURLProvider = PeppolNaptrURLProvider.INSTANCE;
       final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0007:123456");
 
       final URI x = aURLProvider.getSMPURIOfParticipant (aPI, ESML.PEPPOL_TEST);
