@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015-2026 Philip Helger
+ * Copyright (C) 2015-2026 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,12 +39,12 @@ import com.helger.peppolid.IParticipantIdentifier;
  * A shareable cache for SMP Service Group and Service Metadata objects. The concrete SMP flavor is
  * provided by the derived classes.
  * <p>
- * Because an {@link SMPClientReadOnly} instance is usually bound to a single receiver participant
+ * Because an <code>SMPClientReadOnly</code> instance is usually bound to a single receiver participant
  * (the SMP host URI is the result of an SML/NAPTR lookup), callers tend to create a new SMP client
  * per message. Therefore this cache is deliberately <em>not</em> bound to a single client instance:
  * all cache keys contain the SMP host URI, so that one cache instance can safely be shared between
  * arbitrary many clients, participants and SMP hosts. If no cache is provided to a
- * {@link CachingSMPClientReadOnly}, the static default instance of this class is used, so that even
+ * <code>CachingSMPClientReadOnly</code>, the static default instance of this class is used, so that even
  * per-message clients share their cache content.
  * </p>
  * <p>

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015-2026 Philip Helger
+ * Copyright (C) 2015-2026 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -44,8 +44,6 @@ public interface ISMPURLProvider
    * @throws SMPDNSResolutionException
    *         If the URL resolution failed.
    * @see #getSMPURIOfParticipant(IParticipantIdentifier, ISMLBase)
-   * @see #getSMPURLOfParticipant(IParticipantIdentifier, ISMLBase)
-   * @see #getSMPURLOfParticipant(IParticipantIdentifier, String)
    */
   @NonNull
   URI getSMPURIOfParticipant (@NonNull IParticipantIdentifier aParticipantIdentifier,
@@ -62,8 +60,6 @@ public interface ISMPURLProvider
    * @throws SMPDNSResolutionException
    *         If the URL resolution failed.
    * @see #getSMPURIOfParticipant(IParticipantIdentifier, String)
-   * @see #getSMPURLOfParticipant(IParticipantIdentifier, ISMLBase)
-   * @see #getSMPURLOfParticipant(IParticipantIdentifier, String)
    */
   @NonNull
   default URI getSMPURIOfParticipant (@NonNull final IParticipantIdentifier aParticipantIdentifier,
