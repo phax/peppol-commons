@@ -42,6 +42,7 @@ import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.datetime.helper.PDTFactory;
+import com.helger.edelivery.sml.ISMLBase;
 import com.helger.edelivery.smp.ISMPTransportProfile;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppolid.CIdentifier;
@@ -110,7 +111,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *        The SML to be used. Required to build the SMP access URI.
    * @throws SMPDNSResolutionException
    *         if DNS resolution fails
-   * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
+   * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, ISMLBase)
    */
   public SMPClientReadOnly (@NonNull final ISMPURLProvider aURLProvider,
                             @NonNull final IParticipantIdentifier aParticipantIdentifier,
@@ -428,11 +429,11 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
       if (aSI != null)
       {
         checkServiceMetadataIdentifiers (aServiceGroupID,
-                                         aSI.getParticipantIdentifier () == null ? null
-                                                                                 : SimpleParticipantIdentifier.wrap (aSI.getParticipantIdentifier ()),
+                                         aSI.getParticipantIdentifier () == null ? null : SimpleParticipantIdentifier
+                                                                                                                     .wrap (aSI.getParticipantIdentifier ()),
                                          aDocumentTypeID,
-                                         aSI.getDocumentIdentifier () == null ? null
-                                                                              : SimpleDocumentTypeIdentifier.wrap (aSI.getDocumentIdentifier ()));
+                                         aSI.getDocumentIdentifier () == null ? null : SimpleDocumentTypeIdentifier
+                                                                                                                   .wrap (aSI.getDocumentIdentifier ()));
       }
       else
       {
@@ -687,10 +688,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
                        aTransportProfile.getID () +
                        "' valid at " +
                        aCheckDT +
-                       (aRelevantEndpoints.isEmpty () ? ""
-                                                      : ": " +
-                                                        aRelevantEndpoints.toString () +
-                                                        " - using the first one"));
+                       (aRelevantEndpoints.isEmpty () ? "" : ": " +
+                                                             aRelevantEndpoints.toString () +
+                                                             " - using the first one"));
         }
 
         // Use the first endpoint
@@ -718,8 +718,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   @Nullable
   public static String getEndpointAddress (@Nullable final EndpointType aEndpoint)
   {
-    return aEndpoint == null || aEndpoint.getEndpointReference () == null ? null
-                                                                          : W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ());
+    return aEndpoint == null || aEndpoint.getEndpointReference () == null ? null : W3CEndpointReferenceHelper
+                                                                                                             .getAddress (aEndpoint.getEndpointReference ());
   }
 
   /**
@@ -910,7 +910,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   @NonNull
   public static ServiceGroupType getServiceGroupByDNS (@NonNull final ISMPURLProvider aURLProvider,
                                                        @NonNull final ISMLInfo aSMLInfo,
-                                                       @NonNull final IParticipantIdentifier aServiceGroupID) throws SMPClientException, SMPDNSResolutionException
+                                                       @NonNull final IParticipantIdentifier aServiceGroupID) throws SMPClientException,
+                                                                                                              SMPDNSResolutionException
   {
     return new SMPClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceGroup (aServiceGroupID);
   }
@@ -944,7 +945,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   public static SignedServiceMetadataType getServiceRegistrationByDNS (@NonNull final ISMPURLProvider aURLProvider,
                                                                        @NonNull final ISMLInfo aSMLInfo,
                                                                        @NonNull final IParticipantIdentifier aServiceGroupID,
-                                                                       @NonNull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException, SMPDNSResolutionException
+                                                                       @NonNull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException,
+                                                                                                                               SMPDNSResolutionException
   {
     return new SMPClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceMetadata (aServiceGroupID,
                                                                                                aDocumentTypeID);

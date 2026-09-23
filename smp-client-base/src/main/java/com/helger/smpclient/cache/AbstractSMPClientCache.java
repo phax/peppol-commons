@@ -39,13 +39,13 @@ import com.helger.peppolid.IParticipantIdentifier;
  * A shareable cache for SMP Service Group and Service Metadata objects. The concrete SMP flavor is
  * provided by the derived classes.
  * <p>
- * Because an <code>SMPClientReadOnly</code> instance is usually bound to a single receiver participant
- * (the SMP host URI is the result of an SML/NAPTR lookup), callers tend to create a new SMP client
- * per message. Therefore this cache is deliberately <em>not</em> bound to a single client instance:
- * all cache keys contain the SMP host URI, so that one cache instance can safely be shared between
- * arbitrary many clients, participants and SMP hosts. If no cache is provided to a
- * <code>CachingSMPClientReadOnly</code>, the static default instance of this class is used, so that even
- * per-message clients share their cache content.
+ * Because an <code>SMPClientReadOnly</code> instance is usually bound to a single receiver
+ * participant (the SMP host URI is the result of an SML/NAPTR lookup), callers tend to create a new
+ * SMP client per message. Therefore this cache is deliberately <em>not</em> bound to a single
+ * client instance: all cache keys contain the SMP host URI, so that one cache instance can safely
+ * be shared between arbitrary many clients, participants and SMP hosts. If no cache is provided to
+ * a <code>CachingSMPClientReadOnly</code>, the static default instance of this class is used, so
+ * that even per-message clients share their cache content.
  * </p>
  * <p>
  * Important notes:
@@ -58,6 +58,10 @@ import com.helger.peppolid.IParticipantIdentifier;
  *
  * @author Philip Helger
  * @since 13.0.0
+ * @param <SGTYPE>
+ *        Service Group type
+ * @param <SMTYPE>
+ *        Service Metadata type
  */
 @ThreadSafe
 public abstract class AbstractSMPClientCache <SGTYPE, SMTYPE>
@@ -74,6 +78,11 @@ public abstract class AbstractSMPClientCache <SGTYPE, SMTYPE>
 
   /**
    * Constructor using {@link #DEFAULT_CACHE_TTL} and {@link #DEFAULT_MAX_SIZE}.
+   *
+   * @param sServiceGroupCacheName
+   *        SG cache name
+   * @param sServiceMetadataCacheName
+   *        SM cache name
    */
   protected AbstractSMPClientCache (@NonNull @Nonempty final String sServiceGroupCacheName,
                                     @NonNull @Nonempty final String sServiceMetadataCacheName)
@@ -93,6 +102,10 @@ public abstract class AbstractSMPClientCache <SGTYPE, SMTYPE>
    *        The interval in which expired entries are actively removed by the shared eviction
    *        scheduler thread. May be <code>null</code>, zero or negative to disable background
    *        eviction.
+   * @param sServiceGroupCacheName
+   *        SG cache name
+   * @param sServiceMetadataCacheName
+   *        SM cache name
    */
   protected AbstractSMPClientCache (@NonNull final Duration aCacheTTL,
                                     @CheckForSigned final int nMaxSize,
@@ -210,7 +223,7 @@ public abstract class AbstractSMPClientCache <SGTYPE, SMTYPE>
    */
   @Nullable
   public SGTYPE getServiceGroup (@NonNull @Nonempty final String sSMPHostURI,
-                                           @NonNull final IParticipantIdentifier aServiceGroupID)
+                                 @NonNull final IParticipantIdentifier aServiceGroupID)
   {
     return m_aServiceGroupCache.getFromCache (createServiceGroupCacheKey (sSMPHostURI, aServiceGroupID));
   }
@@ -247,8 +260,8 @@ public abstract class AbstractSMPClientCache <SGTYPE, SMTYPE>
    */
   @Nullable
   public SMTYPE getServiceMetadata (@NonNull @Nonempty final String sSMPHostURI,
-                                                       @NonNull final IParticipantIdentifier aServiceGroupID,
-                                                       @NonNull final IDocumentTypeIdentifier aDocumentTypeID)
+                                    @NonNull final IParticipantIdentifier aServiceGroupID,
+                                    @NonNull final IDocumentTypeIdentifier aDocumentTypeID)
   {
     return m_aServiceMetadataCache.getFromCache (createServiceMetadataCacheKey (sSMPHostURI,
                                                                                 aServiceGroupID,
@@ -402,5 +415,4 @@ public abstract class AbstractSMPClientCache <SGTYPE, SMTYPE>
                                        .append ("ServiceMetadataCache", m_aServiceMetadataCache)
                                        .getToString ();
   }
-
 }
