@@ -27,12 +27,12 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.enforce.ValueEnforcer;
+import com.helger.edelivery.sml.ISMLBase;
 import com.helger.http.CHttpHeader;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
-import com.helger.edelivery.sml.ISMLBase;
-import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.peppolid.bdxr.smp1.BDXR1IdentifierHelper;
 import com.helger.peppolid.bdxr.smp1.participant.BDXR1ParticipantIdentifier;
 import com.helger.smpclient.bdxr1.marshal.BDXR1MarshallerServiceGroupType;
 import com.helger.smpclient.bdxr1.marshal.BDXR1MarshallerServiceMetadataType;
@@ -149,7 +149,7 @@ public class BDXRClient extends BDXRClientReadOnly
     if (sBody == null)
       throw new IllegalArgumentException ("Failed to serialize ServiceGroup: " + aServiceGroup);
 
-    final String sURI = getSMPHostURI () + CIdentifier.getURIPercentEncoded (aServiceGroup.getParticipantIdentifier ());
+    final String sURI = getSMPHostURI () + BDXR1IdentifierHelper.getURIPercentEncoded (aServiceGroup.getParticipantIdentifier ());
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("BDXRClient saveServiceGroup@" + sURI);
 
@@ -235,11 +235,11 @@ public class BDXRClient extends BDXRClientReadOnly
       throw new IllegalArgumentException ("Failed to serialize ServiceMetadata: " + aServiceMetadata);
 
     final String sURI = getSMPHostURI () +
-                        CIdentifier.getURIPercentEncoded (aServiceGroupID) +
+                        BDXR1IdentifierHelper.getURIPercentEncoded (aServiceGroupID) +
                         "/" +
                         URL_PART_SERVICES +
                         "/" +
-                        CIdentifier.getURIPercentEncoded (aDocumentTypeID);
+                        BDXR1IdentifierHelper.getURIPercentEncoded (aDocumentTypeID);
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("BDXRClient saveServiceRegistration@" + sURI);
 

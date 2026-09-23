@@ -23,8 +23,9 @@ import com.helger.annotation.Nonempty;
 import com.helger.base.lang.EnumHelper;
 
 /**
- * Defines the identifier types to be used - simple (allows all), Peppol (special schemes) or BDXR
- * (different implementation type).
+ * Defines the identifier types to be used - simple (allows all) or Peppol (special schemes). The
+ * OASIS BDXR identifier types are contained in {@code EBDXRIdentifierType} of the submodule
+ * {@code bdxr-id}.
  *
  * @author Philip Helger
  * @since 8.0.2
@@ -33,9 +34,7 @@ public enum ESMPIdentifierType implements IIdentifierFactoryType
 {
   SIMPLE ("simple", "Simple", SimpleIdentifierFactory.INSTANCE),
   PEPPOL ("peppol", "Peppol", PeppolIdentifierFactory.INSTANCE),
-  PEPPOL_LAX ("peppol-lax", "Peppol (lax)", PeppolLaxIdentifierFactory.INSTANCE),
-  BDXR1 ("bdxr1", "OASIS BDXR v1", BDXR1IdentifierFactory.INSTANCE),
-  BDXR2 ("bdxr2", "OASIS BDXR v2", BDXR2IdentifierFactory.INSTANCE);
+  PEPPOL_LAX ("peppol-lax", "Peppol (lax)", PeppolLaxIdentifierFactory.INSTANCE);
 
   private final String m_sID;
   private final String m_sDisplayName;

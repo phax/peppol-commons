@@ -28,10 +28,10 @@ import com.helger.base.type.ITypedObject;
 /**
  * Base interface for SMP transport profiles. Two transport profiles are considered equal if the IDs
  * are equal. The name of a transport profile has no semantic meaning and is only present for
- * interpretation by humans.
+ * interpretation by humans. See <code>ESMPTransportProfile</code> for a set of predefined transport
+ * profiles
  *
  * @author Philip Helger
- * @see ESMPTransportProfile for a set of predefined transport profiles
  */
 @MustImplementEqualsAndHashcode
 public interface ISMPTransportProfile extends ITypedObject <String>, IHasName, Serializable

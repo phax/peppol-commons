@@ -81,6 +81,10 @@
       <groupId>com.helger.peppol</groupId>
       <artifactId>peppol-id</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.helger.peppol</groupId>
+      <artifactId>bdxr-id</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>com.sun.xml.bind</groupId>

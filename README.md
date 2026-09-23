@@ -11,8 +11,10 @@ This project contains different libraries that are commonly used in the Peppol/e
 * [`edelivery-commons`](#edelivery-commons) - the network neutral base types shared by all supported networks (since v13.0.0)
 * [`edelivery-sbdh`](#edelivery-sbdh) - the network neutral parts of the SBDH handling (since v13.0.0)
 * [`smp-client-base`](#smp-client-base) - the network neutral parts of the SMP client, including the OASIS BDXR SMP v1 and v2 clients (since v13.0.0)
+* [`edelivery-id`](#edelivery-id) - the network neutral identifier data structures (since v13.0.0)
 * [`peppol-id-datatypes`](#peppol-id-datatypes) - the generated JAXB classes for ID handling (since v8.4.0)
-* [`peppol-id`](#peppol-id) - the ID data structures (since v7.0.0)
+* [`peppol-id`](#peppol-id) - the Peppol ID data structures (since v7.0.0)
+* [`bdxr-id`](#bdxr-id) - the OASIS BDXR SMP identifier data structures (since v13.0.0)
 * [`peppol-id-checks`](#peppol-id-checks) - checks and derivations on top of the ID data structures (since v12.9.0)
 * [`peppol-commons`](#peppol-commons) - the most basic data structures for use with Peppol and BDXR
 * [`peppol-testfiles`](#peppol-testfiles) - a set of UBL and SBDH test files
@@ -56,6 +58,16 @@ verification, exceptions, extensions, redirects, caching and the OASIS BDXR SMP 
 It does not depend on `dnsjava`, so an SMP user without SML does not get the DNS stack.
 First created in v13.0.0.
 
+## edelivery-id
+
+Java library with the network neutral identifier data structures - the `IIdentifier` interfaces, the
+`Simple*Identifier` implementations, the identifier factory interfaces and the code list item base
+types. It contains no Peppol and no OASIS BDXR specific code.
+First created in v13.0.0.
+
+It was split out of `peppol-id`, so that a user of the Peppol identifiers no longer drags the OASIS
+BDXR SMP XML Schema artifacts into the class path.
+
 ## peppol-id-datatypes
 
 Java library with the JAXB generated elements for Peppol ID and Peppol Code List handling.
@@ -66,8 +78,20 @@ The additional code is created in `target/generated-sources/xjc`.
 
 ## peppol-id
 
-Java library with shared IDs and predefined IDs.
+Java library with the Peppol identifiers and the predefined IDs of the Peppol code lists.
 First created in v7.0.0.
+The network neutral parts are in `edelivery-id` and the OASIS BDXR parts are in `bdxr-id` since
+v13.0.0.
+
+## bdxr-id
+
+Java library with the OASIS BDXR SMP v1 and v2 identifier data structures, their identifier
+factories and the DBNAlliance identifier factory. It requires `ph-xsds-bdxr-smp1` and
+`ph-xsds-bdxr-smp2`, because the contained identifier classes extend the respective JAXB types.
+First created in v13.0.0.
+
+It is a separate submodule for the same reason as `peppol-id-checks` - it needs dependencies that
+`peppol-id` deliberately does not want.
 
 ## peppol-id-checks
 
@@ -443,6 +467,19 @@ v13.0.0 - work in progress
   Mozilla updates the trust list every couple of weeks, so it now lives in a project that can be released on that cadence.
   If you used `MozillaNSSTrustStore`, add the dependency `com.helger:ph-nss` and change the import - the API is unchanged.
   The conversion tool `MainConvertNSSCertData` moved along with it
+* **Breaking API change** Moved all classes of the submodule `dbnalliance-xhe` from the package `com.helger.peppol.xhe` to `com.helger.dbnalliance.xhe`.
+  A DBNAlliance module had no business living in a Peppol package - `dbnalliance-commons` and `hredelivery-commons` already use their own package roots. The class names are unchanged
+* Removed the unused dependency on `jakarta.servlet-api` from `peppol-directory-businesscard` - no class of that module ever referenced the Servlet API
+* Removed the unused test dependency on `peppol-testfiles` from `dbnalliance-xhe`
+* Added the new submodule `edelivery-id` that contains the network neutral identifier data structures, and the new submodule `bdxr-id` that contains the OASIS BDXR SMP v1 and v2 identifier data structures.
+  `peppol-id` therefore no longer requires `ph-xsds-bdxr-smp1` and `ph-xsds-bdxr-smp2` - together with their transitive artifacts `ph-xsds-xmldsig11`, `ph-xsds-xades132`, `ph-xsds-xades141` and `ph-xsds-ccts-cct-schemamodule` that is roughly 425 KB and 6 JARs less for everybody who only uses the Peppol identifiers.
+  The package names are unchanged - `com.helger.peppolid`, `com.helger.peppolid.simple`, `com.helger.peppolid.codelist` and the identifier factory interfaces are now in `edelivery-id`, `com.helger.peppolid.bdxr.smp1` and `com.helger.peppolid.bdxr.smp2` are now in `bdxr-id`
+* **Breaking API change** Removed `ESMPIdentifierType.BDXR1` and `ESMPIdentifierType.BDXR2` - use the new `EBDXRIdentifierType.BDXR1` and `EBDXRIdentifierType.BDXR2` of `bdxr-id` instead. They are contributed to `IdentifierFactoryTypeRegistry` via the new `BDXRIdentifierFactoryTypeProviderSPI`, the same way DBNAlliance already does it
+* **Breaking API change** Removed the `CIdentifier.getURIEncoded (...)` and `CIdentifier.getURIPercentEncoded (...)` overloads that take a `com.helger.xsds.bdxr.smp1.*` or a `com.helger.xsds.ccts.cct.schemamodule.IdentifierType` argument.
+  Use `BDXR1IdentifierHelper.getURIEncoded (...)` / `getURIPercentEncoded (...)` and `BDXR2IdentifierHelper.getURIEncoded (...)` / `getURIPercentEncoded (...)` of `bdxr-id` instead
+* **Breaking API change** Removed the `SimpleParticipantIdentifier.wrap (...)`, `SimpleDocumentTypeIdentifier.wrap (...)` and `SimpleProcessIdentifier.wrap (...)` overloads that take a `com.helger.xsds.bdxr.smp1.*` or a `com.helger.xsds.ccts.cct.schemamodule.IdentifierType` argument.
+  Use `BDXR1IdentifierHelper.wrapAsSimple*Identifier (...)` and `BDXR2IdentifierHelper.wrapAsSimple*Identifier (...)` of `bdxr-id` instead. The overloads taking a `com.helger.xsds.peppol.id1.*` argument are unchanged
+* **Breaking API change** The micro type converter SPI was split along the new module boundaries - `MicroTypeConverterRegistrar_peppol_id` now only registers the Peppol identifiers, the new `MicroTypeConverterRegistrar_edelivery_id` registers the `Simple*` identifiers and the new `MicroTypeConverterRegistrar_bdxr_id` registers the OASIS BDXR identifiers. Nothing changes for a user that has all three submodules on the class path
 
 v12.10.1 - work in progress
 * The NAPTR lookup in `AbstractBDXLURLProvider.getSMPURIOfParticipant` now uses an absolute DNS name, so that the DNS search path of the operating system is no longer applied to it.

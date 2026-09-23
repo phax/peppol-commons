@@ -66,12 +66,8 @@
       <artifactId>ph-xsds-xmldsig</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger.xsd</groupId>
-      <artifactId>ph-xsds-bdxr-smp1</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.xsd</groupId>
-      <artifactId>ph-xsds-bdxr-smp2</artifactId>
+      <groupId>com.helger.peppol</groupId>
+      <artifactId>edelivery-id</artifactId>
     </dependency>
     <dependency>
       <groupId>com.helger.peppol</groupId>

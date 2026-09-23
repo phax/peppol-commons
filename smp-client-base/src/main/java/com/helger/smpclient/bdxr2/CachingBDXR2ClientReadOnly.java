@@ -28,11 +28,11 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.edelivery.sml.ISMLBase;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.smpclient.cache.BDXR2ClientCache;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.redirect.ISMPFollowRedirectCallback;
 import com.helger.smpclient.url.ISMPURLProvider;
 import com.helger.smpclient.url.SMPDNSResolutionException;
-import com.helger.smpclient.cache.BDXR2ClientCache;
 import com.helger.xsds.bdxr.smp2.ServiceGroupType;
 import com.helger.xsds.bdxr.smp2.ServiceMetadataType;
 

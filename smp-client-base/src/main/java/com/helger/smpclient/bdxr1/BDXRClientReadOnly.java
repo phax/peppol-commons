@@ -34,17 +34,15 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.edelivery.smp.ISMPTransportProfile;
 import com.helger.edelivery.sml.ISMLBase;
+import com.helger.edelivery.smp.ISMPTransportProfile;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
+import com.helger.peppolid.bdxr.smp1.BDXR1IdentifierHelper;
 import com.helger.peppolid.factory.BDXR1IdentifierFactory;
 import com.helger.peppolid.factory.IIdentifierFactory;
-import com.helger.peppolid.simple.doctype.SimpleDocumentTypeIdentifier;
-import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
-import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 import com.helger.security.certificate.CertificateDecodeHelper;
 import com.helger.smpclient.bdxr1.marshal.BDXR1MarshallerServiceGroupType;
 import com.helger.smpclient.bdxr1.marshal.BDXR1MarshallerSignedServiceMetadataType;
@@ -224,9 +222,11 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
 
     if (aSG != null && aSG.getParticipantIdentifier () != null && aSG.getServiceMetadataReferenceCollection () != null)
     {
-      final String sPathStart1 = "/" + CIdentifier.getURIEncoded (aSG.getParticipantIdentifier ()) + "/services/";
+      final String sPathStart1 = "/" +
+                                 BDXR1IdentifierHelper.getURIEncoded (aSG.getParticipantIdentifier ()) +
+                                 "/services/";
       final String sPathStart2 = "/" +
-                                 CIdentifier.getURIPercentEncoded (aSG.getParticipantIdentifier ()) +
+                                 BDXR1IdentifierHelper.getURIPercentEncoded (aSG.getParticipantIdentifier ()) +
                                  "/services/";
       for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
                                                         .getServiceMetadataReference ())
@@ -425,11 +425,11 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
       if (aSI != null)
       {
         checkServiceMetadataIdentifiers (aServiceGroupID,
-                                         aSI.getParticipantIdentifier () == null ? null
-                                                                                 : SimpleParticipantIdentifier.wrap (aSI.getParticipantIdentifier ()),
+                                         aSI.getParticipantIdentifier () == null ? null : BDXR1IdentifierHelper
+                                                                                                               .wrapAsSimpleParticipantIdentifier (aSI.getParticipantIdentifier ()),
                                          aDocumentTypeID,
-                                         aSI.getDocumentIdentifier () == null ? null
-                                                                              : SimpleDocumentTypeIdentifier.wrap (aSI.getDocumentIdentifier ()));
+                                         aSI.getDocumentIdentifier () == null ? null : BDXR1IdentifierHelper
+                                                                                                            .wrapAsSimpleDocumentTypeIdentifier (aSI.getDocumentIdentifier ()));
       }
     }
 
@@ -532,7 +532,8 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
     for (final ProcessType aProcessType : aServiceInformation.getProcessList ().getProcess ())
     {
       // Matches the requested one?
-      if (SimpleProcessIdentifier.wrap (aProcessType.getProcessIdentifier ()).hasSameContent (aProcessID))
+      if (BDXR1IdentifierHelper.wrapAsSimpleProcessIdentifier (aProcessType.getProcessIdentifier ())
+                               .hasSameContent (aProcessID))
       {
         // Filter endpoints by required transport profile
         final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList <> ();
@@ -548,10 +549,9 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
                        aProcessID +
                        " and transport profile " +
                        aTransportProfile.getID () +
-                       (aRelevantEndpoints.isEmpty () ? ""
-                                                      : ": " +
-                                                        aRelevantEndpoints.toString () +
-                                                        " - using the first one"));
+                       (aRelevantEndpoints.isEmpty () ? "" : ": " +
+                                                             aRelevantEndpoints.toString () +
+                                                             " - using the first one"));
         }
 
         // Use the first endpoint or null
@@ -660,7 +660,8 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   @NonNull
   public static ServiceGroupType getServiceGroupByDNS (@NonNull final ISMPURLProvider aURLProvider,
                                                        @NonNull final ISMLBase aSMLInfo,
-                                                       @NonNull final IParticipantIdentifier aServiceGroupID) throws SMPClientException, SMPDNSResolutionException
+                                                       @NonNull final IParticipantIdentifier aServiceGroupID) throws SMPClientException,
+                                                                                                              SMPDNSResolutionException
   {
     return new BDXRClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceGroup (aServiceGroupID);
   }
@@ -692,7 +693,8 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   public static SignedServiceMetadataType getServiceRegistrationByDNS (@NonNull final ISMPURLProvider aURLProvider,
                                                                        @NonNull final ISMLBase aSMLInfo,
                                                                        @NonNull final IParticipantIdentifier aServiceGroupID,
-                                                                       @NonNull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException, SMPDNSResolutionException
+                                                                       @NonNull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException,
+                                                                                                                               SMPDNSResolutionException
   {
     return new BDXRClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceMetadata (aServiceGroupID,
                                                                                                 aDocumentTypeID);

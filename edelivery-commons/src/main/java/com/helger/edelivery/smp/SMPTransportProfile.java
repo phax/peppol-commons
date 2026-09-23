@@ -29,7 +29,7 @@ import com.helger.base.type.ObjectType;
 
 /**
  * A stand-alone implementation of the {@link ISMPTransportProfile}. For a set of predefined
- * transport profiles have a look at {@link ESMPTransportProfile}.
+ * transport profiles have a look at <code>ESMPTransportProfile</code>.
  */
 @NotThreadSafe
 public class SMPTransportProfile implements ISMPTransportProfile, ICloneable <SMPTransportProfile>

@@ -28,12 +28,12 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.enforce.ValueEnforcer;
+import com.helger.edelivery.sml.ISMLBase;
 import com.helger.http.CHttpHeader;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
-import com.helger.edelivery.sml.ISMLBase;
-import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.peppolid.bdxr.smp2.BDXR2IdentifierHelper;
 import com.helger.peppolid.bdxr.smp2.participant.BDXR2ParticipantIdentifier;
 import com.helger.smpclient.bdxr2.marshal.BDXR2MarshallerServiceGroup;
 import com.helger.smpclient.bdxr2.marshal.BDXR2MarshallerServiceMetadata;
@@ -152,7 +152,7 @@ public class BDXR2Client extends BDXR2ClientReadOnly
 
     final String sURI = getSMPHostURI () +
                         PATH_OASIS_BDXR_SMP_2 +
-                        CIdentifier.getURIPercentEncoded (aServiceGroup.getParticipantID ());
+                        BDXR2IdentifierHelper.getURIPercentEncoded (aServiceGroup.getParticipantID ());
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("BDXR2Client saveServiceGroup@" + sURI);
 
@@ -235,11 +235,11 @@ public class BDXR2Client extends BDXR2ClientReadOnly
 
     final String sURI = getSMPHostURI () +
                         PATH_OASIS_BDXR_SMP_2 +
-                        CIdentifier.getURIPercentEncoded (aServiceMetadata.getParticipantID ()) +
+                        BDXR2IdentifierHelper.getURIPercentEncoded (aServiceMetadata.getParticipantID ()) +
                         '/' +
                         URL_PART_SERVICES +
                         '/' +
-                        CIdentifier.getURIPercentEncoded (aServiceMetadata.getID ());
+                        BDXR2IdentifierHelper.getURIPercentEncoded (aServiceMetadata.getID ());
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("BDXR2Client saveServiceRegistration@" + sURI);
 

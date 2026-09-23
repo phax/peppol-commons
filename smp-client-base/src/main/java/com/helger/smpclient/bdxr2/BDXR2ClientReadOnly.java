@@ -31,16 +31,14 @@ import com.helger.annotation.Nonempty;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.edelivery.smp.ISMPTransportProfile;
 import com.helger.edelivery.sml.ISMLBase;
+import com.helger.edelivery.smp.ISMPTransportProfile;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
+import com.helger.peppolid.bdxr.smp2.BDXR2IdentifierHelper;
 import com.helger.peppolid.factory.BDXR2IdentifierFactory;
 import com.helger.peppolid.factory.IIdentifierFactory;
-import com.helger.peppolid.simple.doctype.SimpleDocumentTypeIdentifier;
-import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
-import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 import com.helger.security.certificate.CertificateDecodeHelper;
 import com.helger.smpclient.bdxr2.marshal.BDXR2MarshallerServiceGroup;
 import com.helger.smpclient.bdxr2.marshal.BDXR2MarshallerServiceMetadata;
@@ -335,10 +333,10 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
     // Check that the SMP returned the requested identifiers (issue #73)
     checkServiceMetadataIdentifiers (aServiceGroupID,
                                      aMetadata.getParticipantID () == null ? null
-                                                                           : SimpleParticipantIdentifier.wrap (aMetadata.getParticipantID ()),
+                                                                           : BDXR2IdentifierHelper.wrapAsSimpleParticipantIdentifier (aMetadata.getParticipantID ()),
                                      aDocumentTypeID,
                                      aMetadata.getID () == null ? null
-                                                                : SimpleDocumentTypeIdentifier.wrap (aMetadata.getID ()));
+                                                                : BDXR2IdentifierHelper.wrapAsSimpleDocumentTypeIdentifier (aMetadata.getID ()));
 
     // If a Redirect element is present, then follow 1 redirect.
     for (final ProcessMetadataType aPM : aMetadata.getProcessMetadata ())
@@ -489,7 +487,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
     {
       boolean bMatchesProcess = false;
       for (final ProcessType aP : aPM.getProcess ())
-        if (SimpleProcessIdentifier.wrap (aP.getID ()).hasSameContent (aProcessID))
+        if (BDXR2IdentifierHelper.wrapAsSimpleProcessIdentifier (aP.getID ()).hasSameContent (aProcessID))
         {
           bMatchesProcess = true;
           break;
