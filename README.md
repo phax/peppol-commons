@@ -419,7 +419,6 @@ They depend on several other libraries so I suggest you are going for the Maven 
 # News and noteworthy
 
 v13.0.0 - work in progress
-* Started the v13 development branch
 * Added the new submodule `edelivery-commons` that contains the network neutral base types, so that Peppol, DBNAlliance, HR eDelivery and future networks share them instead of copying them
 * **Breaking API change** Moved `ISMPTransportProfile`, `SMPTransportProfile`, `ESMPTransportProfileState`, `ESMPTransportProfileStateText` and `SMPTransportProfileMicroTypeConverter` from `com.helger.peppol.smp` to `com.helger.edelivery.smp` in the new submodule `edelivery-commons`
 * **Breaking API change** Moved `ESMPAPIType` from `com.helger.peppol.sml` to `com.helger.edelivery.smp` in the new submodule `edelivery-commons`
@@ -480,8 +479,6 @@ v13.0.0 - work in progress
 * **Breaking API change** Removed the `SimpleParticipantIdentifier.wrap (...)`, `SimpleDocumentTypeIdentifier.wrap (...)` and `SimpleProcessIdentifier.wrap (...)` overloads that take a `com.helger.xsds.bdxr.smp1.*` or a `com.helger.xsds.ccts.cct.schemamodule.IdentifierType` argument.
   Use `BDXR1IdentifierHelper.wrapAsSimple*Identifier (...)` and `BDXR2IdentifierHelper.wrapAsSimple*Identifier (...)` of `bdxr-id` instead. The overloads taking a `com.helger.xsds.peppol.id1.*` argument are unchanged
 * **Breaking API change** The micro type converter SPI was split along the new module boundaries - `MicroTypeConverterRegistrar_peppol_id` now only registers the Peppol identifiers, the new `MicroTypeConverterRegistrar_edelivery_id` registers the `Simple*` identifiers and the new `MicroTypeConverterRegistrar_bdxr_id` registers the OASIS BDXR identifiers. Nothing changes for a user that has all three submodules on the class path
-
-v12.10.1 - work in progress
 * The NAPTR lookup in `AbstractBDXLURLProvider.getSMPURIOfParticipant` now uses an absolute DNS name, so that the DNS search path of the operating system is no longer applied to it.
   Previously an unresolvable participant lead to one additional DNS query per `search` entry of the operating system resolver configuration, each of which could run into the full DNS timeout.
   The return value of `getDNSNameOfParticipant` is unchanged and still contains no trailing dot
