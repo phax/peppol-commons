@@ -46,7 +46,7 @@ public final class HRMPSClientReadOnlyTest
     // For reliable testing only
     try
     {
-      HREDeliveryNaptrURLProvider.MUTABLE_INSTANCE.customDNSServers ().set (InetAddress.getByName ("1.1.1.1"));
+      HREDeliveryNaptrURLProvider.MUTABLE_INSTANCE.customDNSServers ().set (InetAddress.getByName ("8.8.8.8"));
     }
     catch (final UnknownHostException e)
     {
@@ -106,7 +106,7 @@ public final class HRMPSClientReadOnlyTest
   }
 
   @Test
-  @Ignore ("Returns DNS error on 2026-09-22")
+  // @Ignore ("Returns DNS error on 2026-09-22")
   public void testResolveMarkant () throws Exception
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:29071087912");
@@ -125,7 +125,7 @@ public final class HRMPSClientReadOnlyTest
   }
 
   @Test
-  @Ignore ("Does not work per 2026-09-22")
+  // @Ignore ("Does not work per 2026-09-22")
   public void testResolveComarch () throws SMPDNSResolutionException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:70583020747");
