@@ -418,7 +418,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v13.0.0 - work in progress
+v13.0.0 - 2026-09-23
 * Added the new submodule `edelivery-commons` that contains the network neutral base types, so that Peppol, DBNAlliance, HR eDelivery and future networks share them instead of copying them
 * **Breaking API change** Moved `ISMPTransportProfile`, `SMPTransportProfile`, `ESMPTransportProfileState`, `ESMPTransportProfileStateText` and `SMPTransportProfileMicroTypeConverter` from `com.helger.peppol.smp` to `com.helger.edelivery.smp` in the new submodule `edelivery-commons`
 * **Breaking API change** Moved `ESMPAPIType` from `com.helger.peppol.sml` to `com.helger.edelivery.smp` in the new submodule `edelivery-commons`
