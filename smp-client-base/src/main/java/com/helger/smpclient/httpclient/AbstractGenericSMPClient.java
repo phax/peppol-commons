@@ -735,10 +735,18 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     }
     catch (final RuntimeException | IOException ex)
     {
-      if (ex.getMessage () == null || GlobalDebug.isDebugMode ())
-        LOGGER.error ("Error performing SMP query [debug full exception]", ex);
+      if (ex instanceof final HttpResponseException hex && hex.getStatusCode () == HttpStatus.SC_NOT_FOUND)
+      {
+        // An unknown participant or document type is a regular answer of an SMP (e.g. for the
+        // "...OrNull" methods), so the caller decides whether this is an error
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("SMP query returned HTTP 404: " + ex.getMessage ());
+      }
       else
-        LOGGER.error ("Error performing SMP query: " + ex.getClass ().getName () + " - " + ex.getMessage ());
+        if (ex.getMessage () == null || GlobalDebug.isDebugMode ())
+          LOGGER.error ("Error performing SMP query [debug full exception]", ex);
+        else
+          LOGGER.error ("Error performing SMP query: " + ex.getClass ().getName () + " - " + ex.getMessage ());
       throw ex;
     }
   }
