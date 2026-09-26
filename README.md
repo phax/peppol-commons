@@ -433,6 +433,13 @@ v13.0.1 - work in progress
 * Fixed `ManageParticipantIdentifierServiceCaller.list (...)` sending an empty `NextPageIdentifier` element when the first page was requested.
   Chapter 3.1.2.7 of the SML specification states that the first page is returned if the element is absent, and an empty element is not an absent element.
   The element is now only sent if a page ID is present.
+* `ManageParticipantIdentifierServiceCaller.prepareToMigrate (...)` and `migrate (...)` now log a warning if the provided migration key does not match `CSMLDefault.MIGRATION_CODE_PATTERN`.
+  This is deliberately only a warning and not an error, because the exact layout of a migration key is SML implementation dependent - the pattern reflects the rules of the BDMSL implementation.
+  Previously `prepareToMigrate (...)` did not look at the migration key at all, so an unusable key was only rejected by the SML.
+* Fixed `SMLExceptionHelper.getFaultMessage (...)` throwing a `NullPointerException` for an SML fault that carries no fault detail.
+  The fault info of the generated fault classes may be `null`, and it was dereferenced unconditionally in the very helper that is meant to make a fault readable.
+* Fixed the Javadoc of `ManageParticipantIdentifierServiceCaller.migrate (...)` claiming that the migration key must have at least 24 characters.
+  `CSMLDefault.MAX_MIGRATION_CODE_LENGTH` is a maximum, and `CSMLDefault.MIGRATION_CODE_PATTERN` allows between 8 and 24 characters.
 
 v13.0.0 - 2026-09-23
 * Added the new submodule `edelivery-commons` that contains the network neutral base types, so that Peppol, DBNAlliance, HR eDelivery and future networks share them instead of copying them

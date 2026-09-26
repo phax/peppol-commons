@@ -22,6 +22,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
 
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,6 +35,7 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.EContinue;
 import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringImplode;
+import com.helger.cache.regex.RegExHelper;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.peppol.sml.CSMLDefault;
@@ -526,6 +528,21 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
   }
 
   /**
+   * Check whether the provided migration key matches {@link CSMLDefault#MIGRATION_CODE_PATTERN} and
+   * log a warning if it does not. This is deliberately only a warning and not an error, because the
+   * exact layout of a migration key is SML implementation dependent - the pattern reflects the
+   * rules of the BDMSL implementation only.
+   *
+   * @param sMigrationKey
+   *        The migration key to check. May be <code>null</code>.
+   */
+  private static void _warnOnSuspiciousMigrationKey (@Nullable final String sMigrationKey)
+  {
+    if (!RegExHelper.stringMatchesPattern (CSMLDefault.MIGRATION_CODE_PATTERN, StringHelper.getNotNull (sMigrationKey)))
+      LOGGER.warn ("The provided migration key does not match the migration key pattern of the BDMSL implementation. The SML may reject it.");
+  }
+
+  /**
    * Prepares a migrate of the given participant identifier from one SMP to another. This method
    * must be called from the source SMP. This method creates a new random migration key via
    * {@link #createRandomMigrationKey()} and than calls
@@ -586,6 +603,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
   {
     ValueEnforcer.notNull (aIdentifier, "Identifier");
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
+    _warnOnSuspiciousMigrationKey (sMigrationKey);
 
     LOGGER.info ("Preparing to migrate participant " +
                  aIdentifier.getURIEncoded () +
@@ -617,8 +635,10 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * @param aIdentifier
    *        The participant identifier to migrate. May not be <code>null</code>.
    * @param sMigrationKey
-   *        The migration key received by the previous owner. May not be <code>null</code>. Must
-   *        have at last 24 characters.
+   *        The migration key received by the previous owner. May neither be <code>null</code> nor
+   *        empty. For the BDMSL implementation it must match
+   *        {@link CSMLDefault#MIGRATION_CODE_PATTERN}, so between 8 and
+   *        {@link CSMLDefault#MAX_MIGRATION_CODE_LENGTH} characters.
    * @param sSMPID
    *        The publisher id corresponding to the new owner SMP. May neither be <code>null</code>
    *        nor empty.
@@ -638,6 +658,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
     ValueEnforcer.notNull (aIdentifier, "Identifier");
     ValueEnforcer.notEmpty (sMigrationKey, "MigrationKey");
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
+    _warnOnSuspiciousMigrationKey (sMigrationKey);
 
     LOGGER.info ("Finishing migration of participant " +
                  aIdentifier.getURIEncoded () +
