@@ -86,6 +86,12 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     return aServiceMetadataCreate;
   }
 
+  @NonNull
+  private static ICommonsList <IParticipantIdentifier> _asParticipantIDs (@NonNull final List <ParticipantIdentifierType> aList)
+  {
+    return new CommonsArrayList <> (aList, x -> new SimpleParticipantIdentifier (x.getScheme (), x.getValue ()));
+  }
+
   @Before
   public void cleanup () throws Exception
   {
@@ -231,7 +237,8 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     assertEquals (aBusinessIdentifierCreate.getScheme (), aBusinessIdentifierRead.getScheme ());
     assertEquals (aBusinessIdentifierCreate.getValue (), aBusinessIdentifierRead.getValue ());
 
-    aPIClient.deleteList (aBusinessIdentifiers);
+    aPIClient.deleteList (_asParticipantIDs (aBusinessIdentifiers),
+                          m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
 
     m_aSMClient.delete (m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
   }
@@ -263,8 +270,10 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     assertEquals (aBusinessIdentifierCreate.getScheme (), aBusinessIdentifierRead.getScheme ());
     assertEquals (aBusinessIdentifierCreate.getValue (), aBusinessIdentifierRead.getValue ());
 
-    aPIClient.deleteList (aBusinessIdentifiers);
-    aPIClient.deleteList (aBusinessIdentifiers);
+    aPIClient.deleteList (_asParticipantIDs (aBusinessIdentifiers),
+                          m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
+    aPIClient.deleteList (_asParticipantIDs (aBusinessIdentifiers),
+                          m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
 
     m_aSMClient.delete (m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
   }
@@ -314,7 +323,8 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     assertEquals (aBusinessIdentifierCreate1.getScheme (), aBusinessIdentifierRead.getScheme ());
     assertEquals (aBusinessIdentifierCreate1.getValue (), aBusinessIdentifierRead.getValue ());
 
-    aPIClient.deleteList (aBusinessIdentifiers);
+    aPIClient.deleteList (_asParticipantIDs (aBusinessIdentifiers),
+                          m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
 
     m_aSMClient.delete (m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
   }
@@ -355,7 +365,8 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     assertEquals (aBusinessIdentifierCreate2.getScheme (), aBusinessIdentifierRead2.getScheme ());
     assertEquals (aBusinessIdentifierCreate2.getValue (), aBusinessIdentifierRead2.getValue ());
 
-    aPIClient.deleteList (aBusinessIdentifiers);
+    aPIClient.deleteList (_asParticipantIDs (aBusinessIdentifiers),
+                          m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
 
     m_aSMClient.delete (m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
   }

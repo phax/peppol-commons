@@ -98,6 +98,7 @@ import com.helger.xsds.peppol.id1.CPeppolID;
  *
  * @author Philip Helger
  */
+@SuppressWarnings ("removal")
 public final class MainCreatePredefinedEnumsFromXML_v9x
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromXML_v9x.class);
@@ -121,13 +122,12 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
   @NonNull
   private static IJExpression _asExpr (@Nullable final LocalDate aLocalDate)
   {
-    return aLocalDate == null ? JExpr._null () : CM.ref (PDTFactory.class)
-                                                   .staticInvoke ("createLocalDate")
-                                                   .arg (aLocalDate.getYear ())
-                                                   .arg (CM.ref (Month.class)
-                                                           .staticInvoke ("of")
-                                                           .arg (aLocalDate.getMonthValue ()))
-                                                   .arg (aLocalDate.getDayOfMonth ());
+    return aLocalDate == null ? JExpr._null ()
+                              : CM.ref (PDTFactory.class)
+                                  .staticInvoke ("createLocalDate")
+                                  .arg (aLocalDate.getYear ())
+                                  .arg (CM.ref (Month.class).staticInvoke ("of").arg (aLocalDate.getMonthValue ()))
+                                  .arg (aLocalDate.getDayOfMonth ());
   }
 
   private static void _handleDocumentTypes (final Document aDocumentSheet)
@@ -222,8 +222,8 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
         jEnumConst.arg (JExpr.lit (sProfileCode));
         jEnumConst.arg (CM.ref (Version.class).staticInvoke ("parse").arg (sInitialRelease));
         jEnumConst.arg (CM.ref (ECodeListItemState.class).enumConstantRef (eState));
-        jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease) : JExpr
-                                                                                                                     ._null ());
+        jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease)
+                                    : JExpr._null ());
         jEnumConst.arg (_asExpr (aRemovalDate));
         jEnumConst.arg (JExpr.lit (aRow.isAbstract ()));
         jEnumConst.arg (JExpr.lit (aRow.isIssuedByOpenpeppol ()));
@@ -528,8 +528,8 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
         jEnumConst.arg (sIssuingAgency == null ? JExpr._null () : JExpr.lit (sIssuingAgency));
         jEnumConst.arg (CM.ref (Version.class).staticInvoke ("parse").arg (sInitialRelease));
         jEnumConst.arg (CM.ref (ECodeListItemState.class).enumConstantRef (eState));
-        jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease) : JExpr
-                                                                                                                     ._null ());
+        jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease)
+                                    : JExpr._null ());
         jEnumConst.arg (_asExpr (aRemovalDate));
 
         jEnumConst.javadoc ()
@@ -862,8 +862,8 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
         jEnumConst.arg (JExpr.lit (sProfileID));
         jEnumConst.arg (CM.ref (Version.class).staticInvoke ("parse").arg (sInitialRelease));
         jEnumConst.arg (CM.ref (ECodeListItemState.class).enumConstantRef (eState));
-        jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease) : JExpr
-                                                                                                                     ._null ());
+        jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease)
+                                    : JExpr._null ());
         jEnumConst.arg (_asExpr (aRemovalDate));
 
         jEnumConst.javadoc ().add ("ID: <code>" + sProfileID + "</code><br>");
@@ -1034,8 +1034,8 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
         jEnumConst.arg (JExpr.lit (sUseCaseID));
         jEnumConst.arg (CM.ref (Version.class).staticInvoke ("parse").arg (sInitialRelease));
         jEnumConst.arg (CM.ref (ECodeListItemState.class).enumConstantRef (eState));
-        jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease) : JExpr
-                                                                                                                     ._null ());
+        jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease)
+                                    : JExpr._null ());
         jEnumConst.arg (_asExpr (aRemovalDate));
 
         jEnumConst.javadoc ().add ("ID: <code>" + sUseCaseID + "</code><br>");

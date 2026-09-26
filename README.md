@@ -418,6 +418,22 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v13.0.1 - work in progress
+* Updated to jcodemodel 4.4.1
+* The SMP client no longer logs an HTTP 404 response of an SMP as an error.
+  An unknown participant or an unknown document type is a regular answer of an SMP - especially for the `...OrNull` methods - so it is the caller that decides whether this is an error or not.
+  `AbstractGenericSMPClient` now logs it on debug level only, and still throws the exception as before, so the behaviour of every caller is unchanged.
+  See [PR #85](https://github.com/phax/peppol-commons/pull/85) - thx @gregjotau
+* Added `ManageParticipantIdentifierServiceCaller.listAllPages (...)` that iterates all pages of the SML `List()` operation and hands every page to a callback.
+  Previously every caller had to implement the paging loop of chapter 3.1.2.7 of the SML specification itself.
+  The callback can stop the iteration, and the method aborts if the SML references a page that was already read, so that a faulty SML cannot cause an endless loop.
+* Added `ManageParticipantIdentifierServiceCaller.deleteList (Collection, String)` that takes the SMP ID and the participant identifiers as `IParticipantIdentifier`, like `createList (...)` does.
+  The single argument `deleteList (Collection)` is deprecated in favour of it, because it takes the JAXB type `ParticipantIdentifierType` and never sets the `ServiceMetadataPublisherID`, even though `delete (...)` needs it as a workaround for a bug in CIPA SMK 3.0.
+  It cannot be replaced by a single argument overload, because `Collection <? extends ParticipantIdentifierType>` and `Collection <? extends IParticipantIdentifier>` have the same erasure.
+* Fixed `ManageParticipantIdentifierServiceCaller.list (...)` sending an empty `NextPageIdentifier` element when the first page was requested.
+  Chapter 3.1.2.7 of the SML specification states that the first page is returned if the element is absent, and an empty element is not an absent element.
+  The element is now only sent if a page ID is present.
+
 v13.0.0 - 2026-09-23
 * Added the new submodule `edelivery-commons` that contains the network neutral base types, so that Peppol, DBNAlliance, HR eDelivery and future networks share them instead of copying them
 * **Breaking API change** Moved `ISMPTransportProfile`, `SMPTransportProfile`, `ESMPTransportProfileState`, `ESMPTransportProfileStateText` and `SMPTransportProfileMicroTypeConverter` from `com.helger.peppol.smp` to `com.helger.edelivery.smp` in the new submodule `edelivery-commons`

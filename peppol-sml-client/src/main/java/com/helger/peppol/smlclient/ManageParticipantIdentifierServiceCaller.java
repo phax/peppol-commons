@@ -19,17 +19,23 @@ package com.helger.peppol.smlclient;
 import java.net.URL;
 import java.util.Collection;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Function;
 
 import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.state.EContinue;
+import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringImplode;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.peppol.sml.CSMLDefault;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.participant.BadRequestFault;
@@ -277,6 +283,45 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
   }
 
   /**
+   * Deletes a list of participant identifiers of the SMP given by the ID.
+   *
+   * @param aParticipantIdentifiers
+   *        The collection of identifiers to delete. May neither be <code>null</code> nor empty nor
+   *        may it contain <code>null</code> values.
+   * @param sSMPID
+   *        The id of the service meta data. May neither be <code>null</code> nor empty.
+   * @throws BadRequestFault
+   *         Is thrown if the request sent to the service was not well-formed.
+   * @throws InternalErrorFault
+   *         Is thrown if an internal error happened on the service.
+   * @throws NotFoundFault
+   *         Is thrown if a participant identifier or the SMP could not be found.
+   * @throws UnauthorizedFault
+   *         Is thrown if the user was not authorized.
+   * @since 13.0.1
+   */
+  public void deleteList (@NonNull @Nonempty final Collection <? extends IParticipantIdentifier> aParticipantIdentifiers,
+                          @NonNull @Nonempty final String sSMPID) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
+  {
+    ValueEnforcer.notEmptyNoNullValue (aParticipantIdentifiers, "ParticipantIdentifiers");
+    ValueEnforcer.notEmpty (sSMPID, "SMPID");
+
+    LOGGER.info ("Trying to delete multiple participants " +
+                 _toString (aParticipantIdentifiers) +
+                 " from SMP '" +
+                 sSMPID +
+                 "'");
+    final ParticipantIdentifierPageType aParticipantList = new ParticipantIdentifierPageType ();
+    for (final IParticipantIdentifier aPI : aParticipantIdentifiers)
+    {
+      // Constructor call needed for type conversion
+      aParticipantList.addParticipantIdentifier (new SimpleParticipantIdentifier (aPI));
+    }
+    aParticipantList.setServiceMetadataPublisherID (sSMPID);
+    createWSPort ().deleteList (aParticipantList);
+  }
+
+  /**
    * Deletes a list of participant identifiers
    *
    * @param aParticipantIdentifiers
@@ -290,7 +335,11 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    *         Is thrown if a business identifier could not be found and therefore deleted.
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
+   * @deprecated Use {@link #deleteList(Collection, String)} instead, which takes
+   *             {@link IParticipantIdentifier} and passes the SMP ID to the SML, like
+   *             {@link #createList(Collection, String)} does (since 13.0.1).
    */
+  @Deprecated (forRemoval = false, since = "13.0.1")
   public void deleteList (@NonNull @Nonempty final Collection <? extends ParticipantIdentifierType> aParticipantIdentifiers) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
   {
     ValueEnforcer.notEmptyNoNullValue (aParticipantIdentifiers, "ParticipantIdentifiers");
@@ -333,7 +382,11 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
 
     final PageRequestType aPageRequest = new PageRequestType ();
     aPageRequest.setServiceMetadataPublisherID (sSMPID);
-    aPageRequest.setNextPageIdentifier (sPageId);
+    // Chapter 3.1.2.7 of the SML specification: "If the NextPageIdentifier is absent, the first
+    // page is returned." An empty element is not an absent element, so it is only set if a page ID
+    // is present
+    if (StringHelper.isNotEmpty (sPageId))
+      aPageRequest.setNextPageIdentifier (sPageId);
     return list (aPageRequest);
   }
 
@@ -361,6 +414,73 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
     LOGGER.info ("Trying to list participants in SMP '" + aPageRequest.getServiceMetadataPublisherID () + "'");
 
     return createWSPort ().list (aPageRequest);
+  }
+
+  /**
+   * Iterate all participant identifiers registered for the provided SMP. This method calls
+   * {@link #list(String, String)} for one page after another, until the SML no longer references a
+   * next page, or until the provided handler asks to stop.<br>
+   * Note: chapter 3.1.2.7 of the SML specification explicitly states that the underlying data may
+   * be updated between one invocation of <code>List()</code> and a subsequent one, so that the
+   * retrieved pages may not represent a consistent set of data. The result of this method is
+   * therefore indicative only.
+   *
+   * @param sSMPID
+   *        The publisher id corresponding to the SMP. May neither be <code>null</code> nor empty.
+   * @param aPageHandler
+   *        The handler invoked for every retrieved page, in the order in which the pages are
+   *        retrieved. It must return {@link EContinue#BREAK} to stop the iteration before the last
+   *        page was read. May not be <code>null</code>.
+   * @return The number of pages that were retrieved and handed over to the handler. Always &ge; 1.
+   * @throws BadRequestFault
+   *         Is thrown if the request sent to the service was not well-formed.
+   * @throws InternalErrorFault
+   *         Is thrown if an internal error happened on the service.
+   * @throws NotFoundFault
+   *         Is thrown if the next page or the identifier of the SMP could not be found.
+   * @throws UnauthorizedFault
+   *         Is thrown if the user was not authorized.
+   * @since 13.0.1
+   */
+  @Nonnegative
+  public int listAllPages (@NonNull @Nonempty final String sSMPID,
+                           @NonNull final Function <? super ParticipantIdentifierPageType, EContinue> aPageHandler) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
+  {
+    ValueEnforcer.notEmpty (sSMPID, "SMPID");
+    ValueEnforcer.notNull (aPageHandler, "PageHandler");
+
+    // Remember the page IDs, to avoid an endless loop in case the SML keeps referencing a page
+    // that was already read
+    final ICommonsSet <String> aHandledPageIDs = new CommonsHashSet <> ();
+    int nPageCount = 0;
+    String sPageID = "";
+    while (true)
+    {
+      final ParticipantIdentifierPageType aPage = list (sPageID, sSMPID);
+      nPageCount++;
+
+      if (aPageHandler.apply (aPage).isBreak ())
+        break;
+
+      sPageID = aPage.getNextPageIdentifier ();
+      if (StringHelper.isEmpty (sPageID))
+      {
+        // No further page available
+        break;
+      }
+
+      if (!aHandledPageIDs.add (sPageID))
+        throw new IllegalStateException ("The SML referenced the page '" +
+                                         sPageID +
+                                         "' of SMP '" +
+                                         sSMPID +
+                                         "' a second time, after " +
+                                         nPageCount +
+                                         " pages. Stopping to avoid an endless loop.");
+    }
+
+    LOGGER.info ("Successfully read " + nPageCount + " participant page(s) of SMP '" + sSMPID + "'");
+    return nPageCount;
   }
 
   private static final char [] MK_LOWER = "abcdefghijklmnopqrstuvwxyz".toCharArray ();
