@@ -286,10 +286,10 @@ Get the endpoint URL for a participant using a special document type and process
     // The Peppol participant identifier
     final IParticipantIdentifier aPI_AT_Test = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
-    // Create the main SMP client using the production SML
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
+    // Create the main SMP client using the Peppol test SML
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                 aPI_AT_Test,
-                                                                ESML.DIGIT_TEST);
+                                                                ESML.PEPPOL_TEST);
     final String sEndpointAddress = aSMPClient.getEndpointAddress (aPI_AT_Test,
                                                                    EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30,
                                                                    EPredefinedProcessIdentifier.BIS3_BILLING,

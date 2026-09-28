@@ -29,8 +29,6 @@ import com.helger.base.type.ObjectType;
 /**
  * Simple enumeration for differentiating the different available SMLs.
  * <ul>
- * <li>DIGIT_PRODUCTION - DIGIT production URL - valid from June 9th, 2015
- * <li>DIGIT_TEST - DIGIT test URL - valid from June 9th, 2015
  * <li>PEPPOL_PRODUCTION - valid from March 1st, 2026
  * <li>PEPPOL_TEST - valid from March 1st, 2026
  * <li>DEVELOPMENT_LOCAL - used for development environment assuming the management application is

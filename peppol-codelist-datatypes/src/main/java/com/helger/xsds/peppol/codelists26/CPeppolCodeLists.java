@@ -26,6 +26,7 @@ import com.helger.io.resource.ClassPathResource;
  * Constants on the Peppol Code Lists.
  *
  * @author Philip Helger
+ * @since 13.1.0
  */
 @Immutable
 public final class CPeppolCodeLists
