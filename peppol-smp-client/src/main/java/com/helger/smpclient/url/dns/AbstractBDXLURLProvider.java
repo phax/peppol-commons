@@ -259,8 +259,8 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
 
     // Append the hashed identifier part
     {
-      String sIdentifierValue = bAddIdentifierSchemeToZone ? aParticipantIdentifier.getValue () : aParticipantIdentifier
-                                                                                                                        .getURIEncoded ();
+      String sIdentifierValue = bAddIdentifierSchemeToZone ? aParticipantIdentifier.getValue ()
+                                                           : aParticipantIdentifier.getURIEncoded ();
       if (bLowercaseValueBeforeHashing)
         sIdentifierValue = sIdentifierValue.toLowerCase (URL_LOCALE);
       ret.append (getHashValueStringRepresentation (sIdentifierValue)).append ('.');
@@ -294,7 +294,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
 
   @NonNull
   public String getDNSNameOfParticipant (@NonNull final IParticipantIdentifier aParticipantIdentifier,
-                                         @Nullable final String sSMLZoneName) throws SMPDNSResolutionException
+                                         @Nullable final String sSMLZoneName)
   {
     return internalGetDNSName (aParticipantIdentifier,
                                isLowercaseValueBeforeHashing (),
@@ -304,7 +304,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
 
   @NonNull
   public String getDNSNameOfParticipant (@NonNull final IParticipantIdentifier aParticipantIdentifier,
-                                         @NonNull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
+                                         @NonNull final ISMLInfo aSMLInfo)
   {
     ValueEnforcer.notNull (aSMLInfo, "SMLInfo");
     return internalGetDNSName (aParticipantIdentifier,

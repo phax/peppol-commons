@@ -19,11 +19,10 @@ package com.helger.smpclient.url.dns;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
-import com.helger.smpclient.url.ISMPURLProvider;
-import com.helger.smpclient.url.SMPDNSResolutionException;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.smpclient.url.ISMPURLProvider;
 
 /**
  * BDXL URL provider. Layout:
@@ -35,7 +34,7 @@ import com.helger.peppolid.IParticipantIdentifier;
 public interface IBDXLURLProvider extends ISMPURLProvider
 {
   /**
-   * Get the name of the DNS NAPTR record.
+   * Get the name of the DNS NAPTR record to resolve. This is a pure String building operation.
    *
    * @param aParticipantIdentifier
    *        Participant identifier. May not be <code>null</code>.
@@ -44,17 +43,15 @@ public interface IBDXLURLProvider extends ISMPURLProvider
    *        with a dot!
    * @return DNS record. It does not contain any prefix like <code>http://</code> or any path
    *         suffix. It is the plain DNS host name.
-   * @throws SMPDNSResolutionException
-   *         If the URL resolution failed.
    * @throws IllegalArgumentException
    *         In case one argument is invalid
    */
   @NonNull
   String getDNSNameOfParticipant (@NonNull IParticipantIdentifier aParticipantIdentifier,
-                                  @Nullable String sSMLZoneName) throws SMPDNSResolutionException;
+                                  @Nullable String sSMLZoneName);
 
   /**
-   * Get the name of the DNS NAPTR record.
+   * Get the name of the DNS NAPTR record to resolve. This is a pure String building operation.
    *
    * @param aParticipantIdentifier
    *        Participant identifier. May not be <code>null</code>.
@@ -62,12 +59,10 @@ public interface IBDXLURLProvider extends ISMPURLProvider
    *        The SML information object to be used. May not be <code>null</code>.
    * @return DNS record. It does not contain any prefix like <code>http://</code> or any path
    *         suffix. It is the plain DNS host name.
-   * @throws SMPDNSResolutionException
-   *         If the URL resolution failed.
    */
   @NonNull
   default String getDNSNameOfParticipant (@NonNull final IParticipantIdentifier aParticipantIdentifier,
-                                          @NonNull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
+                                          @NonNull final ISMLInfo aSMLInfo)
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
     ValueEnforcer.notNull (aSMLInfo, "SMLInfo");
