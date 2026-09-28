@@ -36,14 +36,14 @@ import com.helger.base.lang.EnumHelper;
  *             instead - contrary to the open ended MLR list it is the exhaustive list of permitted
  *             rejection reasons.
  */
-@Deprecated (forRemoval = true, since = "13.0.1")
+@Deprecated (forRemoval = true, since = "13.1.0")
 public enum EPeppolMLRStatusReasonCode implements IHasID <String>
 {
-  @Deprecated (forRemoval = true, since = "13.0.1")
+  @Deprecated (forRemoval = true, since = "13.1.0")
   BUSINESS_RULE_VIOLATION_FATAL ("BV"),
-  @Deprecated (forRemoval = true, since = "13.0.1")
+  @Deprecated (forRemoval = true, since = "13.1.0")
   BUSINESS_RULE_VIOLATION_WARNING ("BW"),
-  @Deprecated (forRemoval = true, since = "13.0.1")
+  @Deprecated (forRemoval = true, since = "13.1.0")
   SYNTAX_VIOLATION ("SV");
 
   private final String m_sID;

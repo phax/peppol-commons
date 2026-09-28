@@ -32,8 +32,6 @@ public final class CPeppolID
 {
   public static final String NS_URI_PEPPOL_IDENTIFIERS = "http://busdox.org/transport/identifiers/1.0/";
 
-  public static final String NS_URI_PEPPOL_CODELISTS = "";
-
   @PresentForCodeCoverage
   private static final CPeppolID INSTANCE = new CPeppolID ();
 
@@ -50,11 +48,5 @@ public final class CPeppolID
   public static ClassPathResource getXSDResourcePeppolIdentifiers ()
   {
     return new ClassPathResource ("/external/schemas/peppol-identifiers-v1.xsd", _getCL ());
-  }
-
-  @NonNull
-  public static ClassPathResource getXSDPeppolCodeLists ()
-  {
-    return new ClassPathResource ("/external/schemas/peppol-codelists-v2.6.xsd", _getCL ());
   }
 }

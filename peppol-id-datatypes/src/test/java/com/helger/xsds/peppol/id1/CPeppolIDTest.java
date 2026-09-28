@@ -31,6 +31,5 @@ public final class CPeppolIDTest
   public void testBasic ()
   {
     assertTrue (CPeppolID.getXSDResourcePeppolIdentifiers ().exists ());
-    assertTrue (CPeppolID.getXSDPeppolCodeLists ().exists ());
   }
 }

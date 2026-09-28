@@ -35,14 +35,14 @@ import com.helger.base.state.ISuccessIndicator;
  *             <code>EPeppolMLSResponseCode</code> from the <code>peppol-mls</code> module instead -
  *             it uses the same response codes and adds the ones MLR does not cover.
  */
-@Deprecated (forRemoval = true, since = "13.0.1")
+@Deprecated (forRemoval = true, since = "13.1.0")
 public enum EPeppolMLRResponseCode implements IHasID <String>, ISuccessIndicator
 {
-  @Deprecated (forRemoval = true, since = "13.0.1")
+  @Deprecated (forRemoval = true, since = "13.1.0")
   ACCEPTANCE ("AP"),
-  @Deprecated (forRemoval = true, since = "13.0.1")
+  @Deprecated (forRemoval = true, since = "13.1.0")
   ACKNOWLEDGING ("AB"),
-  @Deprecated (forRemoval = true, since = "13.0.1")
+  @Deprecated (forRemoval = true, since = "13.1.0")
   REJECTION ("RE");
 
   private final String m_sID;

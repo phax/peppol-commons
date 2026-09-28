@@ -31,7 +31,7 @@ import oasis.names.specification.ubl.schema.xsd.applicationresponse_21.Applicati
  *             2027-05-01 (T4). From T4 onwards no MLR may be sent anymore. Use
  *             <code>PeppolMLSMarshaller</code> from the <code>peppol-mls</code> module instead.
  */
-@Deprecated (forRemoval = true, since = "13.0.1")
+@Deprecated (forRemoval = true, since = "13.1.0")
 public class PeppolMLRMarshaller extends UBL21JAXBMarshaller <ApplicationResponseType>
 {
   public PeppolMLRMarshaller ()

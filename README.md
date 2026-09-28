@@ -13,6 +13,7 @@ This project contains different libraries that are commonly used in the Peppol/e
 * [`smp-client-base`](#smp-client-base) - the network neutral parts of the SMP client, including the OASIS BDXR SMP v1 and v2 clients (since v13.0.0)
 * [`edelivery-id`](#edelivery-id) - the network neutral identifier data structures (since v13.0.0)
 * [`peppol-id-datatypes`](#peppol-id-datatypes) - the generated JAXB classes for ID handling (since v8.4.0)
+* [`peppol-codelist-datatypes`](#peppol-codelist-datatypes) - the generated JAXB classes for Peppol Code List handling (since v13.1.0)
 * [`peppol-id`](#peppol-id) - the Peppol ID data structures (since v7.0.0)
 * [`bdxr-id`](#bdxr-id) - the OASIS BDXR SMP identifier data structures (since v13.0.0)
 * [`peppol-id-checks`](#peppol-id-checks) - checks and derivations on top of the ID data structures (since v12.9.0)
@@ -23,7 +24,7 @@ This project contains different libraries that are commonly used in the Peppol/e
 * [`peppol-smp-datatypes`](#peppol-smp-datatypes) - the Peppol SMP generated JAXB classes (since v8.4.0)
 * [`peppol-smp-client`](#peppol-smp-client) - the Peppol SMP and BDXR SMP client
 * [`peppol-directory-businesscard`](#peppol-directory-businesscard) - the Peppol Directory Business Card data model (since v9.1.0)
-* [`peppol-mlr`](#peppol-mlr) - specific support for the Peppol Message Level Response (MLR) (since v9.1.2; **deprecated** since v13.0.1 - MLR is retired from Peppol per 2027-05-01)
+* [`peppol-mlr`](#peppol-mlr) - specific support for the Peppol Message Level Response (MLR) (since v9.1.2; **deprecated** since v13.1.0 - MLR is retired from Peppol per 2027-05-01)
 * [`peppol-mls`](#peppol-mls) - specific support for the Peppol Message Level Status (MLS) (since v10.1.0)
 * [`dbnalliance-commons`](#dbnalliance-commons) - contains commons stuff for DBNAlliance support (since v10.2.0)
 * [`dbnalliance-xhe`](#dbnalliance-xhe) - specific support for DBNAlliance XHE header (since v9.5.0)
@@ -70,8 +71,19 @@ BDXR SMP XML Schema artifacts into the class path.
 
 ## peppol-id-datatypes
 
-Java library with the JAXB generated elements for Peppol ID and Peppol Code List handling.
+Java library with the JAXB generated elements for Peppol ID handling.
 First created in v8.4.0.
+The Peppol Code List elements are in `peppol-codelist-datatypes` since v13.1.0.
+
+Make sure to run `mvn process-sources` before using it in the IDE.
+The additional code is created in `target/generated-sources/xjc`. 
+
+## peppol-codelist-datatypes
+
+Java library with the JAXB generated elements for Peppol Code List handling.
+First created in v13.1.0 by extracting them from `peppol-id-datatypes`.
+They are only needed to read the official Peppol Code List XML files - the predefined identifiers
+created from them are in `peppol-id`.
 
 Make sure to run `mvn process-sources` before using it in the IDE.
 The additional code is created in `target/generated-sources/xjc`. 
@@ -175,7 +187,7 @@ This project holds the different versions of the Peppol Directory Business Card 
 
 ## peppol-mlr
 
-This was introduced in v9.1.2 and is **deprecated since v13.0.1**
+This was introduced in v9.1.2 and is **deprecated since v13.1.0**
 
 This project holds utility classes to read and write a Peppol Message Level Response (MLR) as defined in https://docs.peppol.eu/poacc/upgrade-3/profiles/36-mlr/
 
@@ -422,7 +434,16 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v13.0.1 - work in progress
+v13.1.0 - work in progress
+* Added the new submodule `peppol-codelist-datatypes` that contains the JAXB classes of the Peppol Code List XSD, extracted from `peppol-id-datatypes`
+* **Breaking API change** The package `com.helger.xsds.peppol.codelists26` moved from the submodule `peppol-id-datatypes` to the new submodule `peppol-codelist-datatypes`.
+  The package name and all contained classes are unchanged - only the artifact that provides them is a different one.
+  `peppol-codelists-v2.6.xsd` and `peppol-identifiers-v1.xsd` share nothing: they have no `xs:import` between them, only the identifier XSD has a target namespace, and the code list XSD follows the release cycle of the Peppol code lists, whereas the identifier XSD did not change in years.
+* **Breaking API change** Moved `CPeppolID.NS_URI_PEPPOL_CODELISTS` and `CPeppolID.getXSDPeppolCodeLists ()` to the new class `CPeppolCodeLists` in the submodule `peppol-codelist-datatypes`
+* `peppol-id` now depends on `peppol-codelist-datatypes` in `test` scope only, because the code list JAXB classes are only used by the source code generator of the predefined enums.
+  That removes them from the transitive compile classpath of `peppol-id` and of everything building on it. Add an explicit dependency on `peppol-codelist-datatypes` if you use them.
+* `peppol-id-datatypes` no longer depends on `ph-datetime`, `ph-jaxb-adapter` and `ph-xsds-xmldsig`.
+  Only the code list classes used the `XMLOffsetDateTime` adapters, and neither XSD ever referenced XMLDSig.
 * **Deprecation** All classes of the module `peppol-mlr` are now deprecated for removal.
   Peppol MLR is phased out in favour of Peppol MLS, as laid out in the [Peppol MLR Deprecation and Phase-out Plan](https://docs.peppol.eu/edelivery/changelog/2026-07/Peppol%20MLR%20Phase-Out%201.0.0%202026-07-02.pdf) v1.0.0.
   The phase-out starts on 2027-03-01 (T2), the MLR specification is deprecated on 2027-04-01 (T3) and MLR is fully retired on 2027-05-01 (T4) - from T4 onwards no MLR may be sent anymore.

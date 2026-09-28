@@ -518,7 +518,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *        <code>ServiceActivationDate</code> and/or a <code>ServiceExpirationDate</code>. May not
    *        be <code>null</code>.
    * @return <code>null</code> if no matching endpoint was found
-   * @since 13.0.1
+   * @since 13.1.0
    */
   @Nullable
   public static EndpointType getEndpointAt (@NonNull final SignedServiceMetadataType aSignedServiceMetadata,
@@ -564,7 +564,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *        The date and time at which the check is performed. May not be <code>null</code>.
    * @return <code>true</code> if the endpoint is valid at the provided date and time,
    *         <code>false</code> if not.
-   * @since 13.0.1
+   * @since 13.1.0
    */
   public static boolean isEndpointValidAt (@NonNull final EndpointType aEndpoint,
                                            @NonNull final LocalDateTime aCheckDT)
@@ -614,7 +614,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *        <code>ServiceActivationDate</code> and/or a <code>ServiceExpirationDate</code>. May not
    *        be <code>null</code>.
    * @return <code>null</code> if no matching endpoint was found
-   * @since 13.0.1
+   * @since 13.1.0
    */
   @Nullable
   public static EndpointType getEndpointAt (@NonNull final ServiceMetadataType aServiceMetadata,

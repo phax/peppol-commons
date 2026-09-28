@@ -55,7 +55,7 @@ import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.Endpoin
  *             2027-05-01 (T4). From T4 onwards no MLR may be sent anymore. Use
  *             <code>PeppolMLSBuilder</code> from the <code>peppol-mls</code> module instead.
  */
-@Deprecated (forRemoval = true, since = "13.0.1")
+@Deprecated (forRemoval = true, since = "13.1.0")
 @SuppressWarnings ("removal")
 public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
 {

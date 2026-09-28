@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger.peppol</groupId>
     <artifactId>peppol-commons-parent-pom</artifactId>
-    <version>13.0.1-SNAPSHOT</version>
+    <version>13.1.0-SNAPSHOT</version>
   </parent>
   <artifactId>peppol-id-datatypes</artifactId>
   <packaging>jar</packaging>
@@ -54,16 +54,12 @@
   
   <dependencies>
     <dependency>
-      <groupId>com.helger.commons</groupId>
-      <artifactId>ph-datetime</artifactId>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
     </dependency>
     <dependency>
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-io</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.commons</groupId>
-      <artifactId>ph-jaxb-adapter</artifactId>
     </dependency>
   </dependencies>
   
@@ -104,12 +100,6 @@
             <arg>-Xph-cloneable2</arg>
             <arg>-Xph-offset-dt-extension</arg>
           </args>
-          <episodes>
-            <episode>
-              <groupId>com.helger.xsd</groupId>
-              <artifactId>ph-xsds-xmldsig</artifactId>
-            </episode>
-          </episodes>
         </configuration>
         <dependencies>
           <dependency>

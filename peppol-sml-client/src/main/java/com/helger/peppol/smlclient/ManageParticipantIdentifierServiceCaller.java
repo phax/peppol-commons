@@ -300,7 +300,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    *         Is thrown if a participant identifier or the SMP could not be found.
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
-   * @since 13.0.1
+   * @since 13.1.0
    */
   public void deleteList (@NonNull @Nonempty final Collection <? extends IParticipantIdentifier> aParticipantIdentifiers,
                           @NonNull @Nonempty final String sSMPID) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
@@ -339,9 +339,9 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    *         Is thrown if the user was not authorized.
    * @deprecated Use {@link #deleteList(Collection, String)} instead, which takes
    *             {@link IParticipantIdentifier} and passes the SMP ID to the SML, like
-   *             {@link #createList(Collection, String)} does (since 13.0.1).
+   *             {@link #createList(Collection, String)} does (since 13.1.0).
    */
-  @Deprecated (forRemoval = false, since = "13.0.1")
+  @Deprecated (forRemoval = false, since = "13.1.0")
   public void deleteList (@NonNull @Nonempty final Collection <? extends ParticipantIdentifierType> aParticipantIdentifiers) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
   {
     ValueEnforcer.notEmptyNoNullValue (aParticipantIdentifiers, "ParticipantIdentifiers");
@@ -442,7 +442,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    *         Is thrown if the next page or the identifier of the SMP could not be found.
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
-   * @since 13.0.1
+   * @since 13.1.0
    */
   @Nonnegative
   public int listAllPages (@NonNull @Nonempty final String sSMPID,

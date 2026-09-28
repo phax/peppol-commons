@@ -474,7 +474,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
    *        The date at which the check is performed. May not be <code>null</code>.
    * @return <code>true</code> if the endpoint is valid at the provided date, <code>false</code> if
    *         not.
-   * @since 13.0.1
+   * @since 13.1.0
    */
   public static boolean isEndpointValidAt (@NonNull final EndpointType aEndpoint, @NonNull final LocalDate aCheckDate)
   {
@@ -551,7 +551,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
    *        <code>ActivationDate</code> and/or an <code>ExpirationDate</code>. May not be
    *        <code>null</code>.
    * @return <code>null</code> if no matching endpoint was found
-   * @since 13.0.1
+   * @since 13.1.0
    */
   @Nullable
   public static EndpointType getEndpointAt (@NonNull final ServiceMetadataType aServiceMetadata,

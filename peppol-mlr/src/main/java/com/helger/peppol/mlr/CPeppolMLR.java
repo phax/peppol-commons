@@ -28,7 +28,7 @@ import com.helger.annotation.concurrent.Immutable;
  *             2027-05-01 (T4). From T4 onwards no MLR may be sent anymore. Use
  *             <code>CPeppolMLS</code> from the <code>peppol-mls</code> module instead.
  */
-@Deprecated (forRemoval = true, since = "13.0.1")
+@Deprecated (forRemoval = true, since = "13.1.0")
 @Immutable
 public final class CPeppolMLR
 {

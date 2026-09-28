@@ -43,7 +43,7 @@ import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.Descrip
  *             <code>PeppolMLSLineResponseBuilder</code> from the <code>peppol-mls</code> module
  *             instead.
  */
-@Deprecated (forRemoval = true, since = "13.0.1")
+@Deprecated (forRemoval = true, since = "13.1.0")
 @SuppressWarnings ("removal")
 public class PeppolMLRLineResponseBuilder implements IBuilder <LineResponseType>
 {

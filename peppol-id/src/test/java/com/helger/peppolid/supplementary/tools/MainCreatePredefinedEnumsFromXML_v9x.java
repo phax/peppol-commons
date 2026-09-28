@@ -76,6 +76,7 @@ import com.helger.peppolid.peppol.process.PeppolProcessIdentifier;
 import com.helger.peppolid.peppol.spisusecase.IPredefinedSPISUseCaseIdentifier;
 import com.helger.peppolid.peppol.transportprofile.IPredefinedTransportProfileIdentifier;
 import com.helger.xml.serialize.read.DOMReader;
+import com.helger.xsds.peppol.codelists26.CPeppolCodeLists;
 import com.helger.xsds.peppol.codelists26.ObjectFactory;
 import com.helger.xsds.peppol.codelists26.PCLDocumentTypeType;
 import com.helger.xsds.peppol.codelists26.PCLDocumentTypesType;
@@ -89,7 +90,6 @@ import com.helger.xsds.peppol.codelists26.PCLSpisUseCaseType;
 import com.helger.xsds.peppol.codelists26.PCLStateType;
 import com.helger.xsds.peppol.codelists26.PCLTransportProfileType;
 import com.helger.xsds.peppol.codelists26.PCLTransportProfilesType;
-import com.helger.xsds.peppol.id1.CPeppolID;
 
 /**
  * Utility class to create the Genericode files from the Excel code list. Also creates Java source
@@ -133,7 +133,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
   private static void _handleDocumentTypes (final Document aDocumentSheet)
   {
     final PCLDocumentTypesType aList = new GenericJAXBMarshaller <> (PCLDocumentTypesType.class,
-                                                                     new CommonsArrayList <> (CPeppolID.getXSDPeppolCodeLists ()),
+                                                                     new CommonsArrayList <> (CPeppolCodeLists.getXSDPeppolCodeLists ()),
                                                                      new ObjectFactory ()::createDocumentTypes).read (aDocumentSheet);
     if (aList == null)
       throw new IllegalStateException ();
@@ -477,7 +477,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
   private static void _handleParticipantIdentifierSchemes (final Document aParticipantSheet)
   {
     final PCLParticipantIdentifierSchemesType aList = new GenericJAXBMarshaller <> (PCLParticipantIdentifierSchemesType.class,
-                                                                                    new CommonsArrayList <> (CPeppolID.getXSDPeppolCodeLists ()),
+                                                                                    new CommonsArrayList <> (CPeppolCodeLists.getXSDPeppolCodeLists ()),
                                                                                     new ObjectFactory ()::createParticipantIdentifierSchemes).read (aParticipantSheet);
     if (aList == null)
       throw new IllegalStateException ();
@@ -659,7 +659,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
   private static void _handleProcessIdentifiers (final Document aProcessSheet)
   {
     final PCLProcessesType aList = new GenericJAXBMarshaller <> (PCLProcessesType.class,
-                                                                 new CommonsArrayList <> (CPeppolID.getXSDPeppolCodeLists ()),
+                                                                 new CommonsArrayList <> (CPeppolCodeLists.getXSDPeppolCodeLists ()),
                                                                  new ObjectFactory ()::createProcesses).read (aProcessSheet);
     if (aList == null)
       throw new IllegalStateException ();
@@ -817,7 +817,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
   private static void _handleTransportProfileIdentifiers (final Document aTPSheet)
   {
     final PCLTransportProfilesType aList = new GenericJAXBMarshaller <> (PCLTransportProfilesType.class,
-                                                                         new CommonsArrayList <> (CPeppolID.getXSDPeppolCodeLists ()),
+                                                                         new CommonsArrayList <> (CPeppolCodeLists.getXSDPeppolCodeLists ()),
                                                                          new ObjectFactory ()::createTransportProfiles).read (aTPSheet);
     if (aList == null)
       throw new IllegalStateException ();
@@ -991,7 +991,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
   private static void _handleSpisUseCase (final Document aTPSheet)
   {
     final PCLSpisUseCaseListType aList = new GenericJAXBMarshaller <> (PCLSpisUseCaseListType.class,
-                                                                       new CommonsArrayList <> (CPeppolID.getXSDPeppolCodeLists ()),
+                                                                       new CommonsArrayList <> (CPeppolCodeLists.getXSDPeppolCodeLists ()),
                                                                        new ObjectFactory ()::createSpisUseCase).read (aTPSheet);
     if (aList == null)
       throw new IllegalStateException ();
