@@ -20,6 +20,7 @@ import java.net.URI;
 import java.security.KeyStore;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.function.Consumer;
 
@@ -34,6 +35,7 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
+import com.helger.datetime.helper.PDTFactory;
 import com.helger.edelivery.sml.ISMLBase;
 import com.helger.edelivery.smp.ISMPTransportProfile;
 import com.helger.peppolid.CIdentifier;
@@ -500,6 +502,35 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   }
 
   /**
+   * Extract the Endpoint from the signedServiceMetadata that matches the passed process ID and the
+   * optional required transport profile, and that is valid at the provided date and time.
+   *
+   * @param aSignedServiceMetadata
+   *        The signed service meta data object (e.g. from a call to
+   *        {@link #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)} . May
+   *        not be <code>null</code>.
+   * @param aProcessID
+   *        The process identifier to be looked up. May not be <code>null</code> .
+   * @param aTransportProfile
+   *        The required transport profile to be used. May not be <code>null</code>.
+   * @param aCheckDT
+   *        The date and time for which the endpoint is meant to be valid, if the endpoint contains a
+   *        <code>ServiceActivationDate</code> and/or a <code>ServiceExpirationDate</code>. May not
+   *        be <code>null</code>.
+   * @return <code>null</code> if no matching endpoint was found
+   * @since 13.0.1
+   */
+  @Nullable
+  public static EndpointType getEndpointAt (@NonNull final SignedServiceMetadataType aSignedServiceMetadata,
+                                            @NonNull final IProcessIdentifier aProcessID,
+                                            @NonNull final ISMPTransportProfile aTransportProfile,
+                                            @NonNull final LocalDateTime aCheckDT)
+  {
+    ValueEnforcer.notNull (aSignedServiceMetadata, "SignedServiceMetadata");
+    return getEndpointAt (aSignedServiceMetadata.getServiceMetadata (), aProcessID, aTransportProfile, aCheckDT);
+  }
+
+  /**
    * Extract the Endpoint from the ServiceMetadata that matches the passed process ID and the
    * optional required transport profile.
    *
@@ -511,11 +542,85 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *        The required transport profile to be used. May not be <code>null</code>.
    * @return <code>null</code> if no matching endpoint was found
    * @since 8.2.6
+   * @see #getEndpointAt(ServiceMetadataType, IProcessIdentifier, ISMPTransportProfile,
+   *      LocalDateTime)
    */
   @Nullable
   public static EndpointType getEndpoint (@NonNull final ServiceMetadataType aServiceMetadata,
                                           @NonNull final IProcessIdentifier aProcessID,
                                           @NonNull final ISMPTransportProfile aTransportProfile)
+  {
+    return getEndpointAt (aServiceMetadata, aProcessID, aTransportProfile, PDTFactory.getCurrentLocalDateTime ());
+  }
+
+  /**
+   * Check if the provided SMP endpoint is valid at the provided date and time. In OASIS BDXR SMP v1
+   * the elements <code>ServiceActivationDate</code> and <code>ServiceExpirationDate</code> are of
+   * the XML Schema type <code>xs:dateTime</code>. Both are treated as <b>inclusive</b>.
+   *
+   * @param aEndpoint
+   *        The SMP endpoint to check. May not be <code>null</code>.
+   * @param aCheckDT
+   *        The date and time at which the check is performed. May not be <code>null</code>.
+   * @return <code>true</code> if the endpoint is valid at the provided date and time,
+   *         <code>false</code> if not.
+   * @since 13.0.1
+   */
+  public static boolean isEndpointValidAt (@NonNull final EndpointType aEndpoint,
+                                           @NonNull final LocalDateTime aCheckDT)
+  {
+    ValueEnforcer.notNull (aEndpoint, "Endpoint");
+    ValueEnforcer.notNull (aCheckDT, "CheckDT");
+
+    // Check not before time - inclusive
+    final LocalDateTime aNotBefore = aEndpoint.getServiceActivationDateLocal ();
+    if (aNotBefore != null)
+    {
+      if (aCheckDT.isBefore (aNotBefore))
+      {
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("SMP endpoint activation date " + aNotBefore + " is after the check DT " + aCheckDT);
+        return false;
+      }
+    }
+
+    // Check not after time - inclusive
+    final LocalDateTime aNotAfter = aEndpoint.getServiceExpirationDateLocal ();
+    if (aNotAfter != null)
+    {
+      if (aCheckDT.isAfter (aNotAfter))
+      {
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("SMP endpoint expiration date " + aNotAfter + " is before the check DT " + aCheckDT);
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  /**
+   * Extract the Endpoint from the ServiceMetadata that matches the passed process ID and the
+   * optional required transport profile, and that is valid at the provided date and time.
+   *
+   * @param aServiceMetadata
+   *        The unsigned service meta data object. May not be <code>null</code>.
+   * @param aProcessID
+   *        The process identifier to be looked up. May not be <code>null</code> .
+   * @param aTransportProfile
+   *        The required transport profile to be used. May not be <code>null</code>.
+   * @param aCheckDT
+   *        The date and time for which the endpoint is meant to be valid, if the endpoint contains a
+   *        <code>ServiceActivationDate</code> and/or a <code>ServiceExpirationDate</code>. May not
+   *        be <code>null</code>.
+   * @return <code>null</code> if no matching endpoint was found
+   * @since 13.0.1
+   */
+  @Nullable
+  public static EndpointType getEndpointAt (@NonNull final ServiceMetadataType aServiceMetadata,
+                                            @NonNull final IProcessIdentifier aProcessID,
+                                            @NonNull final ISMPTransportProfile aTransportProfile,
+                                            @NonNull final LocalDateTime aCheckDT)
   {
     ValueEnforcer.notNull (aServiceMetadata, "ServiceMetadata");
     final ServiceInformationType aServiceInformation = aServiceMetadata.getServiceInformation ();
@@ -527,6 +632,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
     ValueEnforcer.notNull (aServiceInformation.getProcessList (), "ServiceMetadata.ServiceInformation.ProcessList");
     ValueEnforcer.notNull (aProcessID, "ProcessID");
     ValueEnforcer.notNull (aTransportProfile, "TransportProfile");
+    ValueEnforcer.notNull (aCheckDT, "CheckDT");
 
     // Iterate all processes
     for (final ProcessType aProcessType : aServiceInformation.getProcessList ().getProcess ())
@@ -535,10 +641,11 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
       if (BDXR1IdentifierHelper.wrapAsSimpleProcessIdentifier (aProcessType.getProcessIdentifier ())
                                .hasSameContent (aProcessID))
       {
-        // Filter endpoints by required transport profile
+        // Filter endpoints by required transport profile and validity
         final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList <> ();
         for (final EndpointType aEndpoint : aProcessType.getServiceEndpointList ().getEndpoint ())
-          if (aTransportProfile.getID ().equals (aEndpoint.getTransportProfile ()))
+          if (aTransportProfile.getID ().equals (aEndpoint.getTransportProfile ()) &&
+              isEndpointValidAt (aEndpoint, aCheckDT))
             aRelevantEndpoints.add (aEndpoint);
 
         if (aRelevantEndpoints.size () != 1)
@@ -549,6 +656,8 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
                        aProcessID +
                        " and transport profile " +
                        aTransportProfile.getID () +
+                       " valid at " +
+                       aCheckDT +
                        (aRelevantEndpoints.isEmpty () ? "" : ": " +
                                                              aRelevantEndpoints.toString () +
                                                              " - using the first one"));

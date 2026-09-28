@@ -20,6 +20,7 @@ import java.net.URI;
 import java.security.KeyStore;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.time.LocalDate;
 
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.jspecify.annotations.NonNull;
@@ -31,6 +32,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
+import com.helger.datetime.helper.PDTFactory;
 import com.helger.edelivery.sml.ISMLBase;
 import com.helger.edelivery.smp.ISMPTransportProfile;
 import com.helger.peppolid.IDocumentTypeIdentifier;
@@ -460,8 +462,58 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
   }
 
   /**
+   * Check if the provided SMP endpoint is valid at the provided date. In OASIS BDXR SMP v2 the
+   * elements <code>ActivationDate</code> and <code>ExpirationDate</code> are of the XML Schema type
+   * <code>xs:date</code> and therefore carry no time of day. Both dates are treated as
+   * <b>inclusive</b>: an endpoint with an <code>ExpirationDate</code> of 2026-12-31 is still valid
+   * on 2026-12-31 and no longer valid on 2027-01-01.
+   *
+   * @param aEndpoint
+   *        The SMP endpoint to check. May not be <code>null</code>.
+   * @param aCheckDate
+   *        The date at which the check is performed. May not be <code>null</code>.
+   * @return <code>true</code> if the endpoint is valid at the provided date, <code>false</code> if
+   *         not.
+   * @since 13.0.1
+   */
+  public static boolean isEndpointValidAt (@NonNull final EndpointType aEndpoint, @NonNull final LocalDate aCheckDate)
+  {
+    ValueEnforcer.notNull (aEndpoint, "Endpoint");
+    ValueEnforcer.notNull (aCheckDate, "CheckDate");
+
+    // Check not before date - inclusive
+    final LocalDate aNotBefore = aEndpoint.getActivationDateValueLocal ();
+    if (aNotBefore != null)
+    {
+      if (aCheckDate.isBefore (aNotBefore))
+      {
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("SMP endpoint activation date " + aNotBefore + " is after the check date " + aCheckDate);
+        return false;
+      }
+    }
+
+    // Check not after date - inclusive
+    final LocalDate aNotAfter = aEndpoint.getExpirationDateValueLocal ();
+    if (aNotAfter != null)
+    {
+      if (aCheckDate.isAfter (aNotAfter))
+      {
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("SMP endpoint expiration date " + aNotAfter + " is before the check date " + aCheckDate);
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  /**
    * Extract the Endpoint from the ServiceMetadata that matches the passed process ID and the
-   * optional required transport profile.
+   * optional required transport profile. This method checks the validity of the endpoint at the
+   * current date in the default time zone. Use
+   * {@link #getEndpointAt(ServiceMetadataType, IProcessIdentifier, ISMPTransportProfile, LocalDate)}
+   * if a specific date or a specific time zone is required.
    *
    * @param aServiceMetadata
    *        The service meta data object (e.g. from a call to
@@ -472,15 +524,45 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
    * @param aTransportProfile
    *        The required transport profile to be used. May not be <code>null</code>.
    * @return <code>null</code> if no matching endpoint was found
+   * @see #getEndpointAt(ServiceMetadataType, IProcessIdentifier, ISMPTransportProfile, LocalDate)
    */
   @Nullable
   public static EndpointType getEndpoint (@NonNull final ServiceMetadataType aServiceMetadata,
                                           @NonNull final IProcessIdentifier aProcessID,
                                           @NonNull final ISMPTransportProfile aTransportProfile)
   {
-    ValueEnforcer.notNull (aServiceMetadata, "SignedServiceMetadata");
+    return getEndpointAt (aServiceMetadata, aProcessID, aTransportProfile, PDTFactory.getCurrentLocalDate ());
+  }
+
+  /**
+   * Extract the Endpoint from the ServiceMetadata that matches the passed process ID and the
+   * optional required transport profile, and that is valid at the provided date.
+   *
+   * @param aServiceMetadata
+   *        The service meta data object (e.g. from a call to
+   *        {@link #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)} . May
+   *        not be <code>null</code>.
+   * @param aProcessID
+   *        The process identifier to be looked up. May not be <code>null</code> .
+   * @param aTransportProfile
+   *        The required transport profile to be used. May not be <code>null</code>.
+   * @param aCheckDate
+   *        The date for which the endpoint is meant to be valid, if the endpoint contains an
+   *        <code>ActivationDate</code> and/or an <code>ExpirationDate</code>. May not be
+   *        <code>null</code>.
+   * @return <code>null</code> if no matching endpoint was found
+   * @since 13.0.1
+   */
+  @Nullable
+  public static EndpointType getEndpointAt (@NonNull final ServiceMetadataType aServiceMetadata,
+                                            @NonNull final IProcessIdentifier aProcessID,
+                                            @NonNull final ISMPTransportProfile aTransportProfile,
+                                            @NonNull final LocalDate aCheckDate)
+  {
+    ValueEnforcer.notNull (aServiceMetadata, "ServiceMetadata");
     ValueEnforcer.notNull (aProcessID, "ProcessID");
     ValueEnforcer.notNull (aTransportProfile, "TransportProfile");
+    ValueEnforcer.notNull (aCheckDate, "CheckDate");
 
     // Iterate all processes
     for (final ProcessMetadataType aPM : aServiceMetadata.getProcessMetadata ())
@@ -497,7 +579,8 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
       {
         final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList <> ();
         for (final EndpointType aEndpoint : aPM.getEndpoint ())
-          if (aTransportProfile.getID ().equals (aEndpoint.getTransportProfileIDValue ()))
+          if (aTransportProfile.getID ().equals (aEndpoint.getTransportProfileIDValue ()) &&
+              isEndpointValidAt (aEndpoint, aCheckDate))
             aRelevantEndpoints.add (aEndpoint);
 
         if (aRelevantEndpoints.size () != 1)
@@ -508,7 +591,8 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
                        aProcessID.getURIEncoded () +
                        "' and transport profile '" +
                        aTransportProfile.getID () +
-                       "'" +
+                       "' valid at " +
+                       aCheckDate +
                        (aRelevantEndpoints.isEmpty () ? ""
                                                       : ": " +
                                                         aRelevantEndpoints.toString () +

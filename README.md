@@ -440,6 +440,14 @@ v13.0.1 - work in progress
   The fault info of the generated fault classes may be `null`, and it was dereferenced unconditionally in the very helper that is meant to make a fault readable.
 * Fixed the Javadoc of `ManageParticipantIdentifierServiceCaller.migrate (...)` claiming that the migration key must have at least 24 characters.
   `CSMLDefault.MAX_MIGRATION_CODE_LENGTH` is a maximum, and `CSMLDefault.MIGRATION_CODE_PATTERN` allows between 8 and 24 characters.
+* Added `BDXR2ClientReadOnly.isEndpointValidAt (EndpointType, LocalDate)` and `BDXR2ClientReadOnly.getEndpointAt (ServiceMetadataType, IProcessIdentifier, ISMPTransportProfile, LocalDate)`.
+  `getEndpoint (...)` previously matched the process identifier and the transport profile only and ignored `smb:ActivationDate` and `smb:ExpirationDate` entirely, so an endpoint outside its validity period was returned like any other one.
+  For the Peppol SMP the date aware variants exist since v8.7.3; for OASIS BDXR SMP v2 they were missing.
+  In BDXR SMP v2 both elements are of type `xs:date` and carry no time of day, so the new methods take a `LocalDate` and treat both dates as **inclusive**: an endpoint with an `ExpirationDate` of `2026-12-31` is still valid on `2026-12-31`.
+  `getEndpoint (...)` now delegates to `getEndpointAt (...)` with the current date of the default time zone. Callers that need a specific date or a specific time zone - UTC in particular - must use `getEndpointAt (...)`.
+* Added `BDXRClientReadOnly.isEndpointValidAt (EndpointType, LocalDateTime)` as well as `getEndpointAt (...)` for both `ServiceMetadataType` and `SignedServiceMetadataType`, closing the same gap for OASIS BDXR SMP v1.
+  There `ServiceActivationDate` and `ServiceExpirationDate` are of type `xs:dateTime`, so these methods take a `LocalDateTime`, exactly like the Peppol counterparts.
+  `getEndpoint (...)` now delegates to `getEndpointAt (...)` with the current date and time of the default time zone.
 
 v13.0.0 - 2026-09-23
 * Added the new submodule `edelivery-commons` that contains the network neutral base types, so that Peppol, DBNAlliance, HR eDelivery and future networks share them instead of copying them
