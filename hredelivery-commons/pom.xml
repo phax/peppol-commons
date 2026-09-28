@@ -66,10 +66,6 @@
       <artifactId>ph-security</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger.commons</groupId>
-      <artifactId>ph-bc</artifactId>
-    </dependency>
-    <dependency>
       <groupId>com.helger.peppol</groupId>
       <artifactId>peppol-smp-client</artifactId>
     </dependency>

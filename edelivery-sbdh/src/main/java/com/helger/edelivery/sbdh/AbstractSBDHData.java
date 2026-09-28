@@ -35,7 +35,6 @@ import com.helger.datetime.xml.XMLOffsetDateTime;
 import com.helger.jaxb.adapter.JAXBHelper;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
-import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 
 /**
  * Base class for the data of a Standard Business Document Header in a syntax neutral way. It
@@ -123,9 +122,9 @@ public abstract class AbstractSBDHData <IMPLTYPE extends AbstractSBDHData <IMPLT
    * Set the sender participant identifier.
    *
    * @param sScheme
-   *        The Peppol identifier scheme. This is usually always
-   *        {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}. May neither be
-   *        <code>null</code> nor empty. This field is mapped to
+   *        The identifier scheme. For Peppol this is usually always
+   *        <code>iso6523-actorid-upis</code>. May neither be <code>null</code> nor empty. This
+   *        field is mapped to
    *        <code>StandardBusinessDocumentHeader/Sender/Identifier/@Authority</code> .
    * @param sValue
    *        The sender identifier value. May neither be <code>null</code> nor empty. This field is
@@ -194,9 +193,9 @@ public abstract class AbstractSBDHData <IMPLTYPE extends AbstractSBDHData <IMPLT
    * Set the receiver participant identifier.
    *
    * @param sScheme
-   *        The Peppol identifier scheme. This is usually always
-   *        {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME} . May neither be
-   *        <code>null</code> nor empty. This field is mapped to
+   *        The identifier scheme. For Peppol this is usually always
+   *        <code>iso6523-actorid-upis</code>. May neither be <code>null</code> nor empty. This
+   *        field is mapped to
    *        <code>StandardBusinessDocumentHeader/Receiver/Identifier/@Authority</code> .
    * @param sValue
    *        The receiver identifier value. May neither be <code>null</code> nor empty. This field is

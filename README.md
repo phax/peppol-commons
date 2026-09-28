@@ -444,6 +444,19 @@ v13.1.0 - work in progress
   That removes them from the transitive compile classpath of `peppol-id` and of everything building on it. Add an explicit dependency on `peppol-codelist-datatypes` if you use them.
 * `peppol-id-datatypes` no longer depends on `ph-datetime`, `ph-jaxb-adapter` and `ph-xsds-xmldsig`.
   Only the code list classes used the `XMLOffsetDateTime` adapters, and neither XSD ever referenced XMLDSig.
+* Removed the dependency of the modules `dbnalliance-commons` and `hredelivery-commons` onto `ph-bc` and therefore onto Bouncy Castle.
+  Neither module references a single Bouncy Castle class and both trust stores are `PKCS12`, so the roughly 9 MB of `bcprov`, `bcpkix` and `bcutil` are gone from their compile and runtime class path.
+  This completes what [PR #81](https://github.com/phax/peppol-commons/pull/81) did for `peppol-commons` in v12.10.0 - both modules were left out back then.
+  If you need Bouncy Castle - e.g. to read a `BCFKS` trust store - add `ph-bc` to your project explicitly.
+* The modules `smp-client-base`, `dbnalliance-commons`, `dbnalliance-xhe` and `edelivery-sbdh` no longer depend on `peppol-id`.
+  None of them used a single class of it - they use `edelivery-id` and `bdxr-id`, which are now declared explicitly where they were only transitive before.
+  If you relied on getting `peppol-id` transitively through one of these modules, declare it yourself.
+* `edelivery-sbdh` referenced `PeppolIdentifierHelper` in two Javadoc `{@link}`s only, which was the sole reason for its dependency onto `peppol-id` and contradicted its role as the network neutral SBDH module.
+  The Javadoc of `AbstractSBDHData.setSender (String, String)` and `setReceiver (String, String)` now names the scheme value directly.
+* `peppol-sbdh` no longer depends on `peppol-commons` - it referenced no class of it, neither in the main nor in the test code.
+  That also removes `ph-security` and `edelivery-commons` from its class path.
+* `peppol-id` no longer depends on `ph-xsds-xmldsig` - and therefore no longer on `ph-jaxb-adapter` - and no longer on `ph-url`.
+  It now declares `ph-datetime` and `ph-cache` instead, which it does use and which previously only arrived transitively.
 * **Deprecation** All classes of the module `peppol-mlr` are now deprecated for removal.
   Peppol MLR is phased out in favour of Peppol MLS, as laid out in the [Peppol MLR Deprecation and Phase-out Plan](https://docs.peppol.eu/edelivery/changelog/2026-07/Peppol%20MLR%20Phase-Out%201.0.0%202026-07-02.pdf) v1.0.0.
   The phase-out starts on 2027-03-01 (T2), the MLR specification is deprecated on 2027-04-01 (T3) and MLR is fully retired on 2027-05-01 (T4) - from T4 onwards no MLR may be sent anymore.

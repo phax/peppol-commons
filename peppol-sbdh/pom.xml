@@ -68,10 +68,6 @@
     </dependency>
     <dependency>
       <groupId>com.helger.peppol</groupId>
-      <artifactId>peppol-commons</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.peppol</groupId>
       <artifactId>peppol-id</artifactId>
     </dependency>
     <dependency>

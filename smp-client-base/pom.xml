@@ -79,7 +79,7 @@
     </dependency>
     <dependency>
       <groupId>com.helger.peppol</groupId>
-      <artifactId>peppol-id</artifactId>
+      <artifactId>edelivery-id</artifactId>
     </dependency>
     <dependency>
       <groupId>com.helger.peppol</groupId>
