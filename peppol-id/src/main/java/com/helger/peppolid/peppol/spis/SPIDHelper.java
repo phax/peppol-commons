@@ -16,6 +16,8 @@
  */
 package com.helger.peppolid.peppol.spis;
 
+import java.security.cert.X509Certificate;
+
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.RegEx;
@@ -23,6 +25,7 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.cache.regex.RegExHelper;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
+import com.helger.security.certificate.CertificateHelper;
 
 /**
  * Helper class for dealing with Peppol Service Provider IDs.
@@ -185,8 +188,92 @@ public final class SPIDHelper
   @Nullable
   public static String getMainIDFromSeatID (@Nullable final String sSeatID)
   {
-    if (sSeatID == null || !RegExHelper.stringMatchesPattern (PeppolIdentifierHelper.REGEX_SEAT_ID, sSeatID))
+    if (!isValidSeatID (sSeatID))
       return null;
     return sSeatID.substring (3);
+  }
+
+  /**
+   * Check if the provided value is a valid Peppol Seat ID. A Seat ID has the format
+   * <code>P&lt;2-letter country code&gt;&lt;6-digit Main ID&gt;</code> - see
+   * {@link PeppolIdentifierHelper#REGEX_SEAT_ID}.
+   *
+   * @param sSeatID
+   *        The value to check. May be <code>null</code>.
+   * @return <code>true</code> if the provided value is a valid Peppol Seat ID, <code>false</code>
+   *         otherwise.
+   * @since 13.1.0
+   */
+  public static boolean isValidSeatID (@Nullable final String sSeatID)
+  {
+    return sSeatID != null && RegExHelper.stringMatchesPattern (PeppolIdentifierHelper.REGEX_SEAT_ID, sSeatID);
+  }
+
+  /**
+   * Extract the Peppol Seat ID from the Subject Common Name (CN) of a Peppol certificate. The
+   * Subject CN of a Peppol certificate is the Seat ID, so this method returns the provided value if
+   * - and only if - it is a valid Seat ID.
+   *
+   * @param sSubjectCN
+   *        The Subject CN of the certificate. May be <code>null</code>.
+   * @return <code>null</code> if the provided value is not a valid Peppol Seat ID, the Seat ID
+   *         otherwise.
+   * @see #getSeatIDFromCertificate(X509Certificate)
+   * @since 13.1.0
+   */
+  @Nullable
+  public static String getSeatIDFromSubjectCN (@Nullable final String sSubjectCN)
+  {
+    return isValidSeatID (sSubjectCN) ? sSubjectCN : null;
+  }
+
+  /**
+   * Extract the SPID Main ID from the Subject Common Name (CN) of a Peppol certificate. This is a
+   * shortcut for {@link #getSeatIDFromSubjectCN(String)} followed by
+   * {@link #getMainIDFromSeatID(String)}.
+   *
+   * @param sSubjectCN
+   *        The Subject CN of the certificate. May be <code>null</code>.
+   * @return <code>null</code> if the provided value is not a valid Peppol Seat ID, the 6-digit Main
+   *         ID otherwise.
+   * @since 13.1.0
+   */
+  @Nullable
+  public static String getMainIDFromSubjectCN (@Nullable final String sSubjectCN)
+  {
+    return getMainIDFromSeatID (getSeatIDFromSubjectCN (sSubjectCN));
+  }
+
+  /**
+   * Extract the Peppol Seat ID from a Peppol certificate. The Seat ID is the Subject Common Name
+   * (CN) of the certificate.
+   *
+   * @param aCert
+   *        The certificate to extract the Seat ID from. May be <code>null</code>.
+   * @return <code>null</code> if the certificate is <code>null</code>, if it has no Subject CN, or
+   *         if the Subject CN is not a valid Peppol Seat ID. The Seat ID otherwise.
+   * @since 13.1.0
+   */
+  @Nullable
+  public static String getSeatIDFromCertificate (@Nullable final X509Certificate aCert)
+  {
+    return getSeatIDFromSubjectCN (CertificateHelper.getSubjectCN (aCert));
+  }
+
+  /**
+   * Extract the SPID Main ID from a Peppol certificate. This is a shortcut for
+   * {@link #getSeatIDFromCertificate(X509Certificate)} followed by
+   * {@link #getMainIDFromSeatID(String)}.
+   *
+   * @param aCert
+   *        The certificate to extract the Main ID from. May be <code>null</code>.
+   * @return <code>null</code> if the certificate is <code>null</code>, if it has no Subject CN, or
+   *         if the Subject CN is not a valid Peppol Seat ID. The 6-digit Main ID otherwise.
+   * @since 13.1.0
+   */
+  @Nullable
+  public static String getMainIDFromCertificate (@Nullable final X509Certificate aCert)
+  {
+    return getMainIDFromSeatID (getSeatIDFromCertificate (aCert));
   }
 }

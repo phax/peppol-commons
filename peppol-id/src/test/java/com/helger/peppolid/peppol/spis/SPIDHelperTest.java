@@ -209,4 +209,57 @@ public final class SPIDHelperTest
     assertNull (SPIDHelper.getMainIDFromSeatID (""));
     assertNull (SPIDHelper.getMainIDFromSeatID (null));
   }
+
+  @Test
+  public void testIsValidSeatID ()
+  {
+    assertTrue (SPIDHelper.isValidSeatID ("POP000001"));
+    assertTrue (SPIDHelper.isValidSeatID ("PAP123456"));
+    assertTrue (SPIDHelper.isValidSeatID ("PDE000270"));
+    assertTrue (SPIDHelper.isValidSeatID ("PNL000052"));
+
+    assertFalse (SPIDHelper.isValidSeatID ("POP00001"));
+    assertFalse (SPIDHelper.isValidSeatID ("POP0000012"));
+    assertFalse (SPIDHelper.isValidSeatID ("Pop000001"));
+    assertFalse (SPIDHelper.isValidSeatID ("P0P000001"));
+    assertFalse (SPIDHelper.isValidSeatID ("XOP000001"));
+    assertFalse (SPIDHelper.isValidSeatID (" POP000001"));
+    assertFalse (SPIDHelper.isValidSeatID ("POP000001 "));
+    assertFalse (SPIDHelper.isValidSeatID (""));
+    assertFalse (SPIDHelper.isValidSeatID (null));
+  }
+
+  @Test
+  public void testGetSeatIDFromSubjectCN ()
+  {
+    // The Subject CN of a Peppol certificate is the Seat ID
+    assertEquals ("POP000001", SPIDHelper.getSeatIDFromSubjectCN ("POP000001"));
+    assertEquals ("PNL000052", SPIDHelper.getSeatIDFromSubjectCN ("PNL000052"));
+
+    // Anything that is not a plain Seat ID yields null
+    assertNull (SPIDHelper.getSeatIDFromSubjectCN ("CN=POP000001"));
+    assertNull (SPIDHelper.getSeatIDFromSubjectCN ("POP000001, O=Example"));
+    assertNull (SPIDHelper.getSeatIDFromSubjectCN ("Pop000001"));
+    assertNull (SPIDHelper.getSeatIDFromSubjectCN (""));
+    assertNull (SPIDHelper.getSeatIDFromSubjectCN (null));
+  }
+
+  @Test
+  public void testGetMainIDFromSubjectCN ()
+  {
+    assertEquals ("000001", SPIDHelper.getMainIDFromSubjectCN ("POP000001"));
+    assertEquals ("000052", SPIDHelper.getMainIDFromSubjectCN ("PNL000052"));
+
+    assertNull (SPIDHelper.getMainIDFromSubjectCN ("CN=POP000001"));
+    assertNull (SPIDHelper.getMainIDFromSubjectCN ("Pop000001"));
+    assertNull (SPIDHelper.getMainIDFromSubjectCN (""));
+    assertNull (SPIDHelper.getMainIDFromSubjectCN (null));
+  }
+
+  @Test
+  public void testGetSeatIDFromCertificate ()
+  {
+    assertNull (SPIDHelper.getSeatIDFromCertificate (null));
+    assertNull (SPIDHelper.getMainIDFromCertificate (null));
+  }
 }

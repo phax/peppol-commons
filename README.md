@@ -435,6 +435,11 @@ They depend on several other libraries so I suggest you are going for the Maven 
 # News and noteworthy
 
 v13.1.0 - work in progress
+* Extended `SPIDHelper` so that the Peppol Seat ID can be taken from a certificate. The Subject Common Name (CN) of a Peppol certificate is the Seat ID, so the new methods only have to validate it
+    * New method `SPIDHelper.isValidSeatID (String)` - the Seat ID check that so far only existed inline in `getMainIDFromSeatID (String)`
+    * New methods `SPIDHelper.getSeatIDFromSubjectCN (String)` and `SPIDHelper.getMainIDFromSubjectCN (String)` that take an already extracted Subject CN
+    * New methods `SPIDHelper.getSeatIDFromCertificate (X509Certificate)` and `SPIDHelper.getMainIDFromCertificate (X509Certificate)` that take the certificate directly and use `CertificateHelper.getSubjectCN (...)` internally
+    * `peppol-id` therefore has a new dependency on `ph-security`. That library uses BouncyCastle in `test` scope only, so nothing is added to the transitive compile classpath except `ph-security` itself
 * Added the new submodule `peppol-codelist-datatypes` that contains the JAXB classes of the Peppol Code List XSD, extracted from `peppol-id-datatypes`
 * **Breaking API change** The package `com.helger.xsds.peppol.codelists26` moved from the submodule `peppol-id-datatypes` to the new submodule `peppol-codelist-datatypes`.
   The package name and all contained classes are unchanged - only the artifact that provides them is a different one.
