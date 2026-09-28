@@ -434,7 +434,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v13.1.0 - work in progress
+v13.1.0 - 2026-09-28
 * Extended `SPIDHelper` so that the Peppol Seat ID can be taken from a certificate. The Subject Common Name (CN) of a Peppol certificate is the Seat ID, so the new methods only have to validate it
     * New method `SPIDHelper.isValidSeatID (String)` - the Seat ID check that so far only existed inline in `getMainIDFromSeatID (String)`
     * New methods `SPIDHelper.getSeatIDFromSubjectCN (String)` and `SPIDHelper.getMainIDFromSubjectCN (String)` that take an already extracted Subject CN
