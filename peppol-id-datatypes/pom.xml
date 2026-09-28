@@ -59,11 +59,11 @@
     </dependency>
     <dependency>
       <groupId>com.helger.commons</groupId>
-      <artifactId>ph-jaxb-adapter</artifactId>
+      <artifactId>ph-io</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger.xsd</groupId>
-      <artifactId>ph-xsds-xmldsig</artifactId>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-jaxb-adapter</artifactId>
     </dependency>
   </dependencies>
   
