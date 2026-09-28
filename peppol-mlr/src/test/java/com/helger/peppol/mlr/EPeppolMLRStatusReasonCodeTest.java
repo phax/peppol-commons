@@ -28,6 +28,7 @@ import com.helger.base.string.StringHelper;
  *
  * @author Philip Helger
  */
+@SuppressWarnings ("removal")
 public final class EPeppolMLRStatusReasonCodeTest
 {
   @Test

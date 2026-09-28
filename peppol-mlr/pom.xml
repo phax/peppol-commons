@@ -27,7 +27,7 @@
   <artifactId>peppol-mlr</artifactId>
   <packaging>jar</packaging>
   <name>peppol-mlr</name>
-  <description>Peppol Message Level Response (MLR) support</description>
+  <description>Peppol Message Level Response (MLR) support - deprecated, MLR is retired from Peppol per 2027-05-01</description>
   <url>https://github.com/phax/peppol-commons/peppol-mlr</url>
   <inceptionYear>2023</inceptionYear>
   

@@ -28,11 +28,22 @@ import com.helger.base.lang.EnumHelper;
  * https://docs.peppol.eu/poacc/upgrade-3/codelist/StatusReason/
  *
  * @author Philip Helger
+ * @deprecated Peppol MLR is phased out of Peppol in favour of Peppol MLS. According to the "Peppol
+ *             MLR Deprecation and Phase-out Plan" v1.0.0 the phase-out starts on 2027-03-01 (T2),
+ *             the MLR specification is deprecated on 2027-04-01 (T3) and MLR is fully retired on
+ *             2027-05-01 (T4). From T4 onwards no MLR may be sent anymore. Use
+ *             <code>EPeppolMLSStatusReasonCode</code> from the <code>peppol-mls</code> module
+ *             instead - contrary to the open ended MLR list it is the exhaustive list of permitted
+ *             rejection reasons.
  */
+@Deprecated (forRemoval = true, since = "13.0.1")
 public enum EPeppolMLRStatusReasonCode implements IHasID <String>
 {
+  @Deprecated (forRemoval = true, since = "13.0.1")
   BUSINESS_RULE_VIOLATION_FATAL ("BV"),
+  @Deprecated (forRemoval = true, since = "13.0.1")
   BUSINESS_RULE_VIOLATION_WARNING ("BW"),
+  @Deprecated (forRemoval = true, since = "13.0.1")
   SYNTAX_VIOLATION ("SV");
 
   private final String m_sID;

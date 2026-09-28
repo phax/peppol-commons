@@ -34,6 +34,7 @@ import oasis.names.specification.ubl.schema.xsd.applicationresponse_21.Applicati
  *
  * @author Philip Helger
  */
+@SuppressWarnings ("removal")
 public final class PeppolMLRMarshallerTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolMLRMarshallerTest.class);

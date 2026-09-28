@@ -22,7 +22,13 @@ import com.helger.annotation.concurrent.Immutable;
  * Constants for Peppol MLR (Message Level Response)
  *
  * @author Philip Helger
+ * @deprecated Peppol MLR is phased out of Peppol in favour of Peppol MLS. According to the "Peppol
+ *             MLR Deprecation and Phase-out Plan" v1.0.0 the phase-out starts on 2027-03-01 (T2),
+ *             the MLR specification is deprecated on 2027-04-01 (T3) and MLR is fully retired on
+ *             2027-05-01 (T4). From T4 onwards no MLR may be sent anymore. Use
+ *             <code>CPeppolMLS</code> from the <code>peppol-mls</code> module instead.
  */
+@Deprecated (forRemoval = true, since = "13.0.1")
 @Immutable
 public final class CPeppolMLR
 {

@@ -23,7 +23,7 @@ This project contains different libraries that are commonly used in the Peppol/e
 * [`peppol-smp-datatypes`](#peppol-smp-datatypes) - the Peppol SMP generated JAXB classes (since v8.4.0)
 * [`peppol-smp-client`](#peppol-smp-client) - the Peppol SMP and BDXR SMP client
 * [`peppol-directory-businesscard`](#peppol-directory-businesscard) - the Peppol Directory Business Card data model (since v9.1.0)
-* [`peppol-mlr`](#peppol-mlr) - specific support for the Peppol Message Level Response (MLR) (since v9.1.2)
+* [`peppol-mlr`](#peppol-mlr) - specific support for the Peppol Message Level Response (MLR) (since v9.1.2; **deprecated** since v13.0.1 - MLR is retired from Peppol per 2027-05-01)
 * [`peppol-mls`](#peppol-mls) - specific support for the Peppol Message Level Status (MLS) (since v10.1.0)
 * [`dbnalliance-commons`](#dbnalliance-commons) - contains commons stuff for DBNAlliance support (since v10.2.0)
 * [`dbnalliance-xhe`](#dbnalliance-xhe) - specific support for DBNAlliance XHE header (since v9.5.0)
@@ -175,9 +175,13 @@ This project holds the different versions of the Peppol Directory Business Card 
 
 ## peppol-mlr
 
-This was introduced in v9.1.2
+This was introduced in v9.1.2 and is **deprecated since v13.0.1**
 
 This project holds utility classes to read and write a Peppol Message Level Response (MLR) as defined in https://docs.peppol.eu/poacc/upgrade-3/profiles/36-mlr/
+
+Peppol MLR is phased out in favour of Peppol MLS - see the [Peppol MLR Deprecation and Phase-out Plan](https://docs.peppol.eu/edelivery/changelog/2026-07/Peppol%20MLR%20Phase-Out%201.0.0%202026-07-02.pdf) v1.0.0.
+The phase-out starts on 2027-03-01 (T2), the MLR specification is deprecated on 2027-04-01 (T3) and MLR is fully retired on 2027-05-01 (T4) - from T4 onwards no MLR may be sent anymore.
+All classes of this module are therefore deprecated for removal. Use the module [`peppol-mls`](#peppol-mls) instead - it provides full functional coverage of MLR.
 
 * Class `PeppolMLRBuilder` can be used to build a Peppol MLR document - with or without line details. For each `LineResponse` the specialized builder class `PeppolMLRLineResponseBuilder` is available.
 * Class `PeppolMLRMarshaller` can be used to serialize MLR messages from and to XML. It is based on the [ph-ubl](https://github.com/phax/ph-ubl) marshaller.
@@ -419,6 +423,10 @@ They depend on several other libraries so I suggest you are going for the Maven 
 # News and noteworthy
 
 v13.0.1 - work in progress
+* **Deprecation** All classes of the module `peppol-mlr` are now deprecated for removal.
+  Peppol MLR is phased out in favour of Peppol MLS, as laid out in the [Peppol MLR Deprecation and Phase-out Plan](https://docs.peppol.eu/edelivery/changelog/2026-07/Peppol%20MLR%20Phase-Out%201.0.0%202026-07-02.pdf) v1.0.0.
+  The phase-out starts on 2027-03-01 (T2), the MLR specification is deprecated on 2027-04-01 (T3) and MLR is fully retired on 2027-05-01 (T4) - from T4 onwards no MLR may be sent anymore.
+  The module still works unchanged and is not removed yet. Use the module `peppol-mls` instead - per the phase-out plan MLS provides full functional coverage of MLR.
 * Updated to jcodemodel 4.4.1
 * The SMP client no longer logs an HTTP 404 response of an SMP as an error.
   An unknown participant or an unknown document type is a regular answer of an SMP - especially for the `...OrNull` methods - so it is the caller that decides whether this is an error or not.

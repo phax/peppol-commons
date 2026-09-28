@@ -28,11 +28,21 @@ import com.helger.base.state.ISuccessIndicator;
  * Code list for the top-level MLR response codes.
  *
  * @author Philip Helger
+ * @deprecated Peppol MLR is phased out of Peppol in favour of Peppol MLS. According to the "Peppol
+ *             MLR Deprecation and Phase-out Plan" v1.0.0 the phase-out starts on 2027-03-01 (T2),
+ *             the MLR specification is deprecated on 2027-04-01 (T3) and MLR is fully retired on
+ *             2027-05-01 (T4). From T4 onwards no MLR may be sent anymore. Use
+ *             <code>EPeppolMLSResponseCode</code> from the <code>peppol-mls</code> module instead -
+ *             it uses the same response codes and adds the ones MLR does not cover.
  */
+@Deprecated (forRemoval = true, since = "13.0.1")
 public enum EPeppolMLRResponseCode implements IHasID <String>, ISuccessIndicator
 {
+  @Deprecated (forRemoval = true, since = "13.0.1")
   ACCEPTANCE ("AP"),
+  @Deprecated (forRemoval = true, since = "13.0.1")
   ACKNOWLEDGING ("AB"),
+  @Deprecated (forRemoval = true, since = "13.0.1")
   REJECTION ("RE");
 
   private final String m_sID;
