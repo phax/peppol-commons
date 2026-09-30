@@ -27,7 +27,8 @@ import com.helger.edelivery.sbdh.SBDHDataReadException;
  */
 public class HREDeliverySBDHDataReadException extends SBDHDataReadException
 {
-  HREDeliverySBDHDataReadException (@NonNull final String sErrorMsg, @NonNull final EHREDeliverySBDHDataError eErrorCode)
+  HREDeliverySBDHDataReadException (@NonNull final String sErrorMsg,
+                                    @NonNull final EHREDeliverySBDHDataError eErrorCode)
   {
     super (sErrorMsg, eErrorCode);
   }

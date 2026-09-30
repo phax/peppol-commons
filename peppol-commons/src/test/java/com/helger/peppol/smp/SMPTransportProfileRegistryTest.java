@@ -55,7 +55,7 @@ public final class SMPTransportProfileRegistryTest
   public void testRuntimeRegistration ()
   {
     final ISMPTransportProfile aProfile = new com.helger.edelivery.smp.SMPTransportProfile ("unit-test-profile",
-                                                                                          "Unit Test");
+                                                                                            "Unit Test");
     assertTrue (SMPTransportProfileRegistry.registerTransportProfile (aProfile).isChanged ());
     assertSame (aProfile, SMPTransportProfileRegistry.getTransportProfileOfIDOrNull ("unit-test-profile"));
     // A second registration of the same ID does not overwrite

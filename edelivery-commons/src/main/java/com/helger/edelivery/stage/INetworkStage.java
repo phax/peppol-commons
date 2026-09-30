@@ -19,9 +19,9 @@ package com.helger.edelivery.stage;
 import com.helger.base.id.IHasID;
 
 /**
- * Base interface for a single stage of a four corner network - like "production", "test" or "pilot".
- * Every network defines its own set of stages; the only things they have in common is a unique ID
- * and the information, whether the stage is the productive one or not.
+ * Base interface for a single stage of a four corner network - like "production", "test" or
+ * "pilot". Every network defines its own set of stages; the only things they have in common is a
+ * unique ID and the information, whether the stage is the productive one or not.
  *
  * @author Philip Helger
  * @since 13.0.0

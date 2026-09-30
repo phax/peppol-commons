@@ -19,7 +19,6 @@ package com.helger.dbnalliance.commons.security;
 import java.security.KeyStore;
 import java.security.cert.X509Certificate;
 
-
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.edelivery.security.NetworkTrustStoreHelper;
@@ -38,8 +37,6 @@ public final class DBNAllianceTrustStores
 {
   /** The password used to access the trust stores */
   public static final String TRUSTSTORE_PASSWORD = "dbnalliance";
-
-
 
   /**
    * The truststore configuration for DBNAlliance valid from 2023 to 2033.

@@ -151,8 +151,7 @@ public final class SMPClientConfiguration
 
   /**
    * @return The truststore password as specified in the configuration file by the key
-   *         <code>smpclient.truststore.password</code>. If none is present
-   *         no password is used.
+   *         <code>smpclient.truststore.password</code>. If none is present no password is used.
    */
   @Nullable
   public static char [] getTrustStorePasswordCharArray ()

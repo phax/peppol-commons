@@ -40,11 +40,11 @@ import com.helger.base.lang.EnumHelper;
 public enum EPeppolMLRStatusReasonCode implements IHasID <String>
 {
   @Deprecated (forRemoval = true, since = "13.1.0")
-  BUSINESS_RULE_VIOLATION_FATAL ("BV"),
+  BUSINESS_RULE_VIOLATION_FATAL("BV"),
   @Deprecated (forRemoval = true, since = "13.1.0")
-  BUSINESS_RULE_VIOLATION_WARNING ("BW"),
+  BUSINESS_RULE_VIOLATION_WARNING("BW"),
   @Deprecated (forRemoval = true, since = "13.1.0")
-  SYNTAX_VIOLATION ("SV");
+  SYNTAX_VIOLATION("SV");
 
   private final String m_sID;
 

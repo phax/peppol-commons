@@ -224,9 +224,7 @@ public enum EPredefinedProcessIdentifier implements IPeppolPredefinedProcessIden
    * @deprecated This item should not be used to issue new identifiers!
    */
   @Deprecated (forRemoval = false)
-  oioubl_procid_ubl_Reference_Utility_1_0("oioubl-procid-ubl",
-                                          "Reference-Utility-1.0",
-                                          ECodeListItemState.REMOVED),
+  oioubl_procid_ubl_Reference_Utility_1_0("oioubl-procid-ubl", "Reference-Utility-1.0", ECodeListItemState.REMOVED),
 
   /**
    * ID: <code>oioubl-procid-ubl::Procurement-ReminderOnly-1.0</code><br>
@@ -377,9 +375,7 @@ public enum EPredefinedProcessIdentifier implements IPeppolPredefinedProcessIden
    * @deprecated This item should not be used to issue new identifiers!
    */
   @Deprecated (forRemoval = false)
-  urn_kosit_profile_reporting_1_0("cenbii-procid-ubl",
-                                  "urn:kosit:profile:reporting:1.0",
-                                  ECodeListItemState.REMOVED),
+  urn_kosit_profile_reporting_1_0("cenbii-procid-ubl", "urn:kosit:profile:reporting:1.0", ECodeListItemState.REMOVED),
 
   /**
    * ID: <code>cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:02:1.0</code><br>

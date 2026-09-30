@@ -46,7 +46,7 @@ public final class BDXR2ClientReadOnlyTest
 {
   private static final ISMPTransportProfile TP = new SMPTransportProfile ("bdxr-as4-1.0", "Test AS4");
   private static final IProcessIdentifier PROCESS_ID = BDXR2IdentifierFactory.INSTANCE.createProcessIdentifier ("bdx-procid-transport",
-                                                                                                               "urn:test:process");
+                                                                                                                "urn:test:process");
 
   /**
    * Build a ServiceMetadata with exactly one Endpoint, optionally carrying an ActivationDate and an
@@ -158,7 +158,7 @@ public final class BDXR2ClientReadOnlyTest
 
     // An unknown process is not found
     final IProcessIdentifier aOtherProcID = BDXR2IdentifierFactory.INSTANCE.createProcessIdentifier ("bdx-procid-transport",
-                                                                                                    "urn:test:other");
+                                                                                                     "urn:test:other");
     assertNull (BDXR2ClientReadOnly.getEndpointAt (aSM, aOtherProcID, TP, aDate));
 
     // An unknown transport profile is not found

@@ -99,7 +99,7 @@ public class SMPClientCache extends AbstractSMPClientCache <ServiceGroupType, Si
   @NonNull
   public static SMPClientCache getDefaultInstance ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aDefaultInstance);
+    return RW_LOCK.readLockedGet (() -> s_aDefaultInstance);
   }
 
   /**
@@ -114,7 +114,7 @@ public class SMPClientCache extends AbstractSMPClientCache <ServiceGroupType, Si
   {
     ValueEnforcer.notNull (aDefaultInstance, "DefaultInstance");
 
-    return RW_LOCK.writeLockedGet ( () -> {
+    return RW_LOCK.writeLockedGet (() -> {
       final SMPClientCache aOld = s_aDefaultInstance;
       s_aDefaultInstance = aDefaultInstance;
       return aOld;

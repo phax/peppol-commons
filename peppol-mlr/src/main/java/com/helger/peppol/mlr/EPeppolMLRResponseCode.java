@@ -39,11 +39,11 @@ import com.helger.base.state.ISuccessIndicator;
 public enum EPeppolMLRResponseCode implements IHasID <String>, ISuccessIndicator
 {
   @Deprecated (forRemoval = true, since = "13.1.0")
-  ACCEPTANCE ("AP"),
+  ACCEPTANCE("AP"),
   @Deprecated (forRemoval = true, since = "13.1.0")
-  ACKNOWLEDGING ("AB"),
+  ACKNOWLEDGING("AB"),
   @Deprecated (forRemoval = true, since = "13.1.0")
-  REJECTION ("RE");
+  REJECTION("RE");
 
   private final String m_sID;
 

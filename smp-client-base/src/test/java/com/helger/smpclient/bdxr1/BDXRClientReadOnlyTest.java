@@ -46,7 +46,7 @@ public final class BDXRClientReadOnlyTest
 {
   private static final ISMPTransportProfile TP = new SMPTransportProfile ("bdxr-transport-ebms3-as4-v1p0", "Test AS4");
   private static final IProcessIdentifier PROCESS_ID = BDXR1IdentifierFactory.INSTANCE.createProcessIdentifier ("bdx-procid-transport",
-                                                                                                               "urn:test:process");
+                                                                                                                "urn:test:process");
 
   /**
    * Build a ServiceMetadata with exactly one Endpoint, optionally carrying a ServiceActivationDate
@@ -93,8 +93,8 @@ public final class BDXRClientReadOnlyTest
   private static EndpointType _readSingleEndpoint (final LocalDateTime aActivation, final LocalDateTime aExpiration)
   {
     final ServiceMetadataType aSM = new BDXR1MarshallerServiceMetadataType ().setUseSchema (true)
-                                                                            .read (_buildServiceMetadata (aActivation,
-                                                                                                          aExpiration));
+                                                                             .read (_buildServiceMetadata (aActivation,
+                                                                                                           aExpiration));
     assertNotNull (aSM);
     assertNotNull (aSM.getServiceInformation ());
     assertEquals (1, aSM.getServiceInformation ().getProcessList ().getProcessCount ());
@@ -136,7 +136,7 @@ public final class BDXRClientReadOnlyTest
 
     final BiFunction <LocalDateTime, LocalDateTime, EndpointType> findEndpoint = (a, e) -> {
       final ServiceMetadataType aSM = new BDXR1MarshallerServiceMetadataType ().setUseSchema (true)
-                                                                              .read (_buildServiceMetadata (a, e));
+                                                                               .read (_buildServiceMetadata (a, e));
       assertNotNull (aSM);
       return BDXRClientReadOnly.getEndpointAt (aSM, PROCESS_ID, TP, aDT);
     };

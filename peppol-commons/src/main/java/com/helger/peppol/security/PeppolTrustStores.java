@@ -19,7 +19,6 @@ package com.helger.peppol.security;
 import java.security.KeyStore;
 import java.security.cert.X509Certificate;
 
-
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.edelivery.security.NetworkTrustStoreHelper;
@@ -37,8 +36,6 @@ public final class PeppolTrustStores
 {
   /** The password used to access the trust stores */
   public static final String TRUSTSTORE_PASSWORD = "peppol";
-
-
 
   /**
    * The truststore configuration for Peppol PKI G2 valid from 2018 to 2028. The G2 CAs are

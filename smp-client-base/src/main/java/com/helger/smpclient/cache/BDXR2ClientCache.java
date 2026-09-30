@@ -98,7 +98,7 @@ public class BDXR2ClientCache extends AbstractSMPClientCache <ServiceGroupType, 
   @NonNull
   public static BDXR2ClientCache getDefaultInstance ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aDefaultInstance);
+    return RW_LOCK.readLockedGet (() -> s_aDefaultInstance);
   }
 
   /**
@@ -113,7 +113,7 @@ public class BDXR2ClientCache extends AbstractSMPClientCache <ServiceGroupType, 
   {
     ValueEnforcer.notNull (aDefaultInstance, "DefaultInstance");
 
-    return RW_LOCK.writeLockedGet ( () -> {
+    return RW_LOCK.writeLockedGet (() -> {
       final BDXR2ClientCache aOld = s_aDefaultInstance;
       s_aDefaultInstance = aDefaultInstance;
       return aOld;

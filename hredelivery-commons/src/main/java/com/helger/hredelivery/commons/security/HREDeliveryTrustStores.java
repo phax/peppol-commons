@@ -19,7 +19,6 @@ package com.helger.hredelivery.commons.security;
 import java.security.KeyStore;
 import java.security.cert.X509Certificate;
 
-
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.edelivery.security.NetworkTrustStoreHelper;
@@ -41,8 +40,6 @@ public final class HREDeliveryTrustStores
 
   /** The password used to access the trust stores */
   public static final String TRUSTSTORE_PASSWORD = "hredelivery";
-
-
 
   /**
    * The truststore configuration for FINA root CA valid from 2015 to 2035.

@@ -87,8 +87,8 @@ public class CachingBDXR2ClientReadOnly extends BDXR2ClientReadOnly
    *         if DNS resolution fails
    */
   public CachingBDXR2ClientReadOnly (@NonNull final ISMPURLProvider aURLProvider,
-                                   @NonNull final IParticipantIdentifier aParticipantIdentifier,
-                                   @NonNull final ISMLBase aSMLInfo) throws SMPDNSResolutionException
+                                     @NonNull final IParticipantIdentifier aParticipantIdentifier,
+                                     @NonNull final ISMLBase aSMLInfo) throws SMPDNSResolutionException
   {
     super (aURLProvider, aParticipantIdentifier, aSMLInfo);
   }
@@ -106,8 +106,8 @@ public class CachingBDXR2ClientReadOnly extends BDXR2ClientReadOnly
    *         if DNS resolution fails
    */
   public CachingBDXR2ClientReadOnly (@NonNull final ISMPURLProvider aURLProvider,
-                                   @NonNull final IParticipantIdentifier aParticipantIdentifier,
-                                   @NonNull @Nonempty final String sSMLZoneName) throws SMPDNSResolutionException
+                                     @NonNull final IParticipantIdentifier aParticipantIdentifier,
+                                     @NonNull @Nonempty final String sSMLZoneName) throws SMPDNSResolutionException
   {
     super (aURLProvider, aParticipantIdentifier, sSMLZoneName);
   }
@@ -190,8 +190,8 @@ public class CachingBDXR2ClientReadOnly extends BDXR2ClientReadOnly
   @Override
   @NonNull
   public ServiceMetadataType getServiceMetadata (@NonNull final IParticipantIdentifier aServiceGroupID,
-                                                       @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
-                                                       @Nullable final ISMPFollowRedirectCallback aFollowRedirectCallback) throws SMPClientException
+                                                 @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
+                                                 @Nullable final ISMPFollowRedirectCallback aFollowRedirectCallback) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
@@ -226,8 +226,8 @@ public class CachingBDXR2ClientReadOnly extends BDXR2ClientReadOnly
                     "' - fetching from SMP");
 
     final ServiceMetadataType ret = super.getServiceMetadata (aServiceGroupID,
-                                                                    aDocumentTypeID,
-                                                                    aFollowRedirectCallback);
+                                                              aDocumentTypeID,
+                                                              aFollowRedirectCallback);
 
     // Store in cache (only on success)
     aCache.putServiceMetadata (sSMPHostURI, aServiceGroupID, aDocumentTypeID, ret);

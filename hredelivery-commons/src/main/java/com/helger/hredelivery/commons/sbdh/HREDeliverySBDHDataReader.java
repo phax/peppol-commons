@@ -384,16 +384,16 @@ public class HREDeliverySBDHDataReader extends AbstractSBDHDataReader <HREDelive
     // Check that the header version is correct
     if (!isValidHeaderVersion (aSBDH.getHeaderVersion ()))
       aErrorList.add (toError ("SBDH/HeaderVersion",
-                                EHREDeliverySBDHDataError.INVALID_HEADER_VERSION,
-                                aSBDH.getHeaderVersion ()));
+                               EHREDeliverySBDHDataError.INVALID_HEADER_VERSION,
+                               aSBDH.getHeaderVersion ()));
 
     // Check sender
     {
       final int nSenderCount = aSBDH.getSenderCount ();
       if (nSenderCount != 1)
         aErrorList.add (toError ("SBDH",
-                                  EHREDeliverySBDHDataError.INVALID_SENDER_COUNT,
-                                  Integer.toString (nSenderCount)));
+                                 EHREDeliverySBDHDataError.INVALID_SENDER_COUNT,
+                                 Integer.toString (nSenderCount)));
 
       if (nSenderCount > 0)
       {
@@ -405,8 +405,8 @@ public class HREDeliverySBDHDataReader extends AbstractSBDHDataReader <HREDelive
           if (!isValidSenderAuthority (sScheme))
           {
             aErrorList.add (toError ("SBDH/Sender[1]/Identifier/Authority",
-                                      EHREDeliverySBDHDataError.INVALID_SENDER_AUTHORITY,
-                                      sScheme));
+                                     EHREDeliverySBDHDataError.INVALID_SENDER_AUTHORITY,
+                                     sScheme));
           }
 
           // Check sender identifier value
@@ -414,16 +414,16 @@ public class HREDeliverySBDHDataReader extends AbstractSBDHDataReader <HREDelive
           if (!isValidSenderIdentifier (sScheme, sValue))
           {
             aErrorList.add (toError ("SBDH/Sender[1]/Identifier/Value",
-                                      EHREDeliverySBDHDataError.INVALID_SENDER_VALUE,
-                                      sValue));
+                                     EHREDeliverySBDHDataError.INVALID_SENDER_VALUE,
+                                     sValue));
           }
           else
           {
             final IParticipantIdentifier aPID = getIdentifierFactory ().createParticipantIdentifier (sScheme, sValue);
             if (aPID == null)
               aErrorList.add (toError ("SBDH/Sender[1]/Identifier",
-                                        EHREDeliverySBDHDataError.INVALID_SENDER_VALUE,
-                                        CIdentifier.getURIEncoded (sScheme, sValue)));
+                                       EHREDeliverySBDHDataError.INVALID_SENDER_VALUE,
+                                       CIdentifier.getURIEncoded (sScheme, sValue)));
           }
         }
       }
@@ -434,8 +434,8 @@ public class HREDeliverySBDHDataReader extends AbstractSBDHDataReader <HREDelive
       final int nReceiverCount = aSBDH.getReceiverCount ();
       if (nReceiverCount != 1)
         aErrorList.add (toError ("SBDH",
-                                  EHREDeliverySBDHDataError.INVALID_RECEIVER_COUNT,
-                                  Integer.toString (nReceiverCount)));
+                                 EHREDeliverySBDHDataError.INVALID_RECEIVER_COUNT,
+                                 Integer.toString (nReceiverCount)));
 
       if (nReceiverCount > 0)
       {
@@ -447,8 +447,8 @@ public class HREDeliverySBDHDataReader extends AbstractSBDHDataReader <HREDelive
           if (!isValidReceiverAuthority (sScheme))
           {
             aErrorList.add (toError ("SBDH/Receiver[1]/Identifier/Authority",
-                                      EHREDeliverySBDHDataError.INVALID_RECEIVER_AUTHORITY,
-                                      sScheme));
+                                     EHREDeliverySBDHDataError.INVALID_RECEIVER_AUTHORITY,
+                                     sScheme));
           }
 
           // Check receiver identifier value
@@ -456,16 +456,16 @@ public class HREDeliverySBDHDataReader extends AbstractSBDHDataReader <HREDelive
           if (!isValidReceiverIdentifier (sScheme, sValue))
           {
             aErrorList.add (toError ("SBDH/Receiver[1]/Identifier/Value",
-                                      EHREDeliverySBDHDataError.INVALID_RECEIVER_VALUE,
-                                      sValue));
+                                     EHREDeliverySBDHDataError.INVALID_RECEIVER_VALUE,
+                                     sValue));
           }
           else
           {
             final IParticipantIdentifier aPID = getIdentifierFactory ().createParticipantIdentifier (sScheme, sValue);
             if (aPID == null)
               aErrorList.add (toError ("SBDH/Receiver[1]/Identifier",
-                                        EHREDeliverySBDHDataError.INVALID_RECEIVER_VALUE,
-                                        CIdentifier.getURIEncoded (sScheme, sValue)));
+                                       EHREDeliverySBDHDataError.INVALID_RECEIVER_VALUE,
+                                       CIdentifier.getURIEncoded (sScheme, sValue)));
           }
         }
       }
@@ -484,15 +484,15 @@ public class HREDeliverySBDHDataReader extends AbstractSBDHDataReader <HREDelive
       final String sSBDHID = aDI.getInstanceIdentifier ();
       if (!isValidInstanceIdentifier (sSBDHID))
         aErrorList.add (toError ("SBDH/DocumentIdentification/InstanceIdentifier",
-                                  EHREDeliverySBDHDataError.INVALID_INSTANCE_IDENTIFIER,
-                                  sSBDHID));
+                                 EHREDeliverySBDHDataError.INVALID_INSTANCE_IDENTIFIER,
+                                 sSBDHID));
 
       // Mandatory date and time (cannot be null)
       final XMLOffsetDateTime aCreationDateAndTime = aDI.getCreationDateAndTime ();
       if (!isValidCreationDateTime (aCreationDateAndTime))
         aErrorList.add (toError ("SBDH/DocumentIdentification/CreationDateAndTime",
-                                  EHREDeliverySBDHDataError.INVALID_CREATION_DATE_TIME,
-                                  String.valueOf (aCreationDateAndTime)));
+                                 EHREDeliverySBDHDataError.INVALID_CREATION_DATE_TIME,
+                                 String.valueOf (aCreationDateAndTime)));
     }
   }
 

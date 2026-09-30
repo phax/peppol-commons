@@ -64,8 +64,8 @@ public class MainCreateEnumsFromUBLGenericode
   private static final String COLID_CODE = "code";
   private static final JCodeModel CM = new JCodeModel ();
 
-  private static void _createGenericode10 (final File aFile, final CodeListDocument aCodeList10)
-                                                                                                 throws JCodeModelException
+  private static void _createGenericode10 (final File aFile,
+                                           final CodeListDocument aCodeList10) throws JCodeModelException
   {
     final SimpleCodeList aSimpleCodeList = aCodeList10.getSimpleCodeList ();
     if (aSimpleCodeList == null)

@@ -29,8 +29,7 @@ import com.helger.edelivery.sbdh.AbstractSBDHDataWriter;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class HREDeliverySBDHDataWriter extends
-                                       AbstractSBDHDataWriter <HREDeliverySBDHData, HREDeliverySBDHDataWriter>
+public class HREDeliverySBDHDataWriter extends AbstractSBDHDataWriter <HREDeliverySBDHData, HREDeliverySBDHDataWriter>
 {
   public HREDeliverySBDHDataWriter ()
   {}

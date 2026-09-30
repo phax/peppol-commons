@@ -67,8 +67,7 @@ public final class ParticipantIdentifierPartsProviderTest
       final int n = aPID.getValue ().indexOf ('-');
       if (n <= 0 || n == aPID.getValue ().length () - 1)
         return null;
-      return new ParticipantIdentifierParts (aPID.getValue ().substring (0, n),
-                                             aPID.getValue ().substring (n + 1));
+      return new ParticipantIdentifierParts (aPID.getValue ().substring (0, n), aPID.getValue ().substring (n + 1));
     };
 
     // 9908 is the Norwegian organisation number agency - the check digit is wrong here

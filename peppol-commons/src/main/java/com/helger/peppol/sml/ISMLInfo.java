@@ -25,10 +25,10 @@ import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.edelivery.sml.ISMLBase;
 
 /**
- * Specifies the different properties a Peppol SML implementation uses, including everything that
- * is needed to manage entries in it. The network neutral part is {@link ISMLBase}. A set of
- * predefined SML information can be found at {@link ESML} whereas a generic implementation can be
- * found at {@link SMLInfo}.
+ * Specifies the different properties a Peppol SML implementation uses, including everything that is
+ * needed to manage entries in it. The network neutral part is {@link ISMLBase}. A set of predefined
+ * SML information can be found at {@link ESML} whereas a generic implementation can be found at
+ * {@link SMLInfo}.
  *
  * @author Philip Helger
  */

@@ -149,7 +149,8 @@ public class BDXRClient extends BDXRClientReadOnly
     if (sBody == null)
       throw new IllegalArgumentException ("Failed to serialize ServiceGroup: " + aServiceGroup);
 
-    final String sURI = getSMPHostURI () + BDXR1IdentifierHelper.getURIPercentEncoded (aServiceGroup.getParticipantIdentifier ());
+    final String sURI = getSMPHostURI () +
+                        BDXR1IdentifierHelper.getURIPercentEncoded (aServiceGroup.getParticipantIdentifier ());
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("BDXRClient saveServiceGroup@" + sURI);
 

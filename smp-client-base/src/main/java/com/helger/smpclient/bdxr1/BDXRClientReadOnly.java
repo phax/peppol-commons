@@ -427,11 +427,11 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
       if (aSI != null)
       {
         checkServiceMetadataIdentifiers (aServiceGroupID,
-                                         aSI.getParticipantIdentifier () == null ? null : BDXR1IdentifierHelper
-                                                                                                               .wrapAsSimpleParticipantIdentifier (aSI.getParticipantIdentifier ()),
+                                         aSI.getParticipantIdentifier () == null ? null
+                                                                                 : BDXR1IdentifierHelper.wrapAsSimpleParticipantIdentifier (aSI.getParticipantIdentifier ()),
                                          aDocumentTypeID,
-                                         aSI.getDocumentIdentifier () == null ? null : BDXR1IdentifierHelper
-                                                                                                            .wrapAsSimpleDocumentTypeIdentifier (aSI.getDocumentIdentifier ()));
+                                         aSI.getDocumentIdentifier () == null ? null
+                                                                              : BDXR1IdentifierHelper.wrapAsSimpleDocumentTypeIdentifier (aSI.getDocumentIdentifier ()));
       }
     }
 
@@ -514,9 +514,9 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    * @param aTransportProfile
    *        The required transport profile to be used. May not be <code>null</code>.
    * @param aCheckDT
-   *        The date and time for which the endpoint is meant to be valid, if the endpoint contains a
-   *        <code>ServiceActivationDate</code> and/or a <code>ServiceExpirationDate</code>. May not
-   *        be <code>null</code>.
+   *        The date and time for which the endpoint is meant to be valid, if the endpoint contains
+   *        a <code>ServiceActivationDate</code> and/or a <code>ServiceExpirationDate</code>. May
+   *        not be <code>null</code>.
    * @return <code>null</code> if no matching endpoint was found
    * @since 13.1.0
    */
@@ -566,8 +566,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *         <code>false</code> if not.
    * @since 13.1.0
    */
-  public static boolean isEndpointValidAt (@NonNull final EndpointType aEndpoint,
-                                           @NonNull final LocalDateTime aCheckDT)
+  public static boolean isEndpointValidAt (@NonNull final EndpointType aEndpoint, @NonNull final LocalDateTime aCheckDT)
   {
     ValueEnforcer.notNull (aEndpoint, "Endpoint");
     ValueEnforcer.notNull (aCheckDT, "CheckDT");
@@ -610,9 +609,9 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    * @param aTransportProfile
    *        The required transport profile to be used. May not be <code>null</code>.
    * @param aCheckDT
-   *        The date and time for which the endpoint is meant to be valid, if the endpoint contains a
-   *        <code>ServiceActivationDate</code> and/or a <code>ServiceExpirationDate</code>. May not
-   *        be <code>null</code>.
+   *        The date and time for which the endpoint is meant to be valid, if the endpoint contains
+   *        a <code>ServiceActivationDate</code> and/or a <code>ServiceExpirationDate</code>. May
+   *        not be <code>null</code>.
    * @return <code>null</code> if no matching endpoint was found
    * @since 13.1.0
    */
@@ -658,9 +657,10 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
                        aTransportProfile.getID () +
                        " valid at " +
                        aCheckDT +
-                       (aRelevantEndpoints.isEmpty () ? "" : ": " +
-                                                             aRelevantEndpoints.toString () +
-                                                             " - using the first one"));
+                       (aRelevantEndpoints.isEmpty () ? ""
+                                                      : ": " +
+                                                        aRelevantEndpoints.toString () +
+                                                        " - using the first one"));
         }
 
         // Use the first endpoint or null
@@ -769,8 +769,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   @NonNull
   public static ServiceGroupType getServiceGroupByDNS (@NonNull final ISMPURLProvider aURLProvider,
                                                        @NonNull final ISMLBase aSMLInfo,
-                                                       @NonNull final IParticipantIdentifier aServiceGroupID) throws SMPClientException,
-                                                                                                              SMPDNSResolutionException
+                                                       @NonNull final IParticipantIdentifier aServiceGroupID) throws SMPClientException, SMPDNSResolutionException
   {
     return new BDXRClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceGroup (aServiceGroupID);
   }
@@ -802,8 +801,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   public static SignedServiceMetadataType getServiceRegistrationByDNS (@NonNull final ISMPURLProvider aURLProvider,
                                                                        @NonNull final ISMLBase aSMLInfo,
                                                                        @NonNull final IParticipantIdentifier aServiceGroupID,
-                                                                       @NonNull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException,
-                                                                                                                               SMPDNSResolutionException
+                                                                       @NonNull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException, SMPDNSResolutionException
   {
     return new BDXRClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceMetadata (aServiceGroupID,
                                                                                                 aDocumentTypeID);

@@ -68,7 +68,7 @@ public final class SMPTransportProfileRegistry
    */
   public static void reinitialize ()
   {
-    RW_LOCK.writeLocked ( () -> {
+    RW_LOCK.writeLocked (() -> {
       MAP.clear ();
       for (final ISMPTransportProfileProviderSPI aSPI : ServiceLoaderHelper.getAllSPIImplementations (ISMPTransportProfileProviderSPI.class))
         for (final ISMPTransportProfile aTransportProfile : aSPI.getAllTransportProfiles ())
@@ -83,7 +83,11 @@ public final class SMPTransportProfileRegistry
     });
 
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Reinitialized " + SMPTransportProfileRegistry.class.getName () + " with " + getCount () + " items");
+      LOGGER.debug ("Reinitialized " +
+                    SMPTransportProfileRegistry.class.getName () +
+                    " with " +
+                    getCount () +
+                    " items");
   }
 
   /**
@@ -100,7 +104,7 @@ public final class SMPTransportProfileRegistry
     ValueEnforcer.notNull (aTransportProfile, "TransportProfile");
 
     final String sID = aTransportProfile.getID ();
-    return RW_LOCK.writeLockedGet ( () -> {
+    return RW_LOCK.writeLockedGet (() -> {
       if (MAP.containsKey (sID))
         return EChange.UNCHANGED;
       MAP.put (sID, aTransportProfile);
@@ -118,7 +122,7 @@ public final class SMPTransportProfileRegistry
   {
     if (sID == null)
       return null;
-    return RW_LOCK.readLockedGet ( () -> MAP.get (sID));
+    return RW_LOCK.readLockedGet (() -> MAP.get (sID));
   }
 
   /**
@@ -139,7 +143,7 @@ public final class SMPTransportProfileRegistry
   @ReturnsMutableCopy
   public static ICommonsList <ISMPTransportProfile> getAllTransportProfiles ()
   {
-    return RW_LOCK.readLockedGet ( () -> MAP.copyOfValues ());
+    return RW_LOCK.readLockedGet (() -> MAP.copyOfValues ());
   }
 
   /**
@@ -150,7 +154,7 @@ public final class SMPTransportProfileRegistry
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllTransportProfileIDs ()
   {
-    return RW_LOCK.readLockedGet ( () -> MAP.copyOfKeySet ());
+    return RW_LOCK.readLockedGet (() -> MAP.copyOfKeySet ());
   }
 
   /**

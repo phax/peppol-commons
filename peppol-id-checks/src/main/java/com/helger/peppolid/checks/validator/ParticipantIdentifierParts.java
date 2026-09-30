@@ -26,7 +26,8 @@ import com.helger.base.tostring.ToStringGenerator;
 /**
  * The parts of a participant identifier value that the validation works on - the ID of the issuing
  * agency and the local participant ID inside that agency. How a participant identifier is split
- * into these two parts differs between the networks; see {@link IParticipantIdentifierPartsProvider}.
+ * into these two parts differs between the networks; see
+ * {@link IParticipantIdentifierPartsProvider}.
  *
  * @author Philip Helger
  * @since 13.0.0
