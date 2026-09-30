@@ -176,8 +176,10 @@ public final class SPIDHelper
 
   /**
    * Extract the SPID Main ID from a Peppol Seat ID. A Seat ID has the format
-   * <code>P&lt;2-letter country code&gt;&lt;6-digit Main ID&gt;</code> (see
-   * {@link PeppolIdentifierHelper#REGEX_SEAT_ID}), so the Main ID are the trailing 6 digits.
+   * <code>P&lt;2 characters identifying the responsible Peppol Authority&gt;&lt;6-digit Main
+   * ID&gt;</code> (see {@link PeppolIdentifierHelper#REGEX_SEAT_ID}), so the Main ID are the
+   * trailing 6 digits. Note that the 2 characters are not a country code, even though they often
+   * look like one - e.g. "PSE000055" is Sweden but "POP000000" is OpenPEPPOL.
    *
    * @param sSeatID
    *        The Seat ID to extract the Main ID from. May be <code>null</code>.
@@ -195,8 +197,8 @@ public final class SPIDHelper
 
   /**
    * Check if the provided value is a valid Peppol Seat ID. A Seat ID has the format
-   * <code>P&lt;2-letter country code&gt;&lt;6-digit Main ID&gt;</code> - see
-   * {@link PeppolIdentifierHelper#REGEX_SEAT_ID}.
+   * <code>P&lt;2 characters identifying the responsible Peppol Authority&gt;&lt;6-digit Main
+   * ID&gt;</code> - see {@link PeppolIdentifierHelper#REGEX_SEAT_ID}.
    *
    * @param sSeatID
    *        The value to check. May be <code>null</code>.
