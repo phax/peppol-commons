@@ -435,6 +435,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 # News and noteworthy
 
 v13.1.1 - work in progress
+* Fixed `PeppolSBDHDataReader.isValidMLSTo` so that the SPID in `MLS_TO` is matched case-insensitively, as SPIS section 3.4 requires. It now uses `SPIDHelper.isValidSPID`, so a value lower-cased by `PeppolIdentifierFactory` is no longer reported as invalid
 
 v13.1.0 - 2026-09-28
 * Extended `SPIDHelper` so that the Peppol Seat ID can be taken from a certificate. The Subject Common Name (CN) of a Peppol certificate is the Seat ID, so the new methods only have to validate it

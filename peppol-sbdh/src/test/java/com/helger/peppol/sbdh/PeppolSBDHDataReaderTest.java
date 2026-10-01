@@ -17,6 +17,7 @@
 package com.helger.peppol.sbdh;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -40,6 +41,7 @@ import com.helger.datetime.xml.XMLOffsetDateTime;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.io.resource.IReadableResource;
 import com.helger.peppol.testfiles.sbdh.PeppolSBDHTestFiles;
+import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.unittest.support.TestHelper;
@@ -383,6 +385,42 @@ public final class PeppolSBDHDataReaderTest
         LOGGER.info (ex.toString ());
       }
     }
+  }
+
+  @Test
+  public void testIsValidMLSTo ()
+  {
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (PeppolIdentifierFactory.INSTANCE);
+    final String sScheme = PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME;
+
+    assertTrue (aReader.isValidMLSTo (sScheme, "0242:000001"));
+    assertTrue (aReader.isValidMLSTo (sScheme, "0242:000001-MLS"));
+    assertTrue (aReader.isValidMLSTo (sScheme, "0242:000001-MLS.TESTBED"));
+
+    // SPIS 3.4 defines a case-insensitive regular expression
+    assertTrue (aReader.isValidMLSTo (sScheme, "0242:000001-mls"));
+    assertTrue (aReader.isValidMLSTo (sScheme, "0242:000001-mls.testbed"));
+    assertTrue (aReader.isValidMLSTo (sScheme, "0242:000001-Mls.TestBed"));
+    // Example from the eB2B Solution Architecture 1.1
+    assertTrue (aReader.isValidMLSTo (sScheme, "0242:000152-eb2b.ksef"));
+
+    // The identifier factory lower-cases the value of a case-insensitive scheme
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifier (sScheme,
+                                                                                                     "0242:000001-MLS.TESTBED");
+    assertNotNull (aPI);
+    assertEquals ("0242:000001-mls.testbed", aPI.getValue ());
+    assertTrue (aReader.isValidMLSTo (aPI.getScheme (), aPI.getValue ()));
+
+    assertFalse (aReader.isValidMLSTo (null, "0242:000001"));
+    assertFalse (aReader.isValidMLSTo (sScheme, null));
+    assertFalse (aReader.isValidMLSTo (sScheme, ""));
+    assertFalse (aReader.isValidMLSTo ("foo", "0242:000001"));
+    assertFalse (aReader.isValidMLSTo (sScheme, "9915:test"));
+    assertFalse (aReader.isValidMLSTo (sScheme, "0242:12345"));
+    assertFalse (aReader.isValidMLSTo (sScheme, "0242:1234567"));
+    assertFalse (aReader.isValidMLSTo (sScheme, "0242:000001-ML"));
+    assertFalse (aReader.isValidMLSTo (sScheme, "0242:000001-MLS-TESTBED"));
+    assertFalse (aReader.isValidMLSTo (sScheme, "0242:000001-MLS.ab"));
   }
 
   @Test
