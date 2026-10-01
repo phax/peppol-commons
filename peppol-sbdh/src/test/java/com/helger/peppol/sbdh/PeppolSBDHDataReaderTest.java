@@ -30,6 +30,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.unece.cefact.namespaces.sbdh.StandardBusinessDocumentHeader;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -38,6 +39,7 @@ import com.helger.collection.commons.ICommonsMap;
 import com.helger.datetime.helper.PDTFactory;
 import com.helger.datetime.web.PDTWebDateHelper;
 import com.helger.datetime.xml.XMLOffsetDateTime;
+import com.helger.diagnostics.error.list.ErrorList;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.io.resource.IReadableResource;
 import com.helger.peppol.testfiles.sbdh.PeppolSBDHTestFiles;
@@ -79,7 +81,11 @@ public final class PeppolSBDHDataReaderTest
     }
     BAD_CASES.put ("bad-mls-to-no-value.xml", EPeppolSBDHDataError.INVALID_SBD_XML);
     BAD_CASES.put ("bad-mls-type-empty.xml", EPeppolSBDHDataError.INVALID_SBD_XML);
-    BAD_CASES.put ("bad-mls-type-invalid-value.xml", EPeppolSBDHDataError.INVALID_MLS_TYPE);
+    if (false)
+    {
+      // Became a warning only, in 13.1.1
+      BAD_CASES.put ("bad-mls-type-invalid-value.xml", EPeppolSBDHDataError.INVALID_MLS_TYPE);
+    }
     BAD_CASES.put ("bad-no-business-scope.xml", EPeppolSBDHDataError.BUSINESS_SCOPE_MISSING);
     BAD_CASES.put ("bad-too-few-scopes.xml", EPeppolSBDHDataError.INVALID_SCOPE_COUNT);
     BAD_CASES.put ("bad-invalid-document-type-identifier.xml", EPeppolSBDHDataError.INVALID_DOCUMENT_TYPE_IDENTIFIER);
@@ -328,6 +334,36 @@ public final class PeppolSBDHDataReaderTest
           LOGGER.info (ex.toString ());
         }
     }
+  }
+
+  @Test
+  public void testReadInvalidMLSType () throws PeppolSBDHDataReadException
+  {
+    final IReadableResource aRes = new ClassPathResource ("external/sbdh/bad/bad-mls-type-invalid-value.xml");
+    assertTrue (aRes.getPath (), aRes.exists ());
+
+    final ErrorList aCollectedErrors = new ErrorList ();
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (PeppolIdentifierFactory.INSTANCE)
+    {
+      @Override
+      public void validateData (@NonNull final StandardBusinessDocumentHeader aSBDH,
+                                @NonNull final Element aBusinessMessage,
+                                @NonNull final ErrorList aErrorList)
+      {
+        super.validateData (aSBDH, aBusinessMessage, aErrorList);
+        aCollectedErrors.addAll (aErrorList);
+      }
+    };
+
+    // MLS spec, section 4.2: an invalid value is interpreted as the default value
+    final PeppolSBDHData aData = aReader.extractData (aRes);
+    assertNotNull (aData);
+    assertFalse (aData.hasMLSType ());
+
+    // It is still reported, as a warning
+    assertFalse (aCollectedErrors.containsAtLeastOneError ());
+    assertEquals (1, aCollectedErrors.size ());
+    assertEquals (EPeppolSBDHDataError.INVALID_MLS_TYPE.getID (), aCollectedErrors.getFirstOrNull ().getErrorID ());
   }
 
   @Test
