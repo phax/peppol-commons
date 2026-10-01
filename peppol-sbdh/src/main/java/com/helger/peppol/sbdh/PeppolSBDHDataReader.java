@@ -52,7 +52,6 @@ import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
-import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
 import com.helger.peppolid.peppol.spis.SPIDHelper;
 
 /**
@@ -221,11 +220,12 @@ public class PeppolSBDHDataReader extends AbstractSBDHDataReader <PeppolSBDHData
 
     final IParticipantIdentifier aPI = getIdentifierFactory ().createParticipantIdentifier (sScheme, sValue);
     // Value must start with "0242:"
-    if ((aPI == null) || !sValue.startsWith (EPredefinedParticipantIdentifierScheme.SPIS.getISO6523Code () + ":"))
+    final String sPrefix = SPIDHelper.SPIS_PARTICIPANT_ID_SCHEME + ":";
+    if ((aPI == null) || !sValue.startsWith (sPrefix))
       return false;
 
     // Get everything after "0242:"
-    final String sMLS = sValue.substring (5);
+    final String sMLS = sValue.substring (sPrefix.length ());
 
     // Check against the OpenPeppol SPIS, section 3.4 - the regular expression is case-insensitive
     if (!SPIDHelper.isValidSPID (sMLS))
