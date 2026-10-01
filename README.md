@@ -434,24 +434,32 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v13.1.1 - work in progress
-* Changed an invalid `MLS_TYPE` in `PeppolSBDHDataReader` from an error to a warning. MLS specification section 4.2 requires an invalid value to be interpreted as the default value, so the document must not be rejected. `PeppolSBDHData.getMLSType ()` returns `null` for it, as for a missing value
-* Fixed `PeppolSBDHDataReader.isValidMLSTo` so that the SPID in `MLS_TO` is matched case-insensitively, as SPIS section 3.4 requires. It now uses `SPIDHelper.isValidSPID`, so a value lower-cased by `PeppolIdentifierFactory` is no longer reported as invalid
+v13.1.1 - 2026-10-01
+* Changed an invalid `MLS_TYPE` in `PeppolSBDHDataReader` from an error to a warning.
+  MLS specification section 4.2 requires an invalid value to be interpreted as the default value, so the document must not be rejected.
+  `PeppolSBDHData.getMLSType ()` returns `null` for it, as for a missing value.
+  See [PR #87](https://github.com/phax/peppol-commons/pull/87) - thx @smh
+* Fixed `PeppolSBDHDataReader.isValidMLSTo` so that the SPID in `MLS_TO` is matched case-insensitively, as SPIS section 3.4 requires.
+  It now uses `SPIDHelper.isValidSPID`, so a value lower-cased by `PeppolIdentifierFactory` is no longer reported as invalid.
+  See [PR #86](https://github.com/phax/peppol-commons/pull/86) - thx @smh
 * `PeppolSBDHDataReader.isValidMLSTo` now takes the `0242` prefix from `SPIDHelper.SPIS_PARTICIPANT_ID_SCHEME` instead of hard-coding its length
 
 v13.1.0 - 2026-09-28
-* Extended `SPIDHelper` so that the Peppol Seat ID can be taken from a certificate. The Subject Common Name (CN) of a Peppol certificate is the Seat ID, so the new methods only have to validate it
+* Extended `SPIDHelper` so that the Peppol Seat ID can be taken from a certificate.
+  The Subject Common Name (CN) of a Peppol certificate is the Seat ID, so the new methods only have to validate it
     * New method `SPIDHelper.isValidSeatID (String)` - the Seat ID check that so far only existed inline in `getMainIDFromSeatID (String)`
     * New methods `SPIDHelper.getSeatIDFromSubjectCN (String)` and `SPIDHelper.getMainIDFromSubjectCN (String)` that take an already extracted Subject CN
     * New methods `SPIDHelper.getSeatIDFromCertificate (X509Certificate)` and `SPIDHelper.getMainIDFromCertificate (X509Certificate)` that take the certificate directly and use `CertificateHelper.getSubjectCN (...)` internally
-    * `peppol-id` therefore has a new dependency on `ph-security`. That library uses BouncyCastle in `test` scope only, so nothing is added to the transitive compile classpath except `ph-security` itself
+    * `peppol-id` therefore has a new dependency on `ph-security`.
+      That library uses BouncyCastle in `test` scope only, so nothing is added to the transitive compile classpath except `ph-security` itself
 * Added the new submodule `peppol-codelist-datatypes` that contains the JAXB classes of the Peppol Code List XSD, extracted from `peppol-id-datatypes`
 * **Breaking API change** The package `com.helger.xsds.peppol.codelists26` moved from the submodule `peppol-id-datatypes` to the new submodule `peppol-codelist-datatypes`.
   The package name and all contained classes are unchanged - only the artifact that provides them is a different one.
   `peppol-codelists-v2.6.xsd` and `peppol-identifiers-v1.xsd` share nothing: they have no `xs:import` between them, only the identifier XSD has a target namespace, and the code list XSD follows the release cycle of the Peppol code lists, whereas the identifier XSD did not change in years.
 * **Breaking API change** Moved `CPeppolID.NS_URI_PEPPOL_CODELISTS` and `CPeppolID.getXSDPeppolCodeLists ()` to the new class `CPeppolCodeLists` in the submodule `peppol-codelist-datatypes`
 * `peppol-id` now depends on `peppol-codelist-datatypes` in `test` scope only, because the code list JAXB classes are only used by the source code generator of the predefined enums.
-  That removes them from the transitive compile classpath of `peppol-id` and of everything building on it. Add an explicit dependency on `peppol-codelist-datatypes` if you use them.
+  That removes them from the transitive compile classpath of `peppol-id` and of everything building on it.
+  Add an explicit dependency on `peppol-codelist-datatypes` if you use them.
 * `peppol-id-datatypes` no longer depends on `ph-datetime`, `ph-jaxb-adapter` and `ph-xsds-xmldsig`.
   Only the code list classes used the `XMLOffsetDateTime` adapters, and neither XSD ever referenced XMLDSig.
 * Removed the dependency of the modules `dbnalliance-commons` and `hredelivery-commons` onto `ph-bc` and therefore onto Bouncy Castle.
