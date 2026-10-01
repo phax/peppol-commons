@@ -672,9 +672,14 @@ public class PeppolSBDHDataReader extends AbstractSBDHDataReader <PeppolSBDHData
                 if (CPeppolSBDH.SCOPE_MLS_TYPE.equals (sType))
                 {
                   if (!isValidMLSType (sInstanceIdentifier))
-                    aErrorList.add (toError ("SBDH/BusinessScope/Scope[" + nScopeIndex1Based + "]/InstanceIdentifier",
-                                             EPeppolSBDHDataError.INVALID_MLS_TYPE,
-                                             sInstanceIdentifier));
+                  {
+                    // MLS spec, section 4.2:
+                    // "Any other value is considered as invalid and MUST be interpreted as the
+                    // default value."
+                    aErrorList.add (toWarn ("SBDH/BusinessScope/Scope[" + nScopeIndex1Based + "]/InstanceIdentifier",
+                                            EPeppolSBDHDataError.INVALID_MLS_TYPE,
+                                            sInstanceIdentifier));
+                  }
                 }
                 else
                   // read as additional attributes
@@ -906,6 +911,7 @@ public class PeppolSBDHDataReader extends AbstractSBDHDataReader <PeppolSBDHData
                 if (CPeppolSBDH.SCOPE_MLS_TYPE.equals (sType))
                 {
                   // Added in MLS specification
+                  // An invalid value is treated like a missing one, so the default applies
                   ret.setMLSType (EPeppolMLSType.getFromIDOrNull (sInstanceIdentifier));
                 }
                 else

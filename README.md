@@ -435,6 +435,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 # News and noteworthy
 
 v13.1.1 - work in progress
+* Changed an invalid `MLS_TYPE` in `PeppolSBDHDataReader` from an error to a warning. MLS specification section 4.2 requires an invalid value to be interpreted as the default value, so the document must not be rejected. `PeppolSBDHData.getMLSType ()` returns `null` for it, as for a missing value
 
 v13.1.0 - 2026-09-28
 * Extended `SPIDHelper` so that the Peppol Seat ID can be taken from a certificate. The Subject Common Name (CN) of a Peppol certificate is the Seat ID, so the new methods only have to validate it
