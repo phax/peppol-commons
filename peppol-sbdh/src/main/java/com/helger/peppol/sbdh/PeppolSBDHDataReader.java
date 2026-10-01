@@ -53,6 +53,7 @@ import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
+import com.helger.peppolid.peppol.spis.SPIDHelper;
 
 /**
  * Main class to read standard business documents and extract the Peppol required data out of it.
@@ -226,8 +227,8 @@ public class PeppolSBDHDataReader extends AbstractSBDHDataReader <PeppolSBDHData
     // Get everything after "0242:"
     final String sMLS = sValue.substring (5);
 
-    // Check against the OpenPeppol SPIS, section 3.4
-    if (!RegExHelper.stringMatchesPattern ("[0-9]{6}(-[0-9A-Z_]{3,12}(\\.[0-9A-Z\\-\\._~]{3,24})?)?", sMLS))
+    // Check against the OpenPeppol SPIS, section 3.4 - the regular expression is case-insensitive
+    if (!SPIDHelper.isValidSPID (sMLS))
       return false;
 
     return true;
