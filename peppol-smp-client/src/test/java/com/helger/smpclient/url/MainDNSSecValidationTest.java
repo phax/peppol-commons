@@ -16,45 +16,41 @@
  */
 package com.helger.smpclient.url;
 
-import java.nio.charset.StandardCharsets;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import org.xbill.DNS.Lookup;
-import org.xbill.DNS.Record;
-import org.xbill.DNS.SimpleResolver;
-import org.xbill.DNS.Type;
-import org.xbill.DNS.dnssec.ValidatingResolver;
+import com.helger.peppol.sml.ESML;
+import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.peppolid.factory.PeppolIdentifierFactory;
+import com.helger.smpclient.url.dns.PeppolNaptrURLProvider;
 
-import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
-
-public class MainDNSSecValidationTest
+/**
+ * Manual test for DNSSEC validated NAPTR lookups against the Peppol SML DNS zones. Requires network
+ * access - therefore not a unit test.
+ *
+ * @author Philip Helger
+ */
+public final class MainDNSSecValidationTest
 {
-  private static byte [] ROOT = ". IN DS 20326 8 2 E06D44B80B8F1D39A95C0B0D7C65D08458E880409BBC683457104237C7F8EC8D".getBytes (StandardCharsets.US_ASCII);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainDNSSecValidationTest.class);
 
-  public static void main (final String [] args) throws Exception
+  public static void main (final String [] args)
   {
-    final SimpleResolver recursiveNameServer = new SimpleResolver ();
+    final PeppolNaptrURLProvider aURLProvider = new PeppolNaptrURLProvider ();
+    aURLProvider.setDnsSecValidation (true);
 
-    final ValidatingResolver securityAwareResolver = new ValidatingResolver (recursiveNameServer);
-    securityAwareResolver.loadTrustAnchors (new NonBlockingByteArrayInputStream (ROOT));
-
-    final Lookup lookup = new Lookup ("B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
-                                      Type.CNAME);
-    lookup.setResolver (securityAwareResolver);
-
-    final Record [] records = lookup.run ();
-
-    final int result = lookup.getResult ();
-    if (result != Lookup.SUCCESSFUL)
-    {
-      System.out.println ("Failure: " + result);
-    }
-    else
-    {
-      System.out.println ("Success: " + records.length + " records");
-    }
-
-    if (records != null)
-      for (final Record r : records)
-        System.out.println (r.toString ());
+    for (final ESML eSML : new ESML [] { ESML.PEPPOL_TEST, ESML.PEPPOL_PRODUCTION })
+      for (final String sParticipantID : new String [] { "9915:test", "9999:this-is-not-registered" })
+      {
+        final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme (sParticipantID);
+        try
+        {
+          LOGGER.info ("[" + eSML.getID () + "] " + sParticipantID + " -> " + aURLProvider.getSMPURIOfParticipant (aPI, eSML));
+        }
+        catch (final SMPDNSResolutionException ex)
+        {
+          LOGGER.info ("[" + eSML.getID () + "] " + sParticipantID + " -> " + ex.getErrorCode () + ": " + ex.getMessage ());
+        }
+      }
   }
 }

@@ -17,7 +17,9 @@
 package com.helger.smpclient.url.dns;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.net.URI;
 
@@ -96,6 +98,32 @@ public final class PeppolNaptrURLProviderTest
       final URI x = aURLProvider.getSMPURIOfParticipant (aPI, ESML.PEPPOL_TEST);
       assertNotNull (x);
       LOGGER.info ("PID " + aPI.getValue () + " is registered at '" + x.toString () + "'");
+    }
+  }
+
+  @Test
+  public void testDNSSECValidationSetting ()
+  {
+    final PeppolNaptrURLProvider aURLProvider = new PeppolNaptrURLProvider ();
+    assertFalse (aURLProvider.isDnsSecValidation ());
+    aURLProvider.setDnsSecValidation (true);
+    assertTrue (aURLProvider.isDnsSecValidation ());
+    assertTrue (aURLProvider.getClone ().isDnsSecValidation ());
+  }
+
+  @Test
+  public void testFindRegisteredSMPURLWithDNSSEC () throws SMPDNSResolutionException
+  {
+    // Only if online
+    if (NetworkOnlineStatusDeterminator.getNetworkStatus ().isOnline ())
+    {
+      final PeppolNaptrURLProvider aURLProvider = new PeppolNaptrURLProvider ();
+      aURLProvider.setDnsSecValidation (true);
+      final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0007:123456");
+
+      final URI x = aURLProvider.getSMPURIOfParticipant (aPI, ESML.PEPPOL_TEST);
+      assertNotNull (x);
+      LOGGER.info ("PID " + aPI.getValue () + " is registered at '" + x.toString () + "' (DNSSEC validated)");
     }
   }
 }

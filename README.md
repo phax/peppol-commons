@@ -434,6 +434,12 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v13.1.2 - work in progress
+* Added optional DNSSEC validation of the U-NAPTR lookups via `AbstractBDXLURLProvider.setDNSSECValidation (boolean)` (disabled by default).
+  See [issue #50](https://github.com/phax/peppol-commons/issues/50)
+* Added the new error code `SMPDNSResolutionException.EErrorCode.DNSSEC_VALIDATION_FAILED`
+* Updated to ph-web 11.4.7
+
 v13.1.1 - 2026-10-01
 * Changed an invalid `MLS_TYPE` in `PeppolSBDHDataReader` from an error to a warning.
   MLS specification section 4.2 requires an invalid value to be interpreted as the default value, so the document must not be rejected.

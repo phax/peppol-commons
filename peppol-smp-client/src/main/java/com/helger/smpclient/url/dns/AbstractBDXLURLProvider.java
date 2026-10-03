@@ -66,6 +66,8 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
 {
   public static final boolean DEFAULT_USE_DNS_CACHE = false;
   public static final boolean DEFAULT_NAPTR_DEBUG = false;
+  /** @since 13.1.2 */
+  public static final boolean DEFAULT_DNSSEC_VALIDATION = false;
   public static final Charset URL_CHARSET = StandardCharsets.UTF_8;
   public static final Locale URL_LOCALE = Locale.US;
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractBDXLURLProvider.class);
@@ -84,6 +86,8 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
   private final ICommonsList <InetAddress> m_aCustomDNSServers = new CommonsArrayList <> ();
   @GuardedBy ("m_aRWLock")
   private boolean m_bUseNaptrDebug = DEFAULT_NAPTR_DEBUG;
+  @GuardedBy ("m_aRWLock")
+  private boolean m_bDnsSecValidation = DEFAULT_DNSSEC_VALIDATION;
 
   /**
    * Default constructor.
@@ -106,6 +110,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
     m_aDNSCache.putAll (rhs.m_aDNSCache);
     m_aCustomDNSServers.addAll (rhs.m_aCustomDNSServers);
     m_bUseNaptrDebug = rhs.m_bUseNaptrDebug;
+    m_bDnsSecValidation = rhs.m_bDnsSecValidation;
   }
 
   public final boolean isLowercaseValueBeforeHashing ()
@@ -217,6 +222,30 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
   public final void setUseNaptrDebug (final boolean b)
   {
     m_aRWLock.writeLocked (() -> m_bUseNaptrDebug = b);
+  }
+
+  /**
+   * @return <code>true</code> if the NAPTR lookups require DNSSEC validated responses,
+   *         <code>false</code> if not. Default is {@link #DEFAULT_DNSSEC_VALIDATION}.
+   * @since 13.1.2
+   */
+  public final boolean isDnsSecValidation ()
+  {
+    return m_aRWLock.readLockedBoolean (() -> m_bDnsSecValidation);
+  }
+
+  /**
+   * Enable or disable DNSSEC validation of the NAPTR lookups. If enabled, only responses that are
+   * validated as secure along the chain of trust from the DNS root are accepted. Note: entries of
+   * the internal DNS cache (see {@link #setUseDNSCache(boolean)}) are not validated.
+   *
+   * @param b
+   *        <code>true</code> to enable DNSSEC validation, <code>false</code> to disable it.
+   * @since 13.1.2
+   */
+  public final void setDnsSecValidation (final boolean b)
+  {
+    m_aRWLock.writeLocked (() -> m_bDnsSecValidation = b);
   }
 
   /**
@@ -350,6 +379,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
                                    .customDNSServers (customDNSServers ())
                                    .maxRetries (2)
                                    .debugMode (m_bUseNaptrDebug)
+                                   .dnssecValidation (isDnsSecValidation ())
                                    .build ()
                                    .lookupResult ();
       }
@@ -358,6 +388,17 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
         throw new SMPDNSResolutionException (EErrorCode.DOMAIN_NAME_SYNTAX_ERROR,
                                              "Failed to parse '" + sBuildDomainName + "'",
                                              ex);
+      }
+
+      if (aLookupResult.getStatus ().isDNSSECValidationFailed ())
+      {
+        throw new SMPDNSResolutionException (EErrorCode.DNSSEC_VALIDATION_FAILED,
+                                             "DNSSEC validation failed resolving '" +
+                                                                                  sBuildDomainName +
+                                                                                  "' [" +
+                                                                                  aLookupResult.getDnsSecStatus () +
+                                                                                  "]: " +
+                                                                                  aLookupResult.getErrorMessage ());
       }
 
       // Distinguish technical failures (retryable, infrastructure) from functional not-found

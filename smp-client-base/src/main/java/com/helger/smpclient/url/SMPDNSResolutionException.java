@@ -72,7 +72,14 @@ public class SMPDNSResolutionException extends Exception
      *
      * @since 12.5.0
      */
-    NO_MATCHING_SMP_SERVICE ("no-smp-service");
+    NO_MATCHING_SMP_SERVICE ("no-smp-service"),
+    /**
+     * DNSSEC validation was requested, but the DNS response could not be validated as secure (bogus
+     * or unsigned). Retrying the lookup is unlikely to help.
+     *
+     * @since 13.1.2
+     */
+    DNSSEC_VALIDATION_FAILED ("dnssec-err");
 
     @NonNull
     private final String m_sID;
