@@ -19,6 +19,7 @@ package com.helger.smpclient.url;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.dns.config.DNSConfig;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
@@ -38,6 +39,8 @@ public final class MainDNSSecValidationTest
   {
     final PeppolNaptrURLProvider aURLProvider = new PeppolNaptrURLProvider ();
     aURLProvider.setDnsSecValidation (true);
+    // The DNS server must forward the DNSSEC records
+    aURLProvider.customDNSServers ().add (DNSConfig.DNS_CLOUDFLARE_1);
 
     for (final ESML eSML : new ESML [] { ESML.PEPPOL_TEST, ESML.PEPPOL_PRODUCTION })
       for (final String sParticipantID : new String [] { "9915:test", "9999:this-is-not-registered" })

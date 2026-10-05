@@ -379,7 +379,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
                                    .customDNSServers (customDNSServers ())
                                    .maxRetries (2)
                                    .debugMode (m_bUseNaptrDebug)
-                                   .dnssecValidation (isDnsSecValidation ())
+                                   .dnsSecValidation (isDnsSecValidation ())
                                    .build ()
                                    .lookupResult ();
       }
@@ -390,7 +390,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
                                              ex);
       }
 
-      if (aLookupResult.getStatus ().isDNSSECValidationFailed ())
+      if (aLookupResult.getStatus ().isDnsSecValidationFailed ())
       {
         throw new SMPDNSResolutionException (EErrorCode.DNSSEC_VALIDATION_FAILED,
                                              "DNSSEC validation failed resolving '" +

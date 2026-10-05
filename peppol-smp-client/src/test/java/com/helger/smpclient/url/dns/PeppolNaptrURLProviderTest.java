@@ -27,6 +27,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.dns.config.DNSConfig;
 import com.helger.network.port.NetworkOnlineStatusDeterminator;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppolid.IParticipantIdentifier;
@@ -102,7 +103,7 @@ public final class PeppolNaptrURLProviderTest
   }
 
   @Test
-  public void testDNSSECValidationSetting ()
+  public void testDnsSecValidationSetting ()
   {
     final PeppolNaptrURLProvider aURLProvider = new PeppolNaptrURLProvider ();
     assertFalse (aURLProvider.isDnsSecValidation ());
@@ -112,13 +113,15 @@ public final class PeppolNaptrURLProviderTest
   }
 
   @Test
-  public void testFindRegisteredSMPURLWithDNSSEC () throws SMPDNSResolutionException
+  public void testFindRegisteredSMPURLWithDnsSec () throws SMPDNSResolutionException
   {
     // Only if online
     if (NetworkOnlineStatusDeterminator.getNetworkStatus ().isOnline ())
     {
       final PeppolNaptrURLProvider aURLProvider = new PeppolNaptrURLProvider ();
       aURLProvider.setDnsSecValidation (true);
+      // The DNS server must forward the DNSSEC records
+      aURLProvider.customDNSServers ().add (DNSConfig.DNS_CLOUDFLARE_1);
       final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0007:123456");
 
       final URI x = aURLProvider.getSMPURIOfParticipant (aPI, ESML.PEPPOL_TEST);
