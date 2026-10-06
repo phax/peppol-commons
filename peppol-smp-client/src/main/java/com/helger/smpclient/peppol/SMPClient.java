@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.Nonempty;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.http.CHttpHeader;
-import com.helger.http.basicauth.BasicAuthClientCredentials;
+import com.helger.http.IHttpClientCredentials;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
@@ -122,18 +122,18 @@ public class SMPClient extends SMPClientReadOnly
    * @param aServiceGroup
    *        The service group to save. May not be <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as credentials. May not be <code>null</code>.
+   *        The credentials to use (e.g. Basic Auth or Bearer token). May not be <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
-   *         The user name or password was not correct.
+   *         The provided credentials were not correct.
    * @throws SMPClientNotFoundException
    *         A HTTP Not Found was received. This can happen if the service was not found.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    */
   public void saveServiceGroup (@NonNull final ServiceGroupType aServiceGroup,
-                                @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+                                @NonNull final IHttpClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroup, "ServiceGroup");
     ValueEnforcer.notNull (aCredentials, "Credentials");
@@ -160,12 +160,12 @@ public class SMPClient extends SMPClientReadOnly
    * @param aParticipantID
    *        The participant identifier for which the service group is to save.
    * @param aCredentials
-   *        The user name and password to use as credentials.
+   *        The credentials to use (e.g. Basic Auth or Bearer token).
    * @return The created {@link ServiceGroupType} object.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
-   *         The user name or password was not correct.
+   *         The provided credentials were not correct.
    * @throws SMPClientNotFoundException
    *         A HTTP Not Found was received. This can happen if the service was not found.
    * @throws SMPClientBadRequestException
@@ -173,7 +173,7 @@ public class SMPClient extends SMPClientReadOnly
    */
   @NonNull
   public ServiceGroupType saveServiceGroup (@NonNull final IParticipantIdentifier aParticipantID,
-                                            @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+                                            @NonNull final IHttpClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aParticipantID, "ParticipantID");
     ValueEnforcer.notNull (aCredentials, "Credentials");
@@ -193,7 +193,7 @@ public class SMPClient extends SMPClientReadOnly
    * @param aServiceGroupID
    *        The service group id of the service group to delete. May not be <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as credentials. May not be <code>null</code>.
+   *        The credentials to use (e.g. Basic Auth or Bearer token). May not be <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientSMPUnavailableException
@@ -201,12 +201,12 @@ public class SMPClient extends SMPClientReadOnly
    * @throws SMPClientNotFoundException
    *         The service group id or document types did not exist.
    * @throws SMPClientUnauthorizedException
-   *         The user name or password was not correct.
+   *         The provided credentials were not correct.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    */
   public void deleteServiceGroup (@NonNull final IParticipantIdentifier aServiceGroupID,
-                                  @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+                                  @NonNull final IHttpClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
@@ -222,7 +222,7 @@ public class SMPClient extends SMPClientReadOnly
   private void _saveServiceInformation (@NonNull final IParticipantIdentifier aServiceGroupID,
                                         @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
                                         @NonNull final ServiceMetadataType aServiceMetadata,
-                                        @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+                                        @NonNull final IHttpClientCredentials aCredentials) throws SMPClientException
   {
     final String sBody = new SMPMarshallerServiceMetadataType ().setUseSchema (isXMLSchemaValidation ())
                                                                 .getAsString (aServiceMetadata);
@@ -250,11 +250,11 @@ public class SMPClient extends SMPClientReadOnly
    * @param aServiceInformation
    *        The service information object to save. May not be <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as credentials. May not be <code>null</code>.
+   *        The credentials to use (e.g. Basic Auth or Bearer token). May not be <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
-   *         The user name or password was not correct.
+   *         The provided credentials were not correct.
    * @throws SMPClientSMPUnavailableException
    *         The SMP server of the participant could not be contacted.
    * @throws SMPClientNotFoundException
@@ -262,10 +262,10 @@ public class SMPClient extends SMPClientReadOnly
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    * @see #saveServiceRedirect(IParticipantIdentifier, IDocumentTypeIdentifier, RedirectType,
-   *      BasicAuthClientCredentials)
+   *      IHttpClientCredentials)
    */
   public void saveServiceInformation (@NonNull final ServiceInformationType aServiceInformation,
-                                      @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+                                      @NonNull final IHttpClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceInformation, "ServiceMetadata.ServiceInformation");
     ValueEnforcer.notNull (aServiceInformation.getParticipantIdentifier (),
@@ -292,23 +292,23 @@ public class SMPClient extends SMPClientReadOnly
    * @param aRedirect
    *        The redirect to be saved. May not be <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as credentials. May not be <code>null</code>.
+   *        The credentials to use (e.g. Basic Auth or Bearer token). May not be <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
-   *         The user name or password was not correct.
+   *         The provided credentials were not correct.
    * @throws SMPClientSMPUnavailableException
    *         The SMP server of the participant could not be contacted.
    * @throws SMPClientNotFoundException
    *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @see #saveServiceInformation(ServiceInformationType, BasicAuthClientCredentials)
+   * @see #saveServiceInformation(ServiceInformationType, IHttpClientCredentials)
    */
   public void saveServiceRedirect (@NonNull final IParticipantIdentifier aServiceGroupID,
                                    @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
                                    @NonNull final RedirectType aRedirect,
-                                   @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+                                   @NonNull final IHttpClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
@@ -328,11 +328,11 @@ public class SMPClient extends SMPClientReadOnly
    * @param aDocumentTypeID
    *        The document type of the service meta data to delete. May not be <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as credentials. May not be <code>null</code>.
+   *        The credentials to use (e.g. Basic Auth or Bearer token). May not be <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
-   *         The user name or password was not correct.
+   *         The provided credentials were not correct.
    * @throws SMPClientSMPUnavailableException
    *         The SMP server of the participant could not be contacted.
    * @throws SMPClientNotFoundException
@@ -342,7 +342,7 @@ public class SMPClient extends SMPClientReadOnly
    */
   public void deleteServiceRegistration (@NonNull final IParticipantIdentifier aServiceGroupID,
                                          @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
-                                         @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+                                         @NonNull final IHttpClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");

@@ -440,6 +440,18 @@ v13.1.2 - work in progress
   See [issue #50](https://github.com/phax/peppol-commons/issues/50)
 * Added the new error code `SMPDNSResolutionException.EErrorCode.DNSSEC_VALIDATION_FAILED`
 * Updated to ph-web 11.4.7
+* Updated to ph-commons 12.5.1
+* **Incompatible change**: the writing methods of `SMPClient`, `BDXRClient` and `BDXR2Client` now take an `IHttpClientCredentials` instead of a `BasicAuthClientCredentials`.
+  This is source compatible, because `BasicAuthClientCredentials` implements `IHttpClientCredentials`, but requires a recompilation.
+  This allows the usage of HTTP Bearer Tokens via `BearerAuthClientCredentials`.
+  See [issue #88](https://github.com/phax/peppol-commons/issues/88)
+* Added the phoss SMP specific clients `PhossSmpPeppolClient`, `PhossSmpBdxr1Client` and `PhossSmpBdxr2Client` that additionally offer all the phoss SMP specific REST APIs via the common interface `IPhossSmpClient`.
+  This covers adding a single Endpoint to a Process, deleting a single Process, deleting all Service Registrations, listing all Service Group IDs, the Business Card write APIs, the Custom Properties APIs, the Participant Migration APIs and the Exchange (import/export) APIs.
+  See [issue #88](https://github.com/phax/peppol-commons/issues/88)
+* Added the Custom Property data model `SGCustomProperty` and `SGCustomPropertyList` in package `com.helger.smpclient.phosssmp`
+* Added the Endpoint marshallers `SMPMarshallerEndpointType`, `BDXR1MarshallerEndpointType` and `BDXR2MarshallerEndpoint`
+* Added `SMPHttpResponseHandlerByteArray`
+* `smp-client-base` now depends on `peppol-directory-businesscard`
 
 v13.1.1 - 2026-10-01
 * Changed an invalid `MLS_TYPE` in `PeppolSBDHDataReader` from an error to a warning.

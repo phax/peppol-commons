@@ -29,7 +29,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.edelivery.sml.ISMLBase;
 import com.helger.http.CHttpHeader;
-import com.helger.http.basicauth.BasicAuthClientCredentials;
+import com.helger.http.IHttpClientCredentials;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.bdxr.smp1.BDXR1IdentifierHelper;
@@ -128,18 +128,18 @@ public class BDXRClient extends BDXRClientReadOnly
    * @param aServiceGroup
    *        The service group to save. May not be <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as credentials. May not be <code>null</code>.
+   *        The credentials to use (e.g. Basic Auth or Bearer token). May not be <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
-   *         The user name or password was not correct.
+   *         The provided credentials were not correct.
    * @throws SMPClientNotFoundException
    *         A HTTP Not Found was received. This can happen if the service was not found.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    */
   public void saveServiceGroup (@NonNull final ServiceGroupType aServiceGroup,
-                                @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+                                @NonNull final IHttpClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroup, "ServiceGroup");
     ValueEnforcer.notNull (aCredentials, "Credentials");
@@ -166,12 +166,12 @@ public class BDXRClient extends BDXRClientReadOnly
    * @param aParticipantID
    *        The participant identifier for which the service group is to save.
    * @param aCredentials
-   *        The user name and password to use as credentials.
+   *        The credentials to use (e.g. Basic Auth or Bearer token).
    * @return The created {@link ServiceGroupType} object.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
-   *         The user name or password was not correct.
+   *         The provided credentials were not correct.
    * @throws SMPClientNotFoundException
    *         A HTTP Not Found was received. This can happen if the service was not found.
    * @throws SMPClientBadRequestException
@@ -179,7 +179,7 @@ public class BDXRClient extends BDXRClientReadOnly
    */
   @NonNull
   public ServiceGroupType saveServiceGroup (@NonNull final IParticipantIdentifier aParticipantID,
-                                            @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+                                            @NonNull final IHttpClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aParticipantID, "ParticipantID");
     ValueEnforcer.notNull (aCredentials, "Credentials");
@@ -199,7 +199,7 @@ public class BDXRClient extends BDXRClientReadOnly
    * @param aServiceGroupID
    *        The service group id of the service group to delete. May not be <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as credentials. May not be <code>null</code>.
+   *        The credentials to use (e.g. Basic Auth or Bearer token). May not be <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientSMPUnavailableException
@@ -207,12 +207,12 @@ public class BDXRClient extends BDXRClientReadOnly
    * @throws SMPClientNotFoundException
    *         The service group id or document types did not exist.
    * @throws SMPClientUnauthorizedException
-   *         The user name or password was not correct.
+   *         The provided credentials were not correct.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    */
   public void deleteServiceGroup (@NonNull final IParticipantIdentifier aServiceGroupID,
-                                  @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+                                  @NonNull final IHttpClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
@@ -228,7 +228,7 @@ public class BDXRClient extends BDXRClientReadOnly
   private void _saveServiceInformation (@NonNull final ParticipantIdentifierType aServiceGroupID,
                                         @NonNull final DocumentIdentifierType aDocumentTypeID,
                                         @NonNull final ServiceMetadataType aServiceMetadata,
-                                        @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+                                        @NonNull final IHttpClientCredentials aCredentials) throws SMPClientException
   {
     final String sBody = new BDXR1MarshallerServiceMetadataType ().setUseSchema (isXMLSchemaValidation ())
                                                                   .getAsString (aServiceMetadata);
@@ -256,11 +256,11 @@ public class BDXRClient extends BDXRClientReadOnly
    * @param aServiceInformation
    *        The service information object to save. May not be <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as credentials. May not be <code>null</code>.
+   *        The credentials to use (e.g. Basic Auth or Bearer token). May not be <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
-   *         The user name or password was not correct.
+   *         The provided credentials were not correct.
    * @throws SMPClientSMPUnavailableException
    *         The SMP server of the participant could not be contacted.
    * @throws SMPClientNotFoundException
@@ -268,10 +268,10 @@ public class BDXRClient extends BDXRClientReadOnly
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    * @see #saveServiceRedirect(ParticipantIdentifierType, DocumentIdentifierType, RedirectType,
-   *      BasicAuthClientCredentials)
+   *      IHttpClientCredentials)
    */
   public void saveServiceInformation (@NonNull final ServiceInformationType aServiceInformation,
-                                      @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+                                      @NonNull final IHttpClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceInformation, "ServiceMetadata.ServiceInformation");
     ValueEnforcer.notNull (aServiceInformation.getParticipantIdentifier (),
@@ -298,23 +298,23 @@ public class BDXRClient extends BDXRClientReadOnly
    * @param aRedirect
    *        The redirect to be saved. May not be <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as credentials. May not be <code>null</code>.
+   *        The credentials to use (e.g. Basic Auth or Bearer token). May not be <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
-   *         The user name or password was not correct.
+   *         The provided credentials were not correct.
    * @throws SMPClientSMPUnavailableException
    *         The SMP server of the participant could not be contacted.
    * @throws SMPClientNotFoundException
    *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @see #saveServiceInformation(ServiceInformationType, BasicAuthClientCredentials)
+   * @see #saveServiceInformation(ServiceInformationType, IHttpClientCredentials)
    */
   public void saveServiceRedirect (@NonNull final ParticipantIdentifierType aServiceGroupID,
                                    @NonNull final DocumentIdentifierType aDocumentTypeID,
                                    @NonNull final RedirectType aRedirect,
-                                   @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+                                   @NonNull final IHttpClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
@@ -334,11 +334,11 @@ public class BDXRClient extends BDXRClientReadOnly
    * @param aDocumentTypeID
    *        The document type of the service meta data to delete. May not be <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as credentials. May not be <code>null</code>.
+   *        The credentials to use (e.g. Basic Auth or Bearer token). May not be <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
-   *         The user name or password was not correct.
+   *         The provided credentials were not correct.
    * @throws SMPClientSMPUnavailableException
    *         The SMP server of the participant could not be contacted.
    * @throws SMPClientNotFoundException
@@ -348,7 +348,7 @@ public class BDXRClient extends BDXRClientReadOnly
    */
   public void deleteServiceRegistration (@NonNull final IParticipantIdentifier aServiceGroupID,
                                          @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
-                                         @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+                                         @NonNull final IHttpClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
