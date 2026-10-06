@@ -37,7 +37,7 @@ import com.helger.xsds.peppol.smp1.EndpointType;
  * all the phoss SMP specific methods of {@link IPhossSmpClient}.
  *
  * @author Philip Helger
- * @since 13.1.2
+ * @since 13.2.0
  */
 public class PhossSmpPeppolClient extends SMPClient implements IPhossSmpClient <EndpointType>
 {

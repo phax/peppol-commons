@@ -32,7 +32,7 @@ import jakarta.xml.bind.JAXBElement;
  * validation enabled.
  *
  * @author Philip Helger
- * @since 13.1.2
+ * @since 13.2.0
  */
 public class BDXR1MarshallerEndpointType extends AbstractBDXR1Marshaller <EndpointType>
 {

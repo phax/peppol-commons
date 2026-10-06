@@ -48,7 +48,7 @@ import com.helger.json.JsonArray;
  * uniqueness is verified. Names are case sensitive. Copied from phoss SMP.
  *
  * @author Philip Helger
- * @since 13.1.2
+ * @since 13.2.0
  */
 @NotThreadSafe
 @MustImplementEqualsAndHashcode

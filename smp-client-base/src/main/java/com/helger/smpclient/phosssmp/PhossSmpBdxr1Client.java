@@ -36,7 +36,7 @@ import com.helger.xsds.bdxr.smp1.EndpointType;
  * additionally all the phoss SMP specific methods of {@link IPhossSmpClient}.
  *
  * @author Philip Helger
- * @since 13.1.2
+ * @since 13.2.0
  */
 public class PhossSmpBdxr1Client extends BDXRClient implements IPhossSmpClient <EndpointType>
 {

@@ -434,7 +434,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v13.1.2 - work in progress
+v13.2.0 - work in progress
 * Added optional DNSSEC validation of the U-NAPTR lookups via `AbstractBDXLURLProvider.setDnsSecValidation (boolean)` (disabled by default).
   The used DNS servers must forward the DNSSEC records - otherwise every lookup fails.
   See [issue #50](https://github.com/phax/peppol-commons/issues/50)

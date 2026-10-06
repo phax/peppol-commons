@@ -28,7 +28,7 @@ import com.helger.xsds.bdxr.smp2.ac.ObjectFactory;
  * so XML Schema validation is possible.
  *
  * @author Philip Helger
- * @since 13.1.2
+ * @since 13.2.0
  */
 public class BDXR2MarshallerEndpoint extends AbstractBDXR2Marshaller <EndpointType>
 {

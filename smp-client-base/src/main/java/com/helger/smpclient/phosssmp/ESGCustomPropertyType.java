@@ -27,7 +27,7 @@ import com.helger.base.lang.EnumHelper;
  * Defines the types for phoss SMP Service Group Custom Properties. Copied from phoss SMP.
  *
  * @author Philip Helger
- * @since 13.1.2
+ * @since 13.2.0
  */
 public enum ESGCustomPropertyType implements IHasID <String>
 {

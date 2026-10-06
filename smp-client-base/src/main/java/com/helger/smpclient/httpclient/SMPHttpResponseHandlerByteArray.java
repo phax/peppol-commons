@@ -27,7 +27,7 @@ import org.jspecify.annotations.NonNull;
  * response body that is returned as a byte array.
  *
  * @author Philip Helger
- * @since 13.1.2
+ * @since 13.2.0
  */
 public class SMPHttpResponseHandlerByteArray extends AbstractSMPResponseHandler <byte []>
 {

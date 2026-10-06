@@ -74,7 +74,7 @@ import com.helger.xml.serialize.read.DOMReader;
  * @author Philip Helger
  * @param <ENDPOINTTYPE>
  *        The data format specific Endpoint type
- * @since 13.1.2
+ * @since 13.2.0
  */
 public interface IPhossSmpClient <ENDPOINTTYPE>
 {

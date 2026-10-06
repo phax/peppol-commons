@@ -77,7 +77,7 @@ public class SMPDNSResolutionException extends Exception
      * DNSSEC validation was requested, but the DNS response could not be validated as secure (bogus
      * or unsigned). Retrying the lookup is unlikely to help.
      *
-     * @since 13.1.2
+     * @since 13.2.0
      */
     DNSSEC_VALIDATION_FAILED ("dnssec-err");
 

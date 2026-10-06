@@ -66,7 +66,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
 {
   public static final boolean DEFAULT_USE_DNS_CACHE = false;
   public static final boolean DEFAULT_NAPTR_DEBUG = false;
-  /** @since 13.1.2 */
+  /** @since 13.2.0 */
   public static final boolean DEFAULT_DNSSEC_VALIDATION = false;
   public static final Charset URL_CHARSET = StandardCharsets.UTF_8;
   public static final Locale URL_LOCALE = Locale.US;
@@ -227,7 +227,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
   /**
    * @return <code>true</code> if the NAPTR lookups require DNSSEC validated responses,
    *         <code>false</code> if not. Default is {@link #DEFAULT_DNSSEC_VALIDATION}.
-   * @since 13.1.2
+   * @since 13.2.0
    */
   public final boolean isDnsSecValidation ()
   {
@@ -241,7 +241,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
    *
    * @param b
    *        <code>true</code> to enable DNSSEC validation, <code>false</code> to disable it.
-   * @since 13.1.2
+   * @since 13.2.0
    */
   public final void setDnsSecValidation (final boolean b)
   {

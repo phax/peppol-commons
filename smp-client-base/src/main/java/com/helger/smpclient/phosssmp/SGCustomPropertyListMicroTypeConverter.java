@@ -30,7 +30,7 @@ import com.helger.xml.microdom.convert.MicroTypeConverter;
  * from phoss SMP.
  *
  * @author Philip Helger
- * @since 13.1.2
+ * @since 13.2.0
  */
 public final class SGCustomPropertyListMicroTypeConverter implements IMicroTypeConverter <SGCustomPropertyList>
 {

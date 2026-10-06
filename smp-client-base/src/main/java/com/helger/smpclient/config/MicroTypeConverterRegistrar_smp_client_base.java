@@ -30,7 +30,7 @@ import com.helger.xml.microdom.convert.IMicroTypeConverterRegistry;
  * Special micro type converter for this project.
  *
  * @author Philip Helger
- * @since 13.1.2
+ * @since 13.2.0
  */
 @IsSPIImplementation
 public final class MicroTypeConverterRegistrar_smp_client_base implements IMicroTypeConverterRegistrarSPI

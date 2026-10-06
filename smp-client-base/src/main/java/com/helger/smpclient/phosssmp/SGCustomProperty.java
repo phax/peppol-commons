@@ -35,7 +35,7 @@ import com.helger.json.JsonObject;
  * Defines a single phoss SMP Service Group custom property. Copied from phoss SMP.
  *
  * @author Philip Helger
- * @since 13.1.2
+ * @since 13.2.0
  */
 @Immutable
 @MustImplementEqualsAndHashcode

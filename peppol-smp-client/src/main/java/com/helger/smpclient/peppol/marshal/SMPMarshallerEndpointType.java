@@ -31,7 +31,7 @@ import jakarta.xml.bind.JAXBElement;
  * enabled.
  *
  * @author Philip Helger
- * @since 13.1.2
+ * @since 13.2.0
  */
 public class SMPMarshallerEndpointType extends AbstractSMPMarshaller <EndpointType>
 {
