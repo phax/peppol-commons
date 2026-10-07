@@ -35,8 +35,8 @@ public enum EBusinessCardVersion implements IHasID <String>
   V3 ("v3");
 
   /**
-   * The latest Business Card version. Consumers can compare against this constant instead of
-   * hard coding the current version.
+   * The latest Business Card version. Consumers can compare against this constant instead of hard
+   * coding the current version.
    *
    * @since 13.2.0
    */
@@ -54,6 +54,16 @@ public enum EBusinessCardVersion implements IHasID <String>
   public String getID ()
   {
     return m_sID;
+  }
+
+  /**
+   * @return <code>true</code> if this business card version is deprecated. <code>true</code> for V1
+   *         and V2, <code>false</code> for V3.
+   */
+  public boolean isDeprecated ()
+  {
+    // V1 and V2 are deprecated
+    return ordinal () < V3.ordinal ();
   }
 
   @Nullable
