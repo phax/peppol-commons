@@ -34,7 +34,13 @@ public enum EBusinessCardVersion implements IHasID <String>
   V2 ("v2"),
   V3 ("v3");
 
-  static final EBusinessCardVersion LATEST = V3;
+  /**
+   * The latest Business Card version. Consumers can compare against this constant instead of
+   * hard coding the current version.
+   *
+   * @since 13.2.0
+   */
+  public static final EBusinessCardVersion LATEST = V3;
 
   private final String m_sID;
 

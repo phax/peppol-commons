@@ -435,6 +435,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 # News and noteworthy
 
 v13.2.0 - work in progress
+* `EBusinessCardVersion.LATEST` is now `public`. It was package private, so a consumer that wanted to check whether a Business Card uses the current version had to hard code `V3` instead of comparing against the constant the library already provides
 * Added optional DNSSEC validation of the U-NAPTR lookups via `AbstractBDXLURLProvider.setDnsSecValidation (boolean)` (disabled by default).
   The used DNS servers must forward the DNSSEC records - otherwise every lookup fails.
   See [issue #50](https://github.com/phax/peppol-commons/issues/50)
