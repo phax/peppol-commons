@@ -85,7 +85,7 @@
       <dependency>
         <groupId>com.helger.commons</groupId>
         <artifactId>ph-commons-parent-pom</artifactId>
-        <version>12.5.1-SNAPSHOT</version>
+        <version>12.5.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -126,7 +126,7 @@
       <dependency>
         <groupId>com.helger.web</groupId>
         <artifactId>ph-web-parent-pom</artifactId>
-        <version>11.4.7-SNAPSHOT</version>
+        <version>11.4.7</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>

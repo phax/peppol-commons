@@ -434,9 +434,13 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v13.2.0 - work in progress
-* Fixed the "multiple matching endpoints" warning in `SMPClientReadOnly.getEndpointAt (...)`. The guard was `aRelevantEndpoints.size () <= 0`, so it only triggered when *no* endpoint matched, while the message body already contained an unreachable branch ending in " - using the first one" for the non-empty case. Two or more endpoints valid at the same point in time for the same process and transport profile - an SMP misconfiguration - were therefore collapsed to the first one without any warning. The guard is now `!= 1`
-* `EBusinessCardVersion.LATEST` is now `public`. It was package private, so a consumer that wanted to check whether a Business Card uses the current version had to hard code `V3` instead of comparing against the constant the library already provides
+v13.2.0 - 2026-10-08
+* Fixed the "multiple matching endpoints" warning in `SMPClientReadOnly.getEndpointAt (...)`.
+  The guard was `aRelevantEndpoints.size () <= 0`, so it only triggered when *no* endpoint matched, while the message body already contained an unreachable branch ending in " - using the first one" for the non-empty case.
+  Two or more endpoints valid at the same point in time for the same process and transport profile - an SMP misconfiguration - were therefore collapsed to the first one without any warning.
+  The guard is now `!= 1`
+* `EBusinessCardVersion.LATEST` is now `public`.
+  It was package private, so a consumer that wanted to check whether a Business Card uses the current version had to hard code `V3` instead of comparing against the constant the library already provides
 * Added optional DNSSEC validation of the U-NAPTR lookups via `AbstractBDXLURLProvider.setDnsSecValidation (boolean)` (disabled by default).
   The used DNS servers must forward the DNSSEC records - otherwise every lookup fails.
   See [issue #50](https://github.com/phax/peppol-commons/issues/50)
