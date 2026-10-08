@@ -678,7 +678,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
             aRelevantEndpoints.add (aEndpoint);
         }
 
-        if (aRelevantEndpoints.size () <= 0)
+        // Exactly one endpoint must be valid at a given point in time - anything else is an SMP
+        // misconfiguration
+        if (aRelevantEndpoints.size () != 1)
         {
           LOGGER.warn ("Found " +
                        aRelevantEndpoints.size () +
