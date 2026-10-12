@@ -58,6 +58,15 @@ import com.helger.xsds.bdxr.smp2.bc.ParticipantIDType;
  * contains the non-standard writing methods. It inherits all reading methods from
  * {@link BDXR2ClientReadOnly}.
  * <p>
+ * The writing methods are non-standard because the OASIS BDXR SMP v2 specification defines no write
+ * interface at all. They target the management API of <b>phoss SMP</b>, and that API serves the
+ * write operations at the <b>root</b> of the SMP - <b>not</b> below
+ * {@link BDXR2ClientReadOnly#PATH_OASIS_BDXR_SMP_2}, which is the path of the reading interface. A
+ * <code>PUT</code> or <code>DELETE</code> below that path is answered with
+ * <code>405 Allow: OPTIONS, GET, HEAD, POST</code>. {@code BDXR2ClientTest} measures both halves,
+ * because the difference between the two is not visible from the paths alone.
+ * </p>
+ * <p>
  * Note: this class is also licensed under Apache 2 license, as it was not part of the original
  * implementation
  * </p>
@@ -66,6 +75,13 @@ import com.helger.xsds.bdxr.smp2.bc.ParticipantIDType;
  */
 public class BDXR2Client extends BDXR2ClientReadOnly
 {
+  /**
+   * The value of <code>SMPVersionID</code> this client writes. The element is mandatory per the XML
+   * Schema (<code>minOccurs="1"</code>), so a document without it does not pass the schema
+   * validation that is on by default.
+   */
+  public static final String SMP_VERSION_ID = "2.0";
+
   private static final Logger LOGGER = LoggerFactory.getLogger (BDXR2Client.class);
 
   /**
@@ -150,8 +166,8 @@ public class BDXR2Client extends BDXR2ClientReadOnly
     if (sBody == null)
       throw new IllegalArgumentException ("Failed to serialize ServiceGroup: " + aServiceGroup);
 
+    // No PATH_OASIS_BDXR_SMP_2 here - see the class comment: that is the reading path
     final String sURI = getSMPHostURI () +
-                        PATH_OASIS_BDXR_SMP_2 +
                         BDXR2IdentifierHelper.getURIPercentEncoded (aServiceGroup.getParticipantID ());
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("BDXR2Client saveServiceGroup@" + sURI);
@@ -187,6 +203,9 @@ public class BDXR2Client extends BDXR2ClientReadOnly
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
     final ServiceGroupType aServiceGroup = new ServiceGroupType ();
+    // Mandatory per the XML Schema - without it the ServiceGroup does not pass the schema
+    // validation of the marshaller and never reaches the SMP
+    aServiceGroup.setSMPVersionID (SMP_VERSION_ID);
     aServiceGroup.setParticipantID (new BDXR2ParticipantIdentifier (aParticipantID.getScheme (),
                                                                     aParticipantID.getValue ()));
     saveServiceGroup (aServiceGroup, aCredentials);
@@ -216,7 +235,7 @@ public class BDXR2Client extends BDXR2ClientReadOnly
   {
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    final String sURI = getSMPHostURI () + PATH_OASIS_BDXR_SMP_2 + aServiceGroupID.getURIPercentEncoded ();
+    final String sURI = getSMPHostURI () + aServiceGroupID.getURIPercentEncoded ();
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("BDXR2Client deleteServiceGroup@" + sURI);
 
@@ -234,7 +253,6 @@ public class BDXR2Client extends BDXR2ClientReadOnly
       throw new IllegalArgumentException ("Failed to serialize ServiceMetadata: " + aServiceMetadata);
 
     final String sURI = getSMPHostURI () +
-                        PATH_OASIS_BDXR_SMP_2 +
                         BDXR2IdentifierHelper.getURIPercentEncoded (aServiceMetadata.getParticipantID ()) +
                         '/' +
                         URL_PART_SERVICES +
@@ -283,7 +301,7 @@ public class BDXR2Client extends BDXR2ClientReadOnly
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
     final ServiceMetadataType aServiceMetadata = new ServiceMetadataType ();
-    aServiceMetadata.setSMPVersionID ("2.0");
+    aServiceMetadata.setSMPVersionID (SMP_VERSION_ID);
     aServiceMetadata.setID (aDocumentTypeID);
     aServiceMetadata.setParticipantID (aServiceGroupID);
 
@@ -328,7 +346,7 @@ public class BDXR2Client extends BDXR2ClientReadOnly
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
     final ServiceMetadataType aServiceMetadata = new ServiceMetadataType ();
-    aServiceMetadata.setSMPVersionID ("2.0");
+    aServiceMetadata.setSMPVersionID (SMP_VERSION_ID);
     aServiceMetadata.setID (aDocumentTypeID);
     aServiceMetadata.setParticipantID (aServiceGroupID);
 
@@ -368,7 +386,6 @@ public class BDXR2Client extends BDXR2ClientReadOnly
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
     final String sURI = getSMPHostURI () +
-                        PATH_OASIS_BDXR_SMP_2 +
                         aServiceGroupID.getURIPercentEncoded () +
                         '/' +
                         URL_PART_SERVICES +

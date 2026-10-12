@@ -434,6 +434,16 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v13.2.1 - work in progress
+* Fixed the request URIs of the non-standard writing methods of `BDXR2Client`.
+  All four of them - `saveServiceGroup`, `deleteServiceGroup`, `saveServiceRegistration` and `deleteServiceRegistration` - put `bdxr-smp-2/` in front of the path, which is the path of the *reading* interface.
+  phoss SMP, the only server these non-standard methods target, serves the write operations at the root and answers a `PUT` or `DELETE` below that path with `405 Allow: OPTIONS, GET, HEAD, POST`, so none of them worked.
+  The reading methods are unchanged and keep that path
+* Fixed `BDXR2Client.saveServiceGroup (IParticipantIdentifier, IHttpClientCredentials)`: it built a `ServiceGroupType` without the `SMPVersionID`.
+  That element is mandatory per the XML Schema (`minOccurs="1"`) and schema validation is on by default, so the call always failed with `IllegalArgumentException: Failed to serialize ServiceGroup` before any HTTP request was made
+* Added `BDXR2Client.SMP_VERSION_ID` for the value `2.0`, which was hard coded in three places
+* Added `BDXR2ClientTest`, which measures the request paths of the writing methods against a local HTTP server - and asserts that a read still uses `PATH_OASIS_BDXR_SMP_2`, so the two cannot be collapsed into each other again
+
 v13.2.0 - 2026-10-08
 * Fixed the "multiple matching endpoints" warning in `SMPClientReadOnly.getEndpointAt (...)`.
   The guard was `aRelevantEndpoints.size () <= 0`, so it only triggered when *no* endpoint matched, while the message body already contained an unreachable branch ending in " - using the first one" for the non-empty case.
