@@ -443,6 +443,8 @@ v13.2.1 - work in progress
   That element is mandatory per the XML Schema (`minOccurs="1"`) and schema validation is on by default, so the call always failed with `IllegalArgumentException: Failed to serialize ServiceGroup` before any HTTP request was made
 * Added `BDXR2Client.SMP_VERSION_ID` for the value `2.0`, which was hard coded in three places
 * Added `BDXR2ClientTest`, which measures the request paths of the writing methods against a local HTTP server - and asserts that a read still uses `PATH_OASIS_BDXR_SMP_2`, so the two cannot be collapsed into each other again
+* Fixed `ManageServiceMetadataServiceCaller.read (String)`: the request contained only the `ServiceMetadataPublisherID`, but the `PublisherEndpoint` is mandatory in the XML Schema, so the SML rejected it with a BadRequestFault (code 106).
+  The request now contains a `PublisherEndpoint` with dummy addresses, which the SML ignores for the Read operation
 
 v13.2.0 - 2026-10-08
 * Fixed the "multiple matching endpoints" warning in `SMPClientReadOnly.getEndpointAt (...)`.

@@ -305,7 +305,18 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
   {
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
 
+    // Why dummy values: ServiceMetadataPublisherServiceType is shared by Create, Read and Update,
+    // and its XML Schema requires the PublisherEndpoint (minOccurs=1). The SML validates every
+    // request against that schema, so a Read with only the ServiceMetadataPublisherID is rejected
+    // with BadRequestFault 106 ("One of PublisherEndpoint is expected"). The Read operation itself
+    // only looks at the ServiceMetadataPublisherID and ignores the endpoint values (verified
+    // against the Peppol test SML), so any well-formed dummy values will do
+    final PublisherEndpointType aEndpoint = new PublisherEndpointType ();
+    aEndpoint.setLogicalAddress ("http://dummy.example.org");
+    aEndpoint.setPhysicalAddress ("127.0.0.1");
+
     final ServiceMetadataPublisherServiceType aSMPService = new ServiceMetadataPublisherServiceType ();
+    aSMPService.setPublisherEndpoint (aEndpoint);
     aSMPService.setServiceMetadataPublisherID (sSMPID);
     return read (aSMPService);
   }
