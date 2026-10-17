@@ -43,6 +43,7 @@ import org.jspecify.annotations.NonNull;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.helger.annotation.misc.DevelopersNote;
 import com.helger.base.state.ETriState;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.datetime.helper.PDTFactory;
@@ -70,8 +71,8 @@ import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.httpclient.AbstractGenericSMPClient;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceMetadataType;
-import com.helger.smpclient.url.dns.PeppolNaptrURLProvider;
 import com.helger.smpclient.url.SMPDNSResolutionException;
+import com.helger.smpclient.url.dns.PeppolNaptrURLProvider;
 import com.helger.xsds.peppol.id1.DocumentIdentifierType;
 import com.helger.xsds.peppol.id1.ParticipantIdentifierType;
 import com.helger.xsds.peppol.smp1.EndpointType;
@@ -89,11 +90,11 @@ public final class SMPClientReadOnlyTest
   @Test
   public void testGetSMPHostURI_Peppol () throws SMPClientException, SMPDNSResolutionException
   {
-    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:helger");
 
     // Peppol URL provider
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.PEPPOL_TEST);
-    assertEquals ("https://test.erechnung.gv.at/smp/", aSMPClient.getSMPHostURI ());
+    assertEquals ("https://smp.helger.com/", aSMPClient.getSMPHostURI ());
 
     final ServiceGroupType aServiceGroup = aSMPClient.getServiceGroupOrNull (aPI);
     assertNotNull (aServiceGroup);
@@ -102,14 +103,14 @@ public final class SMPClientReadOnlyTest
   @Test
   public void testGetSMPHostURI_PeppolCustomDNS () throws SMPClientException, SMPDNSResolutionException, UnknownHostException
   {
-    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:helger");
 
     // Peppol URL provider
     final var aURLProvider = new PeppolNaptrURLProvider ();
     aURLProvider.customDNSServers ().addAll (InetAddress.getAllByName ("8.8.8.8"));
 
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aURLProvider, aPI, ESML.PEPPOL_TEST);
-    assertEquals ("https://test.erechnung.gv.at/smp/", aSMPClient.getSMPHostURI ());
+    assertEquals ("https://smp.helger.com/", aSMPClient.getSMPHostURI ());
 
     final ServiceGroupType aServiceGroup = aSMPClient.getServiceGroupOrNull (aPI);
     assertNotNull (aServiceGroup);
@@ -150,7 +151,7 @@ public final class SMPClientReadOnlyTest
   @Test
   public void testInvalidTrustStore () throws SMPDNSResolutionException, SMPClientException, GeneralSecurityException, IOException
   {
-    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:helger");
 
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.PEPPOL_TEST);
     // Set old trust store
@@ -433,6 +434,8 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
+  @Ignore
+  @DevelopersNote ("BRZ down 2026-10-17")
   public void testBrzProd () throws Exception
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:b");

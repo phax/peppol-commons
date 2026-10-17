@@ -23,8 +23,10 @@ import java.security.cert.X509Certificate;
 
 import org.jspecify.annotations.NonNull;
 import org.junit.ClassRule;
+import org.junit.Ignore;
 import org.junit.Test;
 
+import com.helger.annotation.misc.DevelopersNote;
 import com.helger.peppol.security.PeppolTrustStores.Config2025;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
@@ -62,6 +64,8 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
   }
 
   @Test
+  @Ignore
+  @DevelopersNote ("BRZ down 2026-10-17")
   public void testGetEndpointAddress () throws Exception
   {
     String sEndpointAddress = _createSMPClient (PI_AT_TEST, ESML.PEPPOL_TEST).getEndpointAddress (PI_AT_TEST,
@@ -86,6 +90,8 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
    *         on error
    */
   @Test
+  @Ignore
+  @DevelopersNote ("BRZ down 2026-10-17")
   public void testGetEndpointCertificate () throws Exception
   {
     X509Certificate aEndpointCertificate = _createSMPClient (PI_AT_TEST, ESML.PEPPOL_TEST).getEndpointCertificate (
