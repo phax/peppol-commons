@@ -434,7 +434,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v13.2.1 - work in progress
+v13.2.1 - 2026-10-17
 * Fixed the request URIs of the non-standard writing methods of `BDXR2Client`.
   All four of them - `saveServiceGroup`, `deleteServiceGroup`, `saveServiceRegistration` and `deleteServiceRegistration` - put `bdxr-smp-2/` in front of the path, which is the path of the *reading* interface.
   phoss SMP, the only server these non-standard methods target, serves the write operations at the root and answers a `PUT` or `DELETE` below that path with `405 Allow: OPTIONS, GET, HEAD, POST`, so none of them worked.
