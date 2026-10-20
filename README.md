@@ -434,6 +434,10 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v13.2.2 - work in progress
+* Updated to ph-commons 12.5.2
+* Added `logHandler (ILogHandler)` and `areAllFieldsSet (ILogHandler)` to `PeppolMLRBuilder`, `PeppolMLRLineResponseBuilder`, `PeppolMLSBuilder`, `PeppolMLSLineResponseBuilder` and `PeppolMLSLineResponseResponseBuilder`, so that the missing fields can be collected or forwarded instead of only being logged. `areAllFieldsSet (boolean)` is kept; `PeppolMLSBuilder.addLineResponse (Consumer)` passes the handler on to the line response builder
+
 v13.2.1 - 2026-10-17
 * Fixed the request URIs of the non-standard writing methods of `BDXR2Client`.
   All four of them - `saveServiceGroup`, `deleteServiceGroup`, `saveServiceRegistration` and `deleteServiceRegistration` - put `bdxr-smp-2/` in front of the path, which is the path of the *reading* interface.

@@ -29,15 +29,18 @@ import java.time.LocalTime;
 import java.time.Month;
 import java.time.OffsetTime;
 import java.time.ZoneOffset;
+import java.util.Locale;
 
 import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.base.log.ILogHandler;
 import com.helger.datetime.xml.XMLOffsetTime;
 import com.helger.diagnostics.error.SingleError;
 import com.helger.diagnostics.error.list.ErrorList;
+import com.helger.diagnostics.log.ErrorListLogHandler;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
@@ -307,8 +310,8 @@ public final class PeppolMLSBuilderTest
   {
     final PeppolMLSBuilder aBuilder = new PeppolMLSBuilder (EPeppolMLSResponseCode.ACCEPTANCE);
     // No fields set at all
-    assertFalse (aBuilder.areAllFieldsSet (false));
-    assertFalse (aBuilder.areAllFieldsSet (true));
+    assertFalse (aBuilder.areAllFieldsSet (ILogHandler.createNoOp ()));
+    assertFalse (aBuilder.areAllFieldsSet (aBuilder.logHandler ()));
   }
 
   @Test
@@ -316,7 +319,7 @@ public final class PeppolMLSBuilderTest
   {
     final PeppolMLSBuilder aBuilder = new PeppolMLSBuilder (EPeppolMLSResponseCode.ACCEPTANCE);
     aBuilder.id ("test-id");
-    assertFalse (aBuilder.areAllFieldsSet (false));
+    assertFalse (aBuilder.areAllFieldsSet (ILogHandler.createNoOp ()));
   }
 
   @Test
@@ -324,7 +327,7 @@ public final class PeppolMLSBuilderTest
   {
     final PeppolMLSBuilder aBuilder = new PeppolMLSBuilder (EPeppolMLSResponseCode.ACCEPTANCE);
     aBuilder.id ("test-id").issueDateNow ();
-    assertFalse (aBuilder.areAllFieldsSet (false));
+    assertFalse (aBuilder.areAllFieldsSet (ILogHandler.createNoOp ()));
   }
 
   @Test
@@ -332,7 +335,7 @@ public final class PeppolMLSBuilderTest
   {
     final PeppolMLSBuilder aBuilder = new PeppolMLSBuilder (EPeppolMLSResponseCode.ACCEPTANCE);
     aBuilder.id ("test-id").issueDateTimeNow ();
-    assertFalse (aBuilder.areAllFieldsSet (false));
+    assertFalse (aBuilder.areAllFieldsSet (ILogHandler.createNoOp ()));
   }
 
   @Test
@@ -342,7 +345,7 @@ public final class PeppolMLSBuilderTest
     aBuilder.id ("test-id")
             .issueDateTimeNow ()
             .senderParticipantID (IF.createParticipantIdentifierWithDefaultScheme ("9915:sender"));
-    assertFalse (aBuilder.areAllFieldsSet (false));
+    assertFalse (aBuilder.areAllFieldsSet (ILogHandler.createNoOp ()));
   }
 
   @Test
@@ -353,7 +356,7 @@ public final class PeppolMLSBuilderTest
             .issueDateTimeNow ()
             .senderParticipantID (IF.createParticipantIdentifierWithDefaultScheme ("9915:sender"))
             .receiverParticipantID (IF.createParticipantIdentifierWithDefaultScheme ("9915:receiver"));
-    assertFalse (aBuilder.areAllFieldsSet (false));
+    assertFalse (aBuilder.areAllFieldsSet (ILogHandler.createNoOp ()));
   }
 
   @Test
@@ -366,7 +369,7 @@ public final class PeppolMLSBuilderTest
             .receiverParticipantID (IF.createParticipantIdentifierWithDefaultScheme ("9915:receiver"))
             .referenceId ("ref-123");
     // Rejection requires at least one line response
-    assertFalse (aBuilder.areAllFieldsSet (true));
+    assertFalse (aBuilder.areAllFieldsSet (aBuilder.logHandler ()));
   }
 
   @Test
@@ -379,7 +382,7 @@ public final class PeppolMLSBuilderTest
             .receiverParticipantID (IF.createParticipantIdentifierWithDefaultScheme ("9915:receiver"))
             .referenceId ("ref-123");
     // Acceptance without lines is OK
-    assertTrue (aBuilder.areAllFieldsSet (false));
+    assertTrue (aBuilder.areAllFieldsSet (ILogHandler.createNoOp ()));
   }
 
   @Test (expected = IllegalStateException.class)
@@ -807,5 +810,26 @@ public final class PeppolMLSBuilderTest
     // Round-trip
     final ApplicationResponseType aMLS2 = PeppolMLSBuilder.createForApplicationResponse (aMLS).build ();
     assertEquals (new PeppolMLSMarshaller ().getAsString (aMLS), new PeppolMLSMarshaller ().getAsString (aMLS2));
+  }
+
+  @Test
+  public void testLogHandler ()
+  {
+    final ErrorList aErrorList = new ErrorList ();
+    final PeppolMLSBuilder aBuilder = PeppolMLSBuilder.acceptance ().logHandler (new ErrorListLogHandler (aErrorList));
+
+    // Nothing is set, so the handler receives the missing fields
+    assertFalse (aBuilder.areAllFieldsSet (aBuilder.logHandler ()));
+    assertFalse (aErrorList.isEmpty ());
+    assertTrue (aErrorList.getAllTexts (Locale.ROOT).get (0).contains ("is missing"));
+
+    // false means: no reporting at all
+    aErrorList.clear ();
+    assertFalse (aBuilder.areAllFieldsSet (ILogHandler.createNoOp ()));
+    assertTrue (aErrorList.isEmpty ());
+
+    // Explicit handler
+    assertFalse (aBuilder.areAllFieldsSet (new ErrorListLogHandler (aErrorList)));
+    assertFalse (aErrorList.isEmpty ());
   }
 }

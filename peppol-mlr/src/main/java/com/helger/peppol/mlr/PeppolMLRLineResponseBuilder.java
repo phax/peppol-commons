@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.base.builder.IBuilder;
 import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.log.ILogHandler;
 import com.helger.base.string.StringHelper;
 
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.LineReferenceType;
@@ -49,11 +50,14 @@ public class PeppolMLRLineResponseBuilder implements IBuilder <LineResponseType>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolMLRLineResponseBuilder.class);
 
+  private ILogHandler m_aLogHandler = ILogHandler.createForLogger (LOGGER);
+
   private final EPeppolMLRResponseCode m_eResponseCode;
   private String m_sErrorField;
   private String m_sDescription;
   private EPeppolMLRStatusReasonCode m_eStatusReasonCode;
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   public PeppolMLRLineResponseBuilder (@NonNull final EPeppolMLRResponseCode eResponseCode)
   {
     ValueEnforcer.notNull (eResponseCode, "ResponseCode");
@@ -68,6 +72,7 @@ public class PeppolMLRLineResponseBuilder implements IBuilder <LineResponseType>
    *        Reference to the field under error
    * @return this for chaining
    */
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public PeppolMLRLineResponseBuilder errorField (@Nullable final String s)
   {
@@ -84,6 +89,7 @@ public class PeppolMLRLineResponseBuilder implements IBuilder <LineResponseType>
    *        Response text.
    * @return this for chaining
    */
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public PeppolMLRLineResponseBuilder description (@Nullable final String s)
   {
@@ -91,24 +97,28 @@ public class PeppolMLRLineResponseBuilder implements IBuilder <LineResponseType>
     return this;
   }
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public PeppolMLRLineResponseBuilder statusReasonCodeBusinessRuleViolationFatal ()
   {
     return statusReasonCode (EPeppolMLRStatusReasonCode.BUSINESS_RULE_VIOLATION_FATAL);
   }
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public PeppolMLRLineResponseBuilder statusReasonCodeBusinessRuleViolationWarning ()
   {
     return statusReasonCode (EPeppolMLRStatusReasonCode.BUSINESS_RULE_VIOLATION_WARNING);
   }
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public PeppolMLRLineResponseBuilder statusReasonCodeSyntaxViolation ()
   {
     return statusReasonCode (EPeppolMLRStatusReasonCode.SYNTAX_VIOLATION);
   }
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public PeppolMLRLineResponseBuilder statusReasonCode (@Nullable final EPeppolMLRStatusReasonCode e)
   {
@@ -116,38 +126,84 @@ public class PeppolMLRLineResponseBuilder implements IBuilder <LineResponseType>
     return this;
   }
 
+  /**
+   * @return The log handler that receives the messages of {@link #areAllFieldsSet(boolean)} and
+   *         {@link #build()}. By default it logs to the logger of this class. Never
+   *         <code>null</code>.
+   * @since 13.2.2
+   */
+  @Deprecated (forRemoval = true, since = "13.1.0")
+  @NonNull
+  public ILogHandler logHandler ()
+  {
+    return m_aLogHandler;
+  }
+
+  /**
+   * Set the log handler that receives the messages of {@link #areAllFieldsSet(boolean)} and
+   * {@link #build()}. By default the messages are logged as warnings.
+   *
+   * @param aLogHandler
+   *        The log handler to use. May not be <code>null</code>.
+   * @return this for chaining
+   * @since 13.2.2
+   */
+  @Deprecated (forRemoval = true, since = "13.1.0")
+  @NonNull
+  public PeppolMLRLineResponseBuilder logHandler (@NonNull final ILogHandler aLogHandler)
+  {
+    ValueEnforcer.notNull (aLogHandler, "LogHandler");
+    m_aLogHandler = aLogHandler;
+    return this;
+  }
+
+  @Deprecated (forRemoval = true, since = "13.2.2")
   public boolean areAllFieldsSet (final boolean bLogDetails)
   {
+    return areAllFieldsSet (bLogDetails ? m_aLogHandler : ILogHandler.createNoOp ());
+  }
+
+  /**
+   * Check if all mandatory fields are set and consistent.
+   *
+   * @param aLogHandler
+   *        The log handler that receives a warning for each missing field. May not be
+   *        <code>null</code>.
+   * @return <code>true</code> if all mandatory fields are set, <code>false</code> otherwise.
+   * @since 13.2.2
+   */
+  @Deprecated (forRemoval = true, since = "13.1.0")
+  public boolean areAllFieldsSet (@NonNull final ILogHandler aLogHandler)
+  {
+    ValueEnforcer.notNull (aLogHandler, "LogHandler");
     // Enforced by XSD
     if (StringHelper.isEmpty (m_sErrorField))
     {
-      if (bLogDetails)
-        LOGGER.warn ("The LineResponse Error Field is missing");
+      aLogHandler.warn ("The LineResponse Error Field is missing");
       return false;
     }
 
     // Enforced by Schematron
     if (StringHelper.isEmpty (m_sDescription))
     {
-      if (bLogDetails)
-        LOGGER.warn ("The LineResponse Description is missing");
+      aLogHandler.warn ("The LineResponse Description is missing");
       return false;
     }
 
     // Enforced by Schematron
     if (m_eStatusReasonCode == null)
     {
-      if (bLogDetails)
-        LOGGER.warn ("The LineResponse Status Reason Code is missing");
+      aLogHandler.warn ("The LineResponse Status Reason Code is missing");
       return false;
     }
     return true;
   }
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public LineResponseType build ()
   {
-    if (!areAllFieldsSet (true))
+    if (!areAllFieldsSet (m_aLogHandler))
       throw new IllegalStateException ("Not all MLR Line Response mandatory fields are set");
 
     final LineResponseType ret = new LineResponseType ();
@@ -171,18 +227,21 @@ public class PeppolMLRLineResponseBuilder implements IBuilder <LineResponseType>
     return ret;
   }
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public static PeppolMLRLineResponseBuilder acceptance ()
   {
     return new PeppolMLRLineResponseBuilder (EPeppolMLRResponseCode.ACCEPTANCE);
   }
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public static PeppolMLRLineResponseBuilder acknowledging ()
   {
     return new PeppolMLRLineResponseBuilder (EPeppolMLRResponseCode.ACKNOWLEDGING);
   }
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public static PeppolMLRLineResponseBuilder rejection ()
   {

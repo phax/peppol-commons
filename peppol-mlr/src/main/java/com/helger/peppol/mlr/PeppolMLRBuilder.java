@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.base.builder.IBuilder;
 import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.log.ILogHandler;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
@@ -61,6 +62,8 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolMLRBuilder.class);
 
+  private ILogHandler m_aLogHandler = ILogHandler.createForLogger (LOGGER);
+
   private final EPeppolMLRResponseCode m_eResponseCode;
   private String m_sID;
   private LocalDate m_aIssueDate;
@@ -72,6 +75,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
   private String m_sResponseText;
   private final ICommonsList <LineResponseType> m_aLineResponses = new CommonsArrayList <> ();
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   public PeppolMLRBuilder (@NonNull final EPeppolMLRResponseCode eResponseCode)
   {
     ValueEnforcer.notNull (eResponseCode, "ResponseCode");
@@ -83,6 +87,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
    *
    * @return this for chaining
    */
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public PeppolMLRBuilder randomID ()
   {
@@ -96,6 +101,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
    *        MLR ID
    * @return this for chaining
    */
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public PeppolMLRBuilder id (@Nullable final String s)
   {
@@ -103,12 +109,14 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public PeppolMLRBuilder issueDateNow ()
   {
     return issueDate (PDTFactory.getCurrentLocalDate ());
   }
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public PeppolMLRBuilder issueDate (@Nullable final LocalDate a)
   {
@@ -116,12 +124,14 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public PeppolMLRBuilder issueTimeNow ()
   {
     return issueTime (PDTFactory.getCurrentLocalTimeMillisOnly ());
   }
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public PeppolMLRBuilder issueTime (@Nullable final LocalTime a)
   {
@@ -129,6 +139,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public PeppolMLRBuilder issueDateTimeNow ()
   {
@@ -136,6 +147,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
     return issueDate (aLDT.toLocalDate ()).issueTime (aLDT.toLocalTime ());
   }
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public PeppolMLRBuilder senderParticipantID (@Nullable final IParticipantIdentifier a)
   {
@@ -143,6 +155,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public PeppolMLRBuilder receiverParticipantID (@Nullable final IParticipantIdentifier a)
   {
@@ -158,6 +171,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
    *        Instance Identifier of the source message SBDH
    * @return this for chaining
    */
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public PeppolMLRBuilder referenceId (@Nullable final String s)
   {
@@ -172,6 +186,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
    *        Type code of the source message (like <code>380</code> for an invoice)
    * @return this for chaining
    */
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public PeppolMLRBuilder referenceTypeCode (@Nullable final String s)
   {
@@ -187,6 +202,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
    *        Response text.
    * @return this for chaining
    */
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public PeppolMLRBuilder responseText (@Nullable final String s)
   {
@@ -194,12 +210,14 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public PeppolMLRBuilder addLineResponse (@Nullable final PeppolMLRLineResponseBuilder a)
   {
     return addLineResponse (a == null ? null : a.build ());
   }
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public PeppolMLRBuilder addLineResponse (@Nullable final LineResponseType a)
   {
@@ -208,6 +226,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public PeppolMLRBuilder lineResponses (@Nullable final LineResponseType... a)
   {
@@ -215,6 +234,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public PeppolMLRBuilder lineResponses (@Nullable final Iterable <? extends LineResponseType> a)
   {
@@ -222,46 +242,90 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
+  /**
+   * @return The log handler that receives the messages of {@link #areAllFieldsSet(boolean)} and
+   *         {@link #build()}. By default it logs to the logger of this class. Never
+   *         <code>null</code>.
+   * @since 13.2.2
+   */
+  @Deprecated (forRemoval = true, since = "13.1.0")
+  @NonNull
+  public ILogHandler logHandler ()
+  {
+    return m_aLogHandler;
+  }
+
+  /**
+   * Set the log handler that receives the messages of {@link #areAllFieldsSet(boolean)} and
+   * {@link #build()}. By default the messages are logged as warnings.
+   *
+   * @param aLogHandler
+   *        The log handler to use. May not be <code>null</code>.
+   * @return this for chaining
+   * @since 13.2.2
+   */
+  @Deprecated (forRemoval = true, since = "13.1.0")
+  @NonNull
+  public PeppolMLRBuilder logHandler (@NonNull final ILogHandler aLogHandler)
+  {
+    ValueEnforcer.notNull (aLogHandler, "LogHandler");
+    m_aLogHandler = aLogHandler;
+    return this;
+  }
+
+  @Deprecated (forRemoval = true, since = "13.2.2")
   public boolean areAllFieldsSet (final boolean bLogDetails)
   {
+    return areAllFieldsSet (bLogDetails ? m_aLogHandler : ILogHandler.createNoOp ());
+  }
+
+  /**
+   * Check if all mandatory fields are set and consistent.
+   *
+   * @param aLogHandler
+   *        The log handler that receives a warning for each missing field. May not be
+   *        <code>null</code>.
+   * @return <code>true</code> if all mandatory fields are set, <code>false</code> otherwise.
+   * @since 13.2.2
+   */
+  @Deprecated (forRemoval = true, since = "13.1.0")
+  public boolean areAllFieldsSet (@NonNull final ILogHandler aLogHandler)
+  {
+    ValueEnforcer.notNull (aLogHandler, "LogHandler");
     if (StringHelper.isEmpty (m_sID))
     {
-      if (bLogDetails)
-        LOGGER.warn ("The MLR ID is missing");
+      aLogHandler.warn ("The MLR ID is missing");
       return false;
     }
 
     // Date is mandatory, time is optional
     if (m_aIssueDate == null)
     {
-      if (bLogDetails)
-        LOGGER.warn ("The MLR Issue Date is missing");
+      aLogHandler.warn ("The MLR Issue Date is missing");
       return false;
     }
 
     if (m_aSenderPID == null)
     {
-      if (bLogDetails)
-        LOGGER.warn ("The MLR Sender Participant ID is missing");
+      aLogHandler.warn ("The MLR Sender Participant ID is missing");
       return false;
     }
 
     if (m_aReceiverPID == null)
     {
-      if (bLogDetails)
-        LOGGER.warn ("The MLR Receiver Participant ID is missing");
+      aLogHandler.warn ("The MLR Receiver Participant ID is missing");
       return false;
     }
 
     if (StringHelper.isEmpty (m_sReferenceID))
     {
-      if (bLogDetails)
-        LOGGER.warn ("The MLR Reference ID is missing");
+      aLogHandler.warn ("The MLR Reference ID is missing");
       return false;
     }
     return true;
   }
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public ApplicationResponseType build ()
   {
@@ -344,6 +408,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
     aBuilder.randomID ().issueDateTimeNow ();
   }
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public static PeppolMLRBuilder acceptance ()
   {
@@ -352,6 +417,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
     return ret;
   }
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public static PeppolMLRBuilder acknowledging ()
   {
@@ -360,6 +426,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
     return ret;
   }
 
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public static PeppolMLRBuilder rejection ()
   {
@@ -377,6 +444,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
    *        The Validation result list to evaluate. May not be <code>null</code>.
    * @return A new {@link PeppolMLRBuilder} and never <code>null</code>.
    */
+  @Deprecated (forRemoval = true, since = "13.1.0")
   @NonNull
   public static PeppolMLRBuilder createForValidationResultList (@NonNull final ValidationResultList aVRL)
   {

@@ -16,14 +16,19 @@
  */
 package com.helger.peppol.mlr;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.util.Locale;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.diagnostics.error.list.ErrorList;
+import com.helger.diagnostics.log.ErrorListLogHandler;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 
 import oasis.names.specification.ubl.schema.xsd.applicationresponse_21.ApplicationResponseType;
@@ -76,5 +81,26 @@ public final class PeppolMLRBuilderTest
       LOGGER.info (new PeppolMLRMarshaller ().setFormattedOutput (true).getAsString (aMLR));
     if (false)
       new PeppolMLRMarshaller ().setFormattedOutput (true).write (aMLR, new File ("generated/mlr2.xml"));
+  }
+
+  @Test
+  public void testLogHandler ()
+  {
+    final ErrorList aErrorList = new ErrorList ();
+    final PeppolMLRBuilder aBuilder = PeppolMLRBuilder.acceptance ().logHandler (new ErrorListLogHandler (aErrorList));
+
+    // Nothing is set, so the handler receives the missing fields
+    assertFalse (aBuilder.areAllFieldsSet (true));
+    assertFalse (aErrorList.isEmpty ());
+    assertTrue (aErrorList.getAllTexts (Locale.ROOT).get (0).contains ("is missing"));
+
+    // false means: no reporting at all
+    aErrorList.clear ();
+    assertFalse (aBuilder.areAllFieldsSet (false));
+    assertTrue (aErrorList.isEmpty ());
+
+    // Explicit handler
+    assertFalse (aBuilder.areAllFieldsSet (new ErrorListLogHandler (aErrorList)));
+    assertFalse (aErrorList.isEmpty ());
   }
 }

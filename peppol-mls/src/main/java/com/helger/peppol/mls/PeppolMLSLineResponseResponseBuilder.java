@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.builder.IBuilder;
 import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.log.ILogHandler;
 import com.helger.base.string.StringHelper;
 
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.ResponseType;
@@ -41,6 +42,8 @@ import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.Descrip
 public class PeppolMLSLineResponseResponseBuilder implements IBuilder <ResponseType>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolMLSLineResponseResponseBuilder.class);
+
+  private ILogHandler m_aLogHandler = ILogHandler.createForLogger (LOGGER);
 
   private String m_sDescription;
   private EPeppolMLSStatusReasonCode m_eStatusReasonCode;
@@ -145,6 +148,35 @@ public class PeppolMLSLineResponseResponseBuilder implements IBuilder <ResponseT
   }
 
   /**
+   * @return The log handler that receives the messages of {@link #areAllFieldsSet(boolean)} and
+   *         {@link #build()}. By default it logs to the logger of this class. Never
+   *         <code>null</code>.
+   * @since 13.2.2
+   */
+  @NonNull
+  public ILogHandler logHandler ()
+  {
+    return m_aLogHandler;
+  }
+
+  /**
+   * Set the log handler that receives the messages of {@link #areAllFieldsSet(boolean)} and
+   * {@link #build()}. By default the messages are logged as warnings.
+   *
+   * @param aLogHandler
+   *        The log handler to use. May not be <code>null</code>.
+   * @return this for chaining
+   * @since 13.2.2
+   */
+  @NonNull
+  public PeppolMLSLineResponseResponseBuilder logHandler (@NonNull final ILogHandler aLogHandler)
+  {
+    ValueEnforcer.notNull (aLogHandler, "LogHandler");
+    m_aLogHandler = aLogHandler;
+    return this;
+  }
+
+  /**
    * Check if all mandatory fields are set. Both description and status reason code are required.
    *
    * @param bLogDetails
@@ -152,21 +184,35 @@ public class PeppolMLSLineResponseResponseBuilder implements IBuilder <ResponseT
    *        check.
    * @return <code>true</code> if all mandatory fields are set, <code>false</code> otherwise.
    */
+  @Deprecated (forRemoval = true, since = "13.2.2")
   public boolean areAllFieldsSet (final boolean bLogDetails)
   {
+    return areAllFieldsSet (bLogDetails ? m_aLogHandler : ILogHandler.createNoOp ());
+  }
+
+  /**
+   * Check if all mandatory fields are set and consistent.
+   *
+   * @param aLogHandler
+   *        The log handler that receives a warning for each missing field. May not be
+   *        <code>null</code>.
+   * @return <code>true</code> if all mandatory fields are set, <code>false</code> otherwise.
+   * @since 13.2.2
+   */
+  public boolean areAllFieldsSet (@NonNull final ILogHandler aLogHandler)
+  {
+    ValueEnforcer.notNull (aLogHandler, "LogHandler");
     // Enforced by Schematron
     if (StringHelper.isEmpty (m_sDescription))
     {
-      if (bLogDetails)
-        LOGGER.warn ("The LineResponse Description is missing");
+      aLogHandler.warn ("The LineResponse Description is missing");
       return false;
     }
 
     // Enforced by Schematron
     if (m_eStatusReasonCode == null)
     {
-      if (bLogDetails)
-        LOGGER.warn ("The LineResponse Status Reason Code is missing");
+      aLogHandler.warn ("The LineResponse Status Reason Code is missing");
       return false;
     }
     return true;
@@ -183,7 +229,7 @@ public class PeppolMLSLineResponseResponseBuilder implements IBuilder <ResponseT
   @NonNull
   public ResponseType build ()
   {
-    if (!areAllFieldsSet (true))
+    if (!areAllFieldsSet (m_aLogHandler))
       throw new IllegalStateException ("Not all MLS Line Response/Response mandatory fields are set");
 
     final ResponseType ret = new ResponseType ();

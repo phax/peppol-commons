@@ -24,6 +24,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.helger.base.log.ILogHandler;
+
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.LineResponseType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.ResponseType;
 
@@ -41,7 +43,7 @@ public final class PeppolMLSLineResponseBuilderTest
     assertNull (aBuilder.errorField ());
     assertNotNull (aBuilder.responses ());
     assertTrue (aBuilder.responses ().isEmpty ());
-    assertFalse (aBuilder.areAllFieldsSet (false));
+    assertFalse (aBuilder.areAllFieldsSet (ILogHandler.createNoOp ()));
   }
 
   @Test
@@ -147,17 +149,17 @@ public final class PeppolMLSLineResponseBuilderTest
     final PeppolMLSLineResponseBuilder aBuilder = new PeppolMLSLineResponseBuilder ();
 
     // Nothing set
-    assertFalse (aBuilder.areAllFieldsSet (false));
-    assertFalse (aBuilder.areAllFieldsSet (true));
+    assertFalse (aBuilder.areAllFieldsSet (ILogHandler.createNoOp ()));
+    assertFalse (aBuilder.areAllFieldsSet (aBuilder.logHandler ()));
 
     // Only error field
     aBuilder.errorField ("field");
-    assertFalse (aBuilder.areAllFieldsSet (false));
+    assertFalse (aBuilder.areAllFieldsSet (ILogHandler.createNoOp ()));
 
     // Error field + response
     aBuilder.addResponse (EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_FATAL, "error");
-    assertTrue (aBuilder.areAllFieldsSet (false));
-    assertTrue (aBuilder.areAllFieldsSet (true));
+    assertTrue (aBuilder.areAllFieldsSet (ILogHandler.createNoOp ()));
+    assertTrue (aBuilder.areAllFieldsSet (aBuilder.logHandler ()));
   }
 
   @Test
@@ -166,7 +168,7 @@ public final class PeppolMLSLineResponseBuilderTest
     final PeppolMLSLineResponseBuilder aBuilder = new PeppolMLSLineResponseBuilder ();
     aBuilder.errorField ("");
     aBuilder.addResponse (EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_FATAL, "error");
-    assertFalse (aBuilder.areAllFieldsSet (false));
+    assertFalse (aBuilder.areAllFieldsSet (ILogHandler.createNoOp ()));
   }
 
   @Test

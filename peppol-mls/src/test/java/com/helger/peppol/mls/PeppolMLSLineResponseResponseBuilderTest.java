@@ -24,6 +24,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.helger.base.log.ILogHandler;
+
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.ResponseType;
 
 /**
@@ -39,7 +41,7 @@ public final class PeppolMLSLineResponseResponseBuilderTest
     final PeppolMLSLineResponseResponseBuilder aBuilder = new PeppolMLSLineResponseResponseBuilder ();
     assertNull (aBuilder.description ());
     assertNull (aBuilder.statusReasonCode ());
-    assertFalse (aBuilder.areAllFieldsSet (false));
+    assertFalse (aBuilder.areAllFieldsSet (ILogHandler.createNoOp ()));
   }
 
   @Test
@@ -132,17 +134,17 @@ public final class PeppolMLSLineResponseResponseBuilderTest
     final PeppolMLSLineResponseResponseBuilder aBuilder = new PeppolMLSLineResponseResponseBuilder ();
 
     // Nothing set
-    assertFalse (aBuilder.areAllFieldsSet (false));
-    assertFalse (aBuilder.areAllFieldsSet (true));
+    assertFalse (aBuilder.areAllFieldsSet (ILogHandler.createNoOp ()));
+    assertFalse (aBuilder.areAllFieldsSet (aBuilder.logHandler ()));
 
     // Only description
     aBuilder.description ("test");
-    assertFalse (aBuilder.areAllFieldsSet (false));
+    assertFalse (aBuilder.areAllFieldsSet (ILogHandler.createNoOp ()));
 
     // Description + status code
     aBuilder.statusReasonCode (EPeppolMLSStatusReasonCode.SYNTAX_VIOLATION);
-    assertTrue (aBuilder.areAllFieldsSet (false));
-    assertTrue (aBuilder.areAllFieldsSet (true));
+    assertTrue (aBuilder.areAllFieldsSet (ILogHandler.createNoOp ()));
+    assertTrue (aBuilder.areAllFieldsSet (aBuilder.logHandler ()));
   }
 
   @Test
@@ -150,7 +152,7 @@ public final class PeppolMLSLineResponseResponseBuilderTest
   {
     final PeppolMLSLineResponseResponseBuilder aBuilder = new PeppolMLSLineResponseResponseBuilder ();
     aBuilder.statusReasonCode (EPeppolMLSStatusReasonCode.FAILURE_OF_DELIVERY);
-    assertFalse (aBuilder.areAllFieldsSet (false));
+    assertFalse (aBuilder.areAllFieldsSet (ILogHandler.createNoOp ()));
   }
 
   @Test
@@ -159,7 +161,7 @@ public final class PeppolMLSLineResponseResponseBuilderTest
     final PeppolMLSLineResponseResponseBuilder aBuilder = new PeppolMLSLineResponseResponseBuilder ();
     aBuilder.description ("");
     aBuilder.statusReasonCode (EPeppolMLSStatusReasonCode.FAILURE_OF_DELIVERY);
-    assertFalse (aBuilder.areAllFieldsSet (false));
+    assertFalse (aBuilder.areAllFieldsSet (ILogHandler.createNoOp ()));
   }
 
   @Test

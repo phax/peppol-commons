@@ -35,6 +35,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.builder.IBuilder;
 import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.log.ILogHandler;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsLinkedHashMap;
@@ -67,6 +68,8 @@ import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.Endpoin
 public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolMLSBuilder.class);
+
+  private ILogHandler m_aLogHandler = ILogHandler.createForLogger (LOGGER);
 
   private IParticipantIdentifierFactory m_aIF = PeppolIdentifierFactory.INSTANCE;
   private final EPeppolMLSResponseCode m_eResponseCode;
@@ -465,6 +468,7 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   public PeppolMLSBuilder addLineResponse (@NonNull final Consumer <? super PeppolMLSLineResponseBuilder> a)
   {
     final PeppolMLSLineResponseBuilder aBuilder = new PeppolMLSLineResponseBuilder ();
+    aBuilder.logHandler (m_aLogHandler);
     a.accept (aBuilder);
     return addLineResponse (aBuilder.build ());
   }
@@ -527,6 +531,35 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   }
 
   /**
+   * @return The log handler that receives the messages of {@link #areAllFieldsSet(boolean)} and
+   *         {@link #build()}. By default it logs to the logger of this class. Never
+   *         <code>null</code>.
+   * @since 13.2.2
+   */
+  @NonNull
+  public ILogHandler logHandler ()
+  {
+    return m_aLogHandler;
+  }
+
+  /**
+   * Set the log handler that receives the messages of {@link #areAllFieldsSet(boolean)} and
+   * {@link #build()}. By default the messages are logged as warnings.
+   *
+   * @param aLogHandler
+   *        The log handler to use. May not be <code>null</code>.
+   * @return this for chaining
+   * @since 13.2.2
+   */
+  @NonNull
+  public PeppolMLSBuilder logHandler (@NonNull final ILogHandler aLogHandler)
+  {
+    ValueEnforcer.notNull (aLogHandler, "LogHandler");
+    m_aLogHandler = aLogHandler;
+    return this;
+  }
+
+  /**
    * Check if all mandatory fields are set and consistent. In case of a failure response code, at
    * least one line response must be present.
    *
@@ -535,57 +568,66 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
    *        check.
    * @return <code>true</code> if all mandatory fields are set, <code>false</code> otherwise.
    */
+  @Deprecated (forRemoval = true, since = "13.2.2")
   public boolean areAllFieldsSet (final boolean bLogDetails)
   {
+    return areAllFieldsSet (bLogDetails ? m_aLogHandler : ILogHandler.createNoOp ());
+  }
+
+  /**
+   * Check if all mandatory fields are set and consistent.
+   *
+   * @param aLogHandler
+   *        The log handler that receives a warning for each missing field. May not be
+   *        <code>null</code>.
+   * @return <code>true</code> if all mandatory fields are set, <code>false</code> otherwise.
+   * @since 13.2.2
+   */
+  public boolean areAllFieldsSet (@NonNull final ILogHandler aLogHandler)
+  {
+    ValueEnforcer.notNull (aLogHandler, "LogHandler");
     if (StringHelper.isEmpty (m_sID))
     {
-      if (bLogDetails)
-        LOGGER.warn ("The MLS ID is missing");
+      aLogHandler.warn ("The MLS ID is missing");
       return false;
     }
 
     // Date is mandatory
     if (m_aIssueDate == null)
     {
-      if (bLogDetails)
-        LOGGER.warn ("The MLS Issue Date is missing");
+      aLogHandler.warn ("The MLS Issue Date is missing");
       return false;
     }
 
     // Time is mandatory
     if (m_aIssueTime == null)
     {
-      if (bLogDetails)
-        LOGGER.warn ("The MLS Issue Time is missing");
+      aLogHandler.warn ("The MLS Issue Time is missing");
       return false;
     }
 
     // Time zone of Time is mandatory
     if (m_aIssueTime.getOffset () == null)
     {
-      if (bLogDetails)
-        LOGGER.warn ("The MLS Issue Time is missing the mandatory Zone Offset");
+      aLogHandler.warn ("The MLS Issue Time is missing the mandatory Zone Offset");
       return false;
     }
 
     if (m_aSenderPID == null)
     {
-      if (bLogDetails)
-        LOGGER.warn ("The MLS Sender Participant ID is missing");
+      aLogHandler.warn ("The MLS Sender Participant ID is missing");
       return false;
     }
 
     if (m_aReceiverPID == null)
     {
-      if (bLogDetails)
-        LOGGER.warn ("The MLS Receiver Participant ID is missing");
+      aLogHandler.warn ("The MLS Receiver Participant ID is missing");
       return false;
     }
 
     if (StringHelper.isEmpty (m_sReferenceID))
     {
-      if (bLogDetails)
-        LOGGER.warn ("The MLS Reference ID is missing");
+      aLogHandler.warn ("The MLS Reference ID is missing");
       return false;
     }
 
@@ -594,8 +636,7 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
       // In case of rejection, at least one line response must be present
       if (m_aLineResponses.isEmpty ())
       {
-        if (bLogDetails)
-          LOGGER.warn ("The MLS contains a failure response code but no line responses are present");
+        aLogHandler.warn ("The MLS contains a failure response code but no line responses are present");
         return false;
       }
     }
@@ -614,7 +655,7 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   @NonNull
   public ApplicationResponseType build ()
   {
-    if (!areAllFieldsSet (true))
+    if (!areAllFieldsSet (m_aLogHandler))
       throw new IllegalStateException ("Not all mandatory fields for MLS are set");
 
     final ApplicationResponseType ret = new ApplicationResponseType ();
