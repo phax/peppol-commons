@@ -65,7 +65,7 @@ public final class PeppolNaptrURLProviderTest
   }
 
   @Test
-  public void testResolveNamePeppol () throws SMPDNSResolutionException
+  public void testResolveNamePeppol ()
   {
     final IBDXLURLProvider aURLProvider = PeppolNaptrURLProvider.INSTANCE;
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:1234567890123");

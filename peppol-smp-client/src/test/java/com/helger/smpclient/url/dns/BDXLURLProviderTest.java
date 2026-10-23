@@ -24,7 +24,6 @@ import com.helger.peppol.sml.ESML;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
-import com.helger.smpclient.url.SMPDNSResolutionException;
 
 /**
  * Test class for class {@link BDXLURLProvider}.
@@ -34,7 +33,7 @@ import com.helger.smpclient.url.SMPDNSResolutionException;
 public final class BDXLURLProviderTest
 {
   @Test
-  public void testGetDNSNameOfParticipant () throws SMPDNSResolutionException
+  public void testGetDNSNameOfParticipant ()
   {
     final IBDXLURLProvider aURLProvider = BDXLURLProvider.INSTANCE;
     assertEquals ("4444wypixhstjggabkb7qmg63kjnr7ifmxralgpordxi6zf64hua.participant.sml.prod.tech.peppol.org",
@@ -93,7 +92,7 @@ public final class BDXLURLProviderTest
   }
 
   @Test
-  public void testGetDNSNameOfParticipantNoLowercase () throws SMPDNSResolutionException
+  public void testGetDNSNameOfParticipantNoLowercase ()
   {
     final BDXLURLProvider aURLProvider = new BDXLURLProvider ();
     aURLProvider.setLowercaseValueBeforeHashing (false);
@@ -113,7 +112,7 @@ public final class BDXLURLProviderTest
   }
 
   @Test
-  public void testResolveNameToop () throws SMPDNSResolutionException
+  public void testResolveNameToop ()
   {
     final IBDXLURLProvider aURLProvider = BDXLURLProvider.INSTANCE;
     assertEquals ("y7dzfxaf3d4cjz4kcgrxtec6twvcga4ky7zwa5boif6mswd4tdrq.iso6523-actorid-upis.toop.acc.edelivery.tech.ec.europa.eu",
@@ -122,7 +121,7 @@ public final class BDXLURLProviderTest
   }
 
   @Test
-  public void testResolveNameDe4a () throws SMPDNSResolutionException
+  public void testResolveNameDe4a ()
   {
     final IBDXLURLProvider aURLProvider = BDXLURLProvider.INSTANCE;
     assertEquals ("m2v5cjbjvuyeukpuegc4f3dpebbcjzi3pbxfegruqk3r3j42x5vq.iso6523-actorid-upis.de4a.edelivery.tech.ec.europa.eu",

@@ -24,8 +24,8 @@ import org.junit.Test;
 
 import com.helger.dbnalliance.commons.EDBNAllianceSML;
 import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
-import com.helger.smpclient.url.dns.DBNAURLProviderSMP;
 import com.helger.smpclient.url.SMPDNSResolutionException;
+import com.helger.smpclient.url.dns.DBNAURLProviderSMP;
 
 /**
  * Test class for class {@link DBNAURLProviderSMP}.
@@ -35,7 +35,7 @@ import com.helger.smpclient.url.SMPDNSResolutionException;
 public final class DBNAURLProviderSMPTest
 {
   @Test
-  public void testGetDnsNameOfExample () throws SMPDNSResolutionException
+  public void testGetDnsNameOfExample ()
   {
     final SimpleParticipantIdentifier aPI = new SimpleParticipantIdentifier ("GLN", "1234567890123");
 
@@ -44,7 +44,7 @@ public final class DBNAURLProviderSMPTest
   }
 
   @Test
-  public void testGetDnsNameStorecove () throws SMPDNSResolutionException
+  public void testGetDnsNameStorecove ()
   {
     final SimpleParticipantIdentifier aPI = new SimpleParticipantIdentifier ("GLN", "1200109963131");
 

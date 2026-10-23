@@ -24,7 +24,6 @@ import com.helger.hredelivery.commons.EHREDeliverySML;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.smpclient.url.dns.IBDXLURLProvider;
-import com.helger.smpclient.url.SMPDNSResolutionException;
 
 /**
  * Test class {@link HREDeliveryNaptrURLProvider}.
@@ -34,7 +33,7 @@ import com.helger.smpclient.url.SMPDNSResolutionException;
 public final class HREDeliveryNaptrURLProviderTest
 {
   @Test
-  public void testResolveNameDemo () throws SMPDNSResolutionException
+  public void testResolveNameDemo ()
   {
     final IBDXLURLProvider aURLProvider = HREDeliveryNaptrURLProvider.INSTANCE;
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:18683136487");
@@ -44,7 +43,7 @@ public final class HREDeliveryNaptrURLProviderTest
   }
 
   @Test
-  public void testResolveNameC1 () throws SMPDNSResolutionException
+  public void testResolveNameC1 ()
   {
     final IBDXLURLProvider aURLProvider = HREDeliveryNaptrURLProvider.INSTANCE;
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:38441291513");
@@ -54,7 +53,7 @@ public final class HREDeliveryNaptrURLProviderTest
   }
 
   @Test
-  public void testResolveName3 () throws SMPDNSResolutionException
+  public void testResolveName3 ()
   {
     final IBDXLURLProvider aURLProvider = HREDeliveryNaptrURLProvider.INSTANCE;
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:00042644647");
@@ -64,7 +63,7 @@ public final class HREDeliveryNaptrURLProviderTest
   }
 
   @Test
-  public void testResolveName4 () throws SMPDNSResolutionException
+  public void testResolveName4 ()
   {
     final IBDXLURLProvider aURLProvider = HREDeliveryNaptrURLProvider.INSTANCE;
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:52424909202");
