@@ -40,6 +40,7 @@ import javax.net.ssl.SSLException;
 import javax.xml.crypto.dsig.XMLSignatureException;
 
 import org.jspecify.annotations.NonNull;
+import org.junit.Assume;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -69,6 +70,7 @@ import com.helger.security.keystore.KeyStoreHelper;
 import com.helger.security.revocation.ERevocationCheckMode;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.exception.SMPClientException;
+import com.helger.smpclient.exception.SMPClientSMPUnavailableException;
 import com.helger.smpclient.httpclient.AbstractGenericSMPClient;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceMetadataType;
 import com.helger.smpclient.url.SMPDNSResolutionException;
@@ -653,6 +655,12 @@ public final class SMPClientReadOnlyTest
     {
       aSMPClient.getServiceGroup (aPI);
       fail ("Expected the TLS handshake to fail because of the revoked certificate");
+    }
+    catch (final SMPClientSMPUnavailableException ex)
+    {
+      // Host not resolvable, connection refused or timed out - the TLS handshake was never
+      // reached, so the revocation check cannot be verified
+      Assume.assumeNoException ("Host '" + aRevokedURI.getHost () + "' is not reachable", ex);
     }
     catch (final SMPClientException ex)
     {
