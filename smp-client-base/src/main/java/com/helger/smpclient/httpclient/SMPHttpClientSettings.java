@@ -16,11 +16,15 @@
  */
 package com.helger.smpclient.httpclient;
 
+import java.time.Duration;
+
 import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.base.CGlobal;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.http.tls.ETLSVersion;
 import com.helger.http.tls.TLSConfigurationMode;
 import com.helger.httpclient.HttpClientSettings;
@@ -38,7 +42,22 @@ import com.helger.smpclient.config.SMPClientConfiguration;
 public class SMPHttpClientSettings extends HttpClientSettings
 {
   public static final String USER_AGENT = "phax/peppol-commons smp-client/" + CSMPClientVersion.BUILD_VERSION;
+  /**
+   * The default number of retries. This is the same as the default of Apache HttpClient.
+   *
+   * @since 13.2.2
+   */
+  public static final int DEFAULT_SMP_RETRY_COUNT = 1;
+  /**
+   * The default maximum duration requested via the HTTP <code>Retry-After</code> response header,
+   * that is still waited for.
+   *
+   * @since 13.2.2
+   */
+  public static final Duration DEFAULT_MAX_RETRY_AFTER = Duration.ofSeconds (30);
   private static final Logger LOGGER = LoggerFactory.getLogger (SMPHttpClientSettings.class);
+
+  private Duration m_aMaxRetryAfter = DEFAULT_MAX_RETRY_AFTER;
 
   /**
    * Constructor. Initializes all settings from configuration file. Any changes made afterwards
@@ -58,6 +77,41 @@ public class SMPHttpClientSettings extends HttpClientSettings
 
     // Set an explicit user agent
     setUserAgent (USER_AGENT);
+
+    // Retry like Apache HttpClient does by default, but with a limited Retry-After duration (see
+    // SMPHttpClientFactory)
+    setRetryCount (DEFAULT_SMP_RETRY_COUNT);
+  }
+
+  /**
+   * @return The maximum duration requested via the HTTP <code>Retry-After</code> response header,
+   *         that is still waited for. If the server requests a longer duration, no retry happens.
+   *         Never <code>null</code>. Defaults to {@link #DEFAULT_MAX_RETRY_AFTER}.
+   * @since 13.2.2
+   */
+  @NonNull
+  public final Duration getMaxRetryAfter ()
+  {
+    return m_aMaxRetryAfter;
+  }
+
+  /**
+   * Set the maximum duration requested via the HTTP <code>Retry-After</code> response header, that
+   * is still waited for. If the server requests a longer duration, no retry happens. This is only
+   * considered, if the SMP client creates the HTTP client itself (see {@link SMPHttpClientFactory}).
+   *
+   * @param aMaxRetryAfter
+   *        The maximum duration. May neither be <code>null</code> nor negative.
+   * @return this for chaining
+   * @since 13.2.2
+   */
+  @NonNull
+  public final SMPHttpClientSettings setMaxRetryAfter (@NonNull final Duration aMaxRetryAfter)
+  {
+    ValueEnforcer.notNull (aMaxRetryAfter, "MaxRetryAfter");
+    ValueEnforcer.isFalse (aMaxRetryAfter::isNegative, "MaxRetryAfter must not be negative");
+    m_aMaxRetryAfter = aMaxRetryAfter;
+    return this;
   }
 
   private void _verifySettings ()
@@ -73,5 +127,11 @@ public class SMPHttpClientSettings extends HttpClientSettings
     HttpClientSettingsConfig.assignConfigValues (ret, SMPClientConfiguration.getConfig (), "smpclient", "");
     ret._verifySettings ();
     return ret;
+  }
+
+  @Override
+  public String toString ()
+  {
+    return ToStringGenerator.getDerived (super.toString ()).append ("MaxRetryAfter", m_aMaxRetryAfter).getToString ();
   }
 }

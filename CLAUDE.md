@@ -77,6 +77,8 @@ Trust stores are in `peppol-commons/src/main/resources/truststore/` (JKS, PKCS12
 
 SMP client configuration is loaded from (in order): system property `peppol.smp.client.properties.path`, environment variable `SMP_CLIENT_CONFIG`, `application.properties`, or `smp-client.properties`.
 
+The SMP clients create their HTTP client via `SMPHttpClientFactory` (unless a shared `HttpClientManager` is set). It installs `SMPHttpClientRetryStrategy`, which does not retry if the HTTP `Retry-After` header exceeds `SMPHttpClientSettings.getMaxRetryAfter ()`, and it disables the default retry strategy of Apache HttpClient if no retries are configured (that one waits for any `Retry-After` duration).
+
 ## CI
 
 GitHub Actions (`.github/workflows/maven.yml`): builds on push against Java 17, 21, and 25. Snapshot deployment runs only on Java 17.

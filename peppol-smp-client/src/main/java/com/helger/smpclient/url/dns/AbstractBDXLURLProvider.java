@@ -263,7 +263,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
                                                               EMessageDigestAlgorithm.SHA_256).bytes ();
     // Lowercase manually, because URLs are case-sensitive but usually presented
     // lowercase
-    return new Base32Codec ().setAddPaddding (false)
+    return new Base32Codec ().setAddPadding (false)
                              .getEncodedAsString (aMessageDigest, StandardCharsets.ISO_8859_1)
                              .toLowerCase (Locale.US);
   }

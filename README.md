@@ -434,9 +434,17 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v13.2.2 - work in progress
-* Updated to ph-commons 12.5.2
-* Added `logHandler (ILogHandler)` and `areAllFieldsSet (ILogHandler)` to `PeppolMLRBuilder`, `PeppolMLRLineResponseBuilder`, `PeppolMLSBuilder`, `PeppolMLSLineResponseBuilder` and `PeppolMLSLineResponseResponseBuilder`, so that the missing fields can be collected or forwarded instead of only being logged. `areAllFieldsSet (boolean)` is kept; `PeppolMLSBuilder.addLineResponse (Consumer)` passes the handler on to the line response builder
+v13.2.2 - 2026-11-11
+* Requires at least ph-commons 12.6.0
+* Added `logHandler (ILogHandler)` and `areAllFieldsSet (ILogHandler)` to `PeppolMLRBuilder`, `PeppolMLRLineResponseBuilder`, `PeppolMLSBuilder`, `PeppolMLSLineResponseBuilder` and `PeppolMLSLineResponseResponseBuilder`, so that the missing fields can be collected or forwarded instead of only being logged.
+  `areAllFieldsSet (boolean)` is kept; `PeppolMLSBuilder.addLineResponse (Consumer)` passes the handler on to the line response builder
+* The SMP clients now limit the waiting time requested by the HTTP `Retry-After` response header.
+  If the SMP requests a longer duration than `SMPHttpClientSettings.getMaxRetryAfter ()` (default 30 seconds), no retry happens.
+  Until now, the default retry strategy of Apache HttpClient waited for any requested duration, which could block an SMP lookup for an unlimited time.
+  For this, the new classes `SMPHttpClientFactory` and `SMPHttpClientRetryStrategy` were added.
+  This only applies if no shared `HttpClientManager` is used.
+* `SMPHttpClientSettings` now explicitly uses 1 retry (`DEFAULT_SMP_RETRY_COUNT`), which was previously the implicit default of Apache HttpClient.
+  A retry count of `0` now really means no retries
 
 v13.2.1 - 2026-10-17
 * Fixed the request URIs of the non-standard writing methods of `BDXR2Client`.
@@ -519,7 +527,8 @@ v13.1.0 - 2026-09-28
 * **Deprecation** All classes of the module `peppol-mlr` are now deprecated for removal.
   Peppol MLR is phased out in favour of Peppol MLS, as laid out in the [Peppol MLR Deprecation and Phase-out Plan](https://docs.peppol.eu/edelivery/changelog/2026-07/Peppol%20MLR%20Phase-Out%201.0.0%202026-07-02.pdf) v1.0.0.
   The phase-out starts on 2027-03-01 (T2), the MLR specification is deprecated on 2027-04-01 (T3) and MLR is fully retired on 2027-05-01 (T4) - from T4 onwards no MLR may be sent anymore.
-  The module still works unchanged and is not removed yet. Use the module `peppol-mls` instead - per the phase-out plan MLS provides full functional coverage of MLR.
+  The module still works unchanged and is not removed yet.
+  Use the module `peppol-mls` instead - per the phase-out plan MLS provides full functional coverage of MLR.
 * Updated to jcodemodel 4.4.1
 * The SMP client no longer logs an HTTP 404 response of an SMP as an error.
   An unknown participant or an unknown document type is a regular answer of an SMP - especially for the `...OrNull` methods - so it is the caller that decides whether this is an error or not.
@@ -545,7 +554,8 @@ v13.1.0 - 2026-09-28
   `getEndpoint (...)` previously matched the process identifier and the transport profile only and ignored `smb:ActivationDate` and `smb:ExpirationDate` entirely, so an endpoint outside its validity period was returned like any other one.
   For the Peppol SMP the date aware variants exist since v8.7.3; for OASIS BDXR SMP v2 they were missing.
   In BDXR SMP v2 both elements are of type `xs:date` and carry no time of day, so the new methods take a `LocalDate` and treat both dates as **inclusive**: an endpoint with an `ExpirationDate` of `2026-12-31` is still valid on `2026-12-31`.
-  `getEndpoint (...)` now delegates to `getEndpointAt (...)` with the current date of the default time zone. Callers that need a specific date or a specific time zone - UTC in particular - must use `getEndpointAt (...)`.
+  `getEndpoint (...)` now delegates to `getEndpointAt (...)` with the current date of the default time zone.
+  Callers that need a specific date or a specific time zone - UTC in particular - must use `getEndpointAt (...)`.
 * Added `BDXRClientReadOnly.isEndpointValidAt (EndpointType, LocalDateTime)` as well as `getEndpointAt (...)` for both `ServiceMetadataType` and `SignedServiceMetadataType`, closing the same gap for OASIS BDXR SMP v1.
   There `ServiceActivationDate` and `ServiceExpirationDate` are of type `xs:dateTime`, so these methods take a `LocalDateTime`, exactly like the Peppol counterparts.
   `getEndpoint (...)` now delegates to `getEndpointAt (...)` with the current date and time of the default time zone.
@@ -554,7 +564,8 @@ v13.0.0 - 2026-09-23
 * Added the new submodule `edelivery-commons` that contains the network neutral base types, so that Peppol, DBNAlliance, HR eDelivery and future networks share them instead of copying them
 * **Breaking API change** Moved `ISMPTransportProfile`, `SMPTransportProfile`, `ESMPTransportProfileState`, `ESMPTransportProfileStateText` and `SMPTransportProfileMicroTypeConverter` from `com.helger.peppol.smp` to `com.helger.edelivery.smp` in the new submodule `edelivery-commons`
 * **Breaking API change** Moved `ESMPAPIType` from `com.helger.peppol.sml` to `com.helger.edelivery.smp` in the new submodule `edelivery-commons`
-* **Breaking API change** Removed `ESMPTransportProfile.TRANSPORT_PROFILE_DBNA_AS4_V1` and `ESMPTransportProfile.TRANSPORT_PROFILE_ERACUN_AS4_V1` - a network no longer needs to modify a Peppol enum to make its transport profiles known. Use the new `EDBNAllianceTransportProfile` and `EHREDeliveryTransportProfile` instead
+* **Breaking API change** Removed `ESMPTransportProfile.TRANSPORT_PROFILE_DBNA_AS4_V1` and `ESMPTransportProfile.TRANSPORT_PROFILE_ERACUN_AS4_V1` - a network no longer needs to modify a Peppol enum to make its transport profiles known.
+  Use the new `EDBNAllianceTransportProfile` and `EHREDeliveryTransportProfile` instead
 * Added `SMPTransportProfileRegistry` that collects the transport profiles of all networks via the new SPI interface `ISMPTransportProfileProviderSPI`
 * Added `NetworkTrustStoreHelper` so that `PeppolTrustStores`, `DBNAllianceTrustStores` and `HREDeliveryTrustStores` no longer each carry their own copy of the trust store loading and certificate resolution code
 * Added `INetworkStage` as the common base interface of `IPeppolNetwork`, `EDBNAllianceStage` and `EHREDeliveryStage`
@@ -562,13 +573,17 @@ v13.0.0 - 2026-09-23
 * Added `ICodeListItem` and `ICodeListItemWithRelease` - the state and release lifecycle of a code list entry was previously repeated in five interfaces
 * **Breaking API change** Removed `ESMPIdentifierType.DBNALLIANCE` - use the new `EDBNAllianceIdentifierType.DBNALLIANCE` instead
 * Added `IdentifierFactoryTypeRegistry` and the SPI interface `IIdentifierFactoryTypeProviderSPI`, so that a network can contribute its identifier rules without modifying `ESMPIdentifierType`
-* Added the new submodule `smp-client-base` that contains the network neutral parts of the SMP client - HTTP execution, signature verification, exceptions, extensions, redirects, caching and the OASIS BDXR SMP v1 and v2 clients. It does **not** depend on `dnsjava` and `ph-dns`, so a BDXR SMP user without SML no longer drags the DNS stack into the class path
-* **Breaking API change** Moved the packages `com.helger.smpclient.httpclient`, `.exception`, `.security`, `.extension`, `.redirect`, `.config`, `.bdxr1` and `.bdxr2` from `peppol-smp-client` to `smp-client-base`. The package names are unchanged
-* **Breaking API change** Moved the DNS based URL providers (`AbstractBDXLURLProvider`, `BDXLURLProvider`, `IBDXLURLProvider`, `PeppolURLProvider`, `IPeppolURLProvider`, `PeppolNaptrURLProvider`, `PeppolConfigurableURLProvider` and `DBNAURLProviderSMP`) from `com.helger.smpclient.url` to `com.helger.smpclient.url.dns`. `ISMPURLProvider` and `SMPDNSResolutionException` stay where they are and moved to `smp-client-base`
+* Added the new submodule `smp-client-base` that contains the network neutral parts of the SMP client - HTTP execution, signature verification, exceptions, extensions, redirects, caching and the OASIS BDXR SMP v1 and v2 clients.
+  It does **not** depend on `dnsjava` and `ph-dns`, so a BDXR SMP user without SML no longer drags the DNS stack into the class path
+* **Breaking API change** Moved the packages `com.helger.smpclient.httpclient`, `.exception`, `.security`, `.extension`, `.redirect`, `.config`, `.bdxr1` and `.bdxr2` from `peppol-smp-client` to `smp-client-base`.
+  The package names are unchanged
+* **Breaking API change** Moved the DNS based URL providers (`AbstractBDXLURLProvider`, `BDXLURLProvider`, `IBDXLURLProvider`, `PeppolURLProvider`, `IPeppolURLProvider`, `PeppolNaptrURLProvider`, `PeppolConfigurableURLProvider` and `DBNAURLProviderSMP`) from `com.helger.smpclient.url` to `com.helger.smpclient.url.dns`.
+  `ISMPURLProvider` and `SMPDNSResolutionException` stay where they are and moved to `smp-client-base`
 * **Breaking API change** `SMPClientCache` now extends the new generic `AbstractSMPClientCache` - the public API of `SMPClientCache` is unchanged
 * Added `BDXR2ClientCache` and `CachingBDXR2ClientReadOnly` - OASIS BDXR SMP v2 had no caching at all so far
 * Added the new submodule `edelivery-sbdh` that contains the network neutral parts of the SBDH handling
-* **Breaking API change** `PeppolSBDHData` and `HREDeliverySBDHData` now extend `AbstractSBDHData`, `PeppolSBDHDataReader` and `HREDeliverySBDHDataReader` extend `AbstractSBDHDataReader` and `PeppolSBDHDataWriter` and `HREDeliverySBDHDataWriter` extend `AbstractSBDHDataWriter`. The public API of the Peppol classes is unchanged, except that the error enums now implement `ISBDHDataError` and the read exceptions extend `SBDHDataReadException`
+* **Breaking API change** `PeppolSBDHData` and `HREDeliverySBDHData` now extend `AbstractSBDHData`, `PeppolSBDHDataReader` and `HREDeliverySBDHDataReader` extend `AbstractSBDHDataReader` and `PeppolSBDHDataWriter` and `HREDeliverySBDHDataWriter` extend `AbstractSBDHDataWriter`.
+  The public API of the Peppol classes is unchanged, except that the error enums now implement `ISBDHDataError` and the read exceptions extend `SBDHDataReadException`
 * The `BusinessScope` handling is the only part of the SBDH writing that is network specific - it is filled via `fillBusinessScope`
 * **Breaking API change** Removed all the code that was deprecated and marked for removal:
     * `ESML.DIGIT_PRODUCTION` and `ESML.DIGIT_TEST` (deprecated since 12.4.0)
@@ -585,32 +600,45 @@ v13.0.0 - 2026-09-23
     * The static getters `getConnectTimeout ()`, `getResponseTimeout ()`, `getHttpProxy ()`, `getHttpProxyCredentials ()`, `getNonProxyHosts ()` and `isUseDNSClientCache ()` of `SMPClientConfiguration`
     * `SMPHttpClientSettings.fromLegacyConfiguration ()` and `SMPHttpClientSettings.resetToConfiguration ()`
     * `com.helger.dbnalliance.commons.DBNAllianceIdentifierFactory` - use `com.helger.peppolid.factory.DBNAllianceIdentifierFactory` instead
-* **Breaking API change** Split `ISMLInfo`: the new parent interface `ISMLBase` in `edelivery-commons` contains the data needed to **use** an SML (ID, display name, DNS zone, client certificate flag), `ISMLInfo` keeps everything needed to **manage** entries in a Peppol SML. The SMP clients and `ISMPURLProvider` now work with `ISMLBase`
-* `EDBNAllianceSML` now implements `ISMLBase` - it previously implemented nothing, because `ISMLInfo` demanded the SML management endpoints that DBNAlliance does not have. Its constants now carry an ID and a display name; `getZoneName ()` is kept next to the new `getDNSZone ()`
-* **Breaking API change** Removed `SMPExtension.getAsPeppolExtension ()` and `SMPExtensionList.getAsPeppolExtension ()` - use the new `PeppolSMPExtensionHelper.getAsPeppolExtension (...)` in `peppol-smp-client` instead. The OASIS BDXR SMP v1 and v2 conversions stay where they are
-* `smp-client-base` no longer depends on `peppol-commons` and `peppol-smp-datatypes` - it now only requires `edelivery-commons`, `peppol-id` and the ph-* libraries. The User-Agent header uses the new `CSMPClientVersion` of that module
-* **Breaking API change** `BDXR1IdentifierFactory` and `BDXR2IdentifierFactory` no longer reference `PeppolIdentifierHelper`. The ISO 6523 scheme name, that decides whether participant identifiers are compared case insensitive, is now a constant of `CBDXR1Identifier` and `CBDXR2Identifier`. The behaviour is unchanged
-* **Breaking API change** `DBNAllianceIdentifierFactory` no longer extends `BDXR2IdentifierFactory` - the networks are independent of each other, so a change in one of them cannot silently change the other any more. The behaviour is unchanged
+* **Breaking API change** Split `ISMLInfo`: the new parent interface `ISMLBase` in `edelivery-commons` contains the data needed to **use** an SML (ID, display name, DNS zone, client certificate flag), `ISMLInfo` keeps everything needed to **manage** entries in a Peppol SML.
+  The SMP clients and `ISMPURLProvider` now work with `ISMLBase`
+* `EDBNAllianceSML` now implements `ISMLBase` - it previously implemented nothing, because `ISMLInfo` demanded the SML management endpoints that DBNAlliance does not have.
+  Its constants now carry an ID and a display name; `getZoneName ()` is kept next to the new `getDNSZone ()`
+* **Breaking API change** Removed `SMPExtension.getAsPeppolExtension ()` and `SMPExtensionList.getAsPeppolExtension ()` - use the new `PeppolSMPExtensionHelper.getAsPeppolExtension (...)` in `peppol-smp-client` instead.
+  The OASIS BDXR SMP v1 and v2 conversions stay where they are
+* `smp-client-base` no longer depends on `peppol-commons` and `peppol-smp-datatypes` - it now only requires `edelivery-commons`, `peppol-id` and the ph-* libraries.
+  The User-Agent header uses the new `CSMPClientVersion` of that module
+* **Breaking API change** `BDXR1IdentifierFactory` and `BDXR2IdentifierFactory` no longer reference `PeppolIdentifierHelper`.
+  The ISO 6523 scheme name, that decides whether participant identifiers are compared case insensitive, is now a constant of `CBDXR1Identifier` and `CBDXR2Identifier`.
+  The behaviour is unchanged
+* **Breaking API change** `DBNAllianceIdentifierFactory` no longer extends `BDXR2IdentifierFactory` - the networks are independent of each other, so a change in one of them cannot silently change the other any more.
+  The behaviour is unchanged
 * **Breaking API change** Moved `CIdentifier.DEFAULT_PROCESS_IDENTIFIER_NOPROCESS` to `PeppolIdentifierHelper` - the value `busdox:noprocess` is Peppol specific and had no place in the generic identifier class
-* **Breaking API change** `IdentifierValidator.isValidParticipantIdentifier (...)` now takes an `IParticipantIdentifier` instead of the concrete `PeppolParticipantIdentifier`. How an identifier is split into issuing agency and local participant ID is now a strategy - see the new `IParticipantIdentifierPartsProvider`, `ParticipantIdentifierParts` and `PeppolParticipantIdentifierPartsProvider`. The single argument method keeps the previous Peppol behaviour
+* **Breaking API change** `IdentifierValidator.isValidParticipantIdentifier (...)` now takes an `IParticipantIdentifier` instead of the concrete `PeppolParticipantIdentifier`.
+  How an identifier is split into issuing agency and local participant ID is now a strategy - see the new `IParticipantIdentifierPartsProvider`, `ParticipantIdentifierParts` and `PeppolParticipantIdentifierPartsProvider`.
+  The single argument method keeps the previous Peppol behaviour
 * **Breaking API change** Moved `MozillaNSSTrustStore` from `com.helger.peppol.security` to `com.helger.nss` in the new standalone project [ph-nss](https://github.com/phax/ph-nss).
   The Mozilla NSS root certificates are used for general TLS server certificate verification and have nothing to do with Peppol, no code of `peppol-commons` used them, and they made up roughly half of the `peppol-commons` JAR.
   Mozilla updates the trust list every couple of weeks, so it now lives in a project that can be released on that cadence.
   If you used `MozillaNSSTrustStore`, add the dependency `com.helger:ph-nss` and change the import - the API is unchanged.
   The conversion tool `MainConvertNSSCertData` moved along with it
 * **Breaking API change** Moved all classes of the submodule `dbnalliance-xhe` from the package `com.helger.peppol.xhe` to `com.helger.dbnalliance.xhe`.
-  A DBNAlliance module had no business living in a Peppol package - `dbnalliance-commons` and `hredelivery-commons` already use their own package roots. The class names are unchanged
+  A DBNAlliance module had no business living in a Peppol package - `dbnalliance-commons` and `hredelivery-commons` already use their own package roots.
+  The class names are unchanged
 * Removed the unused dependency on `jakarta.servlet-api` from `peppol-directory-businesscard` - no class of that module ever referenced the Servlet API
 * Removed the unused test dependency on `peppol-testfiles` from `dbnalliance-xhe`
 * Added the new submodule `edelivery-id` that contains the network neutral identifier data structures, and the new submodule `bdxr-id` that contains the OASIS BDXR SMP v1 and v2 identifier data structures.
   `peppol-id` therefore no longer requires `ph-xsds-bdxr-smp1` and `ph-xsds-bdxr-smp2` - together with their transitive artifacts `ph-xsds-xmldsig11`, `ph-xsds-xades132`, `ph-xsds-xades141` and `ph-xsds-ccts-cct-schemamodule` that is roughly 425 KB and 6 JARs less for everybody who only uses the Peppol identifiers.
   The package names are unchanged - `com.helger.peppolid`, `com.helger.peppolid.simple`, `com.helger.peppolid.codelist` and the identifier factory interfaces are now in `edelivery-id`, `com.helger.peppolid.bdxr.smp1` and `com.helger.peppolid.bdxr.smp2` are now in `bdxr-id`
-* **Breaking API change** Removed `ESMPIdentifierType.BDXR1` and `ESMPIdentifierType.BDXR2` - use the new `EBDXRIdentifierType.BDXR1` and `EBDXRIdentifierType.BDXR2` of `bdxr-id` instead. They are contributed to `IdentifierFactoryTypeRegistry` via the new `BDXRIdentifierFactoryTypeProviderSPI`, the same way DBNAlliance already does it
+* **Breaking API change** Removed `ESMPIdentifierType.BDXR1` and `ESMPIdentifierType.BDXR2` - use the new `EBDXRIdentifierType.BDXR1` and `EBDXRIdentifierType.BDXR2` of `bdxr-id` instead.
+  They are contributed to `IdentifierFactoryTypeRegistry` via the new `BDXRIdentifierFactoryTypeProviderSPI`, the same way DBNAlliance already does it
 * **Breaking API change** Removed the `CIdentifier.getURIEncoded (...)` and `CIdentifier.getURIPercentEncoded (...)` overloads that take a `com.helger.xsds.bdxr.smp1.*` or a `com.helger.xsds.ccts.cct.schemamodule.IdentifierType` argument.
   Use `BDXR1IdentifierHelper.getURIEncoded (...)` / `getURIPercentEncoded (...)` and `BDXR2IdentifierHelper.getURIEncoded (...)` / `getURIPercentEncoded (...)` of `bdxr-id` instead
 * **Breaking API change** Removed the `SimpleParticipantIdentifier.wrap (...)`, `SimpleDocumentTypeIdentifier.wrap (...)` and `SimpleProcessIdentifier.wrap (...)` overloads that take a `com.helger.xsds.bdxr.smp1.*` or a `com.helger.xsds.ccts.cct.schemamodule.IdentifierType` argument.
-  Use `BDXR1IdentifierHelper.wrapAsSimple*Identifier (...)` and `BDXR2IdentifierHelper.wrapAsSimple*Identifier (...)` of `bdxr-id` instead. The overloads taking a `com.helger.xsds.peppol.id1.*` argument are unchanged
-* **Breaking API change** The micro type converter SPI was split along the new module boundaries - `MicroTypeConverterRegistrar_peppol_id` now only registers the Peppol identifiers, the new `MicroTypeConverterRegistrar_edelivery_id` registers the `Simple*` identifiers and the new `MicroTypeConverterRegistrar_bdxr_id` registers the OASIS BDXR identifiers. Nothing changes for a user that has all three submodules on the class path
+  Use `BDXR1IdentifierHelper.wrapAsSimple*Identifier (...)` and `BDXR2IdentifierHelper.wrapAsSimple*Identifier (...)` of `bdxr-id` instead.
+  The overloads taking a `com.helger.xsds.peppol.id1.*` argument are unchanged
+* **Breaking API change** The micro type converter SPI was split along the new module boundaries - `MicroTypeConverterRegistrar_peppol_id` now only registers the Peppol identifiers, the new `MicroTypeConverterRegistrar_edelivery_id` registers the `Simple*` identifiers and the new `MicroTypeConverterRegistrar_bdxr_id` registers the OASIS BDXR identifiers. 
+  Nothing changes for a user that has all three submodules on the class path
 * The NAPTR lookup in `AbstractBDXLURLProvider.getSMPURIOfParticipant` now uses an absolute DNS name, so that the DNS search path of the operating system is no longer applied to it.
   Previously an unresolvable participant lead to one additional DNS query per `search` entry of the operating system resolver configuration, each of which could run into the full DNS timeout.
   The return value of `getDNSNameOfParticipant` is unchanged and still contains no trailing dot
@@ -630,7 +658,8 @@ v12.10.0 - 2026-09-06
   The method was deprecated since v12.1.1 - use `PeppolMLSValidator.getSchematronMLS_101 ()` instead.
 
 v12.9.0 - 2026-08-30
-* Added the new submodule `peppol-id-checks`. It contains checks and derivations on top of the `peppol-id` data structures that require dependencies `peppol-id` itself deliberately does not have.
+* Added the new submodule `peppol-id-checks`.
+  It contains checks and derivations on top of the `peppol-id` data structures that require dependencies `peppol-id` itself deliberately does not have.
 * Added the new class `PeppolParticipantCountryHelper` in the new module `peppol-id-checks`, to determine the country of a Peppol participant identifier that uses the default scheme `iso6523-actorid-upis`.
   The mapping is derived from `EPredefinedParticipantIdentifierScheme` - every scheme that is bound to a single country maps all its participants onto that country.
   For the four schemes that carry the country inside the identifier value the value is evaluated instead: GLN (`0088`) and GS1 (`0209`) via the GS1 prefix (using `EGS1Prefix` from `ph-masterdata`), IBAN (`9918`) via the leading country code and EU VAT (`9912`) via the VAT prefix, where `EL` is mapped onto `GR` and `XI` onto `GB`.
@@ -638,7 +667,8 @@ v12.9.0 - 2026-08-30
   The name of the SPI descriptor file in `META-INF/services` changed accordingly, so custom implementations need to rename their descriptor file as well.
 * Added the new class `ParticipantIdentifierValidatorBelgium` in module `peppol-id-checks`, that validates the Belgian enterprise numbers (`0208`) and the Belgian VAT numbers (`9925`).
   Both schemes carry the same 10 digit CBE number - the first digit is `0` or `1` (the `1` range was opened when the `0` range was exhausted) and the last 2 digits are the check digits `97 - (first 8 digits modulo 97)`, as verified by `VATINSyntaxChecker.isValidVATIN_BE` from `ph-masterdata`.
-  Scheme `0208` contains the plain number and must not carry the leading VAT country code `BE`, whereas scheme `9925` contains the VAT number and must carry it. The prefix is evaluated case insensitively, because Peppol identifier values are commonly stored in lower case.
+  Scheme `0208` contains the plain number and must not carry the leading VAT country code `BE`, whereas scheme `9925` contains the VAT number and must carry it.
+  The prefix is evaluated case insensitively, because Peppol identifier values are commonly stored in lower case.
   Note that `IdentifierValidator.isValidParticipantIdentifier` previously accepted every `0208` and `9925` value, because no validation rules were registered for them.
   This is a pure syntax check - whether an enterprise with that number is actually registered can only be answered by the CBE register, which requires a remote lookup.
 * **Breaking API change** The method `IParticipantIdentifierValidatorSPI.isValueValid` takes the issuing agency ID as the new first parameter, so that a single implementation can apply different rules per supported issuing agency.
@@ -669,7 +699,8 @@ v12.8.0 - 2026-08-12
   Previously it ended up in the generic `SMPClientException`, even though a refused connection to the same SMP was treated as a specific error.
 * Backwards incompatible change: `getServiceGroupOrNull` and `getServiceMetadataOrNull` of `SMPClientReadOnly` and `BDXR2ClientReadOnly` no longer return `null` if the SMP could not be contacted - they now throw `SMPClientSMPUnavailableException`.
   Previously an SMP outage was indistinguishable from an HTTP 404 answer, so a temporary infrastructure problem looked like "the receiver does not support this document type".
-  Only a real HTTP 404 leads to `null` now. This makes both clients behave like `BDXRClientReadOnly`, which never swallowed this error.
+  Only a real HTTP 404 leads to `null` now.
+  This makes both clients behave like `BDXRClientReadOnly`, which never swallowed this error.
 
 v12.7.0 - 2026-08-04
 * Requires at least ph-commons 12.3.4
@@ -724,7 +755,8 @@ v12.5.1 - 2026-06-12
 * `DBNAlliancePayload` now supports textual (`String`) and binary (`byte[]`, Base64 encoded) payload content in addition to the existing XML `Element` payload content, as per XHE Envelope Profile v1.0 section 6.
   See [issue #71](https://github.com/phax/peppol-commons/issues/71) - thx @jmailaender
 * `DBNAllianceXHEDataReader` no longer throws `ClassCastException` when an XHE payload's mixed content list contains leading/trailing whitespace text nodes around the apex XML element.
-  The reader now scans the content list for the first `Element`. See [issue #71](https://github.com/phax/peppol-commons/issues/71) - thx @jmailaender
+  The reader now scans the content list for the first `Element`.
+  See [issue #71](https://github.com/phax/peppol-commons/issues/71) - thx @jmailaender
 * `DBNAllianceXHEDataReader.isValidContentTypeCodeValue` was relaxed: per the XHE Envelope Profile v1.0, `application/xml` is required only for XML payloads; for other payload kinds any IANA registered MIME type is allowed.
   The default check now requires a non-empty value only.
 * Added new class `DBNAllianceIdentifierFactory` in `dbnalliance-commons`, extending `BDXR2IdentifierFactory` and treating document type and process identifiers as case insensitive regardless of the scheme.
@@ -743,16 +775,19 @@ v12.5.0 - 2026-05-01
   * `truststore.location` - use `smpclient.truststore.path`
   * `truststore.password` - use `smpclient.truststore.password`
 * `SMPHttpClientSettings` was reworked to use the new ph-web `HttpClientSettingsConfig` machinery:
-  * Added new factory method `SMPHttpClientSettings.fromConfiguration ()`. `AbstractGenericSMPClient` uses this factory now.
+  * Added new factory method `SMPHttpClientSettings.fromConfiguration ()`.
+    `AbstractGenericSMPClient` uses this factory now.
   * The previous behaviour is still available via `SMPHttpClientSettings.fromLegacyConfiguration ()`, but is deprecated for removal.
   * The instance method `resetToConfiguration ()` was deprecated for removal accordingly.
   * SMP-specific HTTP settings are now read from configuration keys with the prefix `smpclient.` (e.g. `smpclient.http.timeout.connect`, `smpclient.http.proxy.host`, `smpclient.http.tls.revocation.mode`).
     See the ph-web `HttpClientSettingsConfig` javadoc for the full list of supported local keys.
-  * The previously hardcoded "trust all" `TrustManager` was removed. Trust validation now uses the regular configured trust store.
+  * The previously hardcoded "trust all" `TrustManager` was removed.
+    Trust validation now uses the regular configured trust store.
   * TLS 1.3 is now supported in addition to TLS 1.2 (TLS 1.2 remains the minimum required version).
   * TLS certificate revocation checking is now enabled by default (using `CertificateRevocationCheckerDefaults.DEFAULT_REVOCATION_CHECK_MODE`).
   * `SMPHttpClientSettings.USER_AGENT` is now a public constant.
-* The following methods on `SMPClientConfiguration` were deprecated for removal in a future major release. They still work as before, but the corresponding values should be configured via the new `smpclient.http.*` keys instead:
+* The following methods on `SMPClientConfiguration` were deprecated for removal in a future major release.
+  They still work as before, but the corresponding values should be configured via the new `smpclient.http.*` keys instead:
   * `getHttpProxy ()` (legacy keys: `http.proxy.host` / `http.proxyHost`, `http.proxy.port` / `http.proxyPort`)
   * `getHttpProxyCredentials ()` (legacy keys: `http.proxy.username` / `http.proxyUsername`, `http.proxy.password` / `http.proxyPassword`)
   * `getNonProxyHosts ()` (legacy keys: `http.proxy.nonProxyHosts` / `http.nonProxyHosts`)
@@ -760,7 +795,9 @@ v12.5.0 - 2026-05-01
   * `getConnectTimeout ()` (legacy key: `http.connect.timeout.ms`)
   * `getResponseTimeout ()` (legacy keys: `http.response.timeout.ms`, `http.request.timeout.ms`)
 * `AbstractBDXLURLProvider` now uses the new `NaptrLookupResult`-based DNS resolution from ph-web 11.4.0 to distinguish between technical DNS failures, unregistered participants, and registered participants without a matching SMP service.
-* `SMPDNSResolutionException.EErrorCode` was extended with new codes `DNS_TECHNICAL_FAILURE`, `PARTICIPANT_NOT_REGISTERED` and `NO_MATCHING_SMP_SERVICE`. The pre-existing `DNS_RESOLVING_ERROR` is retained for backwards compatibility. New helpers `isRetryable ()` and `isParticipantUnknown ()` were added on `EErrorCode`.
+* `SMPDNSResolutionException.EErrorCode` was extended with new codes `DNS_TECHNICAL_FAILURE`, `PARTICIPANT_NOT_REGISTERED` and `NO_MATCHING_SMP_SERVICE`.
+  The pre-existing `DNS_RESOLVING_ERROR` is retained for backwards compatibility.
+  New helpers `isRetryable ()` and `isParticipantUnknown ()` were added on `EErrorCode`.
 
 v12.4.4 - 2026-04-29
 * Renamed the certificate-check setting introduced in 12.4.3 to use standard PKI "revocation soft fail" terminology:
@@ -771,13 +808,15 @@ v12.4.4 - 2026-04-29
 
 v12.4.3 - 2026-04-29
 * Requires ph-commons 12.2.4 or later
-* `TrustStoreBasedX509KeySelector` got new settings `revocationCheckMode` and `unknownRevocationStatusReject` to control how the new ph-security 12.2.4 `ECertificateCheckResult.REVOCATION_STATUS_UNKNOWN` is handled. Default for `unknownRevocationStatusReject` is `true`, preserving the pre-12.2.4 behaviour of treating an undeterminable revocation status as "revoked"
+* `TrustStoreBasedX509KeySelector` got new settings `revocationCheckMode` and `unknownRevocationStatusReject` to control how the new ph-security 12.2.4 `ECertificateCheckResult.REVOCATION_STATUS_UNKNOWN` is handled.
+  Default for `unknownRevocationStatusReject` is `true`, preserving the pre-12.2.4 behaviour of treating an undeterminable revocation status as "revoked"
 * Added the same two settings on `SMPHttpResponseHandlerSigned` and `AbstractGenericSMPClient` so they can be configured per SMP client and are forwarded into the response handler / key selector
 * Removed the Peppol G2 certificates from the default `PeppolTrustedCA` objects
 
 v12.4.2 - 2026-04-26
 * Requires ph-commons 12.2.0 or later
-* Removed the Peppol G2 certificates from the default `truststore/2025/` folder truststores. Only G3 is remaining
+* Removed the Peppol G2 certificates from the default `truststore/2025/` folder truststores.
+  Only G3 is remaining
 * Moved the file `complete-truststore.jks` into the `2018` subfolder as it is no longer relevant
 * Marked all Peppol G2 CAs as deprecated - the "2018" truststores are no longer relevant for production use
 * Added new class `MozillaNSSTrustStore` for Mozilla NSS root certificate trust store, used for TLS connection validation (as opposed to Peppol-specific AS4 payload signing/encryption)
@@ -801,7 +840,8 @@ v12.3.12 - 2026-03-10
 * The Peppol "lax" identifier factory now allows Italian NSO identifiers
 
 v12.3.11 - 2026-03-02
-* `PeppolSBDHData(Reader|Writer)` now trims values from and to XML. See [#70](https://github.com/phax/peppol-commons/issues/70) - thx @wartab
+* `PeppolSBDHData(Reader|Writer)` now trims values from and to XML.
+  See [#70](https://github.com/phax/peppol-commons/issues/70) - thx @wartab
 * Extracted method `PeppolSBDHData.createRandomSBDHInstanceIdentifier()`
 * Extended `PeppolMLSBuilder`, `PeppolMLSLineResponseBuilder` and `PeppolMLSLineResponseResponseBuilder` with getters
 * Created new methods to retrieve URI encoded identifiers in `PeppolSBDHData`
@@ -829,7 +869,8 @@ v12.3.7 - 2026-01-23
 * Added new interface `IPeppolServiceDomain`
 * Added new interface `IPeppolNetwork`
 * Deprecated the possibility to disable charset checks in `PeppolIdentifierHelper`
-* The method `PeppolIdentifierFactory.isParticipantIdentifierValueValid` now correctly follows the Peppol Policy for use of Identifiers instead of all the ISO-8859-1 characters. This **may be a breaking change** if you have created something that is not following the rules.
+* The method `PeppolIdentifierFactory.isParticipantIdentifierValueValid` now correctly follows the Peppol Policy for use of Identifiers instead of all the ISO-8859-1 characters.
+  This **may be a breaking change** if you have created something that is not following the rules.
 
 v12.3.6 - 2026-01-13
 * Added additional MLS constants in `CPeppolMLS`

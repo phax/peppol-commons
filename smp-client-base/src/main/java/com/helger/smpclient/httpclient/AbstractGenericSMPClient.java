@@ -728,7 +728,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
       if (aSharedHttpClientManager != null)
         return _executeRequest (aRequest, aHttpContext, aResponseHandler, aSharedHttpClientManager);
 
-      try (final HttpClientManager aHttpClientMgr = HttpClientManager.create (m_aHttpClientSettings))
+      try (final HttpClientManager aHttpClientMgr = new HttpClientManager (new SMPHttpClientFactory (m_aHttpClientSettings)))
       {
         return _executeRequest (aRequest, aHttpContext, aResponseHandler, aHttpClientMgr);
       }
