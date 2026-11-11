@@ -146,7 +146,7 @@ public final class HRMPSClientReadOnlyTest
   }
 
   @Test
-  // @Ignore ("Back to test portal")
+  @Ignore ("Not registered atm")
   public void testResolvePWC () throws SMPDNSResolutionException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:54648952583");
