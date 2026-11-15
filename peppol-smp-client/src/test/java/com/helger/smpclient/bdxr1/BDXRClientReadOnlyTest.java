@@ -18,7 +18,6 @@ package com.helger.smpclient.bdxr1;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import java.security.KeyStore;
 
@@ -35,11 +34,10 @@ import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
 import com.helger.smpclient.IgnoredNaptrTest;
-import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.exception.SMPClientException;
+import com.helger.smpclient.url.SMPDNSResolutionException;
 import com.helger.smpclient.url.dns.BDXLURLProvider;
 import com.helger.smpclient.url.dns.PeppolNaptrURLProvider;
-import com.helger.smpclient.url.SMPDNSResolutionException;
 import com.helger.xsds.bdxr.smp1.SignedServiceMetadataType;
 
 /**
@@ -71,29 +69,6 @@ public final class BDXRClientReadOnlyTest
     // BDXR URL provider
     final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (BDXLURLProvider.INSTANCE, aPI, ESML.PEPPOL_TEST);
     assertEquals ("https://test.erechnung.gv.at/smp/", aBDXRClient.getSMPHostURI ());
-  }
-
-  @Test
-  public void testGetBDXRHostURI_Peppol_WithBDXR () throws SMPClientException, SMPDNSResolutionException
-  {
-    // This instance has a BOM inside
-    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9917:5504033150");
-    final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
-                                                                   aPI,
-                                                                   ESML.PEPPOL_PRODUCTION);
-    assertEquals ("https://smp.unimaze.com/", aBDXRClient.getSMPHostURI ());
-
-    // This fails because the Peppol server is configured for PEPPOL layout and
-    // not OASIS!
-    try
-    {
-      aBDXRClient.getServiceGroupOrNull (aPI);
-      fail ();
-    }
-    catch (final SMPClientBadResponseException ex)
-    {
-      // Expected "Malformed XML document returned from SMP server"
-    }
   }
 
   @Test

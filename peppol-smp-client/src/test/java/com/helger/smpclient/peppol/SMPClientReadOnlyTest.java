@@ -119,6 +119,7 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
+  @Ignore ("Fails per 2026-11-15 - no longer registered")
   public void testGetSMPHostURI_Peppol_WithBOM () throws SMPClientException, SMPDNSResolutionException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9917:5504033150");
