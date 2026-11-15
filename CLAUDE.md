@@ -51,6 +51,9 @@ The project has 14 Maven modules organized in layers:
 - `dbnalliance-xhe` — Exchange Header Envelope for DBNAlliance
 - `hredelivery-commons` — Croatian eDelivery (eRacun) support
 
+**BOM:**
+- `peppol-commons-bom` — Bill of Materials with the managed versions of all artifacts; add every new module there as well
+
 Dependencies flow downward: id-datatypes → id → commons → protocol modules.
 
 ## Code Generation

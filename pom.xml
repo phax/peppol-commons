@@ -74,9 +74,9 @@
      
     <dnsjava.version>3.7.1</dnsjava.version>
     <expiringmap.version>0.5.11</expiringmap.version>
-    <phive.version>12.2.0</phive.version>
-    <ph-schematron.version>10.3.1</ph-schematron.version>
-    <ph-ubl.version>10.2.1</ph-ubl.version>
+    <phive.version>12.3.0</phive.version>
+    <ph-schematron.version>10.3.2</ph-schematron.version>
+    <ph-ubl.version>10.3.0</ph-ubl.version>
     <ph-xhe.version>5.1.0</ph-xhe.version>
   </properties>
   
@@ -84,8 +84,8 @@
     <dependencies>
       <dependency>
         <groupId>com.helger.commons</groupId>
-        <artifactId>ph-commons-parent-pom</artifactId>
-        <version>12.6.0</version>
+        <artifactId>ph-commons-bom</artifactId>
+        <version>12.7.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -96,8 +96,8 @@
       </dependency>
       <dependency>
         <groupId>com.helger.xsd</groupId>
-        <artifactId>ph-xsds-parent-pom</artifactId>
-        <version>4.1.1</version>
+        <artifactId>ph-xsds-bom</artifactId>
+        <version>4.1.2</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -118,17 +118,38 @@
       </dependency>
       <dependency>
         <groupId>com.helger.masterdata</groupId>
-        <artifactId>ph-masterdata-parent-pom</artifactId>
-        <version>8.2.1</version>
+        <artifactId>ph-masterdata-bom</artifactId>
+        <version>8.2.2</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger.web</groupId>
-        <artifactId>ph-web-parent-pom</artifactId>
-        <version>11.5.0</version>
+        <artifactId>ph-web-bom</artifactId>
+        <version>11.5.1</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.glassfish.jaxb</groupId>
+        <artifactId>jaxb-bom</artifactId>
+        <version>4.0.9</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.sun.xml.ws</groupId>
+        <artifactId>jaxws-ri-bom</artifactId>
+        <version>4.0.5</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit4.version}</version>
       </dependency>
 
       <dependency>
@@ -263,6 +284,7 @@
   </dependencies>
   
   <modules>
+    <module>peppol-commons-bom</module>
     <module>edelivery-commons</module>
     <module>peppol-id-datatypes</module>
     <module>peppol-codelist-datatypes</module>

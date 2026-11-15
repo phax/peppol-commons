@@ -8,6 +8,7 @@
 <!-- ph-badge-end -->
 
 This project contains different libraries that are commonly used in the Peppol/eDelivery area:
+* [`peppol-commons-bom`](#maven-usage) - the Bill of Materials (BOM) with the managed versions of all artifacts of this project (since v13.2.3)
 * [`edelivery-commons`](#edelivery-commons) - the network neutral base types shared by all supported networks (since v13.0.0)
 * [`edelivery-sbdh`](#edelivery-sbdh) - the network neutral parts of the SBDH handling (since v13.0.0)
 * [`smp-client-base`](#smp-client-base) - the network neutral parts of the SMP client, including the OASIS BDXR SMP v1 and v2 clients (since v13.0.0)
@@ -415,12 +416,14 @@ Alternatively use the following code in your `dependencyManagement` section to u
 ```xml
 <dependency>
   <groupId>com.helger.peppol</groupId>
-  <artifactId>peppol-commons-parent-pom</artifactId>
+  <artifactId>peppol-commons-bom</artifactId>
   <version>x.y.z</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
 ```
+
+Note: prior to v13.2.3 there was no dedicated BOM and `peppol-commons-parent-pom` had to be imported instead, which also carries the build configuration of this project.
 
 Note: prior to v8.1.0 the Maven groupId was `com.helger`.
 
@@ -433,6 +436,11 @@ They depend on several other libraries so I suggest you are going for the Maven 
 * [Peppol Business Message Envelope (SBDH) v2.x](https://docs.peppol.eu/edelivery/)
 
 # News and noteworthy
+
+v13.2.3 - work in progress
+* Requires at least ph-commons 12.7.1
+* Added the new module `peppol-commons-bom` as a Maven BOM (Bill of Materials) for all peppol-commons artifacts.
+  Use it instead of `peppol-commons-parent-pom` when importing the managed versions
 
 v13.2.2 - 2026-11-11
 * Requires at least ph-commons 12.6.0
