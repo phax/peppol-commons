@@ -437,7 +437,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v13.2.3 - work in progress
+v13.2.3 - 2026-11-15
 * Requires at least ph-commons 12.7.1
 * Added the new module `peppol-commons-bom` as a Maven BOM (Bill of Materials) for all peppol-commons artifacts.
   Use it instead of `peppol-commons-parent-pom` when importing the managed versions
