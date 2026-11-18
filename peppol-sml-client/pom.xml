@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger.peppol</groupId>
     <artifactId>peppol-commons-parent-pom</artifactId>
-    <version>13.2.4-SNAPSHOT</version>
+    <version>13.3.0-SNAPSHOT</version>
   </parent>
   <artifactId>peppol-sml-client</artifactId>
   <packaging>jar</packaging>
@@ -170,6 +170,20 @@
               <wsdlLocation>/WEB-INF/wsdl/BDMSLService-1.0.wsdl</wsdlLocation>
               <staleFile>${project.build.directory}/stale/.stale-wsimport3</staleFile>
               <packageName>com.helger.peppol.smlclient.bdmsl</packageName>
+            </configuration>
+          </execution>
+          <execution>
+            <id>wsimport4</id>
+            <goals>
+              <goal>wsimport</goal>
+            </goals>
+            <configuration>
+              <wsdlFiles>
+                <wsdlFile>BDMSLMonitoringService-1.0.wsdl</wsdlFile>
+              </wsdlFiles>
+              <wsdlLocation>/WEB-INF/wsdl/BDMSLMonitoringService-1.0.wsdl</wsdlLocation>
+              <staleFile>${project.build.directory}/stale/.stale-wsimport4</staleFile>
+              <packageName>com.helger.peppol.smlclient.bdmslmonitoring</packageName>
             </configuration>
           </execution>
         </executions>
