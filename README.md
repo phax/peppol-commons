@@ -437,7 +437,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v13.3.0 - work in progress
+v13.3.0 - 2026-11-18
 * Added the new annotation `@SinceBDMSL` (source retention) that marks SML client APIs requiring a minimum BDMSL version.
   The Peppol SML currently runs BDMSL 5.0.4, so the APIs marked with `@SinceBDMSL ("5.1")` cannot be used there yet
 * Added `ManageParticipantIdentifierServiceCaller.cancelMigration` to remove a prepared but not yet completed participant migration from the SML (BDMSL 5.1+).
