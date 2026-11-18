@@ -38,10 +38,11 @@ public enum ESMLCommand implements IHasName
   PREPARETOMIGRATE ("preparetomigrate"),
   MIGRATE ("migrate"),
   /**
-   * Cancel a prepared migration.
+   * Cancel a prepared migration. Requires BDMSL 5.1 or later.
    *
    * @since 13.3.0
    */
+  @SinceBDMSL ("5.1")
   CANCELMIGRATION ("cancelmigration");
 
   private final String m_sName;

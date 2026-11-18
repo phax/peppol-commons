@@ -50,6 +50,7 @@ import com.helger.peppol.smlclient.participant.PageRequestType;
 import com.helger.peppol.smlclient.participant.ParticipantIdentifierPageType;
 import com.helger.peppol.smlclient.participant.ServiceMetadataPublisherServiceForParticipantType;
 import com.helger.peppol.smlclient.participant.UnauthorizedFault;
+import com.helger.peppol.smlclient.support.SinceBDMSL;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
@@ -652,10 +653,13 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * Cancels a prepared migration of the given participant identifier, so that the migration key
    * created by {@link #prepareToMigrate(IParticipantIdentifier, String, String)} can no longer be
    * used. This method must be called from the source SMP, that still owns the participant.<br>
-   * There is no dedicated operation for this in the SML interface. The BDMSL implementation removes
-   * a prepared migration, if <code>PrepareToMigrate</code> is called with an empty migration key,
-   * and that is what this method does. Other SML implementations may reject the request instead.
-   * Only a migration that was not yet completed via
+   * There is no dedicated operation for this in the SML interface. Since version 5.1 the BDMSL
+   * implementation removes a prepared migration, if <code>PrepareToMigrate</code> is called with an
+   * empty migration key, and that is what this method does. Older BDMSL versions reject the request
+   * with a {@link BadRequestFault}, because the migration key is empty. With them, the only way to
+   * invalidate a migration key is to call
+   * {@link #prepareToMigrate(IParticipantIdentifier, String)} again, which replaces it with a new
+   * one. Only a migration that was not yet completed via
    * {@link #migrate(IParticipantIdentifier, String, String)} can be cancelled.
    *
    * @param aIdentifier
@@ -664,8 +668,8 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    *        The publisher ID of the source SMP that prepared the migration. May neither be
    *        <code>null</code> nor empty.
    * @throws BadRequestFault
-   *         Is thrown if the request sent to the service was not well-formed, or if no prepared
-   *         migration of the participant exists.
+   *         Is thrown if the request sent to the service was not well-formed, if no prepared
+   *         migration of the participant exists or if the BDMSL version is older than 5.1.
    * @throws InternalErrorFault
    *         Is thrown if an internal error happened on the service.
    * @throws NotFoundFault
@@ -674,6 +678,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    *         Is thrown if the user was not authorized.
    * @since 13.3.0
    */
+  @SinceBDMSL ("5.1")
   public void cancelMigration (@NonNull final IParticipantIdentifier aIdentifier,
                                @NonNull @Nonempty final String sSMPID) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
   {

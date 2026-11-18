@@ -30,6 +30,7 @@ import com.helger.base.lang.EnumHelper;
  * @author Philip Helger
  * @since 13.3.0
  */
+@SinceBDMSL ("5.1")
 public enum EManageChangeCertificateAction implements IHasID <String>
 {
   /**

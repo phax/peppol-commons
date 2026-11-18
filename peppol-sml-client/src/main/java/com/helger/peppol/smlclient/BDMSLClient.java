@@ -48,6 +48,7 @@ import com.helger.peppol.smlclient.bdmsl.SMPRefreshActiveStatusResponseType;
 import com.helger.peppol.smlclient.bdmsl.ServiceMetadataPublisherServiceForParticipantType;
 import com.helger.peppol.smlclient.bdmsl.UnauthorizedFault;
 import com.helger.peppol.smlclient.support.EManageChangeCertificateAction;
+import com.helger.peppol.smlclient.support.SinceBDMSL;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 import com.helger.wsclient.WSClientConfig;
@@ -172,6 +173,7 @@ public class BDMSLClient extends WSClientConfig
    * @since 13.3.0
    */
   @Nullable
+  @SinceBDMSL ("5.1")
   public ManageChangeCertificateResponseType manageChangeCertificate (@NonNull final EManageChangeCertificateAction eAction,
                                                                       @Nullable final String sCertificate,
                                                                       @Nullable final XMLOffsetDateTime aMigrationDate) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
@@ -250,6 +252,7 @@ public class BDMSLClient extends WSClientConfig
    *         If the SMP is not owned by the calling certificate
    * @since 13.3.0
    */
+  @SinceBDMSL ("4.2")
   public boolean existsParticipantIdentifier (@NonNull @Nonempty final String sSMPID,
                                               @NonNull final IParticipantIdentifier aParticipantID) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
   {
@@ -286,6 +289,7 @@ public class BDMSLClient extends WSClientConfig
    * @since 13.3.0
    */
   @Nullable
+  @SinceBDMSL ("5.1")
   public XMLOffsetDateTime refreshSmpActiveStatus (@NonNull @Nonempty final String sSMPID) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
   {
     ValueEnforcer.notEmpty (sSMPID, "SMPID");

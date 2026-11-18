@@ -30,6 +30,7 @@ import com.helger.peppol.smlclient.bdmslmonitoring.BDMSLMonitoringService;
 import com.helger.peppol.smlclient.bdmslmonitoring.BDMSLMonitoringServiceSoap;
 import com.helger.peppol.smlclient.bdmslmonitoring.InternalErrorFault;
 import com.helger.peppol.smlclient.bdmslmonitoring.IsAliveType;
+import com.helger.peppol.smlclient.support.SinceBDMSL;
 import com.helger.wsclient.WSClientConfig;
 
 import jakarta.xml.ws.BindingProvider;
@@ -46,6 +47,7 @@ import jakarta.xml.ws.WebServiceException;
  * @author Philip Helger
  * @since 13.3.0
  */
+@SinceBDMSL ("5.0")
 public class BDMSLMonitoringClient extends WSClientConfig
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (BDMSLMonitoringClient.class);

@@ -438,16 +438,18 @@ They depend on several other libraries so I suggest you are going for the Maven 
 # News and noteworthy
 
 v13.3.0 - work in progress
-* Added `ManageParticipantIdentifierServiceCaller.cancelMigration` to remove a prepared but not yet completed participant migration from the SML.
-  BDMSL has no dedicated operation for this, but removes the prepared migration if `PrepareToMigrate` is called with an empty migration key
-* `ManageParticipantIdentifierServiceCaller.prepareToMigrate` now rejects an empty migration key, which so far silently removed a prepared migration in BDMSL
+* Added the new annotation `@SinceBDMSL` (source retention) that marks SML client APIs requiring a minimum BDMSL version.
+  The Peppol SML currently runs BDMSL 5.0.4, so the APIs marked with `@SinceBDMSL ("5.1")` cannot be used there yet
+* Added `ManageParticipantIdentifierServiceCaller.cancelMigration` to remove a prepared but not yet completed participant migration from the SML (BDMSL 5.1+).
+  BDMSL has no dedicated operation for this, but since 5.1 removes the prepared migration if `PrepareToMigrate` is called with an empty migration key
+* `ManageParticipantIdentifierServiceCaller.prepareToMigrate` now rejects an empty migration key, which BDMSL 5.1+ interprets as a request to remove a prepared migration
 * `ManageParticipantIdentifierServiceCaller.createRandomMigrationKey` now uses a cryptographically strong random number generator and places the mandatory characters at random positions
 * The migration key is no longer logged on level INFO, only on level DEBUG
 * Added `ESMLCommand.CANCELMIGRATION`
 * Added the new class `BDMSLMonitoringClient` for the BDMSL monitoring service, which hosts the `IsAlive` operation since BDMSL 5.0.
-  `BDMSLClient.isAlive ()` only works with BDMSL versions before 5.0
+  `BDMSLClient.isAlive ()` only works with BDMSL versions before 5.0 - use `BDMSLMonitoringClient.isAlive ()` with the current Peppol SML
 * Added the BDMSL operations `ExistsParticipantIdentifier` (BDMSL 4.2+), `ManageChangeCertificate` and `RefreshSmpActiveStatus` (both BDMSL 5.1+) to `BDMSLClient`
-* Added the new enum `EManageChangeCertificateAction`
+* Added the new enum `EManageChangeCertificateAction` (BDMSL 5.1+)
 
 v13.2.3 - 2026-11-15
 * Requires at least ph-commons 12.7.1
