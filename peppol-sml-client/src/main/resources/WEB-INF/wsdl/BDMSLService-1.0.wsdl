@@ -43,6 +43,30 @@ limitations under the License.
     <wsdl:message name="createParticipantIdentifierOut">
         <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
     </wsdl:message>
+    <wsdl:message name="existsParticipantIdentifierIn">
+        <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+        <wsdl:part name="messagePart" element="lrs:ExistsParticipant"/>
+    </wsdl:message>
+    <wsdl:message name="existsParticipantIdentifierOut">
+        <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+        <wsdl:part name="messagePart" element="lrs:ExistsParticipantResponse"/>
+    </wsdl:message>
+    <wsdl:message name="refreshSmpActiveStatusIn">
+        <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+        <wsdl:part name="messagePart" element="lrs:SMPRefreshActiveStatus"/>
+    </wsdl:message>
+    <wsdl:message name="refreshSmpActiveStatusOut">
+        <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+        <wsdl:part name="messagePart" element="lrs:SMPRefreshActiveStatusResponse"/>
+    </wsdl:message>
+    <wsdl:message name="manageChangeCertificateIn">
+        <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+        <wsdl:part name="messagePart" element="lrs:ManageChangeCertificateRequest"/>
+    </wsdl:message>
+    <wsdl:message name="manageChangeCertificateOut">
+        <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+        <wsdl:part name="messagePart" element="lrs:ManageChangeCertificateResponse"/>
+    </wsdl:message>
     <wsdl:message name="isAliveIn">
         <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
         <wsdl:part name="messagePart" element="lrs:IsAlive" />
@@ -82,6 +106,33 @@ limitations under the License.
             <wsdl:fault message="tns:internalErrorFault" name="InternalErrorFault"/>
             <wsdl:fault message="tns:badRequestFault" name="BadRequestFault"/>
         </wsdl:operation>
+        <wsdl:operation name="ManageChangeCertificate">
+            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+            <wsdl:input message="tns:manageChangeCertificateIn"/>
+            <wsdl:output message="tns:manageChangeCertificateOut"/>
+            <wsdl:fault message="tns:notFoundFault" name="NotFoundFault"/>
+            <wsdl:fault message="tns:unauthorizedFault" name="UnauthorizedFault"/>
+            <wsdl:fault message="tns:internalErrorFault" name="InternalErrorFault"/>
+            <wsdl:fault message="tns:badRequestFault" name="BadRequestFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="ExistsParticipantIdentifier">
+            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+            <wsdl:input message="tns:existsParticipantIdentifierIn"/>
+            <wsdl:output message="tns:existsParticipantIdentifierOut"/>
+            <wsdl:fault message="tns:notFoundFault" name="NotFoundFault"/>
+            <wsdl:fault message="tns:unauthorizedFault" name="UnauthorizedFault"/>
+            <wsdl:fault message="tns:internalErrorFault" name="InternalErrorFault"/>
+            <wsdl:fault message="tns:badRequestFault" name="BadRequestFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="RefreshSmpActiveStatus">
+            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+            <wsdl:input message="tns:refreshSmpActiveStatusIn"/>
+            <wsdl:output message="tns:refreshSmpActiveStatusOut"/>
+            <wsdl:fault message="tns:notFoundFault" name="NotFoundFault"/>
+            <wsdl:fault message="tns:unauthorizedFault" name="UnauthorizedFault"/>
+            <wsdl:fault message="tns:internalErrorFault" name="InternalErrorFault"/>
+            <wsdl:fault message="tns:badRequestFault" name="BadRequestFault"/>
+        </wsdl:operation>
         <wsdl:operation name="IsAlive">
             <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
             <wsdl:input message="tns:isAliveIn"/>
@@ -114,6 +165,69 @@ limitations under the License.
         </wsdl:operation>
         <wsdl:operation name="CreateParticipantIdentifier">
             <soap:operation soapAction="ec:services:wsdl:BDMSL:1.0:createParticipantIdentifierIn" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="NotFoundFault">
+                <soap:fault name="NotFoundFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="UnauthorizedFault">
+                <soap:fault name="UnauthorizedFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="InternalErrorFault">
+                <soap:fault name="InternalErrorFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="BadRequestFault">
+                <soap:fault name="BadRequestFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="ManageChangeCertificate">
+            <soap:operation soapAction="ec:services:wsdl:BDMSL:1.0:manageChangeCertificateIn" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="NotFoundFault">
+                <soap:fault name="NotFoundFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="UnauthorizedFault">
+                <soap:fault name="UnauthorizedFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="InternalErrorFault">
+                <soap:fault name="InternalErrorFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="BadRequestFault">
+                <soap:fault name="BadRequestFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="ExistsParticipantIdentifier">
+            <soap:operation soapAction="ec:services:wsdl:BDMSL:1.0:existsParticipantIdentifierIn" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="NotFoundFault">
+                <soap:fault name="NotFoundFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="UnauthorizedFault">
+                <soap:fault name="UnauthorizedFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="InternalErrorFault">
+                <soap:fault name="InternalErrorFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="BadRequestFault">
+                <soap:fault name="BadRequestFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="RefreshSmpActiveStatus">
+            <soap:operation soapAction="ec:services:wsdl:BDMSL:1.0:refreshSmpActiveStatusIn" style="document"/>
             <wsdl:input>
                 <soap:body use="literal"/>
             </wsdl:input>

@@ -17,8 +17,8 @@
 package com.helger.peppol.smlclient;
 
 import java.net.URL;
+import java.security.SecureRandom;
 import java.util.Collection;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
 
 import org.jspecify.annotations.NonNull;
@@ -53,6 +53,7 @@ import com.helger.peppol.smlclient.participant.UnauthorizedFault;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
+import com.helger.security.random.VerySecureRandom;
 import com.helger.wsclient.WSClientConfig;
 import com.helger.xsds.peppol.id1.ParticipantIdentifierType;
 
@@ -494,15 +495,18 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
                                                                                                   ArrayHelper.getConcatenated (MK_DIGITS,
                                                                                                                                MK_SPECIAL)));
 
-  private static char _random (@NonNull final char [] aRange)
+  private static char _random (@NonNull final SecureRandom aRandom, @NonNull final char [] aRange)
   {
-    final int nIndex = ThreadLocalRandom.current ().nextInt (aRange.length);
+    final int nIndex = aRandom.nextInt (aRange.length);
     return aRange[nIndex];
   }
 
   /**
    * Create a random migration key. Prior to version 8.1.2 this was a random UUID. In 8.1.2 the
-   * formula was changed to follow the rules of the BDMSL implementation.
+   * formula was changed to follow the rules of the BDMSL implementation. Since 13.3.0 a
+   * cryptographically strong random number generator is used and the position of the mandatory
+   * characters is random as well, because the migration key authorises the takeover of a
+   * participant.
    *
    * @return A new random migration key that matches the regex pattern of
    *         {@link CSMLDefault#MIGRATION_CODE_PATTERN}.
@@ -511,20 +515,29 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
   @Nonempty
   public static final String createRandomMigrationKey ()
   {
-    final StringBuilder aSB = new StringBuilder (CSMLDefault.MAX_MIGRATION_CODE_LENGTH);
+    final SecureRandom aRandom = VerySecureRandom.getInstance ();
+    final char [] aChars = new char [CSMLDefault.MAX_MIGRATION_CODE_LENGTH];
     // Fulfill the minimum requirements
-    aSB.append (_random (MK_LOWER));
-    aSB.append (_random (MK_UPPER));
-    aSB.append (_random (MK_DIGITS));
-    aSB.append (_random (MK_SPECIAL));
-    aSB.append (_random (MK_LOWER));
-    aSB.append (_random (MK_UPPER));
-    aSB.append (_random (MK_DIGITS));
-    aSB.append (_random (MK_SPECIAL));
+    aChars[0] = _random (aRandom, MK_LOWER);
+    aChars[1] = _random (aRandom, MK_UPPER);
+    aChars[2] = _random (aRandom, MK_DIGITS);
+    aChars[3] = _random (aRandom, MK_SPECIAL);
+    aChars[4] = _random (aRandom, MK_LOWER);
+    aChars[5] = _random (aRandom, MK_UPPER);
+    aChars[6] = _random (aRandom, MK_DIGITS);
+    aChars[7] = _random (aRandom, MK_SPECIAL);
     // Fill up the rest
-    for (int i = 8; i < CSMLDefault.MAX_MIGRATION_CODE_LENGTH; ++i)
-      aSB.append (_random (MK_ALL));
-    return aSB.toString ();
+    for (int i = 8; i < aChars.length; ++i)
+      aChars[i] = _random (aRandom, MK_ALL);
+    // Shuffle, so that the mandatory characters are not always at the same position
+    for (int i = aChars.length - 1; i > 0; --i)
+    {
+      final int j = aRandom.nextInt (i + 1);
+      final char cTemp = aChars[i];
+      aChars[i] = aChars[j];
+      aChars[j] = cTemp;
+    }
+    return new String (aChars);
   }
 
   /**
@@ -546,7 +559,9 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * Prepares a migrate of the given participant identifier from one SMP to another. This method
    * must be called from the source SMP. This method creates a new random migration key via
    * {@link #createRandomMigrationKey()} and than calls
-   * {@link #prepareToMigrate(IParticipantIdentifier, String, String)}
+   * {@link #prepareToMigrate(IParticipantIdentifier, String, String)}.<br>
+   * If a migration of the participant was already prepared and not yet completed, the BDMSL
+   * replaces the previous migration key with the new one.
    *
    * @param aIdentifier
    *        The participant identifier.
@@ -577,7 +592,13 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
   /**
    * Prepares a migrate of the given participant identifier from one SMP to another. This method
    * must be called from the source SMP. This overload takes a migration key that was created
-   * outside.
+   * outside.<br>
+   * If a migration of the participant was already prepared and not yet completed, the BDMSL
+   * replaces the previous migration key with the new one. A migration key that was already used
+   * for a completed migration of the same participant is rejected by the BDMSL.<br>
+   * Note: the BDMSL interprets an empty migration key as a request to remove a prepared migration.
+   * Use {@link #cancelMigration(IParticipantIdentifier, String)} for that purpose. Since 13.3.0
+   * this method rejects an empty migration key.
    *
    * @param aIdentifier
    *        The participant identifier.
@@ -602,6 +623,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
                                   @NonNull @Nonempty final String sSMPID) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
   {
     ValueEnforcer.notNull (aIdentifier, "Identifier");
+    ValueEnforcer.notEmpty (sMigrationKey, "MigrationKey");
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
     _warnOnSuspiciousMigrationKey (sMigrationKey);
 
@@ -609,9 +631,9 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
                  aIdentifier.getURIEncoded () +
                  " from SMP '" +
                  sSMPID +
-                 "' using migration key '" +
-                 sMigrationKey +
                  "'");
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Using migration key '" + sMigrationKey + "'");
 
     final MigrationRecordType aMigrationRecord = new MigrationRecordType ();
     // Constructor call needed for type conversion
@@ -624,6 +646,56 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
     LOGGER.info ("Successfully called 'prepareToMigrate'");
 
     return sMigrationKey;
+  }
+
+  /**
+   * Cancels a prepared migration of the given participant identifier, so that the migration key
+   * created by {@link #prepareToMigrate(IParticipantIdentifier, String, String)} can no longer be
+   * used. This method must be called from the source SMP, that still owns the participant.<br>
+   * There is no dedicated operation for this in the SML interface. The BDMSL implementation removes
+   * a prepared migration, if <code>PrepareToMigrate</code> is called with an empty migration key,
+   * and that is what this method does. Other SML implementations may reject the request instead.
+   * Only a migration that was not yet completed via
+   * {@link #migrate(IParticipantIdentifier, String, String)} can be cancelled.
+   *
+   * @param aIdentifier
+   *        The participant identifier. May not be <code>null</code>.
+   * @param sSMPID
+   *        The publisher ID of the source SMP that prepared the migration. May neither be
+   *        <code>null</code> nor empty.
+   * @throws BadRequestFault
+   *         Is thrown if the request sent to the service was not well-formed, or if no prepared
+   *         migration of the participant exists.
+   * @throws InternalErrorFault
+   *         Is thrown if an internal error happened on the service.
+   * @throws NotFoundFault
+   *         If the business identifier was not found.
+   * @throws UnauthorizedFault
+   *         Is thrown if the user was not authorized.
+   * @since 13.3.0
+   */
+  public void cancelMigration (@NonNull final IParticipantIdentifier aIdentifier,
+                               @NonNull @Nonempty final String sSMPID) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
+  {
+    ValueEnforcer.notNull (aIdentifier, "Identifier");
+    ValueEnforcer.notEmpty (sSMPID, "SMPID");
+
+    LOGGER.info ("Cancelling the prepared migration of participant " +
+                 aIdentifier.getURIEncoded () +
+                 " from SMP '" +
+                 sSMPID +
+                 "'");
+
+    final MigrationRecordType aMigrationRecord = new MigrationRecordType ();
+    // Constructor call needed for type conversion
+    aMigrationRecord.setParticipantIdentifier (new SimpleParticipantIdentifier (aIdentifier));
+    // The element is mandatory - an empty value means "remove"
+    aMigrationRecord.setMigrationKey ("");
+    aMigrationRecord.setServiceMetadataPublisherID (sSMPID);
+
+    createWSPort ().prepareToMigrate (aMigrationRecord);
+
+    LOGGER.info ("Successfully called 'prepareToMigrate' to cancel the migration");
   }
 
   /**
@@ -664,9 +736,9 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
                  aIdentifier.getURIEncoded () +
                  " to SMP '" +
                  sSMPID +
-                 "' using migration key '" +
-                 sMigrationKey +
                  "'");
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Using migration key '" + sMigrationKey + "'");
 
     final MigrationRecordType aMigrationRecord = new MigrationRecordType ();
     // Constructor call needed for type conversion

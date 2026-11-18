@@ -36,7 +36,13 @@ public enum ESMLCommand implements IHasName
   READ ("read"),
   LIST ("list"),
   PREPARETOMIGRATE ("preparetomigrate"),
-  MIGRATE ("migrate");
+  MIGRATE ("migrate"),
+  /**
+   * Cancel a prepared migration.
+   *
+   * @since 13.3.0
+   */
+  CANCELMIGRATION ("cancelmigration");
 
   private final String m_sName;
 

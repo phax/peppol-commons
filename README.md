@@ -437,6 +437,18 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v13.3.0 - work in progress
+* Added `ManageParticipantIdentifierServiceCaller.cancelMigration` to remove a prepared but not yet completed participant migration from the SML.
+  BDMSL has no dedicated operation for this, but removes the prepared migration if `PrepareToMigrate` is called with an empty migration key
+* `ManageParticipantIdentifierServiceCaller.prepareToMigrate` now rejects an empty migration key, which so far silently removed a prepared migration in BDMSL
+* `ManageParticipantIdentifierServiceCaller.createRandomMigrationKey` now uses a cryptographically strong random number generator and places the mandatory characters at random positions
+* The migration key is no longer logged on level INFO, only on level DEBUG
+* Added `ESMLCommand.CANCELMIGRATION`
+* Added the new class `BDMSLMonitoringClient` for the BDMSL monitoring service, which hosts the `IsAlive` operation since BDMSL 5.0.
+  `BDMSLClient.isAlive ()` only works with BDMSL versions before 5.0
+* Added the BDMSL operations `ExistsParticipantIdentifier` (BDMSL 4.2+), `ManageChangeCertificate` and `RefreshSmpActiveStatus` (both BDMSL 5.1+) to `BDMSLClient`
+* Added the new enum `EManageChangeCertificateAction`
+
 v13.2.3 - 2026-11-15
 * Requires at least ph-commons 12.7.1
 * Added the new module `peppol-commons-bom` as a Maven BOM (Bill of Materials) for all peppol-commons artifacts.

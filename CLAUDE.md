@@ -60,7 +60,7 @@ Dependencies flow downward: id-datatypes → id → commons → protocol modules
 
 Several modules use code generation — do not edit generated files directly:
 - **JAXB** (`jaxb-maven-plugin`): Generates Java from XSD schemas in `src/main/resources/external/schemas/` with bindings in `src/main/jaxb/`. Uses `ph-jaxb-plugin` for enhanced output (null-marked, equals/hashCode/toString).
-- **JAX-WS** (`jaxws-maven-plugin`): Generates web service stubs in `peppol-sml-client` from WSDL.
+- **JAX-WS** (`jaxws-maven-plugin`): Generates web service stubs in `peppol-sml-client` from WSDL, one `wsimport` execution (and target package) per WSDL in `src/main/resources/WEB-INF/wsdl/`. The BDMSL WSDL and XSD files there are copies of the DomiSML (`bdmsl-api`) originals, with the imports pointing to the local `peppol-sml-types-v1.xsd` and `peppol-identifiers-v1.xsd`. `BDMSLService-1.0` intentionally keeps the legacy `IsAlive` operation that BDMSL 5.0 moved to `BDMSLMonitoringService-1.0`, so that older SMLs keep working.
 - Generated sources land in `target/generated-sources/`.
 
 ## Coding Conventions

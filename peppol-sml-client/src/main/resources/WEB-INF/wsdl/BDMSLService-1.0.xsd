@@ -26,6 +26,12 @@ limitations under the License.
     <xs:element name="PrepareChangeCertificate" type="PrepareChangeCertificateType"/>
     <xs:element name="SMPAdvancedServiceForParticipantService" type="SMPAdvancedServiceForParticipantType"/>
     <xs:element name="IsAlive" type="IsAliveType"/>
+    <xs:element name="ExistsParticipant" type="ParticipantsType"/>
+    <xs:element name="ExistsParticipantResponse" type="ExistsParticipantResponseType"/>
+    <xs:element name="SMPRefreshActiveStatus" type="SMPRefreshActiveStatus"/>
+    <xs:element name="SMPRefreshActiveStatusResponse" type="SMPRefreshActiveStatusResponseType"/>
+    <xs:element name="ManageChangeCertificateRequest" type="ManageChangeCertificateType"/>
+    <xs:element name="ManageChangeCertificateResponse" type="ManageChangeCertificateResponseType"/>
     <xs:complexType name="PrepareChangeCertificateType">
         <xs:sequence>
             <xs:element name="newCertificatePublicKey" type="xs:string">
@@ -40,6 +46,49 @@ limitations under the License.
                 </xs:annotation>
             </xs:element>
         </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ManageChangeCertificateType">
+        <xs:sequence>
+            <xs:element name="Action" type="xs:token">
+                <xs:annotation>
+                    <xs:documentation>
+                            The action to perform for the certificate change. Possible values are: UPSERT, READ, DELETE. The action is case insensitive.
+                        The expected behavior for each action is as follows:
+                        - UPSERT: If the certificate already exists, it will be updated with the new certificate/date. If it doesn't exist, it will be created.
+                        - READ: The current certificate will be retrieved and returned in the response. The certificate element
+                        will be ignored in the request.
+                        - DELETE: The current certificate will be deleted. The certificate element will be ignored in the request.
+                        - ACTIVATE: The provided certificate in requests will be activated immediately. If certificate is not provided, the current prepared certificate will be activated immediately.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Certificate" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>The new X509Certificate as base64 or PEM encoded.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="MigrationDate" type="xs:dateTime" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>The migration date for the new certificate. Can't be in the past. In case the
+                        migration date is not provided, the certificate valid from date will be used as migration date.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ManageChangeCertificateResponseType">
+        <xs:complexContent>
+            <xs:extension base="ManageChangeCertificateType">
+                <xs:sequence>
+                    <xs:element name="Status" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Status description</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
     </xs:complexType>
 
     <xs:complexType name="SMPAdvancedServiceForParticipantType">
@@ -72,5 +121,43 @@ limitations under the License.
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="IsAliveType"/>
+    <xs:complexType name="ExistsParticipantResponseType">
+        <xs:sequence>
+            <xs:element ref="id:ParticipantIdentifier">
+                <xs:annotation>
+                    <xs:documentation>The participant identifier</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="bd:ServiceMetadataPublisherID">
+                <xs:annotation>
+                    <xs:documentation>The SMP identifier</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Exist" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>True if the participant is already registered on the SMP.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SMPRefreshActiveStatus">
+        <xs:sequence>
+            <xs:element ref="bd:ServiceMetadataPublisherID">
+                <xs:annotation>
+                    <xs:documentation>The SMP identifier</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SMPRefreshActiveStatusResponseType">
+        <xs:sequence>
+            <xs:element name="ActiveUntil" type="xs:dateTime">
+                <xs:annotation>
+                    <xs:documentation>The future date time in UTC coordinates until when the SMP is considered active.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
 
 </xs:schema>

@@ -413,6 +413,67 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     aPIClientNew.delete (SMP_ID, aPI);
   }
 
+  @Test
+  public void testCancelMigration () throws Exception
+  {
+    final ManageParticipantIdentifierServiceCaller aPIClientOld = new ManageParticipantIdentifierServiceCaller (SML_INFO);
+    aPIClientOld.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
+
+    final ManageServiceMetadataServiceCaller aClient2 = new ManageServiceMetadataServiceCaller (SML_INFO);
+    aClient2.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
+    try
+    {
+      aClient2.delete (SMP_ID2);
+    }
+    catch (final NotFoundFault e)
+    {
+      // This is fine, since we are just cleaning
+    }
+
+    _createSMPData (aClient2, SMP_ID2);
+
+    final ManageParticipantIdentifierServiceCaller aPIClientNew = new ManageParticipantIdentifierServiceCaller (SML_INFO);
+    aPIClientNew.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
+
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
+    aPIClientOld.create (SMP_ID, aPI);
+    try
+    {
+      final String sMigrationKey = aPIClientOld.prepareToMigrate (aPI, SMP_ID);
+      assertNotNull (sMigrationKey);
+      aPIClientOld.cancelMigration (aPI, SMP_ID);
+
+      try
+      {
+        // The migration record is gone
+        aPIClientNew.migrate (aPI, sMigrationKey, SMP_ID2);
+        fail ();
+      }
+      // Qualified, because the NotFoundFault of the "smp" package is imported
+      catch (final com.helger.peppol.smlclient.participant.NotFoundFault e)
+      {
+        // This must happen.
+      }
+
+      try
+      {
+        // Nothing left to cancel
+        aPIClientOld.cancelMigration (aPI, SMP_ID);
+        fail ();
+      }
+      catch (final BadRequestFault e)
+      {
+        // This must happen.
+      }
+    }
+    finally
+    {
+      // Still owned by the old SMP
+      aPIClientOld.delete (SMP_ID, aPI);
+      aClient2.delete (SMP_ID2);
+    }
+  }
+
   @Test (expected = BadRequestFault.class)
   public void testCreateExistingBusinessIdentifierUnauthorized () throws Exception
   {

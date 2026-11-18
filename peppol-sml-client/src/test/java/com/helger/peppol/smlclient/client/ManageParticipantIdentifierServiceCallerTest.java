@@ -17,12 +17,16 @@
 package com.helger.peppol.smlclient.client;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import com.helger.base.url.URLHelper;
 import com.helger.cache.regex.RegExHelper;
 import com.helger.peppol.sml.CSMLDefault;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
+import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.peppolid.factory.PeppolIdentifierFactory;
 
 /**
  * Test class for class {@link ManageParticipantIdentifierServiceCaller}.
@@ -38,6 +42,24 @@ public final class ManageParticipantIdentifierServiceCallerTest
     {
       final String s = ManageParticipantIdentifierServiceCaller.createRandomMigrationKey ();
       assertTrue ("Oops: '" + s + "'", RegExHelper.stringMatchesPattern (CSMLDefault.MIGRATION_CODE_PATTERN, s));
+    }
+  }
+
+  @Test
+  public void testPrepareToMigrateEmptyKey () throws Exception
+  {
+    // The check happens before the SML is contacted
+    final ManageParticipantIdentifierServiceCaller aCaller = new ManageParticipantIdentifierServiceCaller (URLHelper.getAsURL ("http://localhost:1/managebusinessidentifier"));
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:5798000999999");
+    try
+    {
+      // An empty migration key would remove a prepared migration in BDMSL
+      aCaller.prepareToMigrate (aPI, "", "SMP-TEST-ID");
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      // expected
     }
   }
 }

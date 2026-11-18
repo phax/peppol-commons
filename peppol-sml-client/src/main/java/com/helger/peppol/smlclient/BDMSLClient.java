@@ -29,17 +29,25 @@ import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.url.URLHelper;
+import com.helger.datetime.xml.XMLOffsetDateTime;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.bdmsl.BDMSLService;
 import com.helger.peppol.smlclient.bdmsl.BDMSLServiceSoap;
 import com.helger.peppol.smlclient.bdmsl.BadRequestFault;
+import com.helger.peppol.smlclient.bdmsl.ExistsParticipantResponseType;
 import com.helger.peppol.smlclient.bdmsl.InternalErrorFault;
 import com.helger.peppol.smlclient.bdmsl.IsAliveType;
+import com.helger.peppol.smlclient.bdmsl.ManageChangeCertificateResponseType;
+import com.helger.peppol.smlclient.bdmsl.ManageChangeCertificateType;
 import com.helger.peppol.smlclient.bdmsl.NotFoundFault;
+import com.helger.peppol.smlclient.bdmsl.ParticipantsType;
 import com.helger.peppol.smlclient.bdmsl.PrepareChangeCertificateType;
 import com.helger.peppol.smlclient.bdmsl.SMPAdvancedServiceForParticipantType;
+import com.helger.peppol.smlclient.bdmsl.SMPRefreshActiveStatus;
+import com.helger.peppol.smlclient.bdmsl.SMPRefreshActiveStatusResponseType;
 import com.helger.peppol.smlclient.bdmsl.ServiceMetadataPublisherServiceForParticipantType;
 import com.helger.peppol.smlclient.bdmsl.UnauthorizedFault;
+import com.helger.peppol.smlclient.support.EManageChangeCertificateAction;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 import com.helger.wsclient.WSClientConfig;
@@ -117,6 +125,8 @@ public class BDMSLClient extends WSClientConfig
    *         In case of error
    * @throws UnauthorizedFault
    *         In case of error
+   * @see #manageChangeCertificate(EManageChangeCertificateAction, String, XMLOffsetDateTime) for
+   *      the successor operation, that BDMSL 5.1 introduced and that it recommends over this one
    */
   public void prepareChangeCertificate (@NonNull @Nonempty final String sNewCertificatePublicKey,
                                         @Nullable final LocalDate aMigrationDate) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
@@ -132,6 +142,72 @@ public class BDMSLClient extends WSClientConfig
     createWSPort ().prepareChangeCertificate (aBody);
   }
 
+  /**
+   * This operation allows a SMP to manage the change of its certificate. It replaces
+   * {@link #prepareChangeCertificate(String, LocalDate)} and was introduced in BDMSL 5.1. Older SML
+   * implementations do not support it.
+   *
+   * @param eAction
+   *        The action to perform. May not be <code>null</code>.
+   * @param sCertificate
+   *        The new X.509 certificate as Base64 or PEM encoded string. Required for
+   *        {@link EManageChangeCertificateAction#UPSERT}, optional for
+   *        {@link EManageChangeCertificateAction#ACTIVATE} and ignored otherwise. May be
+   *        <code>null</code>.
+   * @param aMigrationDate
+   *        The migration date for the new certificate. Can't be in the past. If it is
+   *        <code>null</code>, the "Valid From" date of the certificate is used as the migration
+   *        date. May be <code>null</code>.
+   * @return The response of the SML, containing the action, the certificate (only for
+   *         {@link EManageChangeCertificateAction#READ}), the migration date and a status
+   *         description. May be <code>null</code>.
+   * @throws BadRequestFault
+   *         In case of error
+   * @throws InternalErrorFault
+   *         In case of error
+   * @throws NotFoundFault
+   *         In case of error
+   * @throws UnauthorizedFault
+   *         In case of error
+   * @since 13.3.0
+   */
+  @Nullable
+  public ManageChangeCertificateResponseType manageChangeCertificate (@NonNull final EManageChangeCertificateAction eAction,
+                                                                      @Nullable final String sCertificate,
+                                                                      @Nullable final XMLOffsetDateTime aMigrationDate) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
+  {
+    ValueEnforcer.notNull (eAction, "Action");
+
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("manageChangeCertificate (" + eAction + ", " + sCertificate + ", " + aMigrationDate + ")");
+
+    final ManageChangeCertificateType aBody = new ManageChangeCertificateType ();
+    aBody.setAction (eAction.getID ());
+    aBody.setCertificate (sCertificate);
+    aBody.setMigrationDate (aMigrationDate);
+    return createWSPort ().manageChangeCertificate (aBody);
+  }
+
+  /**
+   * Create a new participant identifier for the provided SMP, using a custom NAPTR service name.
+   *
+   * @param sSMPID
+   *        The ID of the SMP the participant belongs to. May neither be <code>null</code> nor
+   *        empty.
+   * @param aParticipantID
+   *        The participant identifier to create. May not be <code>null</code>.
+   * @param sServiceName
+   *        The name of the service for the NAPTR record. May neither be <code>null</code> nor
+   *        empty.
+   * @throws BadRequestFault
+   *         In case of error
+   * @throws InternalErrorFault
+   *         In case of error
+   * @throws NotFoundFault
+   *         In case of error
+   * @throws UnauthorizedFault
+   *         In case of error
+   */
   public void createParticipantIdentifier (@NonNull @Nonempty final String sSMPID,
                                            @NonNull final IParticipantIdentifier aParticipantID,
                                            @NonNull @Nonempty final String sServiceName) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
@@ -153,6 +229,84 @@ public class BDMSLClient extends WSClientConfig
     createWSPort ().createParticipantIdentifier (aBody);
   }
 
+  /**
+   * Check if the provided participant identifier is registered for the provided SMP. This
+   * operation was introduced in BDMSL 4.2. Older SML implementations do not support it.
+   *
+   * @param sSMPID
+   *        The ID of the SMP to check. Must be owned by the calling certificate. May neither be
+   *        <code>null</code> nor empty.
+   * @param aParticipantID
+   *        The participant identifier to check. May not be <code>null</code>.
+   * @return <code>true</code> if the participant is registered for the SMP, <code>false</code> if
+   *         not.
+   * @throws BadRequestFault
+   *         In case of error
+   * @throws InternalErrorFault
+   *         In case of error
+   * @throws NotFoundFault
+   *         If the SMP does not exist
+   * @throws UnauthorizedFault
+   *         If the SMP is not owned by the calling certificate
+   * @since 13.3.0
+   */
+  public boolean existsParticipantIdentifier (@NonNull @Nonempty final String sSMPID,
+                                              @NonNull final IParticipantIdentifier aParticipantID) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
+  {
+    ValueEnforcer.notEmpty (sSMPID, "SMPID");
+    ValueEnforcer.notNull (aParticipantID, "ParticipantID");
+
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("existsParticipantIdentifier (" + sSMPID + ", " + aParticipantID + ")");
+
+    final ParticipantsType aBody = new ParticipantsType ();
+    aBody.setServiceMetadataPublisherID (sSMPID);
+    // Explicit constructor call is needed here!
+    aBody.setParticipantIdentifier (new SimpleParticipantIdentifier (aParticipantID));
+    final ExistsParticipantResponseType aResponse = createWSPort ().existsParticipantIdentifier (aBody);
+    return aResponse != null && aResponse.isExist ();
+  }
+
+  /**
+   * Refresh the active status of the provided SMP, so that the SML does not consider it inactive.
+   * This operation was introduced in BDMSL 5.1. Older SML implementations do not support it.
+   *
+   * @param sSMPID
+   *        The ID of the SMP to refresh. May neither be <code>null</code> nor empty.
+   * @return The date and time (in UTC) until which the SMP is considered active. May be
+   *         <code>null</code>.
+   * @throws BadRequestFault
+   *         In case of error
+   * @throws InternalErrorFault
+   *         In case of error
+   * @throws NotFoundFault
+   *         If the SMP does not exist
+   * @throws UnauthorizedFault
+   *         In case of error
+   * @since 13.3.0
+   */
+  @Nullable
+  public XMLOffsetDateTime refreshSmpActiveStatus (@NonNull @Nonempty final String sSMPID) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
+  {
+    ValueEnforcer.notEmpty (sSMPID, "SMPID");
+
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("refreshSmpActiveStatus (" + sSMPID + ")");
+
+    final SMPRefreshActiveStatus aBody = new SMPRefreshActiveStatus ();
+    aBody.setServiceMetadataPublisherID (sSMPID);
+    final SMPRefreshActiveStatusResponseType aResponse = createWSPort ().refreshSmpActiveStatus (aBody);
+    return aResponse == null ? null : aResponse.getActiveUntil ();
+  }
+
+  /**
+   * Check if the SML is alive, using the <code>IsAlive</code> operation of the BDMSL service.<br>
+   * Note: BDMSL 5.0 moved this operation to a separate monitoring service, so the BDMSL service of
+   * BDMSL 5.0 or later no longer offers it. Against such an SML the call fails and this method
+   * returns <code>false</code> - use {@link BDMSLMonitoringClient#isAlive()} instead.
+   *
+   * @return <code>true</code> if the SML is alive, <code>false</code> if not or if the call failed.
+   */
   public boolean isAlive ()
   {
     if (LOGGER.isDebugEnabled ())
