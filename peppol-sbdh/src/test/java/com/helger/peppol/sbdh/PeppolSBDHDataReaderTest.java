@@ -244,6 +244,51 @@ public final class PeppolSBDHDataReaderTest
   }
 
   @Test
+  public void testReadGoodStreaming () throws PeppolSBDHDataReadException
+  {
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (PeppolIdentifierFactory.INSTANCE);
+    for (final ClassPathResource aRes : PeppolSBDHTestFiles.getAllGoodCases ())
+    {
+      LOGGER.info ("Good (Streaming): " + aRes.getPath ());
+      assertTrue (aRes.getPath (), aRes.exists ());
+      final PeppolSBDHData aData = aReader.extractDataStreaming (aRes.getInputStream ());
+      assertNotNull (aData);
+      assertFalse (aData.hasBusinessMessage ());
+      assertTrue (aData.hasBusinessMessageLocalName ());
+
+      // Must be identical to the full read, except for the business message
+      final PeppolSBDHData aFullData = aReader.extractData (aRes.getInputStream ());
+      assertEquals (aFullData.getBusinessMessageNamespaceURI (), aData.getBusinessMessageNamespaceURI ());
+      assertEquals (aFullData.getBusinessMessageLocalName (), aData.getBusinessMessageLocalName ());
+      aFullData.setBusinessMessageName (aFullData.getBusinessMessageNamespaceURI (),
+                                        aFullData.getBusinessMessageLocalName ());
+      assertEquals (aFullData, aData);
+    }
+  }
+
+  @Test
+  public void testReadBadStreaming ()
+  {
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (PeppolIdentifierFactory.INSTANCE);
+    for (final Map.Entry <String, EPeppolSBDHDataError> aEntry : BAD_CASES.entrySet ())
+    {
+      final IReadableResource aRes = new ClassPathResource ("external/sbdh/bad/" + aEntry.getKey ());
+      LOGGER.info ("Reading bad (Streaming): " + aRes.getPath ());
+      assertTrue (aRes.getPath (), aRes.exists ());
+      try
+      {
+        aReader.extractDataStreaming (aRes.getInputStream ());
+        fail ();
+      }
+      catch (final PeppolSBDHDataReadException ex)
+      {
+        // Same error code as the full read
+        assertEquals (aRes.getPath (), aEntry.getValue (), ex.getErrorCode ());
+      }
+    }
+  }
+
+  @Test
   public void testReadGoodNode () throws PeppolSBDHDataReadException
   {
     final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (PeppolIdentifierFactory.INSTANCE);

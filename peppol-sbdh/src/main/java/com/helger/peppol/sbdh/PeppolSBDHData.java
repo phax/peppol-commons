@@ -569,13 +569,15 @@ public class PeppolSBDHData extends AbstractSBDHData <PeppolSBDHData>
 
   /**
    * @return <code>true</code> if the payload is to be considered non-XML, <code>false</code> if it
-   *         is not present or XML.
+   *         is not present or XML. Since 13.4.0 this also works after a streaming read, where only
+   *         the name of the business message is present.
    * @see #hasBusinessMessage()
+   * @see #getBusinessMessageLocalName()
    * @since 10.4.1
    */
   public boolean isNonXMLPayload ()
   {
-    return isNonXMLSBDHPayload (getBusinessMessageNoClone ());
+    return isNonXMLSBDHPayload (getBusinessMessageNamespaceURI (), getBusinessMessageLocalName ());
   }
 
   /**
@@ -904,8 +906,30 @@ public class PeppolSBDHData extends AbstractSBDHData <PeppolSBDHData>
    */
   public static boolean isNonXMLSBDHPayload (@Nullable final Element aBusinessMessage)
   {
-    return aBusinessMessage != null && _hasQName (ObjectFactory._BinaryContent_QNAME, aBusinessMessage) ||
-           _hasQName (ObjectFactory._TextContent_QNAME, aBusinessMessage);
+    return aBusinessMessage != null &&
+           (_hasQName (ObjectFactory._BinaryContent_QNAME, aBusinessMessage) ||
+            _hasQName (ObjectFactory._TextContent_QNAME, aBusinessMessage));
+  }
+
+  /**
+   * Check if the SBDH payload element with the provided name is a non-XML payload (like PDF or
+   * EDIFACT or X12). This is the same check as {@link #isNonXMLSBDHPayload(Element)}, but based on
+   * the name only.
+   *
+   * @param sNamespaceURI
+   *        The namespace URI of the SBDH payload element. May be <code>null</code>.
+   * @param sLocalName
+   *        The local name of the SBDH payload element. May be <code>null</code>.
+   * @return <code>true</code> if the payload is considered to be non-XML, <code>false</code> if it
+   *         is XML or if no local name is provided.
+   * @since 13.4.0
+   */
+  public static boolean isNonXMLSBDHPayload (@Nullable final String sNamespaceURI, @Nullable final String sLocalName)
+  {
+    if (sLocalName == null)
+      return false;
+    final QName aQName = new QName (sNamespaceURI == null ? "" : sNamespaceURI, sLocalName);
+    return ObjectFactory._BinaryContent_QNAME.equals (aQName) || ObjectFactory._TextContent_QNAME.equals (aQName);
   }
 
   /**

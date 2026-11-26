@@ -20,6 +20,10 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Locale;
 
+import javax.xml.namespace.QName;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
@@ -42,9 +46,11 @@ import com.helger.io.resource.IReadableResource;
 import com.helger.dbnalliance.xhe.CDBNAllianceXHE;
 import com.helger.dbnalliance.xhe.DBNAlliancePayload;
 import com.helger.dbnalliance.xhe.DBNAllianceXHEData;
+import com.helger.dbnalliance.xhe.EDBNAlliancePayloadContentKind;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
+import com.helger.xhe.v10.CXHE10;
 import com.helger.xhe.v10.XHE10Marshaller;
 import com.helger.xhe.v10.XHE10XHEType;
 import com.helger.xhe.v10.cac.XHE10HeaderType;
@@ -58,6 +64,10 @@ import com.helger.xhe.v10.cbc.XHE10IDType;
 import com.helger.xhe.v10.cbc.XHE10InstanceEncryptionIndicatorType;
 import com.helger.xhe.v10.cbc.XHE10InstanceEncryptionMethodType;
 import com.helger.xhe.v10.cbc.XHE10ProfileIDType;
+import com.helger.xml.XMLFactory;
+import com.helger.xml.XMLHelper;
+import com.helger.xml.stax.IShallowElementSelector;
+import com.helger.xml.stax.ShallowXMLStreamReader;
 
 /**
  * Main class to read exchange header envelope and extract the DBNAlliance required data out of it.
@@ -70,6 +80,27 @@ public class DBNAllianceXHEDataReader
   public static final boolean DEFAULT_PERFORM_VALUE_CHECKS = true;
 
   private static final Logger LOGGER = LoggerFactory.getLogger (DBNAllianceXHEDataReader.class);
+
+  private static final QName QNAME_PAYLOAD_CONTENT = new QName (CXHE10.NAMESPACE_URI_AGGREGATE_COMPONENTS,
+                                                                "PayloadContent");
+
+  /**
+   * The children of every <code>PayloadContent</code> are reported without content, and the text
+   * directly inside of it is skipped.
+   */
+  private static final IShallowElementSelector SHALLOW_PAYLOAD_CONTENT = new IShallowElementSelector ()
+  {
+    public boolean isShallowElement (@NonNull final List <QName> aAncestors, @NonNull final QName aElement)
+    {
+      return !aAncestors.isEmpty () && QNAME_PAYLOAD_CONTENT.equals (aAncestors.get (aAncestors.size () - 1));
+    }
+
+    @Override
+    public boolean isSkipText (@NonNull final List <QName> aElementPath)
+    {
+      return QNAME_PAYLOAD_CONTENT.equals (aElementPath.get (aElementPath.size () - 1));
+    }
+  };
 
   private final IIdentifierFactory m_aIdentifierFactory;
   private boolean m_bPerformValueChecks = DEFAULT_PERFORM_VALUE_CHECKS;
@@ -901,7 +932,7 @@ public class DBNAllianceXHEDataReader
             if (aToParty.hasPartyIdentificationEntries ())
             {
               final XHE10IDType aToPartyID = aToParty.getPartyIdentificationAtIndex (0).getID ();
-              ret.setFromParty (aToPartyID.getSchemeID (), aToPartyID.getValue ());
+              ret.setToParty (aToPartyID.getSchemeID (), aToPartyID.getValue ());
             }
           }
         }
@@ -974,6 +1005,90 @@ public class DBNAllianceXHEDataReader
       }
     }
 
+    return ret;
+  }
+
+  /**
+   * Extract the document data from the Exchange Header Envelope represents by the passed parameter
+   * in a streaming way, so that the memory needed does not depend on the size of the payloads. All
+   * checks are performed as by {@link #extractData(InputStream)}, but
+   * {@link #isValidBusinessMessage(Element)} only gets an empty element with the name and the
+   * attributes of the XML payload root element. The returned payloads contain no payload content,
+   * only its kind (see {@link DBNAlliancePayload#getPayloadContentKind()}) and for XML payloads the
+   * namespace URI and local name of the root element.
+   * <p>
+   * As the content is not read, the kind of a non-XML payload is determined from its MIME type only
+   * (see {@link #isTextualPayloadContent(String)}): contrary to {@link #extractData(InputStream)}
+   * there is no fallback to text if the content of a binary payload is not valid Base64.
+   * </p>
+   *
+   * @param aExchangeHeaderEnvelope
+   *        The input stream to read from. Will be closed by this method. May not be
+   *        <code>null</code>.
+   * @return The document data without the payload contents and never <code>null</code>.
+   * @throws DBNAllianceXHEDataReadException
+   *         In case the passed Exchange Header Envelope does not conform to the DBNAlliance rules.
+   * @since 13.4.0
+   */
+  @NonNull
+  public DBNAllianceXHEData extractDataStreaming (@NonNull @WillClose final InputStream aExchangeHeaderEnvelope) throws DBNAllianceXHEDataReadException
+  {
+    ValueEnforcer.notNull (aExchangeHeaderEnvelope, "ExchangeHeaderEnvelope");
+
+    XHE10XHEType aXHE = null;
+    try
+    {
+      final XMLStreamReader aReader = XMLFactory.createNonCoalescingXMLInputFactory ()
+                                                .createXMLStreamReader (aExchangeHeaderEnvelope);
+      try
+      {
+        aXHE = createXHEMarshaller ().read (new ShallowXMLStreamReader (aReader, SHALLOW_PAYLOAD_CONTENT));
+      }
+      finally
+      {
+        aReader.close ();
+      }
+    }
+    catch (final XMLStreamException ex)
+    {
+      LOGGER.error ("Failed to read the Exchange Header Envelope in a streaming way: " + ex.getMessage ());
+    }
+    finally
+    {
+      StreamHelper.close (aExchangeHeaderEnvelope);
+    }
+    if (aXHE == null)
+      throw new DBNAllianceXHEDataReadException (EDBNAllianceXHEDataReadError.INVALID_XHE_XML);
+
+    final DBNAllianceXHEData ret = extractData (aXHE);
+
+    // Replace the shallow payload contents by their kind - the order of the payloads is the same
+    final List <XHE10PayloadType> aXHEPayloads = aXHE.getPayloads ().getPayload ();
+    final List <DBNAlliancePayload> aPayloads = ret.getPayloads ();
+    for (int i = 0; i < aPayloads.size (); ++i)
+    {
+      final DBNAlliancePayload aPayload = aPayloads.get (i);
+      final XHE10PayloadContentType aPayloadContent = aXHEPayloads.get (i).getPayloadContent ();
+      if (aPayloadContent == null)
+        aPayload.setPayloadContentKindOnly (EDBNAlliancePayloadContentKind.NONE, null, null);
+      else
+      {
+        final Element aPayloadElement = _findFirstElement (aPayloadContent);
+        if (aPayloadElement != null)
+          aPayload.setPayloadContentKindOnly (EDBNAlliancePayloadContentKind.XML,
+                                              aPayloadElement.getNamespaceURI (),
+                                              XMLHelper.getLocalNameOrTagName (aPayloadElement));
+        else
+        {
+          final XHE10ContentTypeCodeType aContentTypeCode = aXHEPayloads.get (i).getContentTypeCode ();
+          final String sMimeType = aContentTypeCode != null ? aContentTypeCode.getValue () : null;
+          aPayload.setPayloadContentKindOnly (isTextualPayloadContent (sMimeType) ? EDBNAlliancePayloadContentKind.TEXT
+                                                                                 : EDBNAlliancePayloadContentKind.BINARY,
+                                              null,
+                                              null);
+        }
+      }
+    }
     return ret;
   }
 }

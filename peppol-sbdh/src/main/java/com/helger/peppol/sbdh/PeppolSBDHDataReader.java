@@ -399,6 +399,36 @@ public class PeppolSBDHDataReader extends AbstractSBDHDataReader <PeppolSBDHData
 
   /**
    * Extract the document data from the Standard Business Document represents by the passed
+   * parameter in a streaming way, so that the memory needed does not depend on the size of the
+   * business message. All checks are performed as by {@link #extractData(InputStream)}, but the
+   * methods to check the business message (e.g. <code>isValidBusinessMessage</code>) only get an
+   * empty element with the name and the attributes of the business message root element. The
+   * returned data contains no business message, only its namespace URI and local name (see
+   * {@link PeppolSBDHData#getBusinessMessageNamespaceURI()} and {@link PeppolSBDHData#getBusinessMessageLocalName()}).
+   *
+   * @param aStandardBusinessDocument
+   *        The input stream to read from. Will be closed by this method. May not be
+   *        <code>null</code>.
+   * @return The document data without the business message and never <code>null</code>.
+   * @throws PeppolSBDHDataReadException
+   *         In case the passed Standard Business Document does not conform to the Peppol rules.
+   * @since 13.4.0
+   */
+  @NonNull
+  public PeppolSBDHData extractDataStreaming (@NonNull @WillClose final InputStream aStandardBusinessDocument) throws PeppolSBDHDataReadException
+  {
+    ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
+
+    // Convert to domain object - closes the stream
+    final StandardBusinessDocument aSBD = parseSBDStreaming (aStandardBusinessDocument);
+    if (aSBD == null)
+      throw new PeppolSBDHDataReadException (EPeppolSBDHDataError.INVALID_SBD_XML);
+
+    return replaceBusinessMessageByName (extractData (aSBD));
+  }
+
+  /**
+   * Extract the document data from the Standard Business Document represents by the passed
    * parameter.
    *
    * @param aStandardBusinessDocument

@@ -290,6 +290,36 @@ public class HREDeliverySBDHDataReader extends AbstractSBDHDataReader <HREDelive
 
   /**
    * Extract the document data from the Standard Business Document represents by the passed
+   * parameter in a streaming way, so that the memory needed does not depend on the size of the
+   * business message. All checks are performed as by {@link #extractData(InputStream)}, but the
+   * methods to check the business message (e.g. <code>isValidBusinessMessage</code>) only get an
+   * empty element with the name and the attributes of the business message root element. The
+   * returned data contains no business message, only its namespace URI and local name (see
+   * {@link HREDeliverySBDHData#getBusinessMessageNamespaceURI()} and {@link HREDeliverySBDHData#getBusinessMessageLocalName()}).
+   *
+   * @param aStandardBusinessDocument
+   *        The input stream to read from. Will be closed by this method. May not be
+   *        <code>null</code>.
+   * @return The document data without the business message and never <code>null</code>.
+   * @throws HREDeliverySBDHDataReadException
+   *         In case the passed Standard Business Document does not conform to the HR eDelivery rules.
+   * @since 13.4.0
+   */
+  @NonNull
+  public HREDeliverySBDHData extractDataStreaming (@NonNull @WillClose final InputStream aStandardBusinessDocument) throws HREDeliverySBDHDataReadException
+  {
+    ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
+
+    // Convert to domain object - closes the stream
+    final StandardBusinessDocument aSBD = parseSBDStreaming (aStandardBusinessDocument);
+    if (aSBD == null)
+      throw new HREDeliverySBDHDataReadException (EHREDeliverySBDHDataError.INVALID_SBD_XML);
+
+    return replaceBusinessMessageByName (extractData (aSBD));
+  }
+
+  /**
+   * Extract the document data from the Standard Business Document represents by the passed
    * parameter.
    *
    * @param aStandardBusinessDocument

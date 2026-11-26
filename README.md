@@ -437,6 +437,18 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v13.4.0 - work in progress
+* Updated to ph-commons 12.9.0
+* Added `PeppolSBDHDataReader.extractDataStreaming (InputStream)` and `HREDeliverySBDHDataReader.extractDataStreaming (InputStream)` to read the SBDH with all checks, but without holding the business message in memory.
+  The returned data contains only the namespace URI and the local name of the business message root element
+* Added `DBNAllianceXHEDataReader.extractDataStreaming (InputStream)` to read the XHE with all checks, but without holding the payload contents in memory.
+  The returned payloads contain only the content kind (new enum `EDBNAlliancePayloadContentKind`) and for XML payloads the name of the root element
+* Added `AbstractSBDHData.getBusinessMessageNamespaceURI ()`, `getBusinessMessageLocalName ()`, `hasBusinessMessageLocalName ()` and `setBusinessMessageName (String, String)`
+* Added `DBNAlliancePayload.getPayloadContentKind ()`, `getPayloadContentNamespaceURI ()`, `getPayloadContentLocalName ()` and `setPayloadContentKindOnly (...)`
+* Added `PeppolSBDHData.isNonXMLSBDHPayload (String, String)`. `PeppolSBDHData.isNonXMLPayload ()` now also works if only the business message name is present
+* Fixed a `NullPointerException` in `PeppolSBDHData.isNonXMLSBDHPayload` if the passed business message is `null`
+* Fixed `DBNAllianceXHEDataReader.extractData`, which stored the To party as the From party, so the To party was never set
+
 v13.3.0 - 2026-11-18
 * Added the new annotation `@SinceBDMSL` (source retention) that marks SML client APIs requiring a minimum BDMSL version.
   The Peppol SML currently runs BDMSL 5.0.4, so the APIs marked with `@SinceBDMSL ("5.1")` cannot be used there yet

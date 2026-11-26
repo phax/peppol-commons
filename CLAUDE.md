@@ -49,6 +49,8 @@ The project has 14 Maven modules organized in layers:
 - `peppol-directory-businesscard` — Peppol Directory business card data model (v1-v3)
 - `dbnalliance-commons` — DBNAlliance security components
 - `dbnalliance-xhe` — Exchange Header Envelope for DBNAlliance
+
+The SBDH readers (`PeppolSBDHDataReader`, `HREDeliverySBDHDataReader`) and `DBNAllianceXHEDataReader` have an `extractDataStreaming (InputStream)` variant (since 13.4.0): it uses ph-xml's `ShallowXMLStreamReader` with a non-coalescing `XMLInputFactory`, runs all checks, and returns data with only the business message name (`AbstractSBDHData.setBusinessMessageName`) resp. the payload content kind (`DBNAlliancePayload.setPayloadContentKindOnly`). The `isValid*` hooks then see an empty element with the name and the attributes of the business message. phase4 relies on this for constant-memory receiving - new checks on the business message must not need its content.
 - `hredelivery-commons` — Croatian eDelivery (eRacun) support
 
 **BOM:**

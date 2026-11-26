@@ -35,6 +35,7 @@ import com.helger.datetime.xml.XMLOffsetDateTime;
 import com.helger.jaxb.adapter.JAXBHelper;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
+import com.helger.xml.XMLHelper;
 
 /**
  * Base class for the data of a Standard Business Document Header in a syntax neutral way. It
@@ -66,6 +67,9 @@ public abstract class AbstractSBDHData <IMPLTYPE extends AbstractSBDHData <IMPLT
   private XMLOffsetDateTime m_aCreationDateAndTime;
   // BusinessMessage
   private Element m_aBusinessMessage;
+  // Only used if the business message itself is not available
+  private String m_sBusinessMessageNamespaceURI;
+  private String m_sBusinessMessageLocalName;
 
   /**
    * Constructor
@@ -547,6 +551,78 @@ public abstract class AbstractSBDHData <IMPLTYPE extends AbstractSBDHData <IMPLT
   }
 
   /**
+   * Get the namespace URI of the business message root element. If the business message is
+   * present, its namespace URI is returned, otherwise the one set via
+   * {@link #setBusinessMessageName(String, String)} (e.g. after a streaming read).
+   *
+   * @return The namespace URI of the business message root element. May be <code>null</code> if
+   *         the element has no namespace or if neither a business message nor a name is present.
+   * @see #getBusinessMessageLocalName()
+   * @since 13.4.0
+   */
+  @Nullable
+  public String getBusinessMessageNamespaceURI ()
+  {
+    if (m_aBusinessMessage != null)
+      return m_aBusinessMessage.getNamespaceURI ();
+    return m_sBusinessMessageNamespaceURI;
+  }
+
+  /**
+   * Get the local name of the business message root element. If the business message is present,
+   * its local name is returned, otherwise the one set via
+   * {@link #setBusinessMessageName(String, String)} (e.g. after a streaming read).
+   *
+   * @return The local name of the business message root element. May be <code>null</code> if
+   *         neither a business message nor a name is present.
+   * @see #getBusinessMessageNamespaceURI()
+   * @since 13.4.0
+   */
+  @Nullable
+  public String getBusinessMessageLocalName ()
+  {
+    if (m_aBusinessMessage != null)
+      return XMLHelper.getLocalNameOrTagName (m_aBusinessMessage);
+    return m_sBusinessMessageLocalName;
+  }
+
+  /**
+   * @return <code>true</code> if either a business message or a business message name is present,
+   *         <code>false</code> otherwise.
+   * @see #hasBusinessMessage()
+   * @since 13.4.0
+   */
+  public boolean hasBusinessMessageLocalName ()
+  {
+    return StringHelper.isNotEmpty (getBusinessMessageLocalName ());
+  }
+
+  /**
+   * Set only the name of the business message root element, without the business message itself.
+   * This is used when the document was read in a streaming way, so that the business message is not
+   * available in memory. Any previously set business message is removed.
+   *
+   * @param sNamespaceURI
+   *        The namespace URI of the business message root element. May be <code>null</code>.
+   * @param sLocalName
+   *        The local name of the business message root element. May neither be <code>null</code>
+   *        nor empty.
+   * @return this
+   * @since 13.4.0
+   */
+  @NonNull
+  public IMPLTYPE setBusinessMessageName (@Nullable final String sNamespaceURI,
+                                          @NonNull @Nonempty final String sLocalName)
+  {
+    ValueEnforcer.notEmpty (sLocalName, "LocalName");
+
+    m_aBusinessMessage = null;
+    m_sBusinessMessageNamespaceURI = sNamespaceURI;
+    m_sBusinessMessageLocalName = sLocalName;
+    return thisAsT ();
+  }
+
+  /**
    * Set the main business message that should be transmitted together with the SBDH. The DOM
    * element is cloned internally to avoid outside modification
    *
@@ -564,6 +640,8 @@ public abstract class AbstractSBDHData <IMPLTYPE extends AbstractSBDHData <IMPLT
 
     // Create a deep copy of the element to avoid outside modifications
     m_aBusinessMessage = (Element) aBusinessMessage.cloneNode (true);
+    m_sBusinessMessageNamespaceURI = null;
+    m_sBusinessMessageLocalName = null;
     return thisAsT ();
   }
 
@@ -584,6 +662,8 @@ public abstract class AbstractSBDHData <IMPLTYPE extends AbstractSBDHData <IMPLT
     ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
 
     m_aBusinessMessage = aBusinessMessage;
+    m_sBusinessMessageNamespaceURI = null;
+    m_sBusinessMessageLocalName = null;
     return thisAsT ();
   }
 
@@ -605,7 +685,9 @@ public abstract class AbstractSBDHData <IMPLTYPE extends AbstractSBDHData <IMPLT
            EqualsHelper.equals (m_sType, rhs.m_sType) &&
            EqualsHelper.equals (m_sInstanceIdentifier, rhs.m_sInstanceIdentifier) &&
            EqualsHelper.equals (m_aCreationDateAndTime, rhs.m_aCreationDateAndTime) &&
-           JAXBHelper.equalDOMNodes (m_aBusinessMessage, rhs.m_aBusinessMessage);
+           JAXBHelper.equalDOMNodes (m_aBusinessMessage, rhs.m_aBusinessMessage) &&
+           EqualsHelper.equals (m_sBusinessMessageNamespaceURI, rhs.m_sBusinessMessageNamespaceURI) &&
+           EqualsHelper.equals (m_sBusinessMessageLocalName, rhs.m_sBusinessMessageLocalName);
   }
 
   @Override
@@ -621,6 +703,8 @@ public abstract class AbstractSBDHData <IMPLTYPE extends AbstractSBDHData <IMPLT
                                        .append (m_sInstanceIdentifier)
                                        .append (m_aCreationDateAndTime)
                                        .append (JAXBHelper.getHashCode (m_aBusinessMessage))
+                                       .append (m_sBusinessMessageNamespaceURI)
+                                       .append (m_sBusinessMessageLocalName)
                                        .getHashCode ();
   }
 
@@ -637,6 +721,8 @@ public abstract class AbstractSBDHData <IMPLTYPE extends AbstractSBDHData <IMPLT
                                        .append ("InstanceIdentifier", m_sInstanceIdentifier)
                                        .append ("CreationDateAndTime", m_aCreationDateAndTime)
                                        .append ("BusinessMessage", m_aBusinessMessage)
+                                       .appendIfNotNull ("BusinessMessageNamespaceURI", m_sBusinessMessageNamespaceURI)
+                                       .appendIfNotNull ("BusinessMessageLocalName", m_sBusinessMessageLocalName)
                                        .getToString ();
   }
 }

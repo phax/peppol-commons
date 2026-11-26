@@ -231,4 +231,39 @@ public final class PeppolSBDHDataTest
     assertEquals (CMimeType.APPLICATION_OCTET_STREAM.getAsString (), aTC.getMimeType ());
     assertNull (aData.getBusinessMessageAsBinaryContent ());
   }
+
+  @Test
+  public void testIsNonXMLSBDHPayload ()
+  {
+    final PeppolSBDHData aData = new PeppolSBDHData (SimpleIdentifierFactory.INSTANCE);
+    assertFalse (PeppolSBDHData.isNonXMLSBDHPayload (null));
+
+    aData.setBusinessMessageTextOnly ("abc", CMimeType.TEXT_PLAIN);
+    assertTrue (PeppolSBDHData.isNonXMLSBDHPayload (aData.getBusinessMessageNoClone ()));
+
+    aData.setBusinessMessageBinaryOnly (new byte [] { 1, 2, 3 }, CMimeType.APPLICATION_OCTET_STREAM, null);
+    assertTrue (PeppolSBDHData.isNonXMLSBDHPayload (aData.getBusinessMessageNoClone ()));
+
+    final Document aDoc = DOMReader.readXMLDOM ("<Invoice xmlns='urn:oasis:names:specification:ubl:schema:xsd:Invoice-2' />");
+    assertNotNull (aDoc);
+    assertFalse (PeppolSBDHData.isNonXMLSBDHPayload (aDoc.getDocumentElement ()));
+
+    // Name based
+    assertFalse (PeppolSBDHData.isNonXMLSBDHPayload (null, null));
+    assertTrue (PeppolSBDHData.isNonXMLSBDHPayload ("http://peppol.eu/xsd/ticc/envelope/1.0", "BinaryContent"));
+    assertTrue (PeppolSBDHData.isNonXMLSBDHPayload ("http://peppol.eu/xsd/ticc/envelope/1.0", "TextContent"));
+    assertFalse (PeppolSBDHData.isNonXMLSBDHPayload (null, "BinaryContent"));
+    assertFalse (PeppolSBDHData.isNonXMLSBDHPayload ("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2",
+                                                     "Invoice"));
+
+    // Name only, as after a streaming read
+    aData.setBusinessMessageName ("http://peppol.eu/xsd/ticc/envelope/1.0", "BinaryContent");
+    assertFalse (aData.hasBusinessMessage ());
+    assertTrue (aData.hasBusinessMessageLocalName ());
+    assertTrue (aData.isNonXMLPayload ());
+    assertNull (aData.getBusinessMessageAsBinaryContent ());
+    aData.setBusinessMessageNoClone (aDoc.getDocumentElement ());
+    assertEquals ("Invoice", aData.getBusinessMessageLocalName ());
+    assertFalse (aData.isNonXMLPayload ());
+  }
 }

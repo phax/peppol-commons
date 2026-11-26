@@ -18,11 +18,18 @@ package com.helger.edelivery.sbdh;
 
 import java.io.InputStream;
 
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.unece.cefact.namespaces.sbdh.StandardBusinessDocument;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.enforce.ValueEnforcer;
@@ -32,7 +39,12 @@ import com.helger.diagnostics.error.IError;
 import com.helger.diagnostics.error.SingleError;
 import com.helger.io.resource.IReadableResource;
 import com.helger.peppolid.factory.IIdentifierFactory;
+import com.helger.sbdh.CSBDH;
 import com.helger.sbdh.SBDMarshaller;
+import com.helger.xml.XMLFactory;
+import com.helger.xml.XMLHelper;
+import com.helger.xml.stax.IShallowElementSelector;
+import com.helger.xml.stax.ShallowXMLStreamReader;
 
 /**
  * Base class for reading the data of a Standard Business Document Header. It contains the parts
@@ -52,6 +64,16 @@ public abstract class AbstractSBDHDataReader <DATATYPE extends AbstractSBDHData 
                                              IGenericImplTrait <IMPLTYPE>
 {
   public static final boolean DEFAULT_PERFORM_VALUE_CHECKS = true;
+
+  /**
+   * The business message is the only child of the document element that is not in the SBDH
+   * namespace.
+   */
+  private static final IShallowElementSelector SHALLOW_BUSINESS_MESSAGE = (aAncestors,
+                                                                           aElement) -> aAncestors.size () == 1 &&
+                                                                                        !CSBDH.SBDH_NS.equals (aElement.getNamespaceURI ());
+
+  private static final Logger LOGGER = LoggerFactory.getLogger (AbstractSBDHDataReader.class);
 
   private final IIdentifierFactory m_aIdentifierFactory;
   private boolean m_bPerformValueChecks = DEFAULT_PERFORM_VALUE_CHECKS;
@@ -177,6 +199,67 @@ public abstract class AbstractSBDHDataReader <DATATYPE extends AbstractSBDHData 
     ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
 
     return createSBDMarshaller ().read (aStandardBusinessDocument);
+  }
+
+  /**
+   * Parse the provided input stream into a Standard Business Document in a streaming way. The
+   * Standard Business Document Header is read completely, the business message only as an empty
+   * element with its name and attributes. The complete document is still parsed, so a document
+   * that is not well-formed is rejected. The memory needed does not depend on the size of the
+   * business message. The stream is closed by this method.
+   *
+   * @param aStandardBusinessDocument
+   *        The input stream to read from. May not be <code>null</code>.
+   * @return <code>null</code> if the content could not be parsed.
+   * @since 13.4.0
+   */
+  @Nullable
+  protected final StandardBusinessDocument parseSBDStreaming (@NonNull @WillClose final InputStream aStandardBusinessDocument)
+  {
+    ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
+
+    try
+    {
+      final XMLStreamReader aReader = XMLFactory.createNonCoalescingXMLInputFactory ()
+                                                .createXMLStreamReader (aStandardBusinessDocument);
+      try
+      {
+        return createSBDMarshaller ().read (new ShallowXMLStreamReader (aReader, SHALLOW_BUSINESS_MESSAGE));
+      }
+      finally
+      {
+        aReader.close ();
+      }
+    }
+    catch (final XMLStreamException ex)
+    {
+      LOGGER.error ("Failed to read the Standard Business Document in a streaming way: " + ex.getMessage ());
+      return null;
+    }
+    finally
+    {
+      StreamHelper.close (aStandardBusinessDocument);
+    }
+  }
+
+  /**
+   * Replace the business message of the provided data by its name only. This is used after a
+   * streaming read, where the business message is only an empty element that must not be mistaken
+   * for the real content.
+   *
+   * @param aData
+   *        The data to modify. May not be <code>null</code>.
+   * @return The passed data. Never <code>null</code>.
+   * @since 13.4.0
+   */
+  @NonNull
+  protected static <T extends AbstractSBDHData <T>> T replaceBusinessMessageByName (@NonNull final T aData)
+  {
+    final Element aBusinessMessage = aData.getBusinessMessageNoClone ();
+    if (aBusinessMessage != null)
+      aData.setBusinessMessageName (aBusinessMessage.getNamespaceURI (),
+                                    XMLHelper.getLocalNameOrTagName (aBusinessMessage));
+    return aData;
   }
 
   /**

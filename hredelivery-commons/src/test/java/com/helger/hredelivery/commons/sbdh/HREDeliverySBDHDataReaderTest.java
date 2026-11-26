@@ -17,6 +17,7 @@
 package com.helger.hredelivery.commons.sbdh;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -153,6 +154,51 @@ public final class HREDeliverySBDHDataReaderTest
       final HREDeliverySBDHData aData = aReader.extractData (aRes.getInputStream ());
       assertNotNull (aData);
       assertTrue (aData.areAllFieldsSet ());
+    }
+  }
+
+  @Test
+  public void testReadGoodStreaming () throws HREDeliverySBDHDataReadException
+  {
+    final HREDeliverySBDHDataReader aReader = new HREDeliverySBDHDataReader (PeppolIdentifierFactory.INSTANCE);
+    for (final ClassPathResource aRes : HREDeliverySBDHTestFiles.getAllGoodCases ())
+    {
+      LOGGER.info ("Good (Streaming): " + aRes.getPath ());
+      assertTrue (aRes.getPath (), aRes.exists ());
+      final HREDeliverySBDHData aData = aReader.extractDataStreaming (aRes.getInputStream ());
+      assertNotNull (aData);
+      assertFalse (aData.hasBusinessMessage ());
+      assertTrue (aData.hasBusinessMessageLocalName ());
+
+      // Must be identical to the full read, except for the business message
+      final HREDeliverySBDHData aFullData = aReader.extractData (aRes.getInputStream ());
+      assertEquals (aFullData.getBusinessMessageNamespaceURI (), aData.getBusinessMessageNamespaceURI ());
+      assertEquals (aFullData.getBusinessMessageLocalName (), aData.getBusinessMessageLocalName ());
+      aFullData.setBusinessMessageName (aFullData.getBusinessMessageNamespaceURI (),
+                                        aFullData.getBusinessMessageLocalName ());
+      assertEquals (aFullData, aData);
+    }
+  }
+
+  @Test
+  public void testReadBadStreaming ()
+  {
+    final HREDeliverySBDHDataReader aReader = new HREDeliverySBDHDataReader (PeppolIdentifierFactory.INSTANCE);
+    for (final Map.Entry <String, EHREDeliverySBDHDataError> aEntry : BAD_CASES.entrySet ())
+    {
+      final IReadableResource aRes = new ClassPathResource ("external/sbdh/bad/" + aEntry.getKey ());
+      LOGGER.info ("Reading bad (Streaming): " + aRes.getPath ());
+      assertTrue (aRes.getPath (), aRes.exists ());
+      try
+      {
+        aReader.extractDataStreaming (aRes.getInputStream ());
+        fail ();
+      }
+      catch (final HREDeliverySBDHDataReadException ex)
+      {
+        // Same error code as the full read
+        assertEquals (aRes.getPath (), aEntry.getValue (), ex.getErrorCode ());
+      }
     }
   }
 

@@ -33,6 +33,7 @@ import com.helger.mime.IMimeType;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
+import com.helger.xml.XMLHelper;
 
 /**
  * This class contains all the DBNAlliance data per Payload instance, such as a single invoice in a
@@ -76,6 +77,10 @@ public class DBNAlliancePayload
   private Element m_aPayloadContentElement;
   private String m_sPayloadContentText;
   private byte [] m_aPayloadContentBinary;
+  // Only used if the payload content itself is not available
+  private EDBNAlliancePayloadContentKind m_eContentKindOnly;
+  private String m_sPayloadContentNamespaceURI;
+  private String m_sPayloadContentLocalName;
 
   /**
    * Constructor
@@ -86,6 +91,13 @@ public class DBNAlliancePayload
   public DBNAlliancePayload (@NonNull final IIdentifierFactory aIdentifierFactory)
   {
     m_aIdentifierFactory = ValueEnforcer.notNull (aIdentifierFactory, "IdentifierFactory");
+  }
+
+  private void _clearContentKindOnly ()
+  {
+    m_eContentKindOnly = null;
+    m_sPayloadContentNamespaceURI = null;
+    m_sPayloadContentLocalName = null;
   }
 
   /**
@@ -635,6 +647,7 @@ public class DBNAlliancePayload
     m_aPayloadContentElement = (Element) aPayloadContent.cloneNode (true);
     m_sPayloadContentText = null;
     m_aPayloadContentBinary = null;
+    _clearContentKindOnly ();
     return this;
   }
 
@@ -656,6 +669,7 @@ public class DBNAlliancePayload
     m_aPayloadContentElement = aPayloadContent;
     m_sPayloadContentText = null;
     m_aPayloadContentBinary = null;
+    _clearContentKindOnly ();
     return this;
   }
 
@@ -678,6 +692,7 @@ public class DBNAlliancePayload
     m_aPayloadContentElement = null;
     m_sPayloadContentText = sPayloadContent;
     m_aPayloadContentBinary = null;
+    _clearContentKindOnly ();
     return this;
   }
 
@@ -701,6 +716,7 @@ public class DBNAlliancePayload
     m_aPayloadContentElement = null;
     m_sPayloadContentText = null;
     m_aPayloadContentBinary = ArrayHelper.getCopy (aPayloadContent);
+    _clearContentKindOnly ();
     return this;
   }
 
@@ -722,6 +738,99 @@ public class DBNAlliancePayload
     m_aPayloadContentElement = null;
     m_sPayloadContentText = null;
     m_aPayloadContentBinary = aPayloadContent;
+    _clearContentKindOnly ();
+    return this;
+  }
+
+  /**
+   * Get the kind of the payload content. If a payload content is present, the kind is derived from
+   * it, otherwise the one set via
+   * {@link #setPayloadContentKindOnly(EDBNAlliancePayloadContentKind, String, String)} (e.g. after a
+   * streaming read) is returned.
+   *
+   * @return The payload content kind. Never <code>null</code>.
+   * @since 13.4.0
+   */
+  @NonNull
+  public EDBNAlliancePayloadContentKind getPayloadContentKind ()
+  {
+    if (m_aPayloadContentElement != null)
+      return EDBNAlliancePayloadContentKind.XML;
+    if (m_sPayloadContentText != null)
+      return EDBNAlliancePayloadContentKind.TEXT;
+    if (m_aPayloadContentBinary != null)
+      return EDBNAlliancePayloadContentKind.BINARY;
+    if (m_eContentKindOnly != null)
+      return m_eContentKindOnly;
+    return EDBNAlliancePayloadContentKind.NONE;
+  }
+
+  /**
+   * Get the namespace URI of the XML payload content root element. If the XML payload content is
+   * present, its namespace URI is returned, otherwise the one set via
+   * {@link #setPayloadContentKindOnly(EDBNAlliancePayloadContentKind, String, String)}.
+   *
+   * @return The namespace URI. May be <code>null</code> if the element has no namespace or if the
+   *         payload content is not XML.
+   * @since 13.4.0
+   */
+  @Nullable
+  public String getPayloadContentNamespaceURI ()
+  {
+    if (m_aPayloadContentElement != null)
+      return m_aPayloadContentElement.getNamespaceURI ();
+    return m_sPayloadContentNamespaceURI;
+  }
+
+  /**
+   * Get the local name of the XML payload content root element. If the XML payload content is
+   * present, its local name is returned, otherwise the one set via
+   * {@link #setPayloadContentKindOnly(EDBNAlliancePayloadContentKind, String, String)}.
+   *
+   * @return The local name. May be <code>null</code> if the payload content is not XML.
+   * @since 13.4.0
+   */
+  @Nullable
+  public String getPayloadContentLocalName ()
+  {
+    if (m_aPayloadContentElement != null)
+      return XMLHelper.getLocalNameOrTagName (m_aPayloadContentElement);
+    return m_sPayloadContentLocalName;
+  }
+
+  /**
+   * Set only the kind of the payload content (and for XML the name of the root element), without
+   * the payload content itself. This is used when the document was read in a streaming way, so
+   * that the payload content is not available in memory. Any previously set payload content is
+   * removed.
+   *
+   * @param eKind
+   *        The payload content kind. May not be <code>null</code>.
+   * @param sNamespaceURI
+   *        The namespace URI of the XML root element. Only used for
+   *        {@link EDBNAlliancePayloadContentKind#XML}. May be <code>null</code>.
+   * @param sLocalName
+   *        The local name of the XML root element. Only used for
+   *        {@link EDBNAlliancePayloadContentKind#XML} and mandatory there.
+   * @return this
+   * @since 13.4.0
+   */
+  @NonNull
+  public DBNAlliancePayload setPayloadContentKindOnly (@NonNull final EDBNAlliancePayloadContentKind eKind,
+                                                       @Nullable final String sNamespaceURI,
+                                                       @Nullable final String sLocalName)
+  {
+    ValueEnforcer.notNull (eKind, "Kind");
+    final boolean bXML = eKind == EDBNAlliancePayloadContentKind.XML;
+    if (bXML)
+      ValueEnforcer.notEmpty (sLocalName, "LocalName");
+
+    m_aPayloadContentElement = null;
+    m_sPayloadContentText = null;
+    m_aPayloadContentBinary = null;
+    m_eContentKindOnly = eKind;
+    m_sPayloadContentNamespaceURI = bXML ? sNamespaceURI : null;
+    m_sPayloadContentLocalName = bXML ? sLocalName : null;
     return this;
   }
 
@@ -745,6 +854,9 @@ public class DBNAlliancePayload
                                        .appendIfNotNull ("PayloadContentElement", m_aPayloadContentElement)
                                        .appendIfNotNull ("PayloadContentText", m_sPayloadContentText)
                                        .appendIfNotNull ("PayloadContentBinary", m_aPayloadContentBinary)
+                                       .appendIfNotNull ("ContentKindOnly", m_eContentKindOnly)
+                                       .appendIfNotNull ("PayloadContentNamespaceURI", m_sPayloadContentNamespaceURI)
+                                       .appendIfNotNull ("PayloadContentLocalName", m_sPayloadContentLocalName)
                                        .getToString ();
   }
 }
