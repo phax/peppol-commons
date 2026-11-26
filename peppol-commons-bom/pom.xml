@@ -27,7 +27,7 @@
   </parent>
   <groupId>com.helger.peppol</groupId>
   <artifactId>peppol-commons-bom</artifactId>
-  <version>13.3.1-SNAPSHOT</version>
+  <version>13.4.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>peppol-commons-bom</name>
   <description>Bill of Materials for all peppol-commons artifacts</description>
